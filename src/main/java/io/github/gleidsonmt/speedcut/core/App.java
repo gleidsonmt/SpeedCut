@@ -15,7 +15,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut;
+package io.github.gleidsonmt.speedcut.core;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
