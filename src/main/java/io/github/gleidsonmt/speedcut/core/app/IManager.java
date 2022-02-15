@@ -15,18 +15,14 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut;
-
-import io.github.gleidsonmt.speedcut.core.app.App;
+package io.github.gleidsonmt.speedcut.core.app;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/02/2022
  */
-public class Start extends App {
+public interface IManager {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    WindowDecorator window = new WindowDecorator();
 
 }

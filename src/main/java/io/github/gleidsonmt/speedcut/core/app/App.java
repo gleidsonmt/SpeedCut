@@ -15,18 +15,36 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut;
+package io.github.gleidsonmt.speedcut.core.app;
 
-import io.github.gleidsonmt.speedcut.core.app.App;
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+import java.io.Console;
+import java.io.Writer;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/02/2022
  */
-public class Start extends App {
+public class App extends Application implements IApp {
 
-    public static void main(String[] args) {
-        launch(args);
+    boolean hasInstance = false;
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        ObjectOne one = new ObjectOne();
+        ObjectThree three = new ObjectThree();
+        ObjectTwo two = new ObjectTwo();
+
+        System.out.println(one.getName());
+        System.out.println(two.getName());
+        System.out.println(three.getName());
+
+
     }
 
+    private void run() {
+
+    }
 }
