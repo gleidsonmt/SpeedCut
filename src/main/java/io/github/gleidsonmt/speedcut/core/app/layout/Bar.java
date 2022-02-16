@@ -15,7 +15,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.core.layout;
+package io.github.gleidsonmt.speedcut.core.app.layout;
 
 import javafx.scene.layout.HBox;
 

@@ -15,7 +15,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.core.layout;
+package io.github.gleidsonmt.speedcut.core.app.layout;
 
 import javafx.scene.layout.StackPane;
 
@@ -23,15 +23,5 @@ import javafx.scene.layout.StackPane;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/02/2022
  */
-public class Root extends StackPane {
-
-    private final Layout layout = new Layout();
-
-    public Root() {
-        getChildren().add(layout);
-    }
-
-    public CenterLayout getCenterLayout() {
-        return layout.getCenterLayout();
-    }
+public class Wrapper extends StackPane {
 }
