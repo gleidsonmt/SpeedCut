@@ -7,6 +7,7 @@ plugins {
 
 group 'io.github.gleidsonmt.speedcut'
 version '1.0'
+mainClassName = 'io.github.gleidsonmt.speedcut.Start'
 
 repositories {
     mavenCentral()
@@ -25,17 +26,20 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'io.github.gleidsonmt.speedcut'
-    mainClass = 'io.github.gleidsonmt.speedcut.Start'
+    mainClass = mainClassName
 }
 
 javafx {
     version = '17.0.1'
-    modules = ['javafx.controls', 'javafx.fxml']
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web']
 }
 
 dependencies {
 
     implementation 'org.yaml:snakeyaml:1.29'
+
+    implementation files('vendor/GNDecorator-1.0.3.jar')
+    implementation files('vendor/scenicView.jar')
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
@@ -58,8 +62,8 @@ jlink {
         ]
         installerOptions = [
             '--description', "Project Example for JavaFx",
-'--copyright', 'Copyrigth © 2021-2022 GLEIDSON NEVES DA SILVEIRA',
-'--icon', 'logo.ico'
+            '--copyright', 'Copyrigth © 2021-2022 GLEIDSON NEVES DA SILVEIRA',
+            '--icon', 'logo.ico'
         ]
 
         addExtraDependencies("javafx")
@@ -68,4 +72,14 @@ jlink {
 
 jlinkZip {
     group = 'distribution'
+}
+
+jar {
+
+    manifest {
+        attributes(
+                'Main-Class': mainClassName
+        )
+    }
+
 }
