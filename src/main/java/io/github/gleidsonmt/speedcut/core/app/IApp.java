@@ -21,5 +21,13 @@ package io.github.gleidsonmt.speedcut.core.app;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/02/2022
  */
-public interface IApp {
+public interface IApp extends IManager {
+
+    default void start() {
+        window.start();
+    }
+
+    default boolean hasInstance() {
+        return window.hasInstance();
+    }
 }

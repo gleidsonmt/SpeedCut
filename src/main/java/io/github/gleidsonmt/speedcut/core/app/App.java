@@ -20,31 +20,20 @@ package io.github.gleidsonmt.speedcut.core.app;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.io.Console;
-import java.io.Writer;
-
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/02/2022
  */
 public class App extends Application implements IApp {
 
-    boolean hasInstance = false;
-
     @Override
     public void start(Stage stage) throws Exception {
-        ObjectOne one = new ObjectOne();
-        ObjectThree three = new ObjectThree();
-        ObjectTwo two = new ObjectTwo();
-
-        System.out.println(one.getName());
-        System.out.println(two.getName());
-        System.out.println(three.getName());
-
-
+        run();
     }
 
     private void run() {
-
+        if (!hasInstance())
+            start();
+        else throw new RuntimeException("Can't have only instance of app.");
     }
 }

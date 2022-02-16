@@ -17,22 +17,25 @@
 
 package io.github.gleidsonmt.speedcut.core.app;
 
+import io.github.gleidsonmt.gndecorator.GNDecorator;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/02/2022
  */
-class WindowDecorator {
-
-    private String name;
+class WindowDecorator extends GNDecorator {
 
     public WindowDecorator() {
+        setContent(new StackPane(new Button("Welcome!")));
     }
 
-    public String getName() {
-        return name;
+    protected boolean hasInstance() {
+        return getWindow().isShowing();
     }
 
-    public void setName(String name) {
-        this.name = name;
+    protected void start() {
+        show();
     }
 }

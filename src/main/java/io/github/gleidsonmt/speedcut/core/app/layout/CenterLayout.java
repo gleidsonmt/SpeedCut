@@ -15,13 +15,32 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.core.layout;
+package io.github.gleidsonmt.speedcut.core.app.layout;
 
-import javafx.scene.layout.StackPane;
+import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/02/2022
  */
-public class Wrapper extends StackPane {
+public class CenterLayout extends VBox {
+
+    private final ScrollPane    body    = new ScrollPane();
+    private final Bar           bar     = new Bar();
+
+    public CenterLayout() {
+        getChildren().add(0, bar);
+        getChildren().add(1, body);
+        body.setFitToWidth(true);
+        body.setFitToHeight(true);
+        VBox.setVgrow(body, Priority.ALWAYS);
+
+    }
+
+    public void setBody(Parent body) {
+        this.body.setContent(body);
+    }
 }
