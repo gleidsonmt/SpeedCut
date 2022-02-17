@@ -1,0 +1,813 @@
+
+
+
+
+/************************************************************************************
+*
+*               Size
+*
+*************************************************************************************/
+
+
+
+/************************************************************************************
+*
+*               Skin
+*
+*************************************************************************************/
+
+
+
+
+/************************************************************************************
+*
+*               @-fx-pref-width
+*
+*************************************************************************************/
+
+.check-medium .box
+{
+  -fx-pref-width : 30px;
+  -fx-max-width  : 30px;
+  -fx-min-width  : 30px;
+}
+
+.check-large .box
+{
+  -fx-pref-width : 40px;
+  -fx-max-width  : 40px;
+  -fx-min-width  : 40px;
+}
+
+/************************************************************************************
+*
+*               @-fx-pref-height
+*
+*************************************************************************************/
+
+.btn-rounded,
+.button
+{
+    -fx-skin : none;
+}
+
+.btn-small,
+.check-medium .box
+{
+  -fx-pref-height : 30px;
+  -fx-max-height : 30px;
+  -fx-min-height : 30px;
+}
+
+.btn-medium,
+.check-large .box
+{
+  -fx-pref-height : 40px;
+  -fx-max-height : 40px;
+  -fx-min-height : 40px;
+}
+
+.btn-large
+ {
+  -fx-pref-height : 50px;
+  -fx-max-height : 50px;
+  -fx-min-height : 50px;
+}
+
+/************************************************************************************
+*
+*               @-fx-background-color
+*
+*************************************************************************************/
+
+.filled, .filled:hover, .btn-flat, .btn-flat:hover, .btn-transparent:focused,
+.btn-transparent, .btn-transparent:pressed, .btn-transparent:hover
+{
+  -fx-background-color : transparent;
+}
+
+.btn-flat:focused
+{
+  -fx-background-color : derive(-base, 90%);
+}
+
+.btn-primary,
+.pag-primary .pagination-control .control-box .number-button:selected,
+.check-primary .box
+{
+  -base : -primary;
+  -fx-background-color : -base;
+}
+
+.btn-grapefruit {
+  -base : -grapefruit;
+  -fx-background-color : -grapefruit;
+}
+
+.btn-info,
+.pag-info .pagination-control .control-box .number-button:selected,
+.check-info .box
+{
+  -base : -info;
+  -fx-background-color : -base;
+}
+
+.btn-success,
+.pag-success .pagination-control .control-box .number-button:selected,
+.check-success .box
+{
+  -base : -success;
+  -fx-background-color : -success;
+}
+
+.btn-warning,
+.pag-warning .pagination-control .control-box .number-button:selected,
+.check-warning .box
+{
+  -base : -warning;
+  -fx-background-color : -base;
+}
+
+.pag-danger .pagination-control .control-box .number-button:selected
+{
+  -base : -danger;
+  -fx-background-color : -base;
+}
+
+.pag-secondary .pagination-control .control-box .number-button:selected
+{
+  -base : -secondary;
+  -fx-background-color : -base;
+}
+
+.btn-deep-orange {
+  -base : -deep-orange;
+  -fx-background-color : -base;
+}
+
+.radio-danger .radio,
+
+.radio-danger:selected .radio
+{
+    -fx-border-color : -danger;
+}
+
+.radio-success .radio,
+.radio-success:selected .radio
+{
+    -fx-border-color : -green;
+}
+
+
+.radio-amber .radio,
+.radio-amber:selected .radio
+{
+    -fx-border-color : -amber;
+}
+
+
+.btn-danger,
+.check-danger .box
+
+{
+  -base : -danger;
+  -fx-background-color : -base;
+}
+
+.btn-sunflower {
+  -base : -sunflower;
+  -fx-background-color : -sunflower;
+}
+
+.btn-secondary,
+.check-secondary .box
+{
+  -base : -purple;
+  -fx-background-color : -base;
+}
+
+
+.btn-white
+{
+    -base : white;
+    -fx-background-color : -base;
+}
+
+.btn-white:hover:focused
+{
+  -icon-color : -text-color;
+}
+
+.btn-white:hover {
+    -icon-color : white;
+}
+
+.btn-mint
+{
+  -base : -mint;
+  -fx-background-color : -base;
+}
+
+
+/************************************************************************************
+*
+*               @-fx-border-width
+*
+*************************************************************************************/
+
+.border-0 {
+  -fx-border-width : 0px;
+}
+
+.border-1 {
+  -fx-border-width : 1px;
+}
+
+.border-2, .filled{
+  -fx-border-width : 1px;
+}
+
+/* position */
+
+.border-b-2 {
+  -fx-border-width : 0px 0px 2px 0px;
+}
+
+
+.border-r-2 {
+    -fx-border-width : 0px 1px 0px 0px;
+}
+
+
+.border-t-2 {
+    -fx-border-width : 2px 0px 0px 0px;
+}
+
+.border-1 {
+  -fx-border-width : 1px;
+}
+
+.border-b-1
+{
+  -fx-border-width : 0px 0px 1px 0px;
+}
+
+.border-t-1 {
+    -fx-border-width : 1px 0px 0px 0px;
+}
+
+.border-r-1 {
+    -fx-border-width : 0px 1px 0px 0px;
+}
+
+.border-l-1 {
+  -fx-border-width : 0px 0px 0px 2px;
+}
+
+.border-light-gray
+{
+  -fx-border-color : -light-gray;
+}
+
+.border
+{
+  -fx-border-color : -separator-color;
+}
+
+
+.filled
+{
+  -fx-border-width : 1px;
+}
+
+.filled:hover, .check-box:determinate .box,
+.check-box:selected:determinate .box, .check-box:indeterminate .box
+{
+  -fx-border-width : 2px;
+}
+
+/************************************************************************************
+*
+*               @-fx-border-color
+*
+*************************************************************************************/
+
+.border-base, .out-base,
+.border-base > .depth-container .tab-header-area .tab-header-background
+{
+  -fx-border-color :  -base;
+}
+
+.border-gray, .tf-gray {
+    -fx-border-color : -gray;
+}
+
+.border-primary, .out-primary, .tf-primary:focused
+{
+    -base : -primary;
+    -fx-border-color : -base;
+}
+
+.border-info, .out-info, .tf-info:focused
+{
+    -fx-border-color : -info;
+}
+
+.border-base   {
+    -fx-border-color : -base;
+    -fx-border-style : solid;
+}
+
+.border-success, .out-success, .tf-success:focused {
+    -fx-border-color : -success;
+}
+
+.border-warning, .out-warning, .tf-warning:focused {
+    -fx-border-color : -warning;
+}
+
+.border-secondary, .out-secondary, .tf-secondary:focused {
+    -fx-border-color : -secondary;
+}
+
+.border-danger, .out-danger, .tf-danger:focused {
+    -fx-border-color : -danger;
+}
+
+.border-unique, .out-unique, .tf-unique:focused {
+  -fx-border-color : -unique;
+}
+
+.border-elegant, .out-elegant, .tf-elegant:focused {
+  -fx-border-color : -elegant;
+}
+
+.border-white {
+    -fx-border-color : white;
+}
+
+.border-facebook {
+    -fx-border-color : -facebook;
+}
+
+.border-twitter {
+    -fx-border-color : -twitter;
+}
+
+.border-google {
+    -fx-border-color : -google;
+}
+
+.border-linkedin {
+    -fx-border-color : -linkedin;
+}
+
+.border-instagram{
+    -fx-border-color : -instagram;
+}
+
+.border-pinterest{
+    -fx-border-color : -pinterest;
+}
+
+
+/************************************************************************************
+*
+*               @-fx-text-fill
+*
+*************************************************************************************/
+
+.text-danger
+{
+    -fx-text-fill : -danger;
+    -fx-fill : -danger;
+}
+
+.text-success {
+  -fx-text-fill : -success;
+  -fx-fill : -success;
+}
+
+.filled:focused
+{
+  -fx-text-fill : white;
+}
+
+.filled, .btn-flat,
+.filled:pressed, .filled:focus,
+.filled:hover
+{
+  -fx-text-fill : -base;
+}
+
+/************************************************************************************
+*
+*               @-fx-padding
+*
+*************************************************************************************/
+
+.check-medium .box,
+.check-large .box
+{
+  -fx-padding : 4px;
+}
+
+.check-box {
+    -fx-label-padding: 0.0em 0.0em 0.0em 0.416667em; /* 0 0 0 5 */
+}
+
+
+/************************************************************************************
+*
+*               @-fx-fill
+*
+*************************************************************************************/
+
+.inner-icon {
+    -fx-fill : white;
+}
+
+/************************************************************************************
+*
+*               @-fx-font-size
+*
+*************************************************************************************/
+
+.check-medium .text
+{
+  -fx-font-size : 16px;
+}
+
+.check-large .text
+{
+  -fx-font-size : 20px;
+}
+
+.tf-small .text,
+.pw-small .text,
+.pw-small,
+.tf-small
+{
+    -fx-font-size : 8pt;
+}
+
+.pw-medium .text,
+.pw-medium,
+.tf-medium .text
+{
+    -fx-font-size : 12pt;
+}
+
+.pw-large .text,
+.pw-large .text,
+.pw-large,
+.tf-large
+{
+    -fx-font-size : 14pt;
+}
+
+
+/************************************************************************************
+*
+*               @-fx-background-radius
+*
+*************************************************************************************/
+
+.tf-filled,
+.pw-filled,
+.field-filled
+{
+    -fx-background-radius : 0px;
+    -fx-border-radius : 0px;
+}
+
+.check-rounded:determinate,
+.check-rounded:determinate .box,
+.check-rounded:determinate:selected .box,
+.pag-rounded .pagination-control .control-box .number-button
+{
+  -fx-background-radius : 100px;
+  -fx-border-radius : 100px;
+  -fx-padding :  3px;
+}
+
+.pag-triangle .pagination-control .control-box .number-button {
+  -fx-background-radius : 0px;
+  -fx-border-radius : 0px;
+  -fx-padding :  3px;
+  -fx-rotate : 45;
+}
+
+.pag-triangle .pagination-control .control-box .number-button .text {
+  -fx-rotate : -46;
+}
+
+
+.check-flat:selected:determinate .box .mark {
+   -fx-shape : "M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z";
+   -fx-padding : 5 10 10 10;
+   -fx-background-color : -base;
+}
+
+.check-task:selected:determinate .box .mark,
+.check-task:selected .box .mark
+{
+    -fx-shape : "M22,5.18L10.59,16.6l-4.24-4.24l1.41-1.41l2.83,2.83l10-10L22,5.18z M19.79,10.22C19.92,10.79,20,11.39,20,12 c0,4.42-3.58,8-8,8s-8-3.58-8-8c0-4.42,3.58-8,8-8c1.58,0,3.04,0.46,4.28,1.25l1.44-1.44C16.1,2.67,14.13,2,12,2C6.48,2,2,6.48,2,12 c0,5.52,4.48,10,10,10s10-4.48,10-10c0-1.19-0.22-2.33-0.6-3.39L19.79,10.22z";
+   -fx-background-color : -base;
+   -fx-padding : 10;
+}
+
+.check-task:selected:determinate .box,
+.check-task:selected .box,
+.check-flat:selected:determinate .box,
+.check-flat:selected .box
+{
+    -fx-background-color : transparent;
+    -fx-border-color : transparent;
+}
+
+
+/************************************************************************************
+*
+*               @-fx-skin
+*
+*************************************************************************************/
+
+.clearable-field {
+    -fx-skin: "io.github.gleidson28.global.skin.ClearableSkin";
+}
+
+.clear-field {
+    -fx-skin: "io.github.gleidson28.global.skin.ClearableSkin";
+}
+
+.viewer-field {
+    -fx-skin: "io.github.gleidson28.global.skin.ViewerSkin"; /* not work in text-field */
+}
+
+.ripple-button {
+    -fx-skin: "io.github.gleidson28.global.skin.button.RippleSkin"; /* not work in text-field */
+}
+
+.monetary-field {
+    /* -fx-skin : "io.github.gleidson28.global.skin.MonetaryFieldSkin" */
+}
+
+.monetary-field-clear {
+    -fx-skin : "io.github.gleidson28.global.skin.MonetaryClearFieldSkin"
+}
+
+.btn-alternate {
+    -fx-skin : "io.github.gleidson28.global.skin.button.AlternateSkin";
+}
+
+.btn-swipe {
+    -fx-skin : "io.github.gleidson28.global.skin.button.SwipeSkin";
+}
+
+.btn-swipe-diagonal {
+    -fx-skin : "io.github.gleidson28.global.skin.button.SwipeDiagonalSkin";
+}
+
+.btn-smoosh {
+    -fx-skin : "io.github.gleidson28.global.skin.button.SmooshSkin";
+}
+
+.btn-corner {
+    -fx-skin : "io.github.gleidson28.global.skin.button.CornerSkin";
+}
+
+.btn-centralize {
+    -fx-skin : "io.github.gleidson28.global.skin.button.CentralizeSkin";
+}
+
+.btn-ripple {
+    -fx-skin : "io.github.gleidson28.global.skin.button.RippleSkin";
+}
+
+.ripple-button {
+    -gn-ripple-fill : white;
+    -gn-ripple-opacity : 0.8;
+}
+
+.btn-swipe-diagonal .text,
+.btn-swipe .text,
+.btn-corner .text,
+.btn-centralize .text,
+.btn-alternate .text,
+.btn-smoosh .text
+{
+    -fx-fill : -base;
+}
+
+
+.btn-swipe-diagonal:focused .text,
+.btn-smoosh:focused .text,
+.btn-corner:focused .text,
+.btn-centralize:focused .text,
+.btn-alternate:focused .text,
+.btn-swipe:focused .text
+{
+    -fx-fill : white;
+}
+
+.btn-swipe-diagonal:animated .text,
+.btn-smoosh:animated .text,
+.btn-centralize:animated .text,
+.btn-alternate:animated .text,
+.btn-corner:animated .text,
+.btn-swipe:animated .text
+{
+    -fx-fill : white;
+}
+
+.btn-swipe-diagonal:hover,
+.btn-centralize:hover,
+.btn-alternate:hover,
+.btn-smoosh:hover,
+.btn-corner:hover,
+.btn-swipe:hover
+{
+     -fx-background-color : transparent;
+     -fx-border-color : -base;
+}
+
+.btn-centralize:focused,
+.btn-swipe-diagonal:focused,
+.btn-alternate:focused,
+.btn-smoosh:focused,
+.btn-corner:focused,
+.btn-swipe:focused,
+.btn-swipe
+{
+    -fx-border-width : 0px;
+    -fx-background-insets : 0px;
+}
+
+.btn-centralize,
+.btn-alternate,
+.btn-swipe-diagonal,
+.btn-smoosh,
+.btn-corner,
+.btn-swipe
+{
+    -fx-background-color : transparent;
+    -fx-border-color : -base;
+    -fx-text-fill : -base;
+    -fx-border-width : 1px;
+    -fx-border-radius : 0px;
+    -fx-background-radius : 0px;
+    -gn-transition-color : -base;
+    -fx-padding : 0px;
+}
+
+.text-field .action-button {
+    -fx-background-insets: 1 4 1 1;
+    -fx-background-color : transparent;
+}
+
+.search-field .action-button {
+    -fx-background-insets: -0.1666665em -0.45em -0.1666665em -0.25em;
+    -fx-background-color : transparent;
+}
+
+.text-field .action-button .action-button-graphic {
+    -fx-shape : "M221.738,305.873l6.135,6.16l-2.875,2.863l-6.135-6.159l-6.263,6.237l-2.864-2.875l6.263-6.238l-6.177-6.202l2.875-2.863l6.177,6.201l6.244-6.22l2.864,2.876L221.738,305.873z";
+    /* -fx-padding: 0.5em 0.5em; */
+    -fx-background-color: -icon-color;
+}
+
+.password-field .action-button .action-button-graphic {
+    -fx-shape : "M307.688,399.564c0,1.484-1.203,2.688-2.688,2.688c-1.484,0-2.688-1.203-2.688-2.688s1.203-2.688,2.688-2.688C306.484,396.876,307.688,398.08,307.688,399.564z M297.5,399h2.5c0,0,1.063-4,5-4c3.688,0,5,4,5,4h2.5c0,0-2.063-6.5-7.5-6.5C299,392.5,297.5,399,297.5,399z";
+    -fx-scale-shape : false;
+    -fx-background-color: -icon-color;
+}
+
+.btn-delete {
+    -base : -grapefruit;
+    -fx-content-display : graphic-only;
+}
+
+.btn-add {
+    -base : -info;
+    -fx-content-display : graphic-only;
+}
+
+.btn-delete SVGPath,
+.btn-add StackPane,
+.btn-delete StackPane
+ {
+    -fx-fill : white;
+    -fx-min-width : 13;
+    -fx-max-width : 13;
+    -fx-min-height : 14;
+    -fx-max-height : 14;
+    -fx-background-color : white;
+}
+
+.btn-round {
+  -fx-background-radius : 100px;
+}
+
+.btn-rounded {
+  -fx-background-radius : 20px;
+}
+
+.btn-raised:pressed, .btn-raised:focused
+{
+  -fx-effect: dropshadow( gaussian , rgba(0,0,0,.2) , 18, 0 , 0 , 10 );
+}
+
+.raised
+{
+  -fx-effect: dropshadow( gaussian , rgba(0,0,0,.3) , 15, 0 , 0 , 4 );
+}
+
+.btn-delete StackPane{
+     -fx-shape : "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z";
+}
+
+.btn-add StackPane{
+     -fx-shape : "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z";
+}
+
+.btn-filled {
+    -fx-background-color : transparent;
+    -fx-border-color : -base;
+    -fx-text-fill : -base;
+    -fx-border-width : 1px;
+    -fx-border-radius : 0px;
+    -fx-background-radius : 0px;
+    -fx-padding : 0px;
+}
+
+.btn-filled:hover,
+.btn-filled:focused
+{
+    -fx-text-fill : white;
+}
+
+/************************************************************************************
+*
+*               Outlined
+*
+*************************************************************************************/
+
+.field-area
+{
+    -fx-display-caret : true;
+    -fx-border-color : transparent transparent -box-fill transparent;
+    -fx-border-width : 0 0 1 0;
+}
+
+.field-area:focused
+{
+
+  -fx-border-color : -base ;
+  -fx-border-width :  0px 0px 1px 0px;
+  -fx-background-insets : 12px 0px 0px 0px;
+}
+
+.field-filled, .tf-filled
+{
+  -fx-border-color : -box-fill;
+  -fx-border-width : 0 0 1 0;
+}
+
+
+.field-filled .prompt {
+    -fx-text-fill : -text-color;
+    -fx-background-color : transparent;
+}
+
+.field-filled:focused, .tf-filled:focused
+{
+  -fx-background-insets : 0px 0px 2px 0px;
+  -fx-border-width : 0px 0px 2px 0px;
+}
+
+
+
+
+/************************************************************************************
+*
+*               Test
+*
+*************************************************************************************/
+
+.btn-close, .btn-close:pressed, .btn-close:focused {
+    -base : -light-gray;
+    -fx-border-color : -base;
+    -fx-border-radius : 100px;
+    -fx-border-width : 1px;
+    -fx-background-radius : 100px;
+}
+
+.btn-close:hover {
+    -fx-background-color : -base;
+    -fx-border-color : -medium-gray;
+}
+
+.btn-close:hover .icon {
+    -fx-fill : -gray;
+}

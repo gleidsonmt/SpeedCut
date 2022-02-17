@@ -1,0 +1,497 @@
+
+/************************************************************************************
+*
+*               Customizable with prefix
+*
+*************************************************************************************/
+
+.input-filled
+
+{
+    -gn-field-type : filled;
+}
+
+.input-filled
+{
+    -fx-border-radius : 0px;
+    -fx-border-width : 0 0 1 0;
+}
+
+.input-filled:focused {
+    -fx-border-width : 0 0 1 0;
+}
+
+.input-filled .border,
+.input-filled:hover .border,
+.input-filled:focused .border
+{
+    -fx-stroke-width : 0px;
+}
+
+.input-filled:focused .prompt-text
+{
+    -fx-background-color : transparent;
+}
+
+.tf-search {
+    -gn-action-type : clear;
+    -gn-lead-icon : search;
+}
+
+.btn-outlined,
+.btn-flat:hover,
+.btn-flat
+{
+    -fx-background-color : transparent;
+}
+
+.btn-flat {
+    -fx-font-weight : bold;
+}
+
+.btn-flat .text {
+    -fx-fill : -text-color;
+}
+
+.btn-flat:focused
+{
+  -fx-background-color : derive(-primary-color, 90%);
+}
+
+.btn-outlined {
+    -fx-text-fill : -base;
+    -fx-border-color : -base;
+}
+
+.float {
+    -gn-float-prompt : true;
+}
+
+.action-clear {
+    -gn-clear-action : true;
+}
+
+.action-viewer {
+    -gn-action-type : viewer;
+}
+
+.checked .prompt-text .text {
+    -fx-fill : -primary-color;
+}
+
+.lead-login {
+ 	 -gn-lead-icon : login;
+}
+
+.lead-logout {
+ 	 -gn-lead-icon : logout;
+}
+
+.lead-clear {
+ 	 -gn-lead-icon : clear;
+}
+
+.lead-viewer-off {
+ 	 -gn-lead-icon : viewer_off;
+}
+
+.lead-viewer {
+ 	 -gn-lead-icon : viewer;
+}
+
+.lead-favorite {
+ 	 -gn-lead-icon : favorite;
+}
+
+.lead-monetary {
+ 	 -gn-lead-icon : monetary;
+}
+
+.lead-place {
+ 	 -gn-lead-icon : place;
+}
+
+.lead-education {
+ 	 -gn-lead-icon : education;
+}
+
+.lead-warning {
+ 	 -gn-lead-icon : warning;
+}
+
+.lead-timelapse {
+ 	 -gn-lead-icon : timelapse;
+}
+
+.lead-done {
+ 	 -gn-lead-icon : done;
+}
+
+.lead-map {
+ 	 -gn-lead-icon : map;
+}
+
+.lead-lock {
+ 	 -gn-lead-icon : lock;
+}
+
+.lead-search {
+ 	 -gn-lead-icon : search;
+}
+
+.lead-contact {
+ 	 -gn-lead-icon : contact;
+}
+
+.lead-error {
+ 	 -gn-lead-icon : error;
+}
+
+
+.border-aqua:focused,
+.border-aqua:focused .border {
+    -fx-border-color : -aqua;
+    -fx-stroke : -aqua;
+}
+
+.border-aqua:float:focused .prompt-text .text {
+    -fx-fill : -aqua;
+}
+
+.border-aqua:focused .lead-button .lead-icon {
+    -fx-fill : -aqua;
+}
+.border-mint:focused,
+.border-mint:focused .border {
+    -fx-border-color : -mint;
+    -fx-stroke : -mint;
+}
+
+.border-mint:float:focused .prompt-text .text {
+    -fx-fill : -mint;
+}
+
+.border-mint:focused .lead-button .lead-icon {
+    -fx-fill : -mint;
+}
+.border-purple:focused,
+.border-purple:focused .border {
+    -fx-border-color : -purple;
+    -fx-stroke : -purple;
+}
+
+.border-purple:float:focused .prompt-text .text {
+    -fx-fill : -purple;
+}
+
+.border-purple:focused .lead-button .lead-icon {
+    -fx-fill : -purple;
+}
+.border-amber:focused,
+.border-amber:focused .border {
+    -fx-border-color : -amber;
+    -fx-stroke : -amber;
+}
+
+.border-amber:float:focused .prompt-text .text {
+    -fx-fill : -amber;
+}
+
+.border-amber:focused .lead-button .lead-icon {
+    -fx-fill : -amber;
+}
+.border-grapefruit:focused,
+.border-grapefruit:focused .border {
+    -fx-border-color : -grapefruit;
+    -fx-stroke : -grapefruit;
+}
+
+.border-grapefruit:float:focused .prompt-text .text {
+    -fx-fill : -grapefruit;
+}
+
+.border-grapefruit:focused .lead-button .lead-icon {
+    -fx-fill : -grapefruit;
+}
+
+.input-error,
+.input-error:focused:float,
+.input-error:focused
+ {
+    -prompt-fill : -grapefruit;
+    -fx-border-color : -grapefruit;
+    -gn-visible-message : true;
+}
+
+.input-error:focused .lead-button .icon {
+    -fx-fill : -grapefruit;
+}
+
+.input-error:focused .border,
+.input-error .border {
+    -fx-stroke : -grapefruit;
+}
+
+.input-error .lead-button .icon,
+.input-error .helper-text .text,
+.input-error .fieldFooter .count {
+    -fx-fill : -grapefruit;
+}
+
+.input-error:float:focused > .prompt-text .text {
+    -fx-fill :  -grapefruit;
+}
+
+
+.input-checked,
+.input-checked:focused:float,
+.input-checked:focused
+ {
+    -prompt-fill : -mint;
+    -fx-border-color : -mint;
+    -gn-lead-icon : done;
+}
+
+.input-checked:focused .lead-button .lead-icon {
+    -fx-fill : -mint;
+}
+
+.input-checked:focused .border,
+.input-checked .border {
+    -fx-stroke : -mint;
+}
+
+.input-checked .lead-button .lead-icon,
+.input-checked .fieldFooter .message,
+.input-checked .fieldFooter .count {
+    -fx-fill : -mint;
+    -gn-lead-icon : done;
+}
+
+.input-checked:float:focused > .prompt-text .text {
+    -fx-fill :  -mint;
+}
+
+.input-warning,
+.input-warning:focused:float,
+.input-warning:focused
+ {
+    -prompt-fill : -amber;
+    -fx-border-color : -amber;
+    -gn-lead-icon : warning;
+}
+
+.input-warning:focused .lead-button .lead-icon {
+    -fx-fill : -amber;
+}
+
+.input-warning:focused .border,
+.input-warning .border {
+    -fx-stroke : -amber;
+}
+
+.input-warning .lead-button .lead-icon,
+.input-warning .fieldFooter .message,
+.input-warning .fieldFooter .count {
+    -fx-fill : -amber;
+}
+
+.input-warning:float:focused > .prompt-text .text {
+    -fx-fill :  -amber;
+}
+
+.input-large {
+    -fx-min-height : 45px;
+    -fx-font-size : 14px;
+}
+
+.input-small {
+    -fx-min-height : 30px;
+    -fx-font-size : 10px;
+}
+
+.counter {
+    -gn-visible-count : true;
+    -gn-max-length : 20;
+}
+
+.helper {
+    -gn-visible-message : true;
+}
+
+/************************************************************************************
+*
+*               @Borders
+*
+*************************************************************************************/
+
+.border {
+    -fx-border-color : -border-color;
+}
+
+.border-0 {
+  -fx-border-width : 0px;
+}
+
+.border-1 {
+  -fx-border-width : 1px;
+}
+
+.border-2 {
+  -fx-border-width : 1px;
+}
+
+.border-b-2 {
+  -fx-border-width : 0px 0px 2px 0px;
+}
+
+.border-r-2 {
+    -fx-border-width : 0px 1px 0px 0px;
+}
+
+.border-t-2 {
+    -fx-border-width : 2px 0px 0px 0px;
+}
+
+.border-1 {
+  -fx-border-width : 1px;
+}
+
+.border-b-1
+{
+  -fx-border-width : 0px 0px 1px 0px;
+}
+
+.border-t-1 {
+    -fx-border-width : 1px 0px 0px 0px;
+}
+
+.border-r-1 {
+    -fx-border-width : 0px 1px 0px 0px;
+}
+
+.border-l-1 {
+  -fx-border-width : 0px 0px 0px 1px;
+}
+
+.border-tb-1 {
+    -fx-border-width : 1px 0px 1px 0px;
+}
+
+.border-light-gray
+{
+  -fx-border-color : -light-gray;
+}
+
+.border-lr-1 {
+    -fx-border-width : 0px 1px ;
+}
+
+.border-rect {
+    -fx-border-radius : 0px;
+}
+
+.border-danger, .tf-danger:focused {
+    -fx-border-color : -danger;
+}
+
+
+/************************************************************************************
+*
+*               Padding
+*
+*************************************************************************************/
+
+.padding-1 {
+    -fx-padding : 1px;
+}
+
+.padding-5 {
+    -fx-padding : 5px;
+}
+
+.padding-10 {
+    -fx-padding : 10px;
+}
+
+.padding-20 {
+    -fx-padding : 20px;
+}
+
+.padding-t-10 {
+    -fx-padding : 10px 0px 0px 0px;
+}
+
+/************************************************************************************
+*
+*               Backgrounds
+*
+*************************************************************************************/
+
+.gray {
+    -fx-background-color : -gray;
+}
+
+.primary {
+    -fx-background-color : -primary;
+}
+
+.secondary {
+    -fx-background-color : -secondary;
+}
+
+.info {
+    -fx-background-color : -info;
+}
+
+.success {
+    -fx-background-color : -success;
+}
+
+.warning {
+    -fx-background-color : -warning;
+}
+
+.danger {
+    -fx-background-color : -danger;
+}
+
+/************************************************************************************
+*
+*               @-fx-skin
+*
+*************************************************************************************/
+
+
+.ripple-button {
+    -gn-ripple-fill : white;
+    -gn-ripple-opacity : 0.8;
+}
+
+.deep-button {
+    -fx-padding: 8 10 10 10;
+    -fx-background-insets: 0,0 0 2 0, 0 0 2 0, 0 0 2 0;
+    -fx-background-color : derive(-primary-color, -40%), derive(-primary-color, -40%), derive(-primary-color, -40%), -primary-color;
+    -fx-background-radius : 2px;
+    -fx-border-radius : 2px;
+    -fx-font-weight : bolder;
+}
+
+
+/************************************************************************************
+*
+*               @Color
+*
+*************************************************************************************/
+
+.btn-mint {
+    -primary-color : -mint;
+}
+
+.btn-grapefruit {
+    -primary-color : -grapefruit;
+}
+
+.btn-deep-orange {
+    -primary-color : -deep-orange;
+}

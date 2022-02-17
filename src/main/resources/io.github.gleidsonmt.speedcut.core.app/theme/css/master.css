@@ -1,0 +1,44 @@
+
+/*
+    Created on : 25/10/2018, 18:42:15
+    Author     : Gleidson Neves da Silveira
+    Samples styles
+*/
+
+
+.table-view:row-selection:constrained-resize:unconstrained-resize .column-header-background .show-hide-columns-button {
+
+
+
+}
+
+.table-view:row-selection:constrained-resize:unconstrained-resize .column-header-background .show-hide-columns-button .show-hide-column-image
+{
+    -fx-scale-x : 2.5;
+    -fx-scale-y : 1.0;
+    -fx-image-repeat : none;
+    -fx-shape : "M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z";
+    -fx-translate-x : -10px;
+}
+
+.table-view .column-header-background .nested-column-header .table-column:last-visible
+{
+    -fx-padding : 12px;
+    -fx-alignment : center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
