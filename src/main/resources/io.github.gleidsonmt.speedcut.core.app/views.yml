@@ -1,0 +1,5 @@
+- !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
+  title : Register
+  name : register
+  directory : login
+  fxml : register.fxml
