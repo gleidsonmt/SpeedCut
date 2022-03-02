@@ -1,5 +1,31 @@
+
 - !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
   title : Register
   name : register
   directory : login
+  fxml : register.fxml
+
+- !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
+  title : Login
+  name : login
+  directory : login
+  fxml : login.fxml
+
+- !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
+  title : Sales
+  name : sales
+  directory : sales
+  fxml : sales.fxml
+
+- !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
+  title: Buys
+  name: buy
+  directory: sales
+  fxml: buy.fxml
+
+
+- !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
+  title : Register
+  name : register
+  directory : register
   fxml : register.fxml

@@ -17,6 +17,7 @@
 
 package io.github.gleidsonmt.speedcut.core.app.layout;
 
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Priority;
@@ -28,19 +29,27 @@ import javafx.scene.layout.VBox;
  */
 public class CenterLayout extends VBox {
 
-    private final ScrollPane    body    = new ScrollPane();
-    private final Bar           bar     = new Bar();
+    private final ScrollPane    body        = new ScrollPane();
 
     public CenterLayout() {
-        getChildren().add(0, bar);
-        getChildren().add(1, body);
+        getChildren().add(0, body);
         body.setFitToWidth(true);
         body.setFitToHeight(true);
         VBox.setVgrow(body, Priority.ALWAYS);
+        VBox.setMargin(body, new Insets(40, 0, 0,0));
+        body.getStyleClass().addAll("border", "border-t-1");
 
     }
 
     public void setBody(Parent body) {
         this.body.setContent(body);
     }
+
+    public void initBar() {
+//        getChildren().add(0, bar);
+//        bar.setPrefHeight(40);
+//        bar.setMinHeight(40);
+    }
+
+
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.gleidsonmt.gncontrols.GNButton?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.FormController">
+   <children>
+      <VBox alignment="CENTER" StackPane.alignment="CENTER">
+         <children>
+            <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+               <content>
+
+         </content>
+            </ScrollPane>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <GNButton buttonType="SEMI_ROUNDED" cancelButton="true" text="Cancel" />
+                  <GNButton buttonType="SEMI_ROUNDED" defaultButton="true" layoutX="528.0" layoutY="10.0" text="Save" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/material-color.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/light.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/skeleton.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/bootstrap.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/shape.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/typographic.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/helpers.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/login.css" />
+   </stylesheets>
+</StackPane>

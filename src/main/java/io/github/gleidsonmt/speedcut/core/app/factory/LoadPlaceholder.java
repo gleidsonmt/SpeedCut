@@ -33,14 +33,14 @@ import javafx.util.Duration;
  */
 public class LoadPlaceholder extends HBox {
 
-    private final Rectangle one = new Rectangle();
-    private final Rectangle two = new Rectangle();
-    private final Rectangle three = new Rectangle();
-
     public LoadPlaceholder() {
 
         setAlignment(Pos.CENTER);
         setSpacing(5);
+
+        Rectangle three = new Rectangle();
+        Rectangle two = new Rectangle();
+        Rectangle one = new Rectangle();
 
         getChildren().addAll(one, two, three);
 
@@ -78,7 +78,5 @@ public class LoadPlaceholder extends HBox {
         animation.play();
 
     }
-
-
 
 }

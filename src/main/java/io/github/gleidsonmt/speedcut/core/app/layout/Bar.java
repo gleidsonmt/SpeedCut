@@ -17,14 +17,38 @@
 
 package io.github.gleidsonmt.speedcut.core.app.layout;
 
+import io.github.gleidsonmt.gncontrols.GNFloatingButton;
+import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
+import io.github.gleidsonmt.gncontrols.material.icon.Icons;
+import javafx.geometry.Pos;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/02/2022
  */
 public class Bar extends HBox {
+
+    private final GNFloatingButton hamburger   = new GNFloatingButton();
+
     public Bar() {
-        this.setStyle("-fx-background-color : blue;");
+        setAlignment(Pos.CENTER_LEFT);
+        getStyleClass().addAll("border", "border-b-1");
+        hamburger.getStyleClass().add("hamburger");
+        hamburger.setMinSize(30, 30);
+        hamburger.setGraphic(new IconContainer(Icons.HAMBURGER));
+    }
+
+    public void addItem(Hyperlink hyperlink) {
+        hyperlink.setStyle("-fx-font-size : 20;");
+        getChildren().add(hyperlink);
+    }
+
+    public void setHamburger(boolean value) {
+        if (value) {
+            if (!getChildren().contains(hamburger)) getChildren().add(0, hamburger);
+        } else getChildren().remove(hamburger);
     }
 }

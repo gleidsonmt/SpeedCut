@@ -15,27 +15,33 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.core.app;
+package io.github.gleidsonmt.speedcut.presenter;
 
-import io.github.gleidsonmt.gndecorator.GNDecorator;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import io.github.gleidsonmt.speedcut.core.app.dao.DaoProduct;
+import io.github.gleidsonmt.speedcut.core.app.model.Product;
+import io.github.gleidsonmt.speedcut.core.app.model.User;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  15/02/2022
+ * Create on  26/02/2022
  */
-class WindowDecorator extends GNDecorator {
+public class ProductPresenter implements Presenter<Product> {
 
-    public WindowDecorator() {
-        setContent(new StackPane(new Button("Welcome!")));
+    private final DaoProduct dao = new DaoProduct();
+
+    @Override
+    public void store(Product model) {
+
     }
 
-    protected boolean hasInstance() {
-        return getWindow().isShowing();
+    @Override
+    public boolean persist() {
+        return false;
     }
 
-    protected void start() {
-        show();
+    public Task<ObservableList<Product>> createAllElements() {
+        return dao.populateAllTask();
     }
 }

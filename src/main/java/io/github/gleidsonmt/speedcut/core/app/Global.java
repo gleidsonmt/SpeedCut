@@ -21,8 +21,9 @@ package io.github.gleidsonmt.speedcut.core.app;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/02/2022
  */
-public interface IManager {
+public interface Global {
 
-    WindowDecorator window = new WindowDecorator();
+    String          corePath   = "/io.github.gleidsonmt.speedcut.core.app/";
+    AppProperties   properties = new AppProperties();
 
 }

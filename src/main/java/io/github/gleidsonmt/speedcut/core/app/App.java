@@ -17,6 +17,7 @@
 
 package io.github.gleidsonmt.speedcut.core.app;
 
+import io.github.gleidsonmt.speedcut.core.app.view.IApp;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -27,8 +28,13 @@ import javafx.stage.Stage;
 public class App extends Application implements IApp {
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         run();
+    }
+
+    @Override
+    public void stop() {
+        persist();
     }
 
     private void run() {

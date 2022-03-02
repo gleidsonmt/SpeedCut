@@ -15,19 +15,24 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.core.app;
+package io.github.gleidsonmt.speedcut.core.app.view;
+
+import javafx.scene.control.Control;
+import javafx.scene.layout.GridPane;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  15/02/2022
+ * Create on  24/02/2022
  */
-public interface IApp extends IManager {
+public class Form extends GridPane {
 
-    default void start() {
-        window.start();
+    public Form() {
+
     }
 
-    default boolean hasInstance() {
-        return window.hasInstance();
+    public void addControl(int col, int row, Control... control) {
+        for (Control _c : control) {
+            add(_c, col, row);
+        }
     }
 }

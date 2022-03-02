@@ -19,6 +19,10 @@ package io.github.gleidsonmt.speedcut;
 
 import io.github.gleidsonmt.speedcut.core.app.App;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/02/2022

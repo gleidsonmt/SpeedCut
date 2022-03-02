@@ -17,6 +17,9 @@
 
 package io.github.gleidsonmt.speedcut.core.app.layout;
 
+import javafx.scene.Node;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -25,15 +28,26 @@ import javafx.scene.layout.BorderPane;
  */
 public class Layout extends BorderPane {
 
+    private Node oldLeftNode;
 
     private final CenterLayout centerLayout = new CenterLayout();
 
     public Layout() {
         setCenter(centerLayout);
+
+        leftProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) oldLeftNode = newValue;
+        });
+
+        getStyleClass().add("layout");
     }
 
     public CenterLayout getCenterLayout() {
         return centerLayout;
+    }
+
+    public Node getOldLeft() {
+        return oldLeftNode;
     }
 
 }

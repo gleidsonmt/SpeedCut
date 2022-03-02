@@ -20,7 +20,7 @@ package io.github.gleidsonmt.speedcut.core.app.exceptions;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  31/03/2020
  */
-public class SQLQueryError extends Exception {
+public final class SQLQueryError extends Exception {
 
     private String code;
 

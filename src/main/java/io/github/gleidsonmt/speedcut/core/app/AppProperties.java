@@ -17,9 +17,32 @@
 
 package io.github.gleidsonmt.speedcut.core.app;
 
+import java.io.IOException;
+import java.util.Properties;
+
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/02/2022
  */
-public class ViewManager {
+public class AppProperties extends Properties implements Global {
+
+    AppProperties() {
+        try {
+            load(getClass().
+                    getResourceAsStream(corePath + "app.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public boolean isLogged() {
+        return Boolean.parseBoolean(getProperty("app.logged"));
+    }
+
+    public boolean isRegistered() {
+        return Boolean.parseBoolean(getProperty("app.registered"));
+    }
+
 }

@@ -45,6 +45,32 @@
     -fx-background-color : transparent;
 }
 
+.btn-flat:cancel,
+.btn-flat:cancel:hover:pressed
+{
+    -fx-background-color : transparent;
+    -fx-border-width : 1;
+}
+
+.btn-flat:cancel:focused:hover,
+.btn-flat:cancel:focused:hover:pressed,
+.btn-flat:cancel:focused,
+.btn-flat:cancel:hover {
+    -fx-border-width : 2;
+    -fx-background-color : transparent;
+}
+
+.btn-flat:cancel {
+    -fx-text-fill : -base;
+    -gn-ripple-fill : -base;
+    -fx-border-color : -base;
+}
+
+.btn-flat:cancel .icon {
+    -fx-fill : -base;
+}
+
+
 .btn-flat {
     -fx-font-weight : bold;
 }
@@ -147,7 +173,6 @@
  	 -gn-lead-icon : error;
 }
 
-
 .border-aqua:focused,
 .border-aqua:focused .border {
     -fx-border-color : -aqua;
@@ -212,6 +237,45 @@
 
 .border-grapefruit:focused .lead-button .lead-icon {
     -fx-fill : -grapefruit;
+}
+
+.gn-password-box {
+    -gn-tray-action : viewer;
+}
+
+.gn-text-box:error {
+    -fx-border-color : -grapefruit;
+    -gn-visible-helper : true;
+    -gn-tray-action : icon;
+    -gn-tray-icon : error;
+}
+
+.gn-text-box:error .helper-text .text,
+.gn-text-box:error .lead-button .icon,
+.gn-text-box:error .trail-button .icon,
+.gn-text-box:error .prompt-text .text,
+.gn-text-box:error .editor ,
+.gn-text-box:error:float .prompt-text .text {
+    -fx-fill : -grapefruit;
+    -fx-text-fill : -grapefruit;
+}
+
+.gn-text-box:checked {
+
+    -fx-border-color : -mint;
+    -gn-tray-action : icon;
+    -gn-tray-icon : done;
+
+}
+
+.gn-text-box:checked .helper-text .text,
+.gn-text-box:checked .lead-button .icon,
+.gn-text-box:checked .trail-button .icon,
+.gn-text-box:checked .prompt-text .text,
+.gn-text-box:checked .editor ,
+.gn-text-box:checked:float .prompt-text .text {
+    -fx-fill : -mint;
+    -fx-text-fill : -mint;
 }
 
 .input-error,

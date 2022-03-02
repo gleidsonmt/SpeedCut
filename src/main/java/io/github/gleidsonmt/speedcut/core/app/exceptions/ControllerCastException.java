@@ -20,9 +20,10 @@ package io.github.gleidsonmt.speedcut.core.app.exceptions;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  31/03/2020
  */
-public class ControllerCastException extends Exception {
+public final class ControllerCastException extends Exception {
 
     private String code;
+
 
     public ControllerCastException(String code, String message) {
         super(message);

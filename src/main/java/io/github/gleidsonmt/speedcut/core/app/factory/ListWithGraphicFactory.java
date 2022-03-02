@@ -22,10 +22,7 @@ import io.github.gleidsonmt.speedcut.core.app.model.Item;
 import io.github.gleidsonmt.speedcut.core.app.model.Product;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -51,20 +48,23 @@ public class ListWithGraphicFactory implements Callback<ListView<? extends Item>
 
             @Override
             protected void updateItem(Item item, boolean empty) {
-
-
                 super.updateItem(item, empty);
                 if (item != null) {
                     setText(item.getName());
                     setId("badge-cell");
+                    setGraphic(null);
                     setGraphic(item.getAvatar());
+                    item.getAvatar().setMouseTransparent(true);
                     setStyle(item.getAvatar().getStyle());
-                    setItem(item);
                     setGraphicTextGap(15);
+                    setItem(item);
+
                 } else {
-                    setText(null);
+
                     setItem(null);
                     setGraphic(null);
+                    setText(null);
+
                 }
             }
         };

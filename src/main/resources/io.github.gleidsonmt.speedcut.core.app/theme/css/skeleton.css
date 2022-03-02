@@ -23,8 +23,8 @@
 .combo-box,
 .gn-text-box {
     -fx-text-fill : -text-color;
-    -fx-min-height : 30px;
     -fx-background-color : transparent;
+    -fx-min-height : 30px;
     -fx-pref-height : 50px;
     -fx-border-color : -medium-gray;
 }
@@ -37,6 +37,18 @@
 .gn-text-box .trail-button {
     -fx-background-color : transparent;
 
+}
+
+
+
+.gn-text-box:filled:focused {
+    -fx-border-width : 0;
+}
+
+.gn-text-box:filled .filled-border {
+    -fx-fill : -base;
+    -fx-border-radius : 0px;
+    -fx-stroke-width : 5;
 }
 
 .gn-text-box .trail-button {
@@ -54,15 +66,7 @@
 
 .gn-text-box .editor {
     -fx-border-width : 0px;
-}
-
-.text-field > .field-footer .count,
-.text-field > .field-footer .text-flow .message {
-    -fx-fill : -prompt-fill;
-}
-
-.gn-text-box > .filled-border {
-    -fx-fill : -primary-color;
+    -fx-text-fill : -text-color;
 }
 
 .gn-text-box:disabled .prompt-text:disabled .text,
@@ -317,12 +321,19 @@
     -fx-cursor : hand;
 }
 
+.gn-radio-button {
+    -gn-ripple-fill : derive(-base, 50%);
+}
+
 .toggle-button,
 .radio-button,
 .check-box,
 .button {
     -fx-pref-height : 40px;
 }
+
+
+
 
 /************************************************************************************
 *
@@ -349,33 +360,22 @@
     -fx-background-color: -light-gray;
 }
 
-.list-view:focused > .virtual-flow > .clipped-container > .sheet > .list-cell:focused {
-    -fx-background-insets: 0;
+.list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:focused {
+    -fx-background-color: -light-gray;
+    -fx-border-color : -base;
+    -fx-border-width : 0 0 0 4;
 }
 
-.list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected:focused,
-.list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:selected {
-    -fx-text-fill : white;
+.list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected  .text {
+    -fx-fill : -dark-gray;
 }
 
-.list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:selected:hover {
-    -fx-text-fill : -text-color;
-}
-
-.list-view > .virtual-flow > .clipped-container > .sheet > .list-cell .label .text {
-    -fx-fill : -text-color;
-}
-
-.list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:focused .label .text {
+.list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:selected .label .text {
     -fx-fill : white;
 }
 
 .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:selected:hover .label .text {
     -fx-fill : -text-color;
-}
-
-.list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:selected .label .text {
-    -fx-fill : white;
 }
 
 .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell .lbl-status .text {
@@ -405,17 +405,22 @@
     -fx-text-fill : -inner-color;
 }
 
+.gn-button-hover {
+    -gn-fill-transition : -base;
+    -gn-hover-type : swipe;
+}
+
 .button SVGPath {
     -fx-fill : -inner-color;
 }
 
-.button, .toggle-button, .check-box .box
+.gn-button, .toggle-button, .check-box .box
 {
   -fx-background-color : -primary-color;
 }
 
 .button {
-    -fx-border-radius : 100px;
+    -fx-border-radius : 0px;
 }
 
 .button:hover,
@@ -499,6 +504,7 @@
     -fx-fill : -text-color;
 }
 
+
 .radio-button > .radio  {
    -fx-background-color: transparent;
    -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
@@ -559,6 +565,10 @@
 {
     -fx-background-color: #e6e6e6;
     -fx-border-color: #d9d9d9;
+}
+
+.check-box .box{
+    -fx-background-color : transparent;
 }
 
 .check-box:selected:determinate .box .mark,
@@ -1140,7 +1150,27 @@
 
 .table-row-cell:filled:hover .tooltip .text
 {
-  -fx-fill : white;
+  -fx-fill : red;
+}
+
+.button .tooltip .text {
+    -fx-fill:  white;
+}
+
+.button .tooltip {
+    -fx-background-color: -dark-gray;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+
+    -fx-padding: 7px;  /*4 8 4 8 */
+
+    -fx-font-family: Roboto;
+    -fx-font-weight : bold;
+    -fx-text-fill:  red;
+
+    -fx-border-width: 0px;
+
+    -fx-effect: null;
 }
 
 

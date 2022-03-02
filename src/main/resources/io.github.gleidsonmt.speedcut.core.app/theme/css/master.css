@@ -5,13 +5,6 @@
     Samples styles
 */
 
-
-.table-view:row-selection:constrained-resize:unconstrained-resize .column-header-background .show-hide-columns-button {
-
-
-
-}
-
 .table-view:row-selection:constrained-resize:unconstrained-resize .column-header-background .show-hide-columns-button .show-hide-column-image
 {
     -fx-scale-x : 2.5;
@@ -27,9 +20,61 @@
     -fx-alignment : center;
 }
 
+.layout {
+    -fx-background-color : -background-color;
+}
 
 
 
+.hamburger {
+    -gn-button-type : rounded;
+    -fx-background-color : transparent;
+}
+
+.hamburger:focused,
+.hamburger:hover {
+    -gn-button-type : rounded;
+    -fx-background-color : -light-gray, -medium-gray;
+}
+
+.list-cell #custom-avatar .text {
+    -fx-fill : white;
+}
+
+.list-cell #custom-avatar {
+    -fx-font-weight : bold;
+    -fx-font-size : 14pt;
+}
+
+.list-cell #custom-avatar {
+    -fx-background-radius : 100px;
+    -fx-background-color : -base;
+    -fx-border-width : 2px;
+    -fx-border-radius : 100px;
+    -fx-border-color : white;
+  -fx-effect: dropshadow( gaussian , rgba(0,0,0,.3) , 10, 0 , 0 , 2 );
+}
+
+.list-cell:focused #custom-avatar {
+     -fx-border-color : white;
+}
+
+.list-cell:focused:hover #custom-avatar,
+.list-cell:hover #custom-avatar {
+     -fx-border-color : -base;
+     -fx-background-color : white;
+
+}
+
+.list-cell:hover #custom-avatar .text {
+    -fx-fill : -base;
+}
+
+#badge-cell:filled:even:selected,
+#badge-cell:filled:selected {
+    -fx-background-color: derive(-base, 90%);
+    -fx-padding : 0 0 0 20;
+}
 
 
 

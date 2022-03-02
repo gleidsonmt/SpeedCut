@@ -20,7 +20,7 @@ package io.github.gleidsonmt.speedcut.core.app.exceptions;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  31/03/2020
  */
-public class LoadViewException extends Exception {
+public final class LoadViewException extends Exception {
 
     private String code;
 
