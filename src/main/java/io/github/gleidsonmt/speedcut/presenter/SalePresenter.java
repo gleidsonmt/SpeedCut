@@ -18,26 +18,39 @@
 package io.github.gleidsonmt.speedcut.presenter;
 
 import io.github.gleidsonmt.speedcut.core.app.dao.AbstractDao;
-import io.github.gleidsonmt.speedcut.core.app.dao.DaoProfessional;
-import io.github.gleidsonmt.speedcut.core.app.model.Professional;
+import io.github.gleidsonmt.speedcut.core.app.dao.DaoSale;
+import io.github.gleidsonmt.speedcut.core.app.model.Entity;
+import io.github.gleidsonmt.speedcut.core.app.model.Sale;
+import javafx.beans.property.ListProperty;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+
+import java.sql.ResultSet;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  02/03/2022
  */
-public final class ProfessionalPresenter extends Presenter<Professional> {
+public class SalePresenter extends Presenter<Sale> {
 
-    private static final DaoProfessional dao = new DaoProfessional();
+    private static final DaoSale dao = new DaoSale();
 
     @Override
-    protected AbstractDao<Professional> getDao() {
+    protected AbstractDao<Sale> getDao() {
         return dao;
     }
 
-    @Override
-    public Task<ObservableList<Professional>> createAllElements() {
-        return getDao().populateAllTask();
+    public Sale createDefaultSale() {
+        createConnection();
+        return dao.createDefaultSale();
+    }
+
+    public boolean delete(Sale sale) {
+        createConnection();
+        return dao.delete(sale);
+    }
+
+    public ObservableList<Sale> getElements() {
+        return dao.getElements();
     }
 }

@@ -4,6 +4,7 @@
     -dark-gray  : #656D78;
     -light-gray : #E6E9ED;
     -fx-background-color : transparent;
+
 }
 
 .popover  {
@@ -13,8 +14,9 @@
 
     -fx-border-width : 0 0 0 4;
     -fx-border-width : 1;
-    -fx-background-radius : 10px;
-    -fx-border-radius : 10px;
+    -fx-background-radius : 2px;
+    -fx-border-radius : 2px;
+    -base : red;
 
     -fx-border-color: -light-gray-2;
 }
@@ -100,4 +102,30 @@
 {
      -fx-text-fill : white;
     	  -fx-fill : white;
+}
+
+.root > .gn-text-box:filled .editor {
+    -fx-border-radius : 0px;
+    -fx-border-color : red;
+}
+
+.gn-radio-button {
+    -gn-ripple-fill : -primary-color;
+}
+
+.gn-text-box:focused {
+    -fx-border-color : -primary-color;
+}
+
+.text-box {
+    -gn-visible-count : false;
+}
+
+.gn-monetary-field {
+    -fx-pref-height : 52px;
+}
+
+.gn-monetary-field:focused {
+    -fx-border-color : -primary-color;
+    -fx-border-width : 2px;
 }

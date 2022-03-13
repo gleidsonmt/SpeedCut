@@ -69,11 +69,6 @@
     -fx-text-fill : -text-color;
 }
 
-.gn-text-box:disabled .prompt-text:disabled .text,
-.text-field:disabled .prompt-text {
-    -fx-fill : red;
-}
-
 .text-field:disabled > .border {
     -fx-fill : transparent;
     -fx-stroke : -medium-gray-2;
@@ -312,8 +307,8 @@
 *
 *************************************************************************************/
 
-.label, .button,
-.label .text, .radio-button
+.button,
+.radio-button
 {
     -fx-font-family : Roboto, Regular;
     -fx-text-color : -text-color;
@@ -395,21 +390,27 @@
  -fx-background-insets : 0px 0px 2px 0px;
  -fx-border-width : 0px 0px 2px 0px;
 }
+
 /************************************************************************************
 *
-*                @Button
+@Button
 *
 *************************************************************************************/
 
+.gn-button,
 .button {
     -fx-text-fill : -inner-color;
+    -gn-button-type : semi_rounded;
 }
 
 .gn-button-hover {
-    -gn-fill-transition : -base;
-    -gn-hover-type : swipe;
+    -gn-background-transition : -base;
+    -gn-border-transition : -base;
+    -gn-text-transition : -base;
 }
 
+.gn-button .icon,
+.gn-button SVGPath,
 .button SVGPath {
     -fx-fill : -inner-color;
 }
@@ -1039,7 +1040,7 @@
 
 /*******************************************************************************
 *                                                                              *
-*       @Icon
+@Icon
 *                                                                              *
 *******************************************************************************/
 
@@ -1049,7 +1050,7 @@
 
 /*******************************************************************************
 *                                                                              *
-*       @TableView
+@TableView
 *                                                                              *
 *******************************************************************************/
 
@@ -1058,11 +1059,16 @@
 }
 
 .table-view:constrained-resize:focused {
-    -fx-border-color : -border-color;
+    -fx-border-color : red;
 }
 
 .table-view:constrained-resize {
     -fx-border-color : -border-color;
+}
+
+.table-view .virtual-flow .scroll-bar:horizontal {
+    visibility : false;
+   -fx-opacity : 0;
 }
 
 .table-view .column-header-background .nested-column-header .table-column SVGPath {
@@ -1183,15 +1189,16 @@
 
 .table-view .table-row-cell:selected
 {
-    -fx-background-color : derive(-primary-color, 10%), transparent;
-    -fx-background-color : linear-gradient(to left, derive(-primary-color, -5%), -primary-color);
-    -fx-border-color : -primary-color;
+    -fx-background-color : derive(-primary-color, 90%);
+    -fx-border-color : -base;
+    -fx-border-width : 0 0 0 3;
 
 }
 
 .table-row-cell:filled:selected .table-column .text
 {
-  -fx-fill : white;
+  -fx-fill : -base;
+  -fx-font-weight : bold;
 }
 
 .table-row-cell
@@ -1230,11 +1237,11 @@
     -fx-padding : 10px;
 }
 
-.table-view:focused .column-header-background,
+.table-view .column-header-background,
 .tree-table-view:focused .column-header-background
 {
-  -fx-border-color : -primary-color;
-  -fx-border-width : 0 0 2 0;
+  -fx-border-color : -medium-gray;
+  -fx-border-width : 1 ;
 }
 
 .table-view .column-header-background,
@@ -1318,3 +1325,40 @@
   -fx-text-fill : white;
 }
 
+/*******************************************************************************
+*                                                                              *
+@ProgressBar
+*                                                                              *
+*******************************************************************************/
+
+.progress-bar:determinate .bar
+{
+  -fx-background-color : -base;
+}
+
+.progress-bar:determinate .track,
+.progress-bar:indeterminate .track
+{
+  -fx-background-radius : 0px;
+}
+
+.progress-bar:determinate {
+  -fx-padding : 0px;
+}
+
+.progress-bar:determinate .track {
+  -fx-background-color : -track-fill;
+}
+
+.progress-bar:determinate .bar {
+  -fx-background-insets : 0px;
+}
+
+.progress-bar:indeterminate .bar {
+    -fx-background-insets : 0px;
+  -fx-background-color: linear-gradient(to left, derive(-base, 80%), -base);
+}
+
+.progress-bar:indeterminate .track {
+    -fx-background-color : -light-gray;
+}

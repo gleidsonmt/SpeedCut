@@ -21,7 +21,7 @@ package io.github.gleidsonmt.speedcut.core.app.model;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  26/02/2022
  */
-public final class Product extends SaleItem {
+public final class Product extends Item {
 
     public Product() {
 

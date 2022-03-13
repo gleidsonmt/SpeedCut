@@ -15,29 +15,11 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.presenter;
-
-import io.github.gleidsonmt.speedcut.core.app.dao.AbstractDao;
-import io.github.gleidsonmt.speedcut.core.app.dao.DaoProfessional;
-import io.github.gleidsonmt.speedcut.core.app.model.Professional;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
+package io.github.gleidsonmt.speedcut.core.app.model;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  02/03/2022
+ * Create on  04/03/2022
  */
-public final class ProfessionalPresenter extends Presenter<Professional> {
-
-    private static final DaoProfessional dao = new DaoProfessional();
-
-    @Override
-    protected AbstractDao<Professional> getDao() {
-        return dao;
-    }
-
-    @Override
-    public Task<ObservableList<Professional>> createAllElements() {
-        return getDao().populateAllTask();
-    }
+public class Person extends Item {
 }

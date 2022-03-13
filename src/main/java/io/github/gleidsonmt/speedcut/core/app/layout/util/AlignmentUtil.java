@@ -15,7 +15,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.core.app.layout;
+package io.github.gleidsonmt.speedcut.core.app.layout.util;
 
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
@@ -26,26 +26,36 @@ import javafx.scene.layout.AnchorPane;
  */
 public final class AlignmentUtil {
 
-    static void centerLeft(Node content) {
+    public static void centerLeft(Node content) {
         centerLeft(content, 0);
     }
 
-    static void centerLeft(Node content, double padding) {
+    public static void centerLeft(Node content, double padding) {
         reset(content);
         AnchorPane.setTopAnchor(content, padding);
         AnchorPane.setLeftAnchor(content, padding);
         AnchorPane.setBottomAnchor(content, padding);
     }
 
-    static void centerRight(Node content) {
+    public static void centerRight(Node content) {
         centerLeft(content, 0);
     }
 
-    static void centerRight(Node content, double padding) {
+    public static void centerRight(Node content, double padding) {
         reset(content);
         AnchorPane.setTopAnchor(content, padding);
         AnchorPane.setRightAnchor(content, padding);
         AnchorPane.setBottomAnchor(content, padding);
+    }
+
+    public static void topLeft(Node content) {
+        topLeft(content, 0,0);
+    }
+
+    public static void topLeft(Node content, double topPadding, double leftPadding) {
+        reset(content);
+        AnchorPane.setTopAnchor(content, topPadding);
+        AnchorPane.setLeftAnchor(content, leftPadding);
     }
 
     private static void reset(Node content) {

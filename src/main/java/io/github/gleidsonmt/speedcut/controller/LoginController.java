@@ -20,10 +20,10 @@ package io.github.gleidsonmt.speedcut.controller;
 import io.github.gleidsonmt.gncontrols.GNPasswordBox;
 import io.github.gleidsonmt.gncontrols.GNTextBox;
 import io.github.gleidsonmt.speedcut.core.app.animations.Animations;
+import io.github.gleidsonmt.speedcut.presenter.UserPresenter;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
 import io.github.gleidsonmt.speedcut.core.app.model.User;
 import io.github.gleidsonmt.speedcut.core.app.view.ResponsiveView;
-import io.github.gleidsonmt.speedcut.presenter.UserPresenter;
 import javafx.fxml.FXML;
 
 import java.net.URL;

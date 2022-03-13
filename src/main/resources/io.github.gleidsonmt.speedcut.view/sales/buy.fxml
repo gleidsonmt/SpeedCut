@@ -24,7 +24,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="root" maxWidth="-Infinity" prefHeight="855.0" prefWidth="600.0" style="-fx-background-color: white; -fx-background-radius: 0 10 0 10;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.BuyController">
+<StackPane fx:id="root" maxWidth="-Infinity" prefHeight="799.0" prefWidth="600.0" style="-fx-background-color: white; -fx-background-radius: 0 10 0 10;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.BuyController">
    <children>
       <VBox StackPane.alignment="CENTER">
          <children>
@@ -137,65 +137,54 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
                         </FlowPane>
-                        <VBox layoutX="10.0" layoutY="10.0" spacing="5.0" VBox.vgrow="ALWAYS">
+                        <GridPane fx:id="actions" hgap="10.0" vgap="10.0">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                              <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
                            <children>
-                              <VBox prefHeight="36.0" prefWidth="560.0" spacing="10.0" VBox.vgrow="ALWAYS">
-                                 <children>
-                                          <GNTextBox id="search" fx:id="searchProfessional" fieldType="FILLED" leadIcon="SEARCH" minHeight="60.0" prefHeight="120.0" promptText="Procurar Profissional" style="-fx-border-radius: 0; -fx-min-height: 50;" trayAction="CLEAR" VBox.vgrow="ALWAYS">
-                                                   </GNTextBox>
-                                    <GNListView fx:id="professionalList" prefHeight="220.0" prefWidth="560.0" VBox.vgrow="ALWAYS" />
-                                 </children>
-                              </VBox>
-                              <GridPane fx:id="actions" hgap="10.0" vgap="10.0">
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
-                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
-                                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <GNButton buttonType="SEMI_ROUNDED" contentDisplay="TOP" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="180.0" style="-fx-pref-height: 50px;" styleClass="btn-mint" text="Proximo">
-                                       <graphic>
-                                          <SVGPath content="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="WHITE" />
-                                       </graphic>
-                                       <effect>
-                                          <ColorAdjust brightness="0.24" />
-                                       </effect>
-                                    </GNButton>
-                                    <GNButton fx:id="confirm" buttonType="SEMI_ROUNDED" contentDisplay="TOP" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#confirm" prefWidth="180.0" style="-fx-pref-height: 50px;" styleClass="btn-info" text="Confirmar" GridPane.columnIndex="1">
-                                       <graphic>
-                                          <SVGPath content="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="WHITE" />
-                                       </graphic>
-                                       <effect>
-                                          <ColorAdjust brightness="0.24" />
-                                       </effect>
-                                    </GNButton>
-                                    <GNButton fx:id="reset" buttonType="SEMI_ROUNDED" contentDisplay="TOP" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#reset" prefWidth="180.0" style="-fx-pref-height: 50px;" styleClass="btn-grapefruit" text="Resetar" GridPane.columnIndex="2">
-                                       <graphic>
-                                          <SVGPath content="M5 13h14v-2H5v2zm-2 4h14v-2H3v2zM7 7v2h14V7H7z" fill="WHITE" />
-                                       </graphic>
-                                       <effect>
-                                          <ColorAdjust brightness="0.24" />
-                                       </effect>
-                                    </GNButton>
-                                    <GNButton fx:id="close" buttonType="SEMI_ROUNDED" cancelButton="true" contentDisplay="TOP" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#close" prefWidth="180.0" style="-fx-pref-height: 50px;" styleClass="btn-deep-orange" text="Fechar" GridPane.columnIndex="3">
-                                       <graphic>
-                                          <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z" fill="WHITE" />
-                                       </graphic>
-                                       <effect>
-                                          <ColorAdjust brightness="0.24" />
-                                       </effect>
-                                    </GNButton>
-                                 </children>
-                              </GridPane>
+                              <GNButton buttonType="SEMI_ROUNDED" contentDisplay="TOP" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#next" prefWidth="180.0" style="-fx-pref-height: 50px;" styleClass="btn-mint" text="Proximo">
+                                 <graphic>
+                                    <SVGPath content="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="WHITE" />
+                                 </graphic>
+                                 <effect>
+                                    <ColorAdjust brightness="0.24" />
+                                 </effect>
+                              </GNButton>
+                              <GNButton fx:id="confirm" buttonType="SEMI_ROUNDED" contentDisplay="TOP" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#confirm" prefWidth="180.0" style="-fx-pref-height: 50px;" styleClass="btn-info" text="Confirmar" GridPane.columnIndex="1">
+                                 <graphic>
+                                    <SVGPath content="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="WHITE" />
+                                 </graphic>
+                                 <effect>
+                                    <ColorAdjust brightness="0.24" />
+                                 </effect>
+                              </GNButton>
+                              <GNButton fx:id="reset" buttonType="SEMI_ROUNDED" contentDisplay="TOP" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#reset" prefWidth="180.0" style="-fx-pref-height: 50px;" styleClass="btn-grapefruit" text="Resetar" GridPane.columnIndex="2">
+                                 <graphic>
+                                    <SVGPath content="M5 13h14v-2H5v2zm-2 4h14v-2H3v2zM7 7v2h14V7H7z" fill="WHITE" />
+                                 </graphic>
+                                 <effect>
+                                    <ColorAdjust brightness="0.24" />
+                                 </effect>
+                              </GNButton>
+                              <GNButton fx:id="close" blendMode="SRC_ATOP" buttonType="SEMI_ROUNDED" cache="true" cacheHint="QUALITY" cancelButton="true" contentDisplay="TOP" depthTest="ENABLE" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#close" prefWidth="180.0" style="-fx-pref-height: 50px;" styleClass="btn-deep-orange" text="Fechar" GridPane.columnIndex="3">
+                                 <graphic>
+                                    <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z" fill="WHITE" />
+                                 </graphic>
+                                 <effect>
+                                    <ColorAdjust brightness="0.24" />
+                                 </effect>
+                              </GNButton>
                            </children>
-                        </VBox>
+                        </GridPane>
                      </children>
                   </VBox>
                </children>

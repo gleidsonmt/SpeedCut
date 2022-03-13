@@ -38,7 +38,7 @@
     -gn-lead-icon : search;
 }
 
-.btn-outlined,
+.btn-outlined, .btn-out,
 .btn-flat:hover,
 .btn-flat
 {
@@ -84,6 +84,7 @@
   -fx-background-color : derive(-primary-color, 90%);
 }
 
+.btn-out,
 .btn-outlined {
     -fx-text-fill : -base;
     -fx-border-color : -base;
@@ -488,7 +489,7 @@
 
 /************************************************************************************
 *
-*               Backgrounds
+@-fx-background-color
 *
 *************************************************************************************/
 
@@ -539,6 +540,10 @@
     -fx-background-radius : 2px;
     -fx-border-radius : 2px;
     -fx-font-weight : bolder;
+}
+
+.deep-button .icon {
+    -fx-fill : white;
 }
 
 

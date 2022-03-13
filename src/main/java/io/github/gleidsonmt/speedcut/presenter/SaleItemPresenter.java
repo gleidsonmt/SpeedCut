@@ -17,22 +17,33 @@
 
 package io.github.gleidsonmt.speedcut.presenter;
 
+import io.github.gleidsonmt.speedcut.core.app.dao.AbstractDao;
 import io.github.gleidsonmt.speedcut.core.app.dao.DaoProduct;
+import io.github.gleidsonmt.speedcut.core.app.dao.DaoSaleItem;
 import io.github.gleidsonmt.speedcut.core.app.dao.DaoService;
+import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
 import io.github.gleidsonmt.speedcut.core.app.model.SaleItem;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  26/02/2022
  */
-public class SaleItemPresenter {
+public class SaleItemPresenter extends Presenter<SaleItem> {
 
-    private final DaoProduct daoProduct = new DaoProduct();
-    private final DaoService daoService = new DaoService();
+    private static final DaoSaleItem DAO_SALE_ITEM = new DaoSaleItem();
 
-//    public Task<ObservableList<SaleItem>> createSalesItems() {
-//        return daoService.populateAllTask();
-//   }
+    @Override
+    protected AbstractDao<SaleItem> getDao() {
+        return DAO_SALE_ITEM;
+    }
+
+    public boolean update(SaleItem saleItem) {
+        try {
+            createConnection();
+            return getDao().update(saleItem);
+        } catch (SQLQueryError e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

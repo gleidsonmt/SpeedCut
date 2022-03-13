@@ -17,9 +17,10 @@
 
 package io.github.gleidsonmt.speedcut.presenter;
 
+import io.github.gleidsonmt.speedcut.core.app.dao.AbstractDao;
 import io.github.gleidsonmt.speedcut.core.app.dao.DaoProduct;
+import io.github.gleidsonmt.speedcut.core.app.dao.DaoUser;
 import io.github.gleidsonmt.speedcut.core.app.model.Product;
-import io.github.gleidsonmt.speedcut.core.app.model.User;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 
@@ -27,21 +28,17 @@ import javafx.concurrent.Task;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  26/02/2022
  */
-public class ProductPresenter implements Presenter<Product> {
+public class ProductPresenter extends Presenter<Product> {
 
     private final DaoProduct dao = new DaoProduct();
 
-    @Override
-    public void store(Product model) {
-
+    public Product find(long id) {
+        return null;
     }
 
     @Override
-    public boolean persist() {
-        return false;
+    public AbstractDao<Product> getDao() {
+        return dao;
     }
 
-    public Task<ObservableList<Product>> createAllElements() {
-        return dao.populateAllTask();
-    }
 }

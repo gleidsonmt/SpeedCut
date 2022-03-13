@@ -17,37 +17,41 @@
 
 package io.github.gleidsonmt.speedcut.presenter;
 
+import io.github.gleidsonmt.speedcut.core.app.dao.AbstractDao;
 import io.github.gleidsonmt.speedcut.core.app.dao.DaoUser;
+import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
 import io.github.gleidsonmt.speedcut.core.app.model.User;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  22/02/2022
  */
-public class UserPresenter implements Presenter<User> {
-
-    private static final DaoUser dao = new DaoUser();
+public final class UserPresenter extends AbstractDao.Presenter<User> {
 
     public User find(long id) {
-       return dao.find(id);
+       return getDao().find(id);
     }
 
     public User find(String userName) {
-        return dao.find(userName);
+        return ((DaoUser) getDao()).find(userName);
     }
 
     public boolean validate(User user, String password) {
-        return dao.validate(user, password);
+        return ((DaoUser) getDao()).validate(user, password);
     }
 
     @Override
     public void store(User user) {
-        dao.store(user);
+        try {
+            getDao().store(user);
+        } catch (SQLQueryError e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public boolean persist() {
-        return dao.commit();
+    public AbstractDao<User> getDao() {
+        return new DaoUser();
     }
 
 }

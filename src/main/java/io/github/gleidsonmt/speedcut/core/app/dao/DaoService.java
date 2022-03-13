@@ -47,65 +47,7 @@ public class DaoService extends AbstractDao<Service> {
     private final String table = getClass().getSimpleName().replaceAll("Dao", "");
 
     @Override
-    public Service find(long id) {
-        // Find in elements
-        Optional<Service> result = elements.stream()
-                .filter(f -> f.getId() == id)
-                .findAny();
-        // return element in java array or find in sql server
-        return result.orElseGet(() -> findInServer(id));
-    }
-
-    public Service find(String name) {
-        Optional<Service> result = elements.stream()
-                .filter(f -> Objects.equals(f.getName(), name))
-                .findAny();
-        // return element in java array or find in sql server
-        return result.orElseGet(() -> findInServer(name));
-    }
-
-    // Find user in sql server
-    private Service findInServer(long id) {
-        connect();
-        executeSQL("select * from " + table + " where id like '" + id + "';");
-
-        ResultSet result = result();
-        Service element;
-        try {
-            if (result.first()) {
-                element = createElement(id, result);
-                elements.add(element);
-                return element;
-            } else return null;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            disconnect();
-        }
-        return null;
-    }
-
-    private Service findInServer(String name) {
-        connect();
-        executeSQL("select * from " + table + " where NAME like '" + name + "';");
-
-        ResultSet result = result();
-        Service element;
-        try {
-            if (result.first()) {
-                element = createElement(result.getInt("id"), result);
-                elements.add(element);
-                return element;
-            } else return null;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            disconnect();
-        }
-        return null;
-    }
-
-    private Service createElement(long id, ResultSet result) {
+    protected Service createElement(long id, ResultSet result) {
         Service element = new Service();
 
         try {
@@ -144,7 +86,6 @@ public class DaoService extends AbstractDao<Service> {
 
     @Override
     public void store(Service model)  {
-        connect();
         PreparedStatement prepare = prepare("insert into " + table + "(NAME, PRICE) values(?, ?);");
         try {
             prepare.setString(1, model.getName());
@@ -175,8 +116,6 @@ public class DaoService extends AbstractDao<Service> {
 //                    _p++;
 //                    store(service);
 //                }
-
-                connect();
 
                 executeSQL("select count(id) as count from " + table + ";");
                 ResultSet result = result();

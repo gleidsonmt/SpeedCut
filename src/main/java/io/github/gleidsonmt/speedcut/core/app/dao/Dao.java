@@ -26,11 +26,6 @@ import io.github.gleidsonmt.speedcut.core.app.model.Entity;
  */
 public interface Dao<T extends Entity> {
 
-    /**
-     * Find one Entity
-     * @param id id of entity;
-     * @return entity
-     */
     T find(long id);
 
     void store(T model) throws SQLQueryError;
@@ -38,5 +33,6 @@ public interface Dao<T extends Entity> {
     boolean update(T model) throws SQLQueryError;
 
     boolean delete(T model);
+
 
 }

@@ -17,9 +17,9 @@
 
 package io.github.gleidsonmt.speedcut.presenter;
 
+import io.github.gleidsonmt.speedcut.core.app.dao.AbstractDao;
 import io.github.gleidsonmt.speedcut.core.app.dao.DaoService;
-import io.github.gleidsonmt.speedcut.core.app.model.SaleItem;
-import io.github.gleidsonmt.speedcut.core.app.model.Service;
+import io.github.gleidsonmt.speedcut.core.app.dao.DaoUser;
 import io.github.gleidsonmt.speedcut.core.app.model.Service;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -28,18 +28,30 @@ import javafx.concurrent.Task;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  26/02/2022
  */
-public class ServicePresenter implements Presenter<Service> {
+public class ServicePresenter extends DaoUser.Presenter<Service> {
 
     private final DaoService dao = new DaoService();
+
+    public Service find(long id) {
+        return null;
+    }
 
     @Override
     public void store(Service model) {
         dao.store(model);
     }
 
-    @Override
-    public boolean persist() {
+    public boolean update(Service model) {
         return false;
+    }
+
+    public boolean delete(Service model) {
+        return false;
+    }
+
+    @Override
+    public AbstractDao<Service> getDao() {
+        return null;
     }
 
     public Task<ObservableList<Service>> createAllElements() {

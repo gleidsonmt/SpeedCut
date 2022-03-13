@@ -70,7 +70,6 @@ public class DaoProduct extends AbstractDao<Product> {
 
     // Find user in sql server
     private Product findInServer(long id) {
-        connect();
         executeSQL("select * from user where id like '" + id + "';");
 
         ResultSet result = result();
@@ -83,14 +82,11 @@ public class DaoProduct extends AbstractDao<Product> {
             } else return null;
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            disconnect();
         }
         return null;
     }
 
     private Product findInServer(String name) {
-        connect();
         executeSQL("select * from product where NAME like '" + name + "';");
 
         ResultSet result = result();
@@ -103,13 +99,12 @@ public class DaoProduct extends AbstractDao<Product> {
             } else return null;
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            disconnect();
         }
         return null;
     }
 
-    private Product createElement(long id, ResultSet result) {
+    @Override
+    protected Product createElement(long id, ResultSet result) {
         Product element = new Product();
 
         try {
@@ -126,7 +121,7 @@ public class DaoProduct extends AbstractDao<Product> {
         return element;
     }
 
-    private Node createDefaultAvatar(String name) {
+    protected Node createDefaultAvatar(String name) {
         List<String> colors = Arrays.asList(
                 "#4FC1E9", "#48CFAD", "#AA66CC",
                 "#FFA000", "#ED5565");
@@ -148,7 +143,6 @@ public class DaoProduct extends AbstractDao<Product> {
 
     @Override
     public void store(Product model)  {
-        connect();
         PreparedStatement prepare = prepare("insert into " + table + "(name, price) values(?, ?);");
         try {
             prepare.setString(1, model.getName());
@@ -160,7 +154,7 @@ public class DaoProduct extends AbstractDao<Product> {
 //        commit(); // only tests
     }
 
-    public Task<ObservableList<Product>> populateAllTask() {
+    public synchronized Task<ObservableList<Product>> populateAllTask() {
 
         return new Task<>() {
 
@@ -180,9 +174,9 @@ public class DaoProduct extends AbstractDao<Product> {
 //                    _p++;
 //                    store(service);
 //                }
-                connect();
 
-                executeSQL("select count(id) as count from product;");
+
+                executeSQL("select count(id) as count from " + table + ";");
                 ResultSet result = result();
 
                 try {
@@ -201,7 +195,6 @@ public class DaoProduct extends AbstractDao<Product> {
                 try {
                     while (result.next()) {
                         int id = result.getInt("ID");
-
                         if (elements.stream().noneMatch(f -> f.getId() == id)) {
                             elements.add(createElement(id, result));
                         }
@@ -209,8 +202,6 @@ public class DaoProduct extends AbstractDao<Product> {
                     }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
-                } finally {
-                    disconnect();
                 }
 
                 return elements.get();

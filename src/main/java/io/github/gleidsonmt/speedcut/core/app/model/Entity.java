@@ -26,7 +26,7 @@ import javafx.beans.property.StringProperty;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  28/12/2021
  */
-public class Entity extends Model {
+public class Entity extends Model  {
 
     private final BooleanProperty valid         = new SimpleBooleanProperty();
     private final StringProperty  error         = new SimpleStringProperty();
@@ -59,4 +59,12 @@ public class Entity extends Model {
         this.error.set(error);
     }
 
+
+    @Override
+    public String toString() {
+        return getName() != null ? getName() : "Entity{" +
+                "valid=" + valid +
+                ", error=" + error +
+                '}';
+    }
 }

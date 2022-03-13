@@ -17,7 +17,9 @@
 
 package io.github.gleidsonmt.speedcut.core.app.model;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 import java.math.BigDecimal;
@@ -26,19 +28,58 @@ import java.math.BigDecimal;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  26/02/2022
  */
-public class SaleItem extends Item {
+public class SaleItem extends Entity {
 
-    private ObjectProperty<BigDecimal> price = new SimpleObjectProperty<>();
+    private final IntegerProperty quantity = new SimpleIntegerProperty();
+    private final ObjectProperty<BigDecimal> total = new SimpleObjectProperty<>();
+    private final ObjectProperty<Sale> sale = new SimpleObjectProperty<>();
+    private final ObjectProperty<Item> item = new SimpleObjectProperty<>();
 
-    public BigDecimal getPrice() {
-        return price.get();
+    public int getQuantity() {
+        return quantity.get();
     }
 
-    public ObjectProperty<BigDecimal> priceProperty() {
-        return price;
+    public IntegerProperty quantityProperty() {
+        return quantity;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price.set(price);
+    public void setQuantity(int quantity) {
+        this.quantity.set(quantity);
+    }
+
+    public BigDecimal getTotal() {
+        return total.get();
+    }
+
+    public ObjectProperty<BigDecimal> totalProperty() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total.set(total);
+    }
+
+    public Item getItem() {
+        return item.get();
+    }
+
+    public ObjectProperty<Item> itemProperty() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item.set(item);
+    }
+
+    public Sale getSale() {
+        return sale.get();
+    }
+
+    public ObjectProperty<Sale> saleProperty() {
+        return sale;
+    }
+
+    public void setSale(Sale sale) {
+        this.sale.set(sale);
     }
 }

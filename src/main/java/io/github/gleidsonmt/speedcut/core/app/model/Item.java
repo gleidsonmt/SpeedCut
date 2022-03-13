@@ -20,6 +20,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 
+import java.math.BigDecimal;
+
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  25/12/2020
@@ -28,6 +30,8 @@ import javafx.scene.Node;
 public class Item extends Entity {
 
     private ObjectProperty<Node> avatar = new SimpleObjectProperty<>();
+
+    private final ObjectProperty<BigDecimal> price = new SimpleObjectProperty<>();
 
     public Node getAvatar() {
         return avatar.get();
@@ -39,5 +43,17 @@ public class Item extends Entity {
 
     public void setAvatar(Node avatar) {
         this.avatar.set(avatar);
+    }
+
+    public BigDecimal getPrice() {
+        return price.get();
+    }
+
+    public ObjectProperty<BigDecimal> priceProperty() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price.set(price);
     }
 }

@@ -35,9 +35,6 @@ import java.util.Optional;
  */
 public final class DaoCompany extends AbstractDao<Company> {
 
-//    private final DaoProfessional   daoProfessional = DaoProfessional.getInstance();
-//    private final DaoClient         daoClient       = DaoClient.getInstance();
-
     private static final ListProperty<Company> elements =
             new SimpleListProperty<>(FXCollections.observableArrayList());
 
@@ -112,7 +109,8 @@ public final class DaoCompany extends AbstractDao<Company> {
         };
     }
 
-    private @NotNull Company createElement(long id, ResultSet result) {
+    @Override
+    protected @NotNull Company createElement(long id, ResultSet result) {
         Company element = new Company();
 
 //        try {
@@ -125,6 +123,11 @@ public final class DaoCompany extends AbstractDao<Company> {
 //        }
 
         return element;
+    }
+
+    @Override
+    public Task<ObservableList<Company>> populateAllTask() {
+        return null;
     }
 }
 

@@ -17,59 +17,52 @@
 
 package io.github.gleidsonmt.speedcut.core.app.factory;
 
+import io.github.gleidsonmt.speedcut.core.app.factory.AvatarCreator;
 import io.github.gleidsonmt.speedcut.core.app.model.Entity;
 import io.github.gleidsonmt.speedcut.core.app.model.Item;
-import io.github.gleidsonmt.speedcut.core.app.model.Product;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.image.ImageView;
 import javafx.util.Callback;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  26/02/2022
+ * Create on  04/03/2022
  */
-public class ListWithGraphicFactory<T extends Item> implements Callback<ListView<T>, ListCell<T>> {
+public class AvatarColumnFactory<T extends Entity, S extends Item> implements Callback<TableColumn<T, S>, TableCell<T, S>> {
 
     @Override
-    public ListCell<T> call(ListView param) {
-        return new ListCell<>(){
-
+    public TableCell<T, S> call(TableColumn<T, S> param) {
+        return new TableCell<>(){
             @Override
-            protected void updateItem(T item, boolean empty) {
+            protected void updateItem(S item, boolean empty) {
                 super.updateItem(item, empty);
                 if (item != null) {
                     setText(item.getName());
+                    setAlignment(Pos.CENTER_LEFT);
                     setId("badge-cell");
                     setGraphic(null);
-//                    setGraphic(item.getAvatar());
+
                     AvatarCreator creator = new AvatarCreator(item.getName(), item.getAvatar().getStyle());
                     setGraphic(creator);
 
                     item.getAvatar().setMouseTransparent(true);
                     setStyle(item.getAvatar().getStyle());
-
-                    item.getAvatar().setMouseTransparent(true);
-                    setStyle(item.getAvatar().getStyle());
-                    setGraphicTextGap(15);
+                    setGraphicTextGap(10);
                     setItem(item);
+                    getStyleClass().addAll("border", "border-l-1");
+//                    getTableRow().setStyle(creator.getStyle());
+//                    getTableRow().setId("table-row-custom");
 
                 } else {
 
                     setItem(null);
                     setGraphic(null);
                     setText(null);
+                    getStyleClass().removeAll("border", "border-l-1");
+                    setStyle(null);
 
                 }
             }

@@ -21,6 +21,7 @@ import io.github.gleidsonmt.gncontrols.GNButton;
 import io.github.gleidsonmt.gncontrols.GNListView;
 import io.github.gleidsonmt.gncontrols.GNTextBox;
 import io.github.gleidsonmt.speedcut.core.app.animations.Animations;
+import io.github.gleidsonmt.speedcut.presenter.ProfessionalPresenter;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
 import io.github.gleidsonmt.speedcut.core.app.factory.ListWithGraphicFactory;
 import io.github.gleidsonmt.speedcut.core.app.factory.LoadPlaceholder;
@@ -29,16 +30,15 @@ import io.github.gleidsonmt.speedcut.core.app.model.*;
 import io.github.gleidsonmt.speedcut.core.app.util.MoneyUtil;
 import io.github.gleidsonmt.speedcut.core.app.view.ActionViewController;
 import io.github.gleidsonmt.speedcut.presenter.ProductPresenter;
-import io.github.gleidsonmt.speedcut.presenter.ProfessionalPresenter;
 import io.github.gleidsonmt.speedcut.presenter.ServicePresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
 import java.math.BigDecimal;
@@ -53,7 +53,7 @@ import java.util.ResourceBundle;
 public class BuyController implements ActionViewController {
 
     @FXML private StackPane root;
-    @FXML private GNListView listItems;
+    @FXML private GNListView<Item> listItems;
     @FXML private GNListView professionalList;
     @FXML private ToggleGroup itemType;
     @FXML private RadioButton radioProduct;
@@ -76,8 +76,13 @@ public class BuyController implements ActionViewController {
     @FXML private GNButton confirm;
     @FXML private GNButton close;
 
-    private final ObservableList<Entity> items = FXCollections.observableArrayList();
-    private FilteredList<Entity> filteredSaleItems = new FilteredList<>(items, p -> true);
+    @FXML private Label newItem;
+
+    private final ObservableList<Item> items = FXCollections.observableArrayList();
+    private final FilteredList<Item> filteredSaleItems = new FilteredList<>(items, p -> true);
+
+    private SalesController salesController = null;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -114,7 +119,7 @@ public class BuyController implements ActionViewController {
 
         listItems.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                calculate(  ((SaleItem) newValue).getPrice());
+                calculate(  ((Item) newValue).getPrice());
             }
         });
 
@@ -147,7 +152,7 @@ public class BuyController implements ActionViewController {
 
     private void calculate() {
         if (listItems.getSelectionModel().getSelectedItem() != null) {
-            calculate(((SaleItem) listItems.getSelectionModel().getSelectedItem()).getPrice());
+            calculate(((Item) listItems.getSelectionModel().getSelectedItem()).getPrice());
         }
     }
 
@@ -181,29 +186,31 @@ public class BuyController implements ActionViewController {
     @Override
     @SuppressWarnings("unchecked")
     public void onEnter() {
+
+        if (salesController == null) salesController = (SalesController) window.getViews().getControllerFrom("sales");
+
         if (!init) {
             init = true;
             if (itemType.getSelectedToggle().equals(radioService)) {
                 populateServices();
             } else {
                 populateProducts();
+//                populateProducts().addEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, e -> populateProfessionals());
             }
-            populateProfessionals();
-            confirm.setDefaultButton(true);
-            close.setCancelButton(true);
+//            populateProfessionals();
             searchItem.getEditor().clear();
             listItems.setCellFactory(new ListWithGraphicFactory());
-            professionalList.setCellFactory(new ListWithGraphicFactory());
+//            professionalList.setCellFactory(new ListWithGraphicFactory());
         }
 
+        searchItem.requestFocus();
     }
 
     @Override
     public void onExit() {
-        confirm.setDefaultButton(false);
     }
 
-    private void populateServices() {
+    private Task<ObservableList<Service>> populateServices() {
 
         Task<ObservableList<Service>> populate = new ServicePresenter().createAllElements();
 
@@ -228,14 +235,17 @@ public class BuyController implements ActionViewController {
             listItems.setPlaceholder(new Label("Itens não encontrados."));
 
         });
+
+
+        return populate;
     }
 
-    private void populateProducts() {
+    private  Task<ObservableList<Product>> populateProducts() {
 
         Task<ObservableList<Product>> populate = new ProductPresenter().createAllElements();
 
         Thread thread = new Thread(populate);
-        thread.setName("Loading data table [Professional]");
+        thread.setName("Loading data table [Products]");
         thread.setPriority(1);
         thread.start();
 
@@ -255,6 +265,8 @@ public class BuyController implements ActionViewController {
             listItems.setPlaceholder(new Label("Itens não encontrados."));
 
         });
+
+        return populate;
     }
 
     private void populateProfessionals() {
@@ -274,7 +286,7 @@ public class BuyController implements ActionViewController {
 
         Thread thread = new Thread(populate);
         thread.setName("Loading data table [Professional]");
-        thread.setPriority(1);
+        thread.setPriority(2);
         thread.start();
 
         populate.setOnRunning(event -> {
@@ -283,7 +295,6 @@ public class BuyController implements ActionViewController {
         });
 
         populate.setOnSucceeded(event -> {
-
             for (Professional product : populate.getValue()) {
                 professionalItems.add(product);
                 professionalList.getSelectionModel().selectFirst();
@@ -292,12 +303,27 @@ public class BuyController implements ActionViewController {
             professionalList.setPlaceholder(new Label("Itens não encontrados."));
 
         });
+
     }
 
     @FXML
     private void confirm() {
-        System.out.println("button confirm fire!");
-        window.getRoot().openSnackBar("Item " + ((SaleItem) listItems.getSelectionModel().getSelectedItem()).getName() + " adicionado!", true, Root.SnackType.DONE);
-
+        next();
+        window.getRoot().getWrapper().closePopup();
     }
+
+    @FXML
+    private void next() {
+//        window.getRoot().openSnackBar("Item " + listItems.getSelectionModel().getSelectedItem().getName() + " adicionado!", true, Root.SnackType.DONE);
+
+        SaleItem saleItem = new SaleItem();
+        saleItem.setItem(listItems.getSelectionModel().getSelectedItem());
+        saleItem.setQuantity(Integer.parseInt(quantField.getText()));
+        saleItem.setTotal(MoneyUtil.get(total.getText()));
+//
+        BigDecimal ac = MoneyUtil.get(total.getText());
+
+        salesController.addSaleItem(saleItem);
+    }
+
 }

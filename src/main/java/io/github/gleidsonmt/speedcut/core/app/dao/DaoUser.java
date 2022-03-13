@@ -18,12 +18,14 @@
 package io.github.gleidsonmt.speedcut.core.app.dao;
 
 import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
+import io.github.gleidsonmt.speedcut.core.app.model.Entity;
 import io.github.gleidsonmt.speedcut.core.app.model.User;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -37,7 +39,7 @@ import java.util.Optional;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  14/02/2022
  */
-public class DaoUser extends AbstractDao<User> {
+public final class DaoUser extends AbstractDao<User> {
 
     private static final ListProperty<User> elements =
             new SimpleListProperty<>(FXCollections.observableArrayList());
@@ -109,7 +111,8 @@ public class DaoUser extends AbstractDao<User> {
         return null;
     }
 
-    private User createElement(long id, ResultSet result) {
+    @Override
+    protected User createElement(long id, ResultSet result) {
         User element = new User();
 
         try {
@@ -145,6 +148,11 @@ public class DaoUser extends AbstractDao<User> {
         }
     }
 
+    @Override
+    public Task<ObservableList<User>> populateAllTask() {
+        return null;
+    }
+
     public String createSecurePassword(String password, byte[] salt) {
 
         String generatedPassword = null;
@@ -169,4 +177,5 @@ public class DaoUser extends AbstractDao<User> {
         random.nextBytes(salt);
         return salt;
     }
+
 }

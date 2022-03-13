@@ -37,22 +37,25 @@
     -fx-background-color : -light-gray, -medium-gray;
 }
 
+.table-cell #custom-avatar .text,
 .list-cell #custom-avatar .text {
     -fx-fill : white;
 }
 
+.table-cell #custom-avatar,
 .list-cell #custom-avatar {
     -fx-font-weight : bold;
     -fx-font-size : 14pt;
 }
 
+.table-cell #custom-avatar,
 .list-cell #custom-avatar {
     -fx-background-radius : 100px;
     -fx-background-color : -base;
     -fx-border-width : 2px;
     -fx-border-radius : 100px;
     -fx-border-color : white;
-  -fx-effect: dropshadow( gaussian , rgba(0,0,0,.3) , 10, 0 , 0 , 2 );
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,.2) , 10, 0 , 0 , 1 );
 }
 
 .list-cell:focused #custom-avatar {
@@ -60,12 +63,15 @@
 }
 
 .list-cell:focused:hover #custom-avatar,
+.table-cell:focused:hover #custom-avatar,
+.table-cell:hover #custom-avatar,
 .list-cell:hover #custom-avatar {
      -fx-border-color : -base;
      -fx-background-color : white;
 
 }
 
+.table-cell:hover #custom-avatar .text,
 .list-cell:hover #custom-avatar .text {
     -fx-fill : -base;
 }
@@ -76,13 +82,30 @@
     -fx-padding : 0 0 0 20;
 }
 
+.snack-bar .snack-button  {
+    -fx-text-fill : white;
+}
 
+.snack-bar .snack-button .text {
+    -fx-fill : white;
+}
 
+.snack-bar .snack-button:hover .text,
+.snack-bar .snack-button:focused:hover .text,
+.snack-bar .snack-button:focused .text,
+.snack-bar .snack-button:pressed:hover .text,
+.snack-bar .snack-button:pressed {
+    -fx-text-fill : -base;
+    -fx-fill : -base;
+}
 
-
-
-
-
+.snack-bar .snack-button {
+    -fx-background-color : -base;
+    -fx-border-color : white;
+    -fx-text-fill : white;
+    -gn-background-transition : white;
+    -gn-text-transition : -base;
+}
 
 
 

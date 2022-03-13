@@ -58,6 +58,7 @@ public class DataConnection {
 
     public void init() {
         try {
+
             System.setProperty("jdbc.Driver", driver);
             Class.forName(driver).getDeclaredConstructor().newInstance();
             connection = DriverManager.getConnection(url, user, password);
@@ -68,19 +69,20 @@ public class DataConnection {
         }
     }
 
+    @Deprecated
     public boolean close() {
-        try {
-            if ((this.getResult() != null) && (this.statement != null)) {
-                this.getResult().close();
-                this.statement.close();
-            }
-            this.getConnection().close();
-            connection.close();
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+//        try {
+//            if ((this.getResult() != null) && (this.statement != null)) {
+//                this.getResult().close();
+//                this.statement.close();
+//            }
+//            connection.close();
+//            connection.close();
+//            return true;
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
             return false;
-        }
+//        }
     }
 
     public int insertSQL(String sql) {
@@ -100,7 +102,7 @@ public class DataConnection {
         }
     }
 
-    public synchronized boolean executeSQL(String SQL) throws SQLException {
+    public boolean executeSQL(String SQL) throws SQLException {
         try {
             this.setStatement(getConnection().createStatement());
             this.setResult(getStatement().executeQuery(SQL));
@@ -109,7 +111,6 @@ public class DataConnection {
             System.err.println("Error : " + ex);
             ex.printStackTrace();
             return false;
-        } finally {
         }
     }
 

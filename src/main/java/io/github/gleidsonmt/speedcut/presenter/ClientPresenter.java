@@ -18,8 +18,11 @@
 package io.github.gleidsonmt.speedcut.presenter;
 
 import io.github.gleidsonmt.speedcut.core.app.dao.AbstractDao;
-import io.github.gleidsonmt.speedcut.core.app.dao.DaoProfessional;
-import io.github.gleidsonmt.speedcut.core.app.model.Professional;
+import io.github.gleidsonmt.speedcut.core.app.dao.DaoClient;
+import io.github.gleidsonmt.speedcut.core.app.dao.DaoSale;
+import io.github.gleidsonmt.speedcut.core.app.dao.DaoService;
+import io.github.gleidsonmt.speedcut.core.app.model.Client;
+import io.github.gleidsonmt.speedcut.core.app.model.Sale;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 
@@ -27,17 +30,17 @@ import javafx.concurrent.Task;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  02/03/2022
  */
-public final class ProfessionalPresenter extends Presenter<Professional> {
+public class ClientPresenter extends Presenter<Client> {
 
-    private static final DaoProfessional dao = new DaoProfessional();
+    private static final DaoClient dao = new DaoClient();
 
     @Override
-    protected AbstractDao<Professional> getDao() {
+    protected AbstractDao<Client> getDao() {
         return dao;
     }
 
-    @Override
-    public Task<ObservableList<Professional>> createAllElements() {
-        return getDao().populateAllTask();
+    public ObservableList<Client> getElements() {
+        return dao.getElements();
     }
+
 }

@@ -29,3 +29,9 @@
   name : register
   directory : register
   fxml : register.fxml
+
+- !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
+  title : Sale
+  name : sale
+  directory : sales
+  fxml : sale.fxml

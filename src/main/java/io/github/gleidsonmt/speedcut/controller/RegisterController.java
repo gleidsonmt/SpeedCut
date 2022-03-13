@@ -18,14 +18,13 @@ package io.github.gleidsonmt.speedcut.controller;
 
 import io.github.gleidsonmt.gncontrols.GNPasswordBox;
 import io.github.gleidsonmt.gncontrols.GNTextBox;
-import io.github.gleidsonmt.speedcut.core.app.Global;
 import io.github.gleidsonmt.speedcut.core.app.animations.Animations;
 import io.github.gleidsonmt.speedcut.core.app.controller.Masks;
+import io.github.gleidsonmt.speedcut.core.app.dao.AbstractDao;
+import io.github.gleidsonmt.speedcut.presenter.UserPresenter;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
 import io.github.gleidsonmt.speedcut.core.app.model.User;
 import io.github.gleidsonmt.speedcut.core.app.view.ResponsiveView;
-import io.github.gleidsonmt.speedcut.presenter.Presenter;
-import io.github.gleidsonmt.speedcut.presenter.UserPresenter;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
@@ -107,7 +106,7 @@ public class RegisterController extends ResponsiveView  {
         if (list.size() > 0 ) {
             list.forEach(Animations::errorOnTextBox);
         } else {
-            Presenter<User> presenter = new UserPresenter();
+            AbstractDao.Presenter<User> presenter = new UserPresenter();
             presenter.store(user);
             if (presenter.persist()) window.navigate("sales");
             ;

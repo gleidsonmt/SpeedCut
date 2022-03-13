@@ -17,12 +17,82 @@
 
 package io.github.gleidsonmt.speedcut.core.app.model;
 
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.math.BigDecimal;
+
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  25/02/2022
  */
 public class Sale extends Entity {
 
+    private final ObjectProperty<BigDecimal> discount = new SimpleObjectProperty<>();
+    private final ObjectProperty<Professional> professional = new SimpleObjectProperty<>();
+    private final ObjectProperty<Client> client = new SimpleObjectProperty<>();
 
+    private final ListProperty<SaleItem> saleItems = new SimpleListProperty<>();
 
+    public Professional getProfessional() {
+        return professional.get();
+    }
+
+    public ObjectProperty<Professional> professionalProperty() {
+        return professional;
+    }
+
+    public void setProfessional(Professional professional) {
+        this.professional.set(professional);
+    }
+
+    public Client getClient() {
+        return client.get();
+    }
+
+    public ObjectProperty<Client> clientProperty() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client.set(client);
+    }
+
+    public ObservableList<SaleItem> getSaleItems() {
+        return saleItems.get();
+    }
+
+    public ListProperty<SaleItem> saleItemsProperty() {
+        return saleItems;
+    }
+
+    public void setSaleItems(ObservableList<SaleItem> saleItems) {
+        this.saleItems.set(saleItems);
+    }
+
+    public BigDecimal getDiscount() {
+        return discount.get();
+    }
+
+    public ObjectProperty<BigDecimal> discountProperty() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount.set(discount);
+    }
+
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "id=" + getId() +
+                "professional=" + professional +
+                ", client=" + client +
+                ", saleItems=" + saleItems +
+                '}';
+    }
 }
