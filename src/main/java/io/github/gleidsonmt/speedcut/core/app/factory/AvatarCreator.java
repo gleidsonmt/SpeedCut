@@ -17,16 +17,24 @@
 
 package io.github.gleidsonmt.speedcut.core.app.factory;
 
+import io.github.gleidsonmt.gncontrols.options.model.Model;
+import io.github.gleidsonmt.speedcut.core.app.model.Item;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.TextAlignment;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -35,39 +43,94 @@ import java.util.Random;
  */
 public class AvatarCreator extends Label {
 
+    public static Label createDefaultAvatar(Model model) {
+       return createDefaultAvatar(model.getName());
+    }
+
+    public static Label createDefaultAvatar(String name) {
+        return createDefaultAvatar(name, 35);
+    }
 
 
-    public AvatarCreator(String name) {
+    public static Label createDefaultAvatar(String name, double radius) {
+        return createDefaultAvatar(name, radius,2, 12);
+    }
+
+    public static Label createDefaultAvatar(String name, double radius, double borderWidth, double textSize) {
+        Label label = new Label();
         List<String> colors = Arrays.asList(
                 "#4FC1E9", "#48CFAD", "#AA66CC",
                 "#FFA000", "#ED5565");
-        setText(name.substring(0,1));
+        label.setText(name.substring(0,1));
 
         Random random = new Random();
 
-        setPrefSize(35, 35);
-        setContentDisplay(ContentDisplay.CENTER);
-        setTextAlignment(TextAlignment.CENTER);
-        setAlignment(Pos.CENTER);
+        label.setPrefSize(radius * 2, radius * 2);
+        label.setContentDisplay(ContentDisplay.CENTER);
+        label.setTextAlignment(TextAlignment.CENTER);
+        label.setAlignment(Pos.CENTER);
 
-        setId("custom-avatar");
+        label.setId("custom-avatar");
 
-        setStyle("-base : " +
+        label.setStyle("-fx-font-size : " + textSize + ";" +
+                "-fx-border-width : " + borderWidth + ";" +
+                "-base : " +
                 colors.get(random.nextInt(colors.size())) +";");
+        return label;
     }
 
-    public AvatarCreator(String name, String style) {
-        setMouseTransparent(true);
-        setText(name.substring(0,1));
 
-        setPrefSize(35, 35);
-        setContentDisplay(ContentDisplay.CENTER);
-        setTextAlignment(TextAlignment.CENTER);
-        setAlignment(Pos.CENTER);
-
-        setId("custom-avatar");
-
-        setStyle(style);
+    public static Circle createAvatar(Item item) {
+        String path = "/io.github.gleidsonmt.speedcut.core.app/";
+        String imgPath = Objects.requireNonNull(AvatarCreator.class.getResource(path + item.getAvatar())).toExternalForm();
+        Image image = new Image(imgPath, 90, 0, true, false);
+        return createAvatar(image);
     }
 
+    public static Circle createAvatar(Item item, Color borderColor) {
+        String path = "/io.github.gleidsonmt.speedcut.core.app/";
+        String imgPath = Objects.requireNonNull(AvatarCreator.class.getResource(path + item.getAvatar())).toExternalForm();
+        Image image = new Image(imgPath, 90, 0, true, false);
+        return createAvatar(image, borderColor);
+    }
+
+    public static Circle createAvatar(Item item, Color borderColor, double borderWidth, double radius,  double width, double height, boolean preserverRatio, boolean smooth) {
+        String path = "/io.github.gleidsonmt.speedcut.core.app/";
+        String imgPath = Objects.requireNonNull(AvatarCreator.class.getResource(path + item.getAvatar())).toExternalForm();
+        Image image = new Image(imgPath, width, height, preserverRatio, smooth);
+        return createAvatar(image, borderColor, borderWidth, radius);
+    }
+
+    public static Circle createAvatar(Image image) {
+        Circle circle = new Circle();
+        circle.setRadius(18);
+        circle.setStrokeWidth(2);
+        circle.setStroke(Color.WHITE);
+        circle.setEffect(new DropShadow(5, Color.gray(0.8)));
+
+        circle.setFill(new ImagePattern(image));
+        return circle;
+    }
+
+    public static Circle createAvatar(Image image, Color borderColor) {
+        Circle circle = new Circle();
+        circle.setRadius(18);
+        circle.setStrokeWidth(2);
+        circle.setStroke(borderColor);
+        circle.setEffect(new DropShadow(5, Color.gray(0.8)));
+
+        circle.setFill(new ImagePattern(image));
+        return circle;
+    }
+
+    public static Circle createAvatar(Image image, Color borderColor, double borderWidth, double radius) {
+        Circle circle = new Circle();
+        circle.setRadius(radius);
+        circle.setStrokeWidth(borderWidth);
+        circle.setStroke(borderColor);
+        circle.setEffect(new DropShadow(5, Color.gray(0.8)));
+
+        circle.setFill(new ImagePattern(image));
+        return circle;
+    }
 }

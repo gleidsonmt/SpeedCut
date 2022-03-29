@@ -15,43 +15,37 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.core.app.factory;
+package io.github.gleidsonmt.speedcut.core.app.factory.row;
 
-import io.github.gleidsonmt.speedcut.core.app.model.Entity;
-import io.github.gleidsonmt.speedcut.core.app.model.Item;
-import io.github.gleidsonmt.speedcut.core.app.util.MoneyUtil;
-import javafx.geometry.Pos;
-import javafx.scene.control.TableCell;
+import io.github.gleidsonmt.speedcut.controller.SalesController;
+import io.github.gleidsonmt.speedcut.core.app.model.Sale;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.util.Callback;
-
-import java.math.BigDecimal;
-
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  04/03/2022
+ * Create on  28/03/2022
  */
-public class MoneyColumnFactory<T extends Entity> implements Callback<TableColumn<T, BigDecimal>, TableCell<T, BigDecimal>> {
+public record SaleRowFactory(SalesController controller)
+        implements Callback<TableView<Sale>, TableRow<Sale>> {
+
 
     @Override
-    public TableCell<T, BigDecimal> call(TableColumn<T, BigDecimal> param) {
-        return new TableCell<>(){
+    public TableRow<Sale> call(TableView<Sale> param) {
+        return new TableRow<>(){
             @Override
-            protected void updateItem(BigDecimal item, boolean empty) {
+            protected void updateItem(Sale item, boolean empty) {
                 super.updateItem(item, empty);
+
                 if (item != null) {
-                    setText(MoneyUtil.format(item));
-                    getStyleClass().addAll("border", "border-l-1");
-
+                    setOnMouseClicked(event -> {
+                        if (event.getClickCount() == 2)
+                            controller.goTableSalesItem();
+                    });
                 } else {
-
                     setItem(null);
-                    setGraphic(null);
-                    setText(null);
-                    getStyleClass().removeAll("border", "border-l-1");
-                    setStyle(null);
-
                 }
             }
         };

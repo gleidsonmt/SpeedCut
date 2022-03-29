@@ -15,46 +15,34 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.core.app.factory;
+package io.github.gleidsonmt.speedcut.core.app.factory.column;
 
-import io.github.gleidsonmt.speedcut.core.app.factory.AvatarCreator;
 import io.github.gleidsonmt.speedcut.core.app.model.Entity;
 import io.github.gleidsonmt.speedcut.core.app.model.Item;
+import io.github.gleidsonmt.speedcut.core.app.util.MoneyUtil;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.image.ImageView;
 import javafx.util.Callback;
+
+import java.math.BigDecimal;
 
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  04/03/2022
  */
-public class AvatarColumnFactory<T extends Entity, S extends Item> implements Callback<TableColumn<T, S>, TableCell<T, S>> {
+public class MoneyColumnFactory<T extends Entity> implements Callback<TableColumn<T, BigDecimal>, TableCell<T, BigDecimal>> {
 
     @Override
-    public TableCell<T, S> call(TableColumn<T, S> param) {
+    public TableCell<T, BigDecimal> call(TableColumn<T, BigDecimal> param) {
         return new TableCell<>(){
             @Override
-            protected void updateItem(S item, boolean empty) {
+            protected void updateItem(BigDecimal item, boolean empty) {
                 super.updateItem(item, empty);
                 if (item != null) {
-                    setText(item.getName());
-                    setAlignment(Pos.CENTER_LEFT);
-                    setId("badge-cell");
-                    setGraphic(null);
-
-                    AvatarCreator creator = new AvatarCreator(item.getName(), item.getAvatar().getStyle());
-                    setGraphic(creator);
-
-                    item.getAvatar().setMouseTransparent(true);
-                    setStyle(item.getAvatar().getStyle());
-                    setGraphicTextGap(10);
-                    setItem(item);
+                    setText(MoneyUtil.format(item));
                     getStyleClass().addAll("border", "border-l-1");
-//                    getTableRow().setStyle(creator.getStyle());
-//                    getTableRow().setId("table-row-custom");
 
                 } else {
 

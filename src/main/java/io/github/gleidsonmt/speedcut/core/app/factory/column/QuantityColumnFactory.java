@@ -15,8 +15,9 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.core.app.factory;
+package io.github.gleidsonmt.speedcut.core.app.factory.column;
 
+import animatefx.animation.*;
 import io.github.gleidsonmt.gncontrols.GNFloatingButton;
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
@@ -39,6 +40,7 @@ import javafx.scene.layout.Region;
 import javafx.util.Callback;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -98,6 +100,14 @@ public class QuantityColumnFactory<S extends SaleItem> implements Callback<Table
                     plus.setStyle("-fx-border-radius : 100px; -fx-background-radius : 100px;");
                     setGraphic(container);
 
+                    plus.setOnMouseEntered(event -> {
+                        new Tada(plus).play();
+                    });
+
+                    minus.setOnMouseEntered(event -> {
+                        new Tada(minus).play();
+                    });
+
                     plus.setOnAction(event -> {
                         getTableView().getSelectionModel().select(getTableRow().getItem());
                         getTableRow().getItem().setQuantity(Integer.parseInt(count.getText()) + 1);
@@ -105,15 +115,10 @@ public class QuantityColumnFactory<S extends SaleItem> implements Callback<Table
                         salePresenter.update(getTableRow().getItem());
                         salePresenter.persist();
 
-                        updateValues();
+                        updateValues(getTableRow().getItem().getDiscount());
 
-                        BigDecimal first = MoneyUtil.get(lbl.getText());
-                        lbl.setText(
-                                MoneyUtil.format(first.add(
-                                        getTableRow().getItem().getItem().getPrice()
+                        sumOrSub(true, MoneyUtil.get(lbl.getText()));
 
-                                ))
-                        );
                     });
 
                     minus.setOnAction(event -> {
@@ -123,17 +128,29 @@ public class QuantityColumnFactory<S extends SaleItem> implements Callback<Table
                         salePresenter.update(getTableRow().getItem());
                         salePresenter.persist();
 
-                        updateValues();
+                        updateValues(getTableRow().getItem().getDiscount());
+                        sumOrSub(false, MoneyUtil.get(lbl.getText()));
 
-                        BigDecimal first = MoneyUtil.get(lbl.getText());
-                        lbl.setText(
-                                MoneyUtil.format(first.subtract(
-                                        getTableRow().getItem().getItem().getPrice()
-
-                                ))
-                        );
 
                     });
+
+//                    if (getTableRow().getItem() != null) {
+//                        getTableRow().getItem().discountProperty().addListener((observable, oldValue, newValue) -> {
+//                            if (getTableRow().getItem() != null) {
+//
+//                                System.out.println("newValue = " + newValue);
+//                                if (newValue != null) {
+//                                    if (!newValue.equals(BigDecimal.ZERO)) {
+//                                        getTableRow().getStyleClass().add("table-row-discount");
+//                                        getTableRow().setStyle("-base : -secondary; -primary-color : -secondary;");
+//                                    }
+//
+//                                }
+//                                updateValues(newValue);
+//                            }
+//
+//                        });
+//                    }
 
                 } else {
                     setText(null);
@@ -144,15 +161,41 @@ public class QuantityColumnFactory<S extends SaleItem> implements Callback<Table
                 }
             }
 
-            private void updateValues() {
+            private void updateValues(BigDecimal discount) {
+
                 getTableRow().getItem().setTotal(
                         new BigDecimal(getTableRow().getItem().getQuantity()).multiply(
-                                getTableRow().getItem().getItem().getPrice())
+                                getTableRow().getItem().getItem().getPrice().subtract(discount))
                 );
 
-                lbl_value.setText(
-                        MoneyUtil.format(getTableRow().getItem().getTotal())
-                );
+                lbl_value.setText(MoneyUtil.format(getTableRow().getItem().getTotal()));
+
+                BigDecimal _totalDiscount =
+                        getTableRow().getItem().getDiscount().multiply(
+                        BigDecimal.valueOf(getTableRow().getItem().getQuantity()));
+
+                BigDecimal _total = MoneyUtil.get(lbl.getText());
+                lbl.setText(MoneyUtil.format(_total.subtract(_totalDiscount)));
+            }
+
+            private void sumOrSub(boolean value, BigDecimal first) {
+                if (value) {
+                    lbl.setText(
+                            MoneyUtil.format(first.add(
+                                    getTableRow().getItem().getItem().getPrice().subtract(
+                                            getTableRow().getItem().getDiscount()
+                                    )
+
+                            ))
+                    );
+                } else {
+                    MoneyUtil.format(first.subtract(
+                            getTableRow().getItem().getItem().getPrice().subtract(
+                                    getTableRow().getItem().getDiscount()
+                            )
+
+                    ));
+                }
             }
 
             private void updateLbl() {
