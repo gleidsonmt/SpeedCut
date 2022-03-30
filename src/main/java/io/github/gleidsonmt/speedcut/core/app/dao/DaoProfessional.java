@@ -52,12 +52,27 @@ public final class DaoProfessional extends AbstractDao<Professional> {
             element.setId( (int) id);
             element.setName(result.getString("NAME"));
 
-            element.setAvatar(new AvatarCreator(element.getName()));
+            element.setAvatar(result.getString("IMG_PATH"));
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
         return element;
+    }
+
+    public int getSizeFromServer() {
+        executeSQL("select count(id) as count from " + table + ";");
+        ResultSet result = result();
+//        int size = 0;
+        try {
+            if (result.first()) {
+                return result.getInt("count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        return 0;
     }
 }

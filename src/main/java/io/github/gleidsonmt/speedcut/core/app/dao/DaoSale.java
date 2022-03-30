@@ -46,7 +46,7 @@ public final class DaoSale extends AbstractDao<Sale> {
             element.setProfessional(DAO_PROFESSIONAL.find(result.getInt("PROFESSIONAL_ID")));
             element.setClient(DAO_CLIENT.find(result.getInt("CLIENT_ID")));
             element.setSaleItems(DAO_SALE_ITEM.findForSale(element));
-//            element.setAvatar(createDefaultAvatar(element.getName()));
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -54,14 +54,12 @@ public final class DaoSale extends AbstractDao<Sale> {
         return element;
     }
 
-
     @Override
     public boolean delete(Sale model) {
         boolean result = false;
         try {
 
             DAO_SALE_ITEM.delete(model.getSaleItems());
-
 
             result = prepare("delete from " +
                     table +
@@ -74,6 +72,23 @@ public final class DaoSale extends AbstractDao<Sale> {
         return result;
     }
 
+    @Override
+    public boolean update(Sale model) throws SQLQueryError {
+        PreparedStatement prepare = prepare("update sale set " +
+                "discount = ?, professional_id = ?, client_id = ? where id = "
+                + model.getId() + ";"
+        );
+
+        try {
+            prepare.setBigDecimal(1, model.getDiscount());
+            prepare.setInt(2, model.getProfessional().getId());
+            prepare.setInt(3, model.getClient().getId());
+            return prepare.execute();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return false;
+    }
 
     @Override
     public void store(Sale model) throws SQLQueryError {
@@ -111,7 +126,6 @@ public final class DaoSale extends AbstractDao<Sale> {
                 getElements().add(model);
             }
 
-            System.out.println(model.getSaleItems());
             if (model.getSaleItems() != null) {
                 for (SaleItem saleItem : model.getSaleItems()) {
                     DAO_SALE_ITEM.store(saleItem);
@@ -127,12 +141,10 @@ public final class DaoSale extends AbstractDao<Sale> {
         Sale sale = new Sale();
 
         try {
-
             sale.setClient(DAO_CLIENT.find(1));
             sale.setProfessional(DAO_PROFESSIONAL.find(1));
             sale.setDiscount(BigDecimal.ZERO);
             sale.setSaleItems(FXCollections.observableArrayList());
-
             store(sale);
         } catch (SQLQueryError e) {
             e.printStackTrace();

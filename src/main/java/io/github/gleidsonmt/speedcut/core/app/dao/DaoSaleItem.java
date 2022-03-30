@@ -17,6 +17,7 @@
 
 package io.github.gleidsonmt.speedcut.core.app.dao;
 
+import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
 import io.github.gleidsonmt.speedcut.core.app.model.Product;
 import io.github.gleidsonmt.speedcut.core.app.model.Sale;
@@ -55,8 +56,15 @@ public class DaoSaleItem extends AbstractDao<SaleItem> {
             );
 
             element.setQuantity(result.getInt("QTD"));
+
             element.setTotal(BigDecimal.valueOf(element.getQuantity() *
                     element.getItem().getPrice().doubleValue()));
+
+            element.setDiscount(
+                    result.getBigDecimal("discount") == null ? BigDecimal.ZERO :
+                            result.getBigDecimal("discount")
+            );
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -145,6 +153,7 @@ public class DaoSaleItem extends AbstractDao<SaleItem> {
             prepare("delete from sale_item" +
                     " where id like " + model.getId() + ";").execute();
 
+            model.getSale().getSaleItems().remove(model);
 //            getElements().remove(model);
         } catch (SQLException throwables) {
             throwables.printStackTrace();

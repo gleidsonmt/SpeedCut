@@ -55,7 +55,10 @@ public class DaoService extends AbstractDao<Service> {
             element.setName(result.getString("NAME"));
             element.setPrice(result.getBigDecimal("PRICE"));
 
-            element.setAvatar(createDefaultAvatar(element.getName()));
+            BigDecimal discount = result.getBigDecimal("DISCOUNT");
+            element.setDiscount( discount == null ? BigDecimal.ZERO : discount);
+
+            element.setAvatar(result.getString("IMG_PATH"));
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -97,59 +100,4 @@ public class DaoService extends AbstractDao<Service> {
 //        commit(); // only tests
     }
 
-    public Task<ObservableList<Service>> populateAllTask() {
-
-        return new Task<>() {
-
-            @Override
-            protected void failed() {
-                System.err.println("Error on finding items for model dao " + table);
-            }
-
-            @Override
-            protected ObservableList<Service> call() {
-//                only tests
-//                double _p = 1;
-//                for (int i = 0; i < 200; i++) {
-//                    Service service = new Service("Name " + i);
-//                    service.setPrice(new BigDecimal(_p * 10));
-//                    _p++;
-//                    store(service);
-//                }
-
-                executeSQL("select count(id) as count from " + table + ";");
-                ResultSet result = result();
-
-                try {
-                    if (result.first()) {
-                        if (result().getInt("count") == elements.size()) {
-                            return elements;
-                        }
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-                executeSQL("select * from " + table + ";");
-                result = result();
-
-                try {
-                    while (result.next()) {
-                        int id = result.getInt("ID");
-                        if (elements.stream().noneMatch(f -> f.getId() == id)) {
-                            elements.add(createElement(id, result));
-                        }
-
-                    }
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                } finally {
-                    disconnect();
-                }
-
-                return elements.get();
-//                return elements; // only test
-            }
-        };
-    }
 }
