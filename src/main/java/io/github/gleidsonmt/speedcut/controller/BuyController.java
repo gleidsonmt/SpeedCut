@@ -21,7 +21,7 @@ import io.github.gleidsonmt.gncontrols.GNButton;
 import io.github.gleidsonmt.gncontrols.GNListView;
 import io.github.gleidsonmt.gncontrols.GNTextBox;
 import io.github.gleidsonmt.speedcut.core.app.animations.Animations;
-import io.github.gleidsonmt.speedcut.presenter.ProfessionalPresenter;
+import io.github.gleidsonmt.speedcut.presenter.*;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
 import io.github.gleidsonmt.speedcut.core.app.factory.ListWithGraphicFactory;
 import io.github.gleidsonmt.speedcut.core.app.factory.LoadPlaceholder;
@@ -29,8 +29,6 @@ import io.github.gleidsonmt.speedcut.core.app.layout.Root;
 import io.github.gleidsonmt.speedcut.core.app.model.*;
 import io.github.gleidsonmt.speedcut.core.app.util.MoneyUtil;
 import io.github.gleidsonmt.speedcut.core.app.view.ActionViewController;
-import io.github.gleidsonmt.speedcut.presenter.ProductPresenter;
-import io.github.gleidsonmt.speedcut.presenter.ServicePresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -49,12 +47,10 @@ import java.util.ResourceBundle;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  25/02/2022
  */
-@SuppressWarnings("rawtypes")
 public class BuyController implements ActionViewController {
 
     @FXML private StackPane root;
-    @FXML private GNListView<Item> listItems;
-    @FXML private GNListView professionalList;
+    @FXML private GNListView<TradeItem> listItems;
     @FXML private ToggleGroup itemType;
     @FXML private RadioButton radioProduct;
     @FXML private RadioButton radioService;
@@ -78,10 +74,12 @@ public class BuyController implements ActionViewController {
 
     @FXML private Label newItem;
 
-    private final ObservableList<Item> items = FXCollections.observableArrayList();
-    private final FilteredList<Item> filteredSaleItems = new FilteredList<>(items, p -> true);
+    private final ObservableList<TradeItem> items = FXCollections.observableArrayList();
+    private final FilteredList<TradeItem> filteredSaleItems = new FilteredList<>(items, p -> true);
 
     private SalesController salesController = null;
+
+    private TradeItemPresenter tradeItemPresenter = new TradeItemPresenter();
 
 
     @Override
@@ -119,7 +117,7 @@ public class BuyController implements ActionViewController {
 
         listItems.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                calculate(  ((Item) newValue).getPrice());
+                calculate(  newValue.getPrice());
             }
         });
 
@@ -152,7 +150,7 @@ public class BuyController implements ActionViewController {
 
     private void calculate() {
         if (listItems.getSelectionModel().getSelectedItem() != null) {
-            calculate(((Item) listItems.getSelectionModel().getSelectedItem()).getPrice());
+            calculate(listItems.getSelectionModel().getSelectedItem().getPrice());
         }
     }
 
@@ -165,7 +163,7 @@ public class BuyController implements ActionViewController {
     private void close()  {
 
         if (window.getWidth() > 600) {
-            window.getRoot().getWrapper().closePopup();
+            window.getRoot().getWrapper().getPopup().close();
         } else {
             try {
                 window.navigate("sales", true);
@@ -199,7 +197,7 @@ public class BuyController implements ActionViewController {
             }
 //            populateProfessionals();
             searchItem.getEditor().clear();
-            listItems.setCellFactory(new ListWithGraphicFactory());
+            listItems.setCellFactory(new ListWithGraphicFactory<>());
 //            professionalList.setCellFactory(new ListWithGraphicFactory());
         }
 
@@ -212,7 +210,7 @@ public class BuyController implements ActionViewController {
 
     private Task<ObservableList<Service>> populateServices() {
 
-        Task<ObservableList<Service>> populate = new ServicePresenter().createAllElements();
+        Task<ObservableList<Service>> populate = tradeItemPresenter.createServices();
 
         Thread thread = new Thread(populate);
         thread.setName("Loading data table [Professional]");
@@ -242,7 +240,7 @@ public class BuyController implements ActionViewController {
 
     private  Task<ObservableList<Product>> populateProducts() {
 
-        Task<ObservableList<Product>> populate = new ProductPresenter().createAllElements();
+        Task<ObservableList<Product>> populate = tradeItemPresenter.createProducts();
 
         Thread thread = new Thread(populate);
         thread.setName("Loading data table [Products]");
@@ -269,47 +267,10 @@ public class BuyController implements ActionViewController {
         return populate;
     }
 
-    private void populateProfessionals() {
-
-        Task<ObservableList<Professional>> populate = new ProfessionalPresenter().createAllElements();
-
-        ObservableList<Professional> professionalItems = FXCollections.observableArrayList();
-        FilteredList<Professional> filteredList = new FilteredList<>(professionalItems, p -> true);
-
-        searchProfessional.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                filteredSaleItems.setPredicate(p -> p.getName().toLowerCase().contains(newValue.toLowerCase()));
-            }
-        });
-
-        professionalList.setItems(filteredList);
-
-        Thread thread = new Thread(populate);
-        thread.setName("Loading data table [Professional]");
-        thread.setPriority(2);
-        thread.start();
-
-        populate.setOnRunning(event -> {
-            LoadPlaceholder loadPlaceholder = new LoadPlaceholder();
-            professionalList.setPlaceholder(loadPlaceholder);
-        });
-
-        populate.setOnSucceeded(event -> {
-            for (Professional product : populate.getValue()) {
-                professionalItems.add(product);
-                professionalList.getSelectionModel().selectFirst();
-            }
-
-            professionalList.setPlaceholder(new Label("Itens não encontrados."));
-
-        });
-
-    }
-
     @FXML
     private void confirm() {
         next();
-        window.getRoot().getWrapper().closePopup();
+        window.getRoot().getWrapper().getPopup().close();
     }
 
     @FXML

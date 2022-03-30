@@ -16,10 +16,17 @@
  */
 package io.github.gleidsonmt.speedcut.controller;
 
+import io.github.gleidsonmt.gncontrols.GNButton;
+import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
+import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
 import io.github.gleidsonmt.speedcut.core.app.view.ActionViewController;
 import io.github.gleidsonmt.speedcut.core.app.view.ResponsiveView;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -35,25 +42,28 @@ public class DrawerController extends ResponsiveView implements ActionViewContro
     @FXML private VBox drawerBox;
     @FXML private HBox searchBox;
 
+    @FXML private Button btnSettings;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         new DrawerBehavior(drawerBox, searchBox);
     }
 
+    @FXML
     private void openOptions() {
-//        ContextMenu contextSettings = new ContextMenu();
-//        MenuItem profile = new MenuItem("Profile");
-//        profile.setGraphic(new IconContainer(Icons.CONTACT));
-//        MenuItem logout = new MenuItem("Logout");
-//        logout.setGraphic(new IconContainer(Icons.LOGOUT));
-//
-//        contextSettings.getItems().addAll(profile, logout);
-//
-//        Bounds bounds = btn_settings.localToScreen(btn_settings.getBoundsInLocal());
-////
-//        contextSettings.show(ConfigApp.INSTANCE.getDecorator().getWindow(),
-//                bounds.getMaxX(), bounds.getMinY()
-//        );
+        ContextMenu contextSettings = new ContextMenu();
+        MenuItem profile = new MenuItem("Profile");
+        profile.setGraphic(new IconContainer(Icons.ACCOUNT_CIRCLE));
+        MenuItem logout = new MenuItem("Logout");
+        logout.setGraphic(new IconContainer(Icons.LOGOUT));
+
+        contextSettings.getItems().addAll(profile, logout);
+
+        Bounds bounds = btnSettings.localToScreen(btnSettings.getBoundsInLocal());
+
+        contextSettings.show(window.getWindow(), bounds.getMaxX(), bounds.getMinY());
+
+
     }
 
     @Override
