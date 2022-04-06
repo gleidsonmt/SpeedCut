@@ -19,7 +19,6 @@ package io.github.gleidsonmt.speedcut.core.app.factory.row;
 
 import io.github.gleidsonmt.speedcut.controller.SalesController;
 import io.github.gleidsonmt.speedcut.core.app.model.Sale;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
@@ -30,7 +29,6 @@ import javafx.util.Callback;
  */
 public record SaleRowFactory(SalesController controller)
         implements Callback<TableView<Sale>, TableRow<Sale>> {
-
 
     @Override
     public TableRow<Sale> call(TableView<Sale> param) {
@@ -46,6 +44,7 @@ public record SaleRowFactory(SalesController controller)
                     });
                 } else {
                     setItem(null);
+                    setOnMouseClicked(null);
                 }
             }
         };

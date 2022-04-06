@@ -17,6 +17,7 @@
 
 package io.github.gleidsonmt.speedcut.core.app.view;
 
+import io.github.gleidsonmt.speedcut.core.app.model.Entity;
 import javafx.fxml.Initializable;
 
 /**
@@ -30,6 +31,8 @@ public interface ActionViewController extends IManager, Initializable {
 
     void onExit();
 
+    default void updateModel(Entity entity) {
 
+    }
 
 }

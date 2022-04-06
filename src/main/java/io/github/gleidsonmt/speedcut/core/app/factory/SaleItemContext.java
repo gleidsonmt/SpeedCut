@@ -20,13 +20,11 @@ package io.github.gleidsonmt.speedcut.core.app.factory;
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.speedcut.controller.SalesController;
-import io.github.gleidsonmt.speedcut.core.app.layout.options.SnackBarType;
 import io.github.gleidsonmt.speedcut.core.app.model.SaleItem;
 import io.github.gleidsonmt.speedcut.core.app.view.IManager;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableRow;
-import javafx.scene.image.Image;
 
 import java.math.BigDecimal;
 
@@ -52,8 +50,6 @@ public class SaleItemContext extends ContextMenu implements IManager {
         MenuItem menuRemove = new MenuItem();
         menuRemove.setText("Delete");
         menuRemove.setGraphic(new IconContainer(Icons.DELETE_OUTLINED));
-
-        System.out.println("testing");
 
         if (!tableRow.getItem().getItem().getDiscount().equals(BigDecimal.ZERO)) { // primeiro verifico so o item pode possuir algum desconto
             getItems().addAll(menuDiscount, menuEdit, menuRemove); // pode possuir entao adiona a opcao
@@ -94,6 +90,8 @@ public class SaleItemContext extends ContextMenu implements IManager {
                 );
                 tableRow.getItem().setDiscount(BigDecimal.ZERO);
                 addStyle(false);
+                menuDiscount.setGraphic(new IconContainer(Icons.DISCOUNT));
+
             }
             controller.recount();
         });

@@ -28,12 +28,14 @@ import java.math.BigDecimal;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  26/02/2022
  */
-public class SaleItem extends Entity {
+@SuppressWarnings("unused")
+public final class SaleItem extends Entity {
 
-    private final IntegerProperty quantity = new SimpleIntegerProperty();
-    private final ObjectProperty<BigDecimal> total = new SimpleObjectProperty<>();
-    private final ObjectProperty<Sale> sale = new SimpleObjectProperty<>();
-    private final ObjectProperty<Item> item = new SimpleObjectProperty<>();
+    private final IntegerProperty               quantity    = new SimpleIntegerProperty();
+    private final ObjectProperty<BigDecimal>    discount    = new SimpleObjectProperty<>();
+    private final ObjectProperty<BigDecimal>    total       = new SimpleObjectProperty<>();
+    private final ObjectProperty<Sale>          sale        = new SimpleObjectProperty<>();
+    private final ObjectProperty<TradeItem>     item        = new SimpleObjectProperty<>();
 
     public int getQuantity() {
         return quantity.get();
@@ -59,18 +61,6 @@ public class SaleItem extends Entity {
         this.total.set(total);
     }
 
-    public Item getItem() {
-        return item.get();
-    }
-
-    public ObjectProperty<Item> itemProperty() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item.set(item);
-    }
-
     public Sale getSale() {
         return sale.get();
     }
@@ -81,5 +71,29 @@ public class SaleItem extends Entity {
 
     public void setSale(Sale sale) {
         this.sale.set(sale);
+    }
+
+    public TradeItem getItem() {
+        return item.get();
+    }
+
+    public ObjectProperty<TradeItem> itemProperty() {
+        return item;
+    }
+
+    public void setItem(TradeItem item) {
+        this.item.set(item);
+    }
+
+    public BigDecimal getDiscount() {
+        return discount.get();
+    }
+
+    public ObjectProperty<BigDecimal> discountProperty() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount.set(discount);
     }
 }

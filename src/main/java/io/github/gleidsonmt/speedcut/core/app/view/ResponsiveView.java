@@ -54,6 +54,7 @@ public abstract class ResponsiveView implements ActionViewController, Global {
             case CENTER -> GridPane.setConstraints(node, col, row, 1, 1, HPos.CENTER, VPos.CENTER, Priority.ALWAYS, Priority.ALWAYS);
             case CENTER_LEFT -> GridPane.setConstraints(node, col, row, 1, 1, HPos.LEFT, VPos.CENTER, Priority.ALWAYS, Priority.ALWAYS);
         }
+
     }
 
     private void switchPos(Pos pos) {

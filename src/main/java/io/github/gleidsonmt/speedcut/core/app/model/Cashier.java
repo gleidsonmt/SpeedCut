@@ -14,29 +14,46 @@
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package io.github.gleidsonmt.speedcut.core.app.model;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
+import java.math.BigDecimal;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  25/12/2020
+ * Create on  02/04/2022
  */
+public final class Cashier extends Entity {
 
-public class Item extends Entity {
+    private BooleanProperty open = new SimpleBooleanProperty();
+    private ObjectProperty<BigDecimal> amount = new SimpleObjectProperty<>();
 
-    private StringProperty avatar = new SimpleStringProperty();
-
-    public String getAvatar() {
-        return avatar.get();
+    public BigDecimal getAmount() {
+        return amount.get();
     }
 
-    public StringProperty avatarProperty() {
-        return avatar;
+    public ObjectProperty<BigDecimal> amountProperty() {
+        return amount;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar.set(avatar);
+    public void setAmount(BigDecimal amount) {
+        this.amount.set(amount);
+    }
+
+    public boolean isOpen() {
+        return open.get();
+    }
+
+    public BooleanProperty openProperty() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open.set(open);
     }
 }

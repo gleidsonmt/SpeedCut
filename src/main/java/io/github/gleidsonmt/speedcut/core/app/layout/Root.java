@@ -21,26 +21,9 @@ import io.github.gleidsonmt.gncontrols.GNFloatingButton;
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.speedcut.core.app.layout.containers.SnackBar;
+import io.github.gleidsonmt.speedcut.core.app.layout.containers.Wrapper;
 import io.github.gleidsonmt.speedcut.core.app.view.WindowDecorator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.control.*;
-import javafx.scene.control.skin.ColorPickerSkin;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.util.Duration;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -57,8 +40,8 @@ public class Root extends StackPane {
 
     public Root(WindowDecorator window) {
 
-        wrapper = new Wrapper(window, 250);
-        getChildren().add(wrapper);
+        wrapper = new Wrapper(this, window);
+//        getChildren().add(wrapper);
         getChildren().add(layout);
 
         getStyleClass().addAll("border", "border-b-1");
@@ -69,9 +52,17 @@ public class Root extends StackPane {
 
 
         hamburger.setOnAction(event -> {
-            wrapper.toFront();
-            wrapper.openDrawerLeft(getLayout().getOldLeft());
-            window.getControls().forEach(c -> c.setVisible(false));
+            wrapper.show();
+
+//            wrapper.openDrawerLeft(getLayout().getOldLeft());
+
+            wrapper.getDrawer()
+                    .content(getLayout().getOldLeft())
+                    .width(250D)
+                    .side("left")
+                    .show();
+
+            window.hideControls(false);
         });
 
         window.widthProperty().addListener((observable, oldValue, newValue) -> {
@@ -103,6 +94,4 @@ public class Root extends StackPane {
     public SnackBar createSnackBar() {
         return new SnackBar(this);
     }
-
-
 }

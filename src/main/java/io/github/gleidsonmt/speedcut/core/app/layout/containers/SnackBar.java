@@ -85,10 +85,10 @@ public class SnackBar  {
         labelAction.setStyle("-base : -mint;");
 
         snack.setContentDisplay(ContentDisplay.RIGHT);
-        snack.setGraphic(labelAction);
 
     }
 
+    @Deprecated
     public SnackBar type(SnackBarType type) {
         this.type = type;
         return this;
@@ -98,8 +98,6 @@ public class SnackBar  {
         snack.setText(message);
         return this;
     }
-
-
 
     public SnackBar type(String snackType) {
         this.type = SnackBarType.valueOf(snackType.toUpperCase());
@@ -131,6 +129,11 @@ public class SnackBar  {
                 color = "-amber";
                 iconContainer.setContent(Icons.WARNING);
             }
+            case INFO -> {
+                color = "-info";
+                color = "gray";
+                iconContainer.setContent(Icons.FAVORITE);
+            }
 //            case ERROR -> {
 //                color = "-grapefruit";
 //                iconContainer.setContent(Icons.ERROR);
@@ -155,7 +158,7 @@ public class SnackBar  {
                         snack.translateYProperty(), snack.getTranslateY()
                 )),
                 new KeyFrame(Duration.millis(200), new KeyValue(
-                        snack.translateYProperty(), 0
+                        snack.translateYProperty(), -5
                 ))
         );
 
@@ -190,13 +193,6 @@ public class SnackBar  {
 
         Timer timer = new Timer();
 
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                root.getChildren().remove(snack);
-            }
-        }, 3000);
-
         timer.schedule(task, 3000);
 
         timeline.play();
@@ -208,6 +204,7 @@ public class SnackBar  {
     }
 
     public SnackBar onAction(EventHandler<ActionEvent> eventHandler) {
+        snack.setGraphic(labelAction);
         labelAction.addEventFilter(ActionEvent.ACTION, eventHandler);
         return this;
     }

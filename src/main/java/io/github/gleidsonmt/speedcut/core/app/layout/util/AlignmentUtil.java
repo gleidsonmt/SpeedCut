@@ -17,6 +17,7 @@
 
 package io.github.gleidsonmt.speedcut.core.app.layout.util;
 
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
@@ -24,39 +25,62 @@ import javafx.scene.layout.AnchorPane;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  28/02/2022
  */
+@SuppressWarnings("unused")
 public final class AlignmentUtil {
 
-    public static void centerLeft(Node content) {
-        centerLeft(content, 0);
-    }
-
-    public static void centerLeft(Node content, double padding) {
+    public static void topLeft(Node content, Insets insets) {
         reset(content);
-        AnchorPane.setTopAnchor(content, padding);
-        AnchorPane.setLeftAnchor(content, padding);
-        AnchorPane.setBottomAnchor(content, padding);
+        AnchorPane.setTopAnchor(content, insets.getTop());
+        AnchorPane.setLeftAnchor(content, insets.getLeft());
     }
 
-    public static void centerRight(Node content) {
-        centerLeft(content, 0);
-    }
-
-    public static void centerRight(Node content, double padding) {
+    public static void topCenter(Node content, Insets insets) {
         reset(content);
-        AnchorPane.setTopAnchor(content, padding);
-        AnchorPane.setRightAnchor(content, padding);
-        AnchorPane.setBottomAnchor(content, padding);
+        AnchorPane.setRightAnchor(content, insets.getRight());
+        AnchorPane.setTopAnchor(content, insets.getTop());
+        AnchorPane.setLeftAnchor(content, insets.getRight());
     }
 
-    public static void topLeft(Node content) {
-        topLeft(content, 0,0);
-    }
-
-    public static void topLeft(Node content, double topPadding, double leftPadding) {
+    public static void topRight(Node content, Insets insets) {
         reset(content);
-        AnchorPane.setTopAnchor(content, topPadding);
-        AnchorPane.setLeftAnchor(content, leftPadding);
+        AnchorPane.setTopAnchor(content, insets.getTop());
+        AnchorPane.setRightAnchor(content, insets.getRight());
     }
+
+    public static void centerRight(Node content, Insets insets) {
+        reset(content);
+        AnchorPane.setTopAnchor(content, insets.getTop());
+        AnchorPane.setRightAnchor(content, insets.getRight());
+        AnchorPane.setBottomAnchor(content, insets.getBottom());
+    }
+
+    public static void bottomRight(Node content, Insets insets) {
+        reset(content);
+        AnchorPane.setRightAnchor(content, insets.getRight());
+        AnchorPane.setBottomAnchor(content, insets.getBottom());
+    }
+
+    public static void bottomCenter(Node content, Insets insets) {
+        reset(content);
+        AnchorPane.setRightAnchor(content, insets.getRight());
+        AnchorPane.setBottomAnchor(content, insets.getBottom());
+        AnchorPane.setLeftAnchor(content, insets.getLeft());
+    }
+
+    public static void bottomLeft(Node content, Insets insets) {
+        reset(content);
+        AnchorPane.setLeftAnchor(content, insets.getLeft());
+        AnchorPane.setBottomAnchor(content, insets.getBottom());
+    }
+
+    public static void centerLeft(Node content, Insets insets) {
+        reset(content);
+        AnchorPane.setTopAnchor(content, insets.getTop());
+        AnchorPane.setLeftAnchor(content, insets.getLeft());
+        AnchorPane.setBottomAnchor(content, insets.getBottom());
+    }
+
+
 
     private static void reset(Node content) {
         AnchorPane.clearConstraints(content);

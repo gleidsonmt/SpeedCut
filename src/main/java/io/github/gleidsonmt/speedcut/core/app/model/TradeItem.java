@@ -14,29 +14,45 @@
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package io.github.gleidsonmt.speedcut.core.app.model;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
+import java.math.BigDecimal;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  25/12/2020
+ * Create on  21/03/2022
  */
+@SuppressWarnings("unused")
+public class TradeItem extends Item {
 
-public class Item extends Entity {
+    private final ObjectProperty<BigDecimal> discount   = new SimpleObjectProperty<>();
+    private final ObjectProperty<BigDecimal> price      = new SimpleObjectProperty<>();
 
-    private StringProperty avatar = new SimpleStringProperty();
-
-    public String getAvatar() {
-        return avatar.get();
+    public BigDecimal getDiscount() {
+        return discount.get();
     }
 
-    public StringProperty avatarProperty() {
-        return avatar;
+    public ObjectProperty<BigDecimal> discountProperty() {
+        return discount;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar.set(avatar);
+    public void setDiscount(BigDecimal discount) {
+        this.discount.set(discount);
+    }
+
+    public BigDecimal getPrice() {
+        return price.get();
+    }
+
+    public ObjectProperty<BigDecimal> priceProperty() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price.set(price);
     }
 }

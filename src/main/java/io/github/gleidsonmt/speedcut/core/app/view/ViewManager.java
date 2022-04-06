@@ -18,6 +18,7 @@
 package io.github.gleidsonmt.speedcut.core.app.view;
 
 import io.github.gleidsonmt.speedcut.core.app.exceptions.ControllerCastException;
+import io.github.gleidsonmt.speedcut.core.app.model.Entity;
 import javafx.application.Platform;
 import javafx.beans.value.WritableObjectValue;
 import javafx.concurrent.Task;
@@ -33,29 +34,28 @@ import java.util.HashMap;
  */
 public class ViewManager implements IViewManager {
 
-    private final static HashMap<String, IView> views = new HashMap<>();
+    private final static HashMap<String, IView> VIEWS = new HashMap<>();
 
     private IView current;
     private IView previous;
 
     @Override
     public void add(IView view) {
-        views.put(view.getName(), view);
+        VIEWS.put(view.getName(), view);
     }
-
 
     @Override
     public IView get(String name)  {
-        return views.get(name);
+        return VIEWS.get(name);
     }
 
     public Parent getRootFrom(String name) {
-        return views.get(name).getRoot();
+        return VIEWS.get(name).getRoot();
     }
 
     public ActionViewController getControllerFrom(String name) {
         try {
-            return views.get(name).getController();
+            return VIEWS.get(name).getController();
         } catch (ControllerCastException e) {
             e.printStackTrace();
         }
@@ -73,5 +73,9 @@ public class ViewManager implements IViewManager {
     public void setCurrent(IView view) {
         this.previous = current;
         this.current = view;
+    }
+
+    public boolean contains(String nameView) {
+        return VIEWS.containsKey(nameView);
     }
 }

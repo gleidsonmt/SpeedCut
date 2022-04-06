@@ -24,5 +24,6 @@ package io.github.gleidsonmt.speedcut.core.app.view;
 public interface IManager {
 
     WindowDecorator window = new WindowDecorator();
+    ViewManager views = window.getViews();
 
 }

@@ -17,42 +17,31 @@
 
 package io.github.gleidsonmt.speedcut.core.app.view;
 
-import animatefx.animation.AnimationFX;
 import animatefx.animation.FadeIn;
 import animatefx.animation.FadeOut;
-import animatefx.animation.Pulse;
 import fr.brouillard.oss.cssfx.CSSFX;
 import io.github.gleidsonmt.gndecorator.GNDecorator;
 import io.github.gleidsonmt.speedcut.core.app.Global;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.ControllerCastException;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
-import io.github.gleidsonmt.speedcut.core.app.layout.Bar;
 import io.github.gleidsonmt.speedcut.core.app.layout.CenterLayout;
 import io.github.gleidsonmt.speedcut.core.app.layout.Root;
-import javafx.animation.Animation;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import io.github.gleidsonmt.speedcut.core.app.layout.containers.Wrapper;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import org.scenicview.ScenicView;
 
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -117,32 +106,42 @@ public class WindowDecorator extends GNDecorator implements Global {
         return views;
     }
 
-
     public void setLeftDrawer(Parent content) {
         root.getLayout().setLeft(content);
         HBox bar = (HBox) lookup("#gn-bar");
 
         root.getLayout().leftProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                bar.setPadding(new Insets(0,0,0,250));
+                bar.setPadding(new Insets(0,0,0, getWrapper().getDrawer().getWidth()));
             } else {
                 bar.setPadding(new Insets(0));
             }
         });
 
-        bar.setPadding(new Insets(0,0,0,250));
+        bar.setPadding(new Insets(0,0,0, getWrapper().getDrawer().getWidth()));
     }
 
+    @Deprecated
     public Root getRoot() {
         return root;
     }
 
+    public Wrapper getWrapper() {
+        return root.getWrapper();
+    }
+
+    @Deprecated
     public CenterLayout getCenterLayout() {
         return root.getCenterLayout();
     }
 
+    @Deprecated
     public ObservableList<Node> getControls() {
         return this.getCustomControls();
+    }
+
+    public void hideControls(boolean value) {
+        this.getCustomControls().forEach(c -> c.setVisible(value));
     }
 
     protected void persist() throws IOException {
@@ -210,27 +209,78 @@ public class WindowDecorator extends GNDecorator implements Global {
             root.getCenterLayout().setBody(view.getRoot()); // Configura o layout center
         }
 
+        count = 0;
+        crumbs.forEach(this::removeControl);
+        crumbs.clear();
+        getControls().clear();
         updateBreadcrumb(view.getComposer()); // atualiza o breadcrumb
+
+//        getCenterLayout().
+//        update(view.getComposer());
+
+        getControls().stream().filter(f -> f instanceof Hyperlink)
+                .map(m -> (Hyperlink) m)
+                .forEach(e -> {
+                    Bounds bounds = e.localToScene(e.getBoundsInLocal());
+                }
+        );
     }
 
-    // atualiza o breadcrumb
+    int count =  0;
+
+    // atualiza o breadcrumb // in test
     private void updateBreadcrumb(ViewComposer viewComposer) {
         if (viewComposer.getRoot() != null) {
 
-        } else {
+            addControl(count == 0 ? count : count--, createBread(viewComposer));
 
-            getControls().removeAll(crumbs);
-            crumbs.clear();
+            updateBreadcrumb(viewComposer.getRoot());
+
+            Label label = new Label("/");
+            label.setStyle("-fx-font-size : 14pt; -fx-text-fill : -info;");
+            label.setPrefSize(5, 30);
+            label.setAlignment(Pos.CENTER);
+            label.setMouseTransparent(true);
+            addControl(count++, label);
+
+        } else {
+//            getControls().removeAll(crumbs);
+//            crumbs.clear();
 
             Hyperlink hyperlink = new Hyperlink();
             hyperlink.setStyle("-fx-font-size : 20;");
             hyperlink.setText(viewComposer.getTitle());
-            crumbs.add(hyperlink);
+//            crumbs.add(count++, hyperlink);
 
-            crumbs.forEach(this::addControl);
+
+            hyperlink.setOnAction(event -> {
+                try {
+                    navigate(viewComposer.getName());
+                } catch (NavigationException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            addControl(count++, hyperlink);
 
         }
 
+//        crumbs.forEach(e -> {
+//            Hyperlink hyperlink = new Hyperlink();
+//            hyperlink.setText("/");
+//            addControl(e);
+//            System.out.println("count = " + count);
+//            if (count != 0)
+//                addControl(hyperlink);
+//        });
+
+    }
+
+    private Hyperlink createBread(ViewComposer composer) {
+        Hyperlink hyperlink = new Hyperlink();
+        hyperlink.setStyle("-fx-font-size : 20;");
+        hyperlink.setText(composer.getTitle());
+        return hyperlink;
     }
 
     public void loadViews() {
@@ -245,7 +295,10 @@ public class WindowDecorator extends GNDecorator implements Global {
     protected void start() {
         show();
         loadViews();
+
+        getWindow().setOnHidden(event -> getRoot().getWrapper().getPopOver().hide());
+
         CSSFX.start();
-        ScenicView.show(getWindow().getScene());
+//        ScenicView.show(getWindow().getScene());
     }
 }

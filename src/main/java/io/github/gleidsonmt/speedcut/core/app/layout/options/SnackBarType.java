@@ -22,5 +22,5 @@ package io.github.gleidsonmt.speedcut.core.app.layout.options;
  * Create on  08/03/2022
  */
 public enum SnackBarType {
-    DONE, WARNING
+    DONE, WARNING, INFO
 }

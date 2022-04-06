@@ -35,6 +35,8 @@ public class App extends Application implements IApp {
     @Override
     public void stop() {
         persist();
+
+
     }
 
     private void run() {

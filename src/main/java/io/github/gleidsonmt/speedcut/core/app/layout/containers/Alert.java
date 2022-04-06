@@ -17,20 +17,22 @@
 
 package io.github.gleidsonmt.speedcut.core.app.layout.containers;
 
+import animatefx.animation.AnimationFX;
 import animatefx.animation.BounceIn;
 import animatefx.animation.BounceOut;
+import animatefx.animation.Pulse;
 import io.github.gleidsonmt.gncontrols.GNButton;
 import io.github.gleidsonmt.gncontrols.options.GNButtonType;
-import io.github.gleidsonmt.speedcut.core.app.layout.Wrapper;
 import io.github.gleidsonmt.speedcut.core.app.layout.options.AlertType;
+import io.github.gleidsonmt.speedcut.core.app.layout.util.AlignmentUtil;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
 import java.util.Objects;
 
@@ -38,41 +40,39 @@ import java.util.Objects;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  09/03/2022
  */
-public class Alert extends StackPane {
+public class Alert  {
 
     private final Wrapper wrapper;
 
-    private final VBox content = new VBox();
-    private final ColorAdjust colorAdjust   = new ColorAdjust();
+    private final VBox      content     = new VBox();
+    private final StackPane container   = new StackPane();
+
+    private Pos     pos = Pos.CENTER;
+    private double  width = 400;
+    private double  height = 300;
+    private AnimationFX animationFX;
+    private Popup.Animations animation = Popup.Animations.PULSE;
 
     private String      message = "Alert Message";
     private String      title   = "Title Message";
-    private AlertType type    = AlertType.INFO;
+    private AlertType   type    = AlertType.INFO;
 
-    private GNButton btnConfirm = new GNButton("OK");
-    private GNButton btnCancel = new GNButton();
+    private EventHandler<ActionEvent>   onEnter;
+    private EventHandler<ActionEvent>   onExit;
+
+    private final GNButton btnConfirm = new GNButton("OK");
+    private final GNButton btnCancel = new GNButton("Cancel");
+
+    private Insets   insets = new Insets(0);
+
+    private final ColorAdjust colorAdjust   = new ColorAdjust();
 
     public Alert(Wrapper wrapper) {
         this.wrapper = wrapper;
-        this.getChildren().add(content);
-        this.setBackground(new Background(
-                new BackgroundFill(
-                        Color.WHITE,
-                        new CornerRadii(10),
-                        Insets.EMPTY
-                )
-        ));
-
-        content.setBackground(new Background(
-                new BackgroundFill(
-                        Color.TRANSPARENT,
-                        new CornerRadii(10),
-                        Insets.EMPTY
-                )
-        ));
-
+        container.getChildren().add(content);
+        container.setStyle("-fx-background-color : -background-color; -fx-background-radius : 10px;");
+        content.setStyle("-fx-background-color : -background-color; -fx-background-radius : 10px;");
         colorAdjust.setBrightness(0.24);
-
 
     }
 
@@ -103,7 +103,46 @@ public class Alert extends StackPane {
             createActions(type)
         );
 
-        wrapper.show(new BounceIn(this));
+        wrapper.show();
+//        if (!wrapper.getRoot().getChildren().contains(this.content))
+//            wrapper.getRoot().getChildren().add(this.content);
+
+        wrapper.addContent(this.content);
+
+        this.content.setPrefSize(width, height);
+
+        switch (pos) {
+            case TOP_LEFT, BASELINE_LEFT -> AlignmentUtil.topLeft(content, this.insets);
+            case TOP_CENTER, BASELINE_CENTER -> AlignmentUtil.topCenter(content, this.insets);
+            case TOP_RIGHT, BASELINE_RIGHT -> AlignmentUtil.topRight(content, this.insets);
+            case CENTER_RIGHT -> AlignmentUtil.centerRight(content, this.insets);
+            case BOTTOM_RIGHT -> AlignmentUtil.bottomRight(content, this.insets);
+            case BOTTOM_CENTER -> AlignmentUtil.bottomCenter(content, this.insets);
+            case BOTTOM_LEFT -> AlignmentUtil.bottomLeft(content, this.insets);
+            case CENTER_LEFT -> AlignmentUtil.centerLeft(content, this.insets);
+            case CENTER -> AlignmentUtil.topLeft(content, new Insets(
+                    (wrapper.getHeight() / 2) - (height / 2),
+                    0, 0,
+                    (wrapper.getWidth() / 2) - (width / 2)
+            ));
+            default -> throw new IllegalStateException("Unexpected value: " + pos);
+        }
+
+
+        switch (animation) {
+            case PULSE -> animationFX = new Pulse(content);
+            case BOUNCE_IN -> {
+                animationFX = new BounceIn(content);
+                animationFX.setSpeed(1.5);
+            }
+        }
+
+        if (animation != null) {
+            animationFX.getTimeline().setOnFinished(event -> {
+                if (onEnter != null) onEnter.handle(new ActionEvent());
+            });
+            animationFX.play();
+        }
     }
 
 
@@ -217,9 +256,31 @@ public class Alert extends StackPane {
 
         _actions.getChildren().forEach(
                 e -> e.addEventFilter(ActionEvent.ACTION,
-                event -> wrapper.close(new BounceOut(this))));
+                event -> {
+//                    wrapper.close(new BounceOut(container));
+                    close();
+                }));
 
         return _actions;
     }
 
+    private void close() {
+
+        switch (animation) {
+            case PULSE -> animationFX = new Pulse(content);
+            case BOUNCE_IN -> {
+                animationFX = new BounceOut(content);
+                animationFX.setSpeed(1.5);
+            }
+        }
+
+        if (animation != null) {
+            animationFX.getTimeline().setOnFinished(event -> {
+                if (onExit != null) onExit.handle(new ActionEvent());
+                wrapper.hide();
+            });
+
+            animationFX.play();
+        }
+    }
 }

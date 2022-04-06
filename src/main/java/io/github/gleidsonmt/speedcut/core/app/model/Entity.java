@@ -16,7 +16,6 @@
  */
 package io.github.gleidsonmt.speedcut.core.app.model;
 
-import io.github.gleidsonmt.gncontrols.options.model.Model;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;

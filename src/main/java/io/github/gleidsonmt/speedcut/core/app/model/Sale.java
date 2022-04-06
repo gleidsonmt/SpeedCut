@@ -32,9 +32,9 @@ import java.math.BigDecimal;
  */
 public class Sale extends Entity {
 
-    private final ObjectProperty<BigDecimal> discount = new SimpleObjectProperty<>();
-    private final ObjectProperty<Professional> professional = new SimpleObjectProperty<>();
-    private final ObjectProperty<Client> client = new SimpleObjectProperty<>();
+    private final ObjectProperty<BigDecimal>    discount        = new SimpleObjectProperty<>();
+    private final ObjectProperty<Professional>  professional    = new SimpleObjectProperty<>();
+    private final ObjectProperty<Client>        client          = new SimpleObjectProperty<>();
 
     private final ListProperty<SaleItem> saleItems = new SimpleListProperty<>();
 

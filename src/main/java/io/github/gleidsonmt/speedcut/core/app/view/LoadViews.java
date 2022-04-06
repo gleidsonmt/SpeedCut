@@ -18,6 +18,8 @@
 package io.github.gleidsonmt.speedcut.core.app.view;
 
 import io.github.gleidsonmt.speedcut.core.app.Global;
+import io.github.gleidsonmt.speedcut.core.app.dao.Dao;
+import io.github.gleidsonmt.speedcut.core.app.dao.DaoCashier;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
@@ -95,6 +97,7 @@ public class LoadViews extends Service<ViewComposer> implements Global, IManager
                         corePath + "view/drawer.fxml"))));
 
                 window.navigate("sales");
+
             } else if (!properties.isRegistered()) {
                 window.navigate("register");
             } else {
