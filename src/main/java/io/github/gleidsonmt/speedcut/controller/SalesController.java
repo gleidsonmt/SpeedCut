@@ -26,6 +26,7 @@ import io.github.gleidsonmt.gncontrols.options.FieldType;
 import io.github.gleidsonmt.gncontrols.options.GNButtonType;
 import io.github.gleidsonmt.gncontrols.options.TrayAction;
 import io.github.gleidsonmt.speedcut.core.app.animations.Animations;
+import io.github.gleidsonmt.speedcut.core.app.dao.DaoCashier;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
 import io.github.gleidsonmt.speedcut.core.app.factory.*;
 import io.github.gleidsonmt.speedcut.core.app.factory.column.AvatarColumnFactory;
@@ -136,17 +137,16 @@ public class SalesController extends ResponsiveView {
         } else {
             window.navigate("buy", true);
         }
-
-
-//        window.getWrapper().getAlert()
-//                .alertType(AlertType.INFO)
-//                .title("This is as title")
-//                .message("Message to alert!")
-//                .show();
-
     }
 
-
+    @FXML
+    private void goControl () {
+        try {
+            window.navigate("sale_index");
+        } catch (NavigationException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void setDiscount() {
@@ -448,9 +448,24 @@ public class SalesController extends ResponsiveView {
 
     FilteredList<Sale> filteredList = new FilteredList<>(salePresenter.getElements(), p -> true);
 
+    @FXML
+    private void openCashier() {
+        window.getWrapper().getPopup()
+                .content(window.getViews().getRootFrom("open"))
+                .size(400, 400)
+                .show();
+    }
+
     @Override
     public void onEnter() {
         super.onEnter();
+
+        if (new DaoCashier().findOpened() == null) {
+            window.getWrapper().getPopup()
+                    .content(window.getViews().getRootFrom("open"))
+                    .size(400, 400)
+                    .show();
+        }
 
         if (!init) {
             columnId.setCellValueFactory(param -> param.getValue().idProperty());
@@ -527,9 +542,10 @@ public class SalesController extends ResponsiveView {
 
             populate.setOnSucceeded(event -> {
                 tableSales.getSelectionModel().selectFirst();
-                saleItems.setItems(
-                        tableSales.getSelectionModel().getSelectedItem().getSaleItems()
-                );
+                if (tableSales.getSelectionModel().getSelectedItem() != null)
+                    saleItems.setItems(
+                            tableSales.getSelectionModel().getSelectedItem().getSaleItems()
+                    );
                 tableSales.setPlaceholder(new Label("Itens não encontrados."));
             });
 
@@ -621,17 +637,28 @@ public class SalesController extends ResponsiveView {
         ActionViewController controller = window.getViews().getControllerFrom("professionals");
 
         if (size < 6) {
+
             window.getWrapper()
                     .getPopOver()
                     .size(320, 600)
                     .arrowLocation("left_top")
                     .visibleArrow(false)
+                    .content(window.getViews().getRootFrom("professionals"))
                     .onEnter(event -> {
                         controller.onEnter();
                         controller.updateModel(tableSales.getSelectionModel().getSelectedItem());
                     })
-                    .content(window.getViews().getRootFrom("professionals"))
                     .show(btnViewProfessionals);
+
+            if (window.getWidth() < 700) {
+                try {
+                    window.navigate("professionals");
+                    controller.updateModel(tableSales.getSelectionModel().getSelectedItem());
+
+                } catch (NavigationException e) {
+                    e.printStackTrace();
+                }
+            }
         } else {
             try {
                 controller.updateModel(tableSales.getSelectionModel().getSelectedItem());

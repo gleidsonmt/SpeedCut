@@ -16,7 +16,7 @@
  */
 package io.github.gleidsonmt.speedcut.controller;
 
-//import io.github.gleidson28.global.creators.DrawerCreator;
+import io.github.gleidsonmt.speedcut.core.app.view.IManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -32,7 +32,7 @@ import javafx.scene.shape.SVGPath;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  04/10/2021
  */
-public class DrawerBehavior {
+public class DrawerBehavior implements IManager {
 
     private ScrollPane  scroll;
 //    private VBox        drawerBox;
@@ -62,9 +62,9 @@ public class DrawerBehavior {
                 .forEach(e -> {
                     e.setToggleGroup(group);
                     e.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
-//                        if(DrawerCreator.INSTANCE.isShow()) {
-//                            DrawerCreator.INSTANCE.closePopup();
-//                        }
+                        if (window.getWrapper().getDrawer().isShowing()) {
+                            window.getWrapper().getDrawer().close();
+                        }
                     });
                     e.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
                         if (e.isSelected()) {
@@ -99,16 +99,11 @@ public class DrawerBehavior {
                 .filter(c -> c instanceof ToggleButton)
                 .map(c -> (ToggleButton) c)
                 .forEach(c -> {
-
-
-
                     c.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
                         if (c.isSelected()) event.consume();
-
-//                        if (DrawerCreator.INSTANCE.isShow()) {
-//                            DrawerCreator.INSTANCE.closePopup();
-//                        }
-
+                        if (window.getWrapper().getDrawer().isShowing()) {
+                            window.getWrapper().getDrawer().close();
+                        }
                     });
 
                     c.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
