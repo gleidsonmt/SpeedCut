@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.gleidsonmt.gncontrols.GNButton?>
+<?import io.github.gleidsonmt.gncontrols.GNTextBox?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+
+<StackPane fx:id="root" style="-fx-background-color: white; -fx-background-radius: 0 10 0 10;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.ProfessionalsController">
+
+   <children>
+      <VBox alignment="TOP_CENTER">
+         <children>
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="120.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="520.0" spacing="10.0">
+                     <children>
+                        <GNButton contentDisplay="GRAPHIC_ONLY" onAction="#backToSales" prefWidth="34.0" styleClass="btn-flat" text="Voltar">
+                           <graphic>
+                              <SVGPath content="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" style="-fx-fill: -text-color;" />
+                           </graphic>
+                        </GNButton>
+                        <Label alignment="CENTER_RIGHT" style="-fx-text-fill: -info;" styleClass="h3" text="Professionals">
+                           <graphic>
+                              <SVGPath content="M20,7h-5V4c0-1.1-0.9-2-2-2h-2C9.9,2,9,2.9,9,4v3H4C2.9,7,2,7.9,2,9v11c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V9 C22,7.9,21.1,7,20,7z M11,7V4h2v3v2h-2V7z M20,20H4V9h5c0,1.1,0.9,2,2,2h2c1.1,0,2-0.9,2-2h5V20z" style="-fx-fill: -info;" />
+                           </graphic>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
+                  <GNTextBox fx:id="search" additionalText="" fieldType="FILLED" helperText="" leadIcon="SEARCH" minHeight="50.0" promptText="Procurar " style="-fx-min-height: 50;" trayAction="CLEAR">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </GNTextBox>
+               </children>
+            </VBox>
+            <ScrollPane fx:id="scroll" fitToWidth="true" stylesheets="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/custom-scroll.css" vvalue="1.0" VBox.vgrow="ALWAYS">
+               <content>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <GridPane fx:id="grid">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                        </GridPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+    <stylesheets>
+        <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/material-color.css" />
+        <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/light.css" />
+        <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/skeleton.css" />
+        <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/bootstrap.css" />
+        <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/shape.css" />
+        <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/typographic.css" />
+        <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/helpers.css" />
+        <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/master.css" />
+    </stylesheets>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</StackPane>

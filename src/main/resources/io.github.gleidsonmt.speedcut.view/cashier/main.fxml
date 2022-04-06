@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+
+<!--
+  ~    Copyright (C) Gleidson Neves da Silveira
+  ~
+  ~    This program is free software: you can redistribute it and/or modify
+  ~    it under the terms of the GNU General Public License as published by
+  ~    the Free Software Foundation, either version 3 of the License, or
+  ~    (at your option) any later version.
+  ~
+  ~    This program is distributed in the hope that it will be useful,
+  ~    but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~    GNU General Public License for more details.
+  ~
+  ~    You should have received a copy of the GNU General Public License
+  ~    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true" StackPane.alignment="CENTER">
+         <content>
+            <StackPane prefHeight="543.0" prefWidth="958.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
+                        <VBox prefHeight="543.0" prefWidth="210.0">
+                           <children>
+                              <VBox alignment="CENTER" spacing="30.0" style="-fx-border-width: 0 0 1 0;" styleClass="border">
+                                 <children>
+                                    <SVGPath content="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" scaleX="2.0" scaleY="2.0" style="-fx-fill: -info;" />
+                                    <Label styleClass="h4" text="Abrir Novo Caia" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox alignment="CENTER" spacing="30.0" style="-fx-border-width: 0 1 1 1;" styleClass="border">
+                                 <children>
+                                    <SVGPath content="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z" scaleX="2.0" scaleY="2.0" style="-fx-fill: -info;" />
+                                    <Label styleClass="h4" text="Reabrir Ultimo Caixa" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox alignment="CENTER" minHeight="200.0" spacing="30.0" style="-fx-border-width: 0 0 1 0;" styleClass="border">
+                                 <children>
+                                    <SVGPath content="M18.36 9l.6 3H5.04l.6-3h12.72M20 4H4v2h16V4zm0 3H4l-1 5v2h1v6h10v-6h4v6h2v-6h1v-2l-1-5zM6 18v-4h6v4H6z" scaleX="2.0" scaleY="2.0" style="-fx-fill: -info;" />
+                                    <Label styleClass="h4" text="Reabrir Caixas Antigos" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox alignment="CENTER" spacing="30.0" style="-fx-border-width: 0 1 1 0;" styleClass="border">
+                                 <children>
+                                    <SVGPath content="M23,8c0,1.1-0.9,2-2,2c-0.18,0-0.35-0.02-0.51-0.07l-3.56,3.55C16.98,13.64,17,13.82,17,14c0,1.1-0.9,2-2,2s-2-0.9-2-2 c0-0.18,0.02-0.36,0.07-0.52l-2.55-2.55C10.36,10.98,10.18,11,10,11c-0.18,0-0.36-0.02-0.52-0.07l-4.55,4.56 C4.98,15.65,5,15.82,5,16c0,1.1-0.9,2-2,2s-2-0.9-2-2s0.9-2,2-2c0.18,0,0.35,0.02,0.51,0.07l4.56-4.55C8.02,9.36,8,9.18,8,9 c0-1.1,0.9-2,2-2s2,0.9,2,2c0,0.18-0.02,0.36-0.07,0.52l2.55,2.55C14.64,12.02,14.82,12,15,12c0.18,0,0.36,0.02,0.52,0.07 l3.55-3.56C19.02,8.35,19,8.18,19,8c0-1.1,0.9-2,2-2S23,6.9,23,8z" scaleX="2.0" scaleY="2.0" style="-fx-fill: -info;" />
+                                    <Label styleClass="h4" text="Reabrir Caixas Antigos" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </StackPane>
+         </content>
+      </ScrollPane>
+   </children>
+   <stylesheets>
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/material-color.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/light.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/skeleton.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/bootstrap.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/shape.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/typographic.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/helpers.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/login.css" />
+   </stylesheets>
+</StackPane>

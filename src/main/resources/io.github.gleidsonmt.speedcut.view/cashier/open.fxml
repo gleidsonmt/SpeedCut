@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<?import io.github.gleidsonmt.gncontrols.GNMonetaryField?>
+<?import io.github.gleidsonmt.gncontrols.GNButton?>
+<StackPane fx:id="root" prefHeight="372.0" prefWidth="435.0" style="-fx-background-color: white; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.OpenController">
+
+   <children>
+      <VBox prefHeight="450.0" prefWidth="339.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="293.0" prefWidth="425.0" spacing="20.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button contentDisplay="GRAPHIC_ONLY" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" mouseTransparent="true" prefHeight="128.0" prefWidth="140.0" style="-fx-border-color: -base; -fx-background-color: -base; -fx-border-radius: 100; -fx-background-radius: 100; -fx-pref-height: 140;" text="Button" translateY="-50.0" >
+                     <graphic>
+                        <ImageView disable="true" fitHeight="128.0" fitWidth="102.0" focusTraversable="true" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../io.github.gleidsonmt.speedcut.core.app/theme/img/done_gray_48dp.png" />
+                           </image>
+                           <effect>
+                              <ColorAdjust brightness="1.0" />
+                           </effect>
+                        </ImageView>
+                     </graphic>
+                     <effect>
+                        <DropShadow color="#00000019" />
+                     </effect>
+                  </Button>
+                  <Label mouseTransparent="true" style="-fx-font-weight: bold;" styleClass="h4" text="Abrir Novo Caixa" />
+                  <TextFlow mouseTransparent="true" textAlignment="CENTER">
+                     <children>
+                        <Text fill="#00000081" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Informe a quantidade atual do caixa agora" wrappingWidth="607.2890625">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </TextFlow>
+                  <GNMonetaryField fx:id="monetaryField" alignment="CENTER" prefHeight="44.0" prefWidth="365.0" styleClass="field-outlined" />
+               </children>
+               <padding>
+                  <Insets left="30.0" right="30.0" />
+               </padding>
+            </VBox>
+            <HBox alignment="CENTER" prefHeight="76.0" prefWidth="425.0" spacing="10.0">
+               <children>
+                  <GNButton buttonType="SEMI_ROUNDED" onAction="#openCashier" contentDisplay="TEXT_ONLY" defaultButton="true" layoutX="169.0" layoutY="10.0" mnemonicParsing="false" prefWidth="75.0" text="Ok" />
+                  <GNButton buttonType="SEMI_ROUNDED" onAction="#closePopup" cancelButton="true" contentDisplay="TEXT_ONLY" layoutX="194.0" layoutY="27.0" mnemonicParsing="false" prefWidth="74.0" styleClass="btn-flat" style="-fx-border-radius : 5px" text="Cancel" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/material-color.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/skeleton.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/light.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/bootstrap.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/forms.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/typographic.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/helpers.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/master.css" />
+   </stylesheets>
+</StackPane>

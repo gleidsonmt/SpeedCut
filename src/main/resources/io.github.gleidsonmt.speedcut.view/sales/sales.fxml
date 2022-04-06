@@ -90,7 +90,7 @@
                                     <Tooltip text="Adicionar Nova Venda Anonima" />
                                  </tooltip>
                               </Button>
-                              <Button fx:id="btnViewProfessionals" alignment="CENTER" layoutX="314.0" layoutY="20.0" maxWidth="1.7976931348623157E308" minHeight="40.0" mnemonicParsing="false" onAction="#onActionTest" text="Professionais" wrapText="true" GridPane.columnIndex="2">
+                              <Button fx:id="btnViewProfessionals" alignment="CENTER" layoutX="314.0" layoutY="20.0" maxWidth="1.7976931348623157E308" minHeight="40.0" mnemonicParsing="false" onAction="#openProfessionals" text="Professionals" wrapText="true" GridPane.columnIndex="2">
                                  <styleClass>
                                     <String fx:value="btn-flat" />
                                     <String fx:value="h4" />
@@ -129,14 +129,24 @@
                                  <contextMenu>
                                     <ContextMenu>
                                        <items>
-                                          <MenuItem mnemonicParsing="false" onAction="#deleteSale" text="Excluir">
+                                          <MenuItem mnemonicParsing="false" onAction="#editClient" text="Cliente">
                                              <graphic>
-                                                <SVGPath content="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" styleClass="icon" />
+                                                <SVGPath content="M15.47 20.5L12 17l1.4-1.41 2.07 2.08 5.13-5.17 1.4 1.41 M9 17l3-2.94c-.39-.04-.68-.06-1-.06-2.67 0-8 1.34-8 4v2h9l-3-3zm2-5c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4" styleClass="icon" />
+                                             </graphic>
+                                          </MenuItem>
+                                          <MenuItem mnemonicParsing="false" onAction="#openProfessionals" text="Funcionário">
+                                             <graphic>
+                                                <SVGPath content="M20,7h-5V4c0-1.1-0.9-2-2-2h-2C9.9,2,9,2.9,9,4v3H4C2.9,7,2,7.9,2,9v11c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V9 C22,7.9,21.1,7,20,7z M11,7V4h2v3v2h-2V7z M20,20H4V9h5c0,1.1,0.9,2,2,2h2c1.1,0,2-0.9,2-2h5V20z" styleClass="icon" />
                                              </graphic>
                                           </MenuItem>
                                           <MenuItem mnemonicParsing="false" text="Agendar">
                                              <graphic>
                                                 <SVGPath content="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" styleClass="icon" />
+                                             </graphic>
+                                          </MenuItem>
+                                          <MenuItem mnemonicParsing="false" onAction="#deleteSale" text="Excluir">
+                                             <graphic>
+                                                <SVGPath content="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" styleClass="icon" />
                                              </graphic>
                                           </MenuItem>
                                        </items>
@@ -178,12 +188,13 @@
                            <columnConstraints>
                               <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" />
                               <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="NEVER" maxWidth="80.0" minWidth="10.0" prefWidth="43.0" />
+                              <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="NEVER" maxWidth="80.0" minWidth="10.0" prefWidth="100.0" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Button graphicTextGap="8.0" layoutX="163.0" layoutY="21.0" maxWidth="1.7976931348623157E308" minHeight="40.0" mnemonicParsing="false" text="Controle de Vendas">
+                              <Button graphicTextGap="8.0" layoutX="163.0" layoutY="21.0" maxWidth="1.7976931348623157E308" minHeight="40.0" mnemonicParsing="false" onAction="#goControl" text="Controle de Vendas">
                                  <styleClass>
                                     <String fx:value="btn-flat" />
                                     <String fx:value="h4" />
@@ -207,6 +218,20 @@
                                     <Tooltip text="Fechar Caixa" />
                                  </tooltip>
                               </Button>
+                              <Button graphicTextGap="8.0" minHeight="40.0" minWidth="43.0" mnemonicParsing="false" onAction="#openCashier" prefHeight="60.0" prefWidth="419.0" style="-fx-font-weight: bold; -fx-border-radius: 0; -fx-pref-height: 100; -fx-border-width: 0 0 0 1;" GridPane.columnIndex="2">
+                                 <styleClass>
+                                    <String fx:value="btn-flat" />
+                                    <String fx:value="h4" />
+                                    <String fx:value="border" />
+                                    <String fx:value="btn-imersive" />
+                                 </styleClass>
+                                 <graphic>
+                                    <SVGPath content="M23,8c0,1.1-0.9,2-2,2c-0.18,0-0.35-0.02-0.51-0.07l-3.56,3.55C16.98,13.64,17,13.82,17,14c0,1.1-0.9,2-2,2s-2-0.9-2-2 c0-0.18,0.02-0.36,0.07-0.52l-2.55-2.55C10.36,10.98,10.18,11,10,11c-0.18,0-0.36-0.02-0.52-0.07l-4.55,4.56 C4.98,15.65,5,15.82,5,16c0,1.1-0.9,2-2,2s-2-0.9-2-2s0.9-2,2-2c0.18,0,0.35,0.02,0.51,0.07l4.56-4.55C8.02,9.36,8,9.18,8,9 c0-1.1,0.9-2,2-2s2,0.9,2,2c0,0.18-0.02,0.36-0.07,0.52l2.55,2.55C14.64,12.02,14.82,12,15,12c0.18,0,0.36,0.02,0.52,0.07 l3.55-3.56C19.02,8.35,19,8.18,19,8c0-1.1,0.9-2,2-2S23,6.9,23,8z" fill="#837878" style="-fx-fill: -info;" />
+                                 </graphic>
+                                 <tooltip>
+                                    <Tooltip text="Fechar Caixa" />
+                                 </tooltip>
+                              </Button>
                            </children>
                         </GridPane>
                         <TableView fx:id="saleItems" prefWidth="150.0" style="-fx-border-width: 0;" stylesheets="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/custom-scroll.css" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
@@ -217,7 +242,7 @@
                                     <SVGPath content="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" scaleX="0.9" scaleY="0.9" />
                                  </graphic>
                               </TableColumn>
-                              <TableColumn fx:id="quantityColumn" maxWidth="3000.0" minWidth="25.0" prefWidth="101.0" style="-fx-alignment: center;" text="Qtd">
+                              <TableColumn fx:id="quantityColumn" maxWidth="3000.0" minWidth="40.0" prefWidth="101.0" style="-fx-alignment: center;" text="Qtd">
                                  <graphic>
                                     <SVGPath content="M10 7H8v4H4v2h4v4h2v-4h4v-2h-4V7zm10 11h-2V7.38L15 8.4V6.7L19.7 5h.3v13z" scaleX="0.9" scaleY="0.9" />
                                  </graphic>
@@ -237,20 +262,6 @@
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
-                           <tooltip>
-                              <Tooltip text="Tabela de items da venda." />
-                           </tooltip>
-                           <contextMenu>
-                              <ContextMenu>
-                                <items>
-                                    <MenuItem mnemonicParsing="false" text="Excluir">
-                                       <graphic>
-                                          <SVGPath content="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" styleClass="icon" />
-                                       </graphic>
-                                    </MenuItem>
-                                </items>
-                              </ContextMenu>
-                           </contextMenu>
                         </TableView>
                         <HBox fx:id="infoBox" maxHeight="63.0" minHeight="60.0" spacing="5.0" style="-fx-border-width: 1 0 1 0;" styleClass="border">
                            <children>
@@ -340,7 +351,7 @@
                               <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Button fx:id="remove" contentDisplay="GRAPHIC_ONLY" graphicTextGap="8.0" minHeight="40.0" mnemonicParsing="false" prefWidth="500.0" style="-primary-color: -grapefruit; -fx-background-radius: 3;" styleClass="deep-button" text="Remover">
+                              <Button fx:id="remove" contentDisplay="GRAPHIC_ONLY" graphicTextGap="8.0" minHeight="40.0" mnemonicParsing="false" onAction="#deleteSaleItem" prefWidth="500.0" style="-primary-color: -grapefruit; -fx-background-radius: 3;" styleClass="deep-button" text="Remover">
                                  <graphic>
                                     <SVGPath content="M1.41 1.13L0 2.54l4.39 4.39 2.21 4.66-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h7.46l1.38 1.38c-.5.36-.83.95-.83 1.62 0 1.1.89 2 1.99 2 .67 0 1.26-.33 1.62-.84L21.46 24l1.41-1.41L1.41 1.13zM7 15l1.1-2h2.36l2 2H7zM20 4H7.12l2 2h9.19l-2.76 5h-1.44l1.94 1.94c.54-.14.99-.49 1.25-.97l3.58-6.49C21.25 4.82 20.76 4 20 4zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2z" fill="WHITE" scaleX="1.3" scaleY="1.3" />
                                  </graphic>
