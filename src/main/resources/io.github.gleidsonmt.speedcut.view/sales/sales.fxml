@@ -269,7 +269,7 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <VBox minHeight="99.0" prefHeight="99.0" prefWidth="479.0">
+                        <VBox minHeight="100.0">
                            <children>
                               <GridPane hgap="5.0" prefHeight="126.0" prefWidth="479.0" vgap="5.0" VBox.vgrow="ALWAYS">
                                  <columnConstraints>
