@@ -18,30 +18,34 @@
 package io.github.gleidsonmt.speedcut.presenter;
 
 import io.github.gleidsonmt.speedcut.core.app.dao.AbstractDao;
-import io.github.gleidsonmt.speedcut.core.app.dao.DaoProfessional;
-import io.github.gleidsonmt.speedcut.core.app.model.Professional;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
+import io.github.gleidsonmt.speedcut.core.app.dao.DaoCashier;
+import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
+import io.github.gleidsonmt.speedcut.core.app.model.Cashier;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  02/03/2022
+ * Create on  02/04/2022
  */
-public final class ProfessionalPresenter extends Presenter<Professional> {
+public class CashierPresenter extends Presenter<Cashier> {
 
-    private static final DaoProfessional DAO_PROFESSIONAL = new DaoProfessional();
+    private final DaoCashier DAO_CASHIER = new DaoCashier();
 
     @Override
-    protected AbstractDao<Professional> getDao() {
-        return DAO_PROFESSIONAL;
+    protected AbstractDao<Cashier> getDao() {
+        return DAO_CASHIER;
     }
 
-    public ObservableList<Professional> getElements() {
-        return DAO_PROFESSIONAL.getElements();
+    public Cashier getOpened() {
+        return DAO_CASHIER.findOpened();
     }
 
-    public int getSizeFromServer() {
-        createConnection();
-        return DAO_PROFESSIONAL.getSizeFromServer();
+    public void store(Cashier model) {
+        try {
+            createConnection();
+            DAO_CASHIER.store(model);
+        } catch (SQLQueryError e) {
+            e.printStackTrace();
+        }
     }
+
 }

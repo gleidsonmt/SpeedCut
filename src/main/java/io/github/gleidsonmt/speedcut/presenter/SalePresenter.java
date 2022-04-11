@@ -19,6 +19,7 @@ package io.github.gleidsonmt.speedcut.presenter;
 
 import io.github.gleidsonmt.speedcut.core.app.dao.AbstractDao;
 import io.github.gleidsonmt.speedcut.core.app.dao.DaoSale;
+import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
 import io.github.gleidsonmt.speedcut.core.app.model.Entity;
 import io.github.gleidsonmt.speedcut.core.app.model.Sale;
 import javafx.beans.property.ListProperty;
@@ -48,6 +49,16 @@ public class SalePresenter extends Presenter<Sale> {
     public boolean delete(Sale sale) {
         createConnection();
         return dao.delete(sale);
+    }
+
+    public boolean update(Sale sale) {
+        createConnection();
+        try {
+            return dao.update(sale);
+        } catch (SQLQueryError e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public ObservableList<Sale> getElements() {

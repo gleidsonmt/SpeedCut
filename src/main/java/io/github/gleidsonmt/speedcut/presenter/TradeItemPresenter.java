@@ -17,43 +17,39 @@
 
 package io.github.gleidsonmt.speedcut.presenter;
 
-import io.github.gleidsonmt.speedcut.core.app.dao.*;
-import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
+import io.github.gleidsonmt.speedcut.core.app.dao.AbstractDao;
+import io.github.gleidsonmt.speedcut.core.app.dao.DaoProduct;
+import io.github.gleidsonmt.speedcut.core.app.dao.DaoService;
+import io.github.gleidsonmt.speedcut.core.app.dao.DaoTradeItem;
 import io.github.gleidsonmt.speedcut.core.app.model.Product;
-import io.github.gleidsonmt.speedcut.core.app.model.Professional;
 import io.github.gleidsonmt.speedcut.core.app.model.SaleItem;
 import io.github.gleidsonmt.speedcut.core.app.model.Service;
+import io.github.gleidsonmt.speedcut.core.app.model.TradeItem;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  26/02/2022
+ * Create on  21/03/2022
  */
-public class SaleItemPresenter extends Presenter<SaleItem> {
+public class TradeItemPresenter extends Presenter<TradeItem> {
 
-    private static final DaoSaleItem  DAO_SALE_ITEM   = new DaoSaleItem();
-
+    private static final DaoTradeItem   DAO_TRADE_ITEM     = new DaoTradeItem();
+    private static final DaoProduct     DAO_PRODUCT     = new DaoProduct();
+    private static final DaoService     DAO_SERVICE     = new DaoService();
 
     @Override
-    protected AbstractDao<SaleItem> getDao() {
-        return DAO_SALE_ITEM;
+    protected AbstractDao<TradeItem> getDao() {
+        return DAO_TRADE_ITEM;
     }
 
-    public boolean update(SaleItem saleItem) {
-        try {
-            createConnection();
-            return getDao().update(saleItem);
-        } catch (SQLQueryError e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public boolean delete(SaleItem saleItem) {
+    public Task<ObservableList<Product>> createProducts() {
         createConnection();
-        return getDao().delete(saleItem);
+        return DAO_PRODUCT.populateAllTask();
     }
 
-
+    public Task<ObservableList<Service>> createServices() {
+        createConnection();
+        return DAO_SERVICE.populateAllTask();
+    }
 }
