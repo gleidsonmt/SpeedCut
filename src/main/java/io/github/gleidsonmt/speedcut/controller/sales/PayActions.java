@@ -21,8 +21,6 @@ import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.speedcut.controller.SalesController;
 import io.github.gleidsonmt.speedcut.core.app.animations.Animations;
-import io.github.gleidsonmt.speedcut.core.app.model.Sale;
-import io.github.gleidsonmt.speedcut.core.app.view.IManager;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
@@ -47,16 +45,9 @@ public class PayActions extends GridPane  {
         setPadding(new Insets(2));
         VBox.setMargin(this, new Insets(0, 5, 0, 5));
 
-        Button btnCancel = createButton();
-        Button btnPrint = createButton();
-        Button btnPay = createButton();
-
-        btnPrint.setGraphic(createIcon(Icons.PRINT_FILLED));
-        btnPay.setGraphic(createIcon(Icons.DONE));
-        btnCancel.setGraphic(createIcon(Icons.ERROR));
-
-        btnCancel.getStyleClass().add("btn-grapefruit");
-        btnPay.getStyleClass().add("btn-mint");
+        Button btnCancel = createButton(Icons.ERROR, "btn-grapefruit");
+        Button btnPrint = createButton(Icons.PRINT_FILLED, null);
+        Button btnPay = createButton(Icons.DONE, "btn-mint");
 
         getChildren().stream().map(e -> (Button)e).forEach(Animations::onHoverButton);
 
@@ -65,10 +56,12 @@ public class PayActions extends GridPane  {
 
     }
 
-    private Button createButton() {
+    private Button createButton(Icons icon, String clazz) {
         Button button = new Button();
         button.setMaxWidth(Double.MAX_VALUE);
         button.getStyleClass().add("deep-button");
+        button.getStyleClass().add(clazz);
+        button.setGraphic(createIcon(icon));
 
         getChildren().add(button);
 

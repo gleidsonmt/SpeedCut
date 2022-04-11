@@ -26,6 +26,7 @@ import io.github.gleidsonmt.gncontrols.options.FieldType;
 import io.github.gleidsonmt.gncontrols.options.GNButtonType;
 import io.github.gleidsonmt.gncontrols.options.TrayAction;
 import io.github.gleidsonmt.speedcut.controller.sales.PayActions;
+import io.github.gleidsonmt.speedcut.controller.sales.PaymentMethod;
 import io.github.gleidsonmt.speedcut.core.app.animations.Animations;
 import io.github.gleidsonmt.speedcut.core.app.dao.DaoCashier;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
@@ -116,6 +117,7 @@ public class SalesController extends ResponsiveView {
     private final SaleItemPresenter saleItemPresenter   = new SaleItemPresenter();
 
     private final PayActions payActions = new PayActions(this);
+    private final PaymentMethod paymentMethod = new PaymentMethod(this);
 
     private boolean boxSearchOpened = false;
 
@@ -658,9 +660,11 @@ public class SalesController extends ResponsiveView {
         if (pay) {
             columnSales.getChildren().remove(gridActions);
             columnSales.getChildren().add(payActions);
+            columnSales.getChildren().add(2, paymentMethod);
         } else {
             columnSales.getChildren().add(gridActions);
             columnSales.getChildren().remove(payActions);
+            columnSales.getChildren().remove(paymentMethod);
         }
     }
 }
