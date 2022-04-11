@@ -45,7 +45,7 @@ public class PayActions extends GridPane  {
         setPadding(new Insets(2));
         VBox.setMargin(this, new Insets(0, 5, 0, 5));
 
-        Button btnCancel = createButton(Icons.ERROR, "btn-grapefruit");
+        Button btnCancel = createButton(Icons.BLOCK, "btn-grapefruit");
         Button btnPrint = createButton(Icons.PRINT_FILLED, null);
         Button btnPay = createButton(Icons.DONE, "btn-mint");
 

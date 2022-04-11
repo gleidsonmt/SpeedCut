@@ -288,7 +288,7 @@ public class BuyController implements ActionViewController {
         BigDecimal ac = MoneyUtil.get(total.getText());
 
         boolean test = salesController.saleItems.getItems().stream().anyMatch(
-                math -> math.getName().equalsIgnoreCase(saleItem.getItem().getName()));
+                math -> math.getItem().getName().equalsIgnoreCase(saleItem.getItem().getName()));
 
         System.out.println("test = " + test);
 
