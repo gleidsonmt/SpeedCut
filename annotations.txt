@@ -1,0 +1,42 @@
+
+Ideias
+
+    Mais velocidade na indexacao passando item por item para a lista
+    Mais velocidade para listas adicionando poupularidade como indexador..
+
+
+animations ideas
+https://cssfx.netlify.app
+
+Continuar ideia dao.. abstract faz meotodos dao.. e presenter implementa esse mtedodo
+
+
+** Views
+
+- Main
+	Sales -- Doing
+	{
+	    Tela de Funcionarios,
+	    Tela de recebimentos.
+	}
+	Appointment
+    Stock
+    Cashier / Finances -- Fazendo tabela no banco / acoes de abertura e fechamento
+    Dashboard
+- Configuration
+    Settings
+    About
+- CRUD
+    PROFESSIONAL
+    CLIENT
+    PRODUCT
+    SERVICE
+    USER
+    FORNECEDOR-----
+- ShortCuts
+- Tutorials
+
+
+-------------------------------------- Improvements ---------------------
+
+- Animacao do popup demora muito

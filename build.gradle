@@ -37,9 +37,19 @@ javafx {
 dependencies {
 
     implementation 'org.yaml:snakeyaml:1.29'
+    implementation 'fr.brouillard.oss:cssfx:11.5.0'
+    implementation 'org.jetbrains:annotations:22.0.0'
 
-    implementation files('vendor/GNDecorator-1.0.3.jar')
+    implementation files('E:/Projetos/Atual/GNControls/build/libs/GNControls-1.1.1.jar')
+
+    implementation files('vendor/GNDecorator-1.0.5.jar')
     implementation files('vendor/scenicView.jar')
+    implementation files('vendor/animatefx-1.2.0.jar')
+    implementation files('vendor/mysql-connector-java-8.0.14.jar')
+    implementation files('vendor/GNAvatarView-1.0-rc.jar')
+    implementation files('vendor/formsfx-core-11.5.0.jar')
+    implementation files('vendor/controlsfx-8.40.17.jar')
+
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
@@ -60,10 +70,12 @@ jlink {
         imageOptions = [
                 '--icon', 'logo.ico'
         ]
+        installerType = 'exe'
         installerOptions = [
             '--description', "Project Example for JavaFx",
             '--copyright', 'Copyrigth © 2021-2022 GLEIDSON NEVES DA SILVEIRA',
             '--icon', 'logo.ico'
+
         ]
 
         addExtraDependencies("javafx")
@@ -72,14 +84,4 @@ jlink {
 
 jlinkZip {
     group = 'distribution'
-}
-
-jar {
-
-    manifest {
-        attributes(
-                'Main-Class': mainClassName
-        )
-    }
-
 }
