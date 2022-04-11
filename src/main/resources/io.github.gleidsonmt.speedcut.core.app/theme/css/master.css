@@ -37,6 +37,10 @@
     -fx-background-color : -light-gray, -medium-gray;
 }
 
+.hamburger .icon {
+    -fx-fill : -text-color;
+}
+
 .table-cell #custom-avatar .text,
 .list-cell #custom-avatar .text {
     -fx-fill : white;
@@ -48,6 +52,8 @@
     -fx-font-size : 14pt;
 }
 
+
+#custom-avatar,
 .table-cell #custom-avatar,
 .list-cell #custom-avatar {
     -fx-background-radius : 100px;
@@ -71,6 +77,14 @@
 
 }
 
+#custom-avatar {
+    -fx-font-weight : bold;
+}
+
+#custom-avatar .text {
+    -fx-fill : white;
+}
+
 .table-cell:hover #custom-avatar .text,
 .list-cell:hover #custom-avatar .text {
     -fx-fill : -base;
@@ -78,8 +92,46 @@
 
 #badge-cell:filled:even:selected,
 #badge-cell:filled:selected {
-    -fx-background-color: derive(-base, 90%);
+      -fx-background-color : derive(-primary-color, 90%);
     -fx-padding : 0 0 0 20;
+}
+
+
+.block-selected {
+    -fx-border-color : -info;
+    -fx-border-width : 2px;
+}
+
+.toggle-pro:selected .wrapper .icon-box  {
+    -fx-border-color : -info;
+    -fx-pref-height : 40px;
+    -fx-pref-width : 40px;
+    -fx-alignment : center;
+    -fx-border-width : 2px;
+    -fx-border-radius : 2px;
+    visibility : true;
+}
+
+.toggle-pro .wrapper .icon-box  {
+    visibility : false;
+}
+
+.toggle-pro:selected .wrapper .icon-box .icon {
+    -fx-fill : -info;
+}
+
+
+.toggle-pro,
+.toggle-pro:selected {
+    -fx-background-color : transparent;
+    -fx-effect : none;
+}
+
+.toggle-pro:selected .box {
+    -fx-border-color : -info;
+    -fx-border-width : 4px;
+    -fx-border-radius : 10px;
+    -fx-effect : none;
 }
 
 .snack-bar .snack-button  {
@@ -107,6 +159,23 @@
     -gn-text-transition : -base;
 }
 
+.img-avatar {
+    -fx-background-image : url('../img/avatars/man1@400.png');
+}
 
+.table-view .table-row-discount,
+.table-view .table-row-discount:selected:focused {
 
+    -fx-border-width :  0 0 0 3;
+    -fx-border-color : -secondary;
+}
 
+.table-view .table-row-discount .table-cell .text,
+.table-view .table-row-discount .label .text {
+    -fx-fill : -secondary;
+    -fx-text-fill : -secondary;
+}
+
+.table-view .table-row-cell {
+    -fx-border-width :  0 0 0 3;
+}

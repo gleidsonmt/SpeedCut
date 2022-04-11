@@ -62,7 +62,6 @@ public class QuantityColumnFactory<S extends SaleItem> implements Callback<Table
 
             private final SaleItemPresenter salePresenter = new SaleItemPresenter();
 
-
             @Override
             protected void updateItem(Number item, boolean empty) {
                 super.updateItem(item, empty);

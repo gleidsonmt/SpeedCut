@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.gleidsonmt.gncontrols.GNFloatingButton?>
+<?import io.github.gleidsonmt.gncontrols.GNTextBox?>
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
@@ -11,6 +13,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -64,7 +68,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="btnSearchSale" alignment="CENTER" layoutX="163.0" layoutY="21.0" maxWidth="1.7976931348623157E308" minHeight="40.0" mnemonicParsing="false" onAction="#openSearch" text="Procurar" wrapText="true">
+                              <Button fx:id="btnSearchSale" alignment="CENTER" layoutX="163.0" layoutY="21.0" maxWidth="1.7976931348623157E308" minHeight="60.0" mnemonicParsing="false" onAction="#openSearch" text="Procurar" wrapText="true">
                                  <styleClass>
                                     <String fx:value="btn-flat" />
                                     <String fx:value="h4" />
@@ -77,11 +81,13 @@
                                     <Tooltip text="Procurar Cliente" />
                                  </tooltip>
                               </Button>
-                              <Button fx:id="btnAddSale" alignment="CENTER" layoutX="132.0" layoutY="20.0" maxWidth="1.7976931348623157E308" minHeight="40.0" mnemonicParsing="false" onAction="#addDefaultSale" text="Venda" wrapText="true" GridPane.columnIndex="1">
+                              <Button fx:id="btnAddSale" alignment="CENTER" layoutX="132.0" layoutY="20.0" maxWidth="1.7976931348623157E308" minHeight="60.0" mnemonicParsing="false" onAction="#addDefaultSale" text="Venda" wrapText="true" GridPane.columnIndex="1">
                                  <styleClass>
                                     <String fx:value="btn-flat" />
                                     <String fx:value="h4" />
                                     <String fx:value="btn-imersive" />
+                                    <String fx:value="border" />
+                                    <String fx:value="border-lr-1" />
                                  </styleClass>
                                  <graphic>
                                     <SVGPath content="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" fill="#837878" style="-fx-fill: -info;" />
@@ -90,7 +96,7 @@
                                     <Tooltip text="Adicionar Nova Venda Anonima" />
                                  </tooltip>
                               </Button>
-                              <Button fx:id="btnViewProfessionals" alignment="CENTER" layoutX="314.0" layoutY="20.0" maxWidth="1.7976931348623157E308" minHeight="40.0" mnemonicParsing="false" onAction="#openProfessionals" text="Professionals" wrapText="true" GridPane.columnIndex="2">
+                              <Button fx:id="btnViewProfessionals" alignment="CENTER" layoutX="314.0" layoutY="20.0" maxWidth="1.7976931348623157E308" minHeight="60.0" mnemonicParsing="false" onAction="#openProfessionals" text="Professionals" wrapText="true" GridPane.columnIndex="2">
                                  <styleClass>
                                     <String fx:value="btn-flat" />
                                     <String fx:value="h4" />
@@ -117,7 +123,7 @@
                                     </TableColumn>
                                     <TableColumn fx:id="columnClient" prefWidth="267.0" styleClass="column-center" text="Cliente">
                                        <graphic>
-                                          <SVGPath content="M15.47 20.5L12 17l1.4-1.41 2.07 2.08 5.13-5.17 1.4 1.41 M9 17l3-2.94c-.39-.04-.68-.06-1-.06-2.67 0-8 1.34-8 4v2h9l-3-3zm2-5c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4" scaleX="0.8" scaleY="0.8" styleClass="icon-danger" />
+                                          <SVGPath content="M12 6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2m0 10c2.7 0 5.8 1.29 6 2H6c.23-.72 3.31-2 6-2m0-12C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 10c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" scaleX="0.8" scaleY="0.8" styleClass="icon-danger" />
                                        </graphic>
                                     </TableColumn>
                                     <TableColumn fx:id="columnRegistered" maxWidth="-1.0" minWidth="0.0" prefWidth="0.0" text="Data/Horário">
@@ -144,7 +150,7 @@
                                                 <SVGPath content="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" styleClass="icon" />
                                              </graphic>
                                           </MenuItem>
-                                          <MenuItem mnemonicParsing="false" onAction="#deleteSale" text="Excluir">
+                                          <MenuItem mnemonicParsing="false" text="Excluir">
                                              <graphic>
                                                 <SVGPath content="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" styleClass="icon" />
                                              </graphic>
@@ -194,7 +200,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Button graphicTextGap="8.0" layoutX="163.0" layoutY="21.0" maxWidth="1.7976931348623157E308" minHeight="40.0" mnemonicParsing="false" onAction="#goControl" text="Controle de Vendas">
+                              <Button graphicTextGap="8.0" layoutX="163.0" layoutY="21.0" maxWidth="1.7976931348623157E308" minHeight="60.0" mnemonicParsing="false" onAction="#goControl" prefHeight="74.0" prefWidth="376.0" text="Controle de Vendas">
                                  <styleClass>
                                     <String fx:value="btn-flat" />
                                     <String fx:value="h4" />
@@ -226,7 +232,7 @@
                                     <String fx:value="btn-imersive" />
                                  </styleClass>
                                  <graphic>
-                                    <SVGPath content="M23,8c0,1.1-0.9,2-2,2c-0.18,0-0.35-0.02-0.51-0.07l-3.56,3.55C16.98,13.64,17,13.82,17,14c0,1.1-0.9,2-2,2s-2-0.9-2-2 c0-0.18,0.02-0.36,0.07-0.52l-2.55-2.55C10.36,10.98,10.18,11,10,11c-0.18,0-0.36-0.02-0.52-0.07l-4.55,4.56 C4.98,15.65,5,15.82,5,16c0,1.1-0.9,2-2,2s-2-0.9-2-2s0.9-2,2-2c0.18,0,0.35,0.02,0.51,0.07l4.56-4.55C8.02,9.36,8,9.18,8,9 c0-1.1,0.9-2,2-2s2,0.9,2,2c0,0.18-0.02,0.36-0.07,0.52l2.55,2.55C14.64,12.02,14.82,12,15,12c0.18,0,0.36,0.02,0.52,0.07 l3.55-3.56C19.02,8.35,19,8.18,19,8c0-1.1,0.9-2,2-2S23,6.9,23,8z" fill="#837878" style="-fx-fill: -info;" />
+                                    <SVGPath content="M20,7h-5V4c0-1.1-0.9-2-2-2h-2C9.9,2,9,2.9,9,4v3H4C2.9,7,2,7.9,2,9v11c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V9 C22,7.9,21.1,7,20,7z M11,7V4h2v3v2h-2V7z M20,20H4V9h5c0,1.1,0.9,2,2,2h2c1.1,0,2-0.9,2-2h5V20z M11.08,16.18C10.44,15.9,9.74,15.75,9,15.75s-1.44,0.15-2.08,0.43C6.36,16.42,6,16.96,6,17.57V18h6v-0.43 C12,16.96,11.64,16.42,11.08,16.18z" fill="#837878" style="-fx-fill: -info;" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip text="Fechar Caixa" />
@@ -263,6 +269,69 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
+                        <VBox minHeight="99.0" prefHeight="99.0" prefWidth="479.0">
+                           <children>
+                              <GridPane hgap="5.0" prefHeight="126.0" prefWidth="479.0" vgap="5.0" VBox.vgrow="ALWAYS">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <ToggleButton mnemonicParsing="false" prefHeight="46.0" prefWidth="179.0" style="-fx-pref-height: 89;" styleClass="btn-payments" text="Credit Card">
+                                       <graphic>
+                                          <Group>
+                                             <children>
+                                                <SVGPath content="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z" fill="#9e9a9a" scaleX="0.03" scaleY="0.03" />
+                                             </children>
+                                          </Group>
+                                       </graphic>
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="payment" />
+                                       </toggleGroup>
+                                    </ToggleButton>
+                                    <ToggleButton layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="108.0" prefWidth="179.0" style="-fx-pref-height: 89;" styleClass="btn-payments" text="Cheque" toggleGroup="$payment" GridPane.columnIndex="2">
+                                       <graphic>
+                                          <Group>
+                                             <children>
+                                                <SVGPath content="M0 448c0 17.67 14.33 32 32 32h576c17.67 0 32-14.33 32-32V128H0v320zm448-208c0-8.84 7.16-16 16-16h96c8.84 0 16 7.16 16 16v32c0 8.84-7.16 16-16 16h-96c-8.84 0-16-7.16-16-16v-32zm0 120c0-4.42 3.58-8 8-8h112c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H456c-4.42 0-8-3.58-8-8v-16zM64 264c0-4.42 3.58-8 8-8h304c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8v-16zm0 96c0-4.42 3.58-8 8-8h176c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8v-16zM624 32H16C7.16 32 0 39.16 0 48v48h640V48c0-8.84-7.16-16-16-16z" scaleX="0.03" scaleY="0.03" />
+                                             </children>
+                                          </Group>
+                                       </graphic>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="btnTerm" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="179.0" style="-fx-pref-height: 89;" styleClass="btn-payments" text="Nota a prazo" toggleGroup="$payment" GridPane.rowIndex="1">
+                                       <graphic>
+                                          <Group>
+                                             <children>
+                                                <SVGPath content="M630.6 364.9l-90.3-90.2c-12-12-28.3-18.7-45.3-18.7h-79.3c-17.7 0-32 14.3-32 32v79.2c0 17 6.7 33.2 18.7 45.2l90.3 90.2c12.5 12.5 32.8 12.5 45.3 0l92.5-92.5c12.6-12.5 12.6-32.7.1-45.2zm-182.8-21c-13.3 0-24-10.7-24-24s10.7-24 24-24 24 10.7 24 24c0 13.2-10.7 24-24 24zm-223.8-88c70.7 0 128-57.3 128-128C352 57.3 294.7 0 224 0S96 57.3 96 128c0 70.6 57.3 127.9 128 127.9zm127.8 111.2V294c-12.2-3.6-24.9-6.2-38.2-6.2h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 287.9 0 348.1 0 422.3v41.6c0 26.5 21.5 48 48 48h352c15.5 0 29.1-7.5 37.9-18.9l-58-58c-18.1-18.1-28.1-42.2-28.1-67.9z" scaleX="0.03" scaleY="0.03" />
+                                             </children>
+                                          </Group>
+                                       </graphic>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="money" layoutX="10.0" layoutY="40.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="179.0" style="-fx-pref-height: 89;" styleClass="btn-payments" text="Dinheiro" toggleGroup="$payment" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                       <graphic>
+                                          <SVGPath content="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" />
+                                       </graphic>
+                                    </ToggleButton>
+                                    <GNTextBox fx:id="monetaryField" maxHeight="-Infinity" minHeight="300.0" prefHeight="300.0" prefWidth="171.0" promptText="R$ 0,00" style="-fx-border-color: -info; -fx-border-width: 1; -fx-font-size: 20pt;" GridPane.columnIndex="1" GridPane.rowSpan="2147483647" />
+                                 </children>
+                                 <styleClass>
+                                    <String fx:value="border" />
+                                    <String fx:value="border-t-1" />
+                                 </styleClass>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </GridPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </VBox>
                         <HBox fx:id="infoBox" maxHeight="63.0" minHeight="60.0" spacing="5.0" style="-fx-border-width: 1 0 1 0;" styleClass="border">
                            <children>
                               <GNFloatingButton fx:id="discountButton" maxHeight="-Infinity" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#openDiscount">
@@ -311,7 +380,7 @@
                                           <Font size="52.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="infoValue" style="-fx-font-weight: bold;" styleClass="h5" text="Valor:" GridPane.rowIndex="1">
+                                    <Label fx:id="infoValue" style="-fx-font-weight: bold;" styleClass="h5" text="Troco:" GridPane.rowIndex="1">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -370,7 +439,7 @@
                                     <ColorAdjust brightness="0.24" />
                                  </effect>
                               </Button>
-                              <Button id="3" fx:id="receive" contentDisplay="GRAPHIC_ONLY" graphicTextGap="8.0" minHeight="40.0" mnemonicParsing="false" prefWidth="500.0" style="-primary-color: -mint; -fx-background-radius: 3;" styleClass="deep-button" text="Receber" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2">
+                              <Button id="3" fx:id="receive" contentDisplay="GRAPHIC_ONLY" graphicTextGap="8.0" minHeight="40.0" mnemonicParsing="false" onAction="#openReceive" prefWidth="500.0" style="-primary-color: -mint; -fx-background-radius: 3;" styleClass="deep-button" text="Receber" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2">
                                  <graphic>
                                     <SVGPath content="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" fill="WHITE" scaleX="1.3" scaleY="1.3" />
                                  </graphic>

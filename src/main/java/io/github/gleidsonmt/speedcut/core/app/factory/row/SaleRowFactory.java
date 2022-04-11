@@ -18,6 +18,7 @@
 package io.github.gleidsonmt.speedcut.core.app.factory.row;
 
 import io.github.gleidsonmt.speedcut.controller.SalesController;
+import io.github.gleidsonmt.speedcut.core.app.factory.SaleContext;
 import io.github.gleidsonmt.speedcut.core.app.model.Sale;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -42,6 +43,7 @@ public record SaleRowFactory(SalesController controller)
                         if (event.getClickCount() == 2)
                             controller.goTableSalesItem();
                     });
+                    setContextMenu(new SaleContext(this));
                 } else {
                     setItem(null);
                     setOnMouseClicked(null);

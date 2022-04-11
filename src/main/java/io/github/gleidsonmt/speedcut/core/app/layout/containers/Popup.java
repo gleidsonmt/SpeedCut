@@ -179,14 +179,14 @@ public class Popup {
         }
     }
 
-    private EventHandler<ActionEvent> popupOpen = new EventHandler<>() {
+    private final EventHandler<ActionEvent> popupOpen = new EventHandler<>() {
         @Override
         public void handle(ActionEvent event) {
 
         }
     };
 
-    private EventHandler<ActionEvent> popupClose = new EventHandler<>() {
+    private final EventHandler<ActionEvent> popupClose = new EventHandler<>() {
         @Override
         public void handle(ActionEvent event) {
             wrapper.clear();

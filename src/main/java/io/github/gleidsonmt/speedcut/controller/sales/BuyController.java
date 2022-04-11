@@ -15,12 +15,14 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.controller;
+package io.github.gleidsonmt.speedcut.controller.sales;
 
 import io.github.gleidsonmt.gncontrols.GNButton;
 import io.github.gleidsonmt.gncontrols.GNListView;
 import io.github.gleidsonmt.gncontrols.GNTextBox;
+import io.github.gleidsonmt.speedcut.controller.SalesController;
 import io.github.gleidsonmt.speedcut.core.app.animations.Animations;
+import io.github.gleidsonmt.speedcut.core.app.factory.SaleItemContext;
 import io.github.gleidsonmt.speedcut.presenter.*;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
 import io.github.gleidsonmt.speedcut.core.app.factory.ListWithGraphicFactory;
@@ -42,6 +44,7 @@ import javafx.scene.layout.StackPane;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -270,7 +273,7 @@ public class BuyController implements ActionViewController {
     @FXML
     private void confirm() {
         next();
-        window.getRoot().getWrapper().getPopup().close();
+        window.getWrapper().getPopup().close();
     }
 
     @FXML
@@ -284,7 +287,17 @@ public class BuyController implements ActionViewController {
 //
         BigDecimal ac = MoneyUtil.get(total.getText());
 
-        salesController.addSaleItem(saleItem);
+        boolean test = salesController.saleItems.getItems().stream().anyMatch(
+                math -> math.getName().equalsIgnoreCase(saleItem.getItem().getName()));
+
+        System.out.println("test = " + test);
+
+        if (test) {
+            salesController.updateItem(saleItem);
+        } else {
+            salesController.addSaleItem(saleItem);
+        }
+
     }
 
 }

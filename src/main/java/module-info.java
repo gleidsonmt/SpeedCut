@@ -31,10 +31,15 @@ module io.github.gleidsonmt.speedcut {
     opens io.github.gleidsonmt.speedcut.core.app.controller to javafx.fxml;
     opens io.github.gleidsonmt.speedcut.controller to javafx.fxml;
 
+    opens io.github.gleidsonmt.speedcut.controller.sales to javafx.fxml;
+
     opens io.github.gleidsonmt.speedcut.core.app.view to org.yaml.snakeyaml;
     opens io.github.gleidsonmt.speedcut.core.app.factory to javafx.fxml;
     opens io.github.gleidsonmt.speedcut.core.app.layout.options to javafx.fxml;
     opens io.github.gleidsonmt.speedcut.core.app.layout.util to javafx.fxml;
     opens io.github.gleidsonmt.speedcut.core.app.layout.containers to javafx.fxml;
+    opens io.github.gleidsonmt.speedcut.core.app.factory.column to javafx.fxml;
+    opens io.github.gleidsonmt.speedcut.core.app.factory.row to javafx.fxml;
+
 
 }

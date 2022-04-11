@@ -48,7 +48,7 @@ public class SaleItemContext extends ContextMenu implements IManager {
         menuEdit.setGraphic(new IconContainer(Icons.EDIT_FILLED));
 
         MenuItem menuRemove = new MenuItem();
-        menuRemove.setText("Delete");
+        menuRemove.setText("Remover");
         menuRemove.setGraphic(new IconContainer(Icons.DELETE_OUTLINED));
 
         if (!tableRow.getItem().getItem().getDiscount().equals(BigDecimal.ZERO)) { // primeiro verifico so o item pode possuir algum desconto

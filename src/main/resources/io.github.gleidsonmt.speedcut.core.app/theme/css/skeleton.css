@@ -362,21 +362,20 @@
 }
 
 .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected  .text {
-    -fx-fill : -dark-gray;
+    -fx-fill : -base;
 }
 
 .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:selected .label .text {
     -fx-fill : white;
 }
 
-.list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:selected:hover .label .text {
-    -fx-fill : -text-color;
+.list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected:hover .label .text {
+    -fx-fill : -base;
 }
 
 .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell .lbl-status .text {
     -fx-fill : white;
 }
-
 
 .list-view > .text-field-list-cell .text-field
 {
@@ -648,6 +647,18 @@
 .context-menu .menu-item .text
 {
     -fx-font-size : 10pt;
+}
+
+.context-menu .menu-item:disabled:hover .label .text,
+.context-menu .menu-item:disabled:hover .label {
+    -fx-background-color : transparent;
+    -fx-text-fill : -text-color;
+    -fx-fill : -text-color;
+}
+
+.context-menu .menu-item:disabled:hover,
+.context-menu .menu-item:disabled {
+    -fx-background-color : transparent;
 }
 
 .context-menu {
@@ -927,7 +938,7 @@
 }
 
 .pagination .pagination-control .control-box .number-button
- {
+{
   -fx-min-width : 30px;
   -fx-min-height : 30px;
   -fx-background-color : transparent;
@@ -1068,7 +1079,12 @@
 
 .table-view .virtual-flow .scroll-bar:horizontal {
     visibility : false;
-   -fx-opacity : 0;
+   -fx-opacity : 1;
+   -fx-padding : 0px;
+   -fx-background-color : red;
+   -fx-max-height : 0px;
+   -fx-pref-height : 0px;
+   -fx-min-height : 0px;
 }
 
 .table-view .column-header-background .nested-column-header .table-column SVGPath {
@@ -1192,7 +1208,6 @@
     -fx-background-color : derive(-primary-color, 90%);
     -fx-border-color : -base;
     -fx-border-width : 0 0 0 3;
-
 }
 
 .table-row-cell:filled:selected .table-column .text

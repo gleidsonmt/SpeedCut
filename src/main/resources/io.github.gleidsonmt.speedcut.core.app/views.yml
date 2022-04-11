@@ -16,12 +16,25 @@
   name : sales
   directory : sales
   fxml : sales.fxml
+  views :
+    - name : sale_index
+      title : Controle de Vendas novos do silva
+      fxml : index.fxml
+    - name : sale_receive
+      title : Receber
+      fxml : receive.fxml
 
 - !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
   title: Buys
   name: buy
   directory: sales
   fxml: buy.fxml
+
+- !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
+  title: Professionals
+  name: professionals
+  directory: sales
+  fxml: professionals.fxml
 
 
 - !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
@@ -31,7 +44,9 @@
   fxml : register.fxml
 
 - !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
-  title : Sale
-  name : sale
-  directory : sales
-  fxml : sale.fxml
+  title : Caixa
+  name : open
+  directory : cashier
+  fxml : open.fxml
+
+

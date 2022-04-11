@@ -25,6 +25,7 @@ import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.gncontrols.options.FieldType;
 import io.github.gleidsonmt.gncontrols.options.GNButtonType;
 import io.github.gleidsonmt.gncontrols.options.TrayAction;
+import io.github.gleidsonmt.speedcut.controller.sales.PayActions;
 import io.github.gleidsonmt.speedcut.core.app.animations.Animations;
 import io.github.gleidsonmt.speedcut.core.app.dao.DaoCashier;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
@@ -68,6 +69,7 @@ import javafx.util.Duration;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -87,7 +89,7 @@ public class SalesController extends ResponsiveView {
     @FXML private TableColumn<Sale, Professional> columnProfessional;
     @FXML private TableColumn<Sale, Client> columnClient;
 
-    @FXML private TableView<SaleItem> saleItems;
+    @FXML public  TableView<SaleItem> saleItems;
     @FXML private TableColumn<SaleItem, Number> columnSaleItemId;
     @FXML private TableColumn<SaleItem, Number> quantityColumn;
     @FXML private TableColumn<SaleItem, TradeItem> itemNameColumn;
@@ -113,6 +115,8 @@ public class SalesController extends ResponsiveView {
     private final SalePresenter salePresenter           = new SalePresenter();
     private final SaleItemPresenter saleItemPresenter   = new SaleItemPresenter();
 
+    private final PayActions payActions = new PayActions(this);
+
     private boolean boxSearchOpened = false;
 
     @Override
@@ -126,7 +130,7 @@ public class SalesController extends ResponsiveView {
 
         if (window.getWidth() > 600) {
 
-            window.getRoot().getWrapper().getPopup()
+            window.getWrapper().getPopup()
                     .content(views.getRootFrom("buy"))
                     .animation(Popup.Animations.PULSE)
                     .onEnter(e -> views.getControllerFrom("buy").onEnter())
@@ -148,29 +152,8 @@ public class SalesController extends ResponsiveView {
         }
     }
 
-    @FXML
-    private void setDiscount() {
-        BigDecimal discountFromItem = saleItems.getSelectionModel().getSelectedItem().getItem().getDiscount();
-        if (discountFromItem != null) {
-            if (!discountFromItem.equals(BigDecimal.ZERO)) {
-                saleItems.getSelectionModel().getSelectedItem()
-                        .setDiscount(discountFromItem);
-            }
-            else
-                window.getRoot().createSnackBar()
-                    .type(SnackBarType.INFO)
-                    .message("Este item não possui desconto.")
-                    .show();
-        } else {
-            window.getRoot().createSnackBar()
-                    .type(SnackBarType.INFO)
-                    .message("Este item não possui desconto.")
-                    .show();
-        }
-    }
-
-
     private DiscountPopup popup = null;
+
     @FXML
     private void openDiscount() {
         if (popup == null)
@@ -200,33 +183,6 @@ public class SalesController extends ResponsiveView {
     }
 
     @FXML
-    private void deleteSale() {
-        Sale sale = tableSales.getSelectionModel().getSelectedItem();
-
-        if (sale != null) {
-//            salePresenter.delete(sale);
-//            salePresenter.persist();
-//
-            window.getRoot().createSnackBar()
-                    .type("done")
-                    .onAction(event -> {
-                        salePresenter.createConnection();
-                        salePresenter.store(sale);
-                        salePresenter.persist();
-                    })
-                    .onFinished(event -> {
-                        salePresenter.delete(sale);
-                        salePresenter.persist();
-                    })
-                    .message("Venda removida")
-                    .show();
-
-//            filteredList.getSource().remove(sale);
-
-        }
-    }
-
-    @FXML
     private void openSearch() {
         if (boxSearch.getChildren().size() < 1) {
             createContainer();
@@ -244,7 +200,6 @@ public class SalesController extends ResponsiveView {
     private final GNFloatingButton btnClose = new GNFloatingButton();
     private final GNFloatingButton btnEdit = new GNFloatingButton();
     private final HBox searchActions = new HBox();
-
 
     private void openSearchBox() {
         timeline.getKeyFrames().setAll(
@@ -603,6 +558,25 @@ public class SalesController extends ResponsiveView {
         }
     }
 
+    public void updateItem(SaleItem saleItem) {
+
+//        System.out.println("saleItem = " + saleItem.getQuantity());
+
+        SaleItem _item = saleItems.getItems().stream()
+                        .filter(f -> f.getItem().getName().equalsIgnoreCase(saleItem.getItem().getName()))
+                                .findAny().orElseGet(SaleItem::new);
+
+        System.out.println("_item.getQuantity() = " + _item.getQuantity());
+
+        saleItem.setQuantity(saleItem.getQuantity() + _item.getQuantity());
+        saleItem.setId(_item.getId());
+
+        System.out.println("saleItem = " + saleItem.getQuantity());
+
+        saleItemPresenter.update(saleItem);
+        saleItemPresenter.persist();
+    }
+
     @FXML
     public void deleteSaleItem() {
         SaleItem _saleItem = saleItems.getSelectionModel().getSelectedItem();
@@ -610,14 +584,12 @@ public class SalesController extends ResponsiveView {
             SaleItemPresenter saleItemPresenter = new SaleItemPresenter();
             saleItemPresenter.delete(_saleItem);
             if (saleItemPresenter.persist()) {
-                window.getRoot()
-                        .createSnackBar()
+                window  .createSnackBar()
                         .message("Sale Item removed.")
                         .show();
             }
         } else {
-            window.getRoot()
-                    .createSnackBar()
+            window  .createSnackBar()
                     .type("warning")
                     .message("Não existem itens de vendas.")
                     .show();
@@ -625,7 +597,7 @@ public class SalesController extends ResponsiveView {
     }
 
     @FXML
-    private void editClient() {
+    public void editClient() {
         openSearch();
         searchActions.getChildren().setAll(btnClose, btnEdit);
     }
@@ -666,6 +638,29 @@ public class SalesController extends ResponsiveView {
             } catch (NavigationException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    @FXML
+    private void openReceive () {
+//        window.getWrapper()
+//                .getPopup()
+//                .size(400, 600)
+//                .content(views.getRootFrom("sale_receive"))
+//                .show();
+
+//        columnSales.getChildren().remove(gridActions);
+//        columnSales.getChildren().add(payActions);
+        switchPayControls(true);
+    }
+
+    public void switchPayControls(boolean pay) {
+        if (pay) {
+            columnSales.getChildren().remove(gridActions);
+            columnSales.getChildren().add(payActions);
+        } else {
+            columnSales.getChildren().add(gridActions);
+            columnSales.getChildren().remove(payActions);
         }
     }
 }

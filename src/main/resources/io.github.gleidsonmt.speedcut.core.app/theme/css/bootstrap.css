@@ -564,3 +564,60 @@
 .btn-deep-orange {
     -primary-color : -deep-orange;
 }
+
+.btn-secondary
+{
+    -primary-color : -purple;
+}
+
+.btn-payments,
+.btn-payments:hover, .btn-payments:pressed
+{
+  -base : -light-gray;
+  -fx-background-color : -light-gray;
+  -fx-border-color : -medium-gray;
+  -fx-border-radius : 1px;
+  -fx-text-fill : -dark-gray;
+  -fx-effect : null;
+}
+
+.btn-payments:selected
+{
+    -fx-effect : null;
+    -fx-border-width : 2px;
+    -fx-border-color : -dark-gray;
+}
+
+.btn-payments SVGPath,
+.btn-options SVGPath
+{
+    -fx-fill : -dark-gray;
+}
+
+.btn-options,
+.btn-options:hover, .btn-options:pressed,
+.btn-options:hover:focused, .btn-options:focused
+{
+  -base : -light-gray;
+  -fx-background-color : -light-gray;
+  -fx-border-color : -medium-gray;
+  -fx-border-radius : 0px;
+  -fx-text-fill : -dark-gray;
+  -fx-border-width : 1px;
+  -fx-effect : null;
+}
+
+
+
+.btn-profile:focused,
+.btn-profile:pressed,
+.btn-profile:hover,
+.btn-profile:hover:pressed,
+.btn-profile:focused .text,
+.btn-profile:hover .text,
+.btn-profile:focused SVGPath,
+.btn-profile:hover SVGPath
+{
+    -fx-background-color : derive(-base, 90%);
+    -fx-fill : -base;
+}

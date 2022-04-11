@@ -95,6 +95,7 @@ public class DaoSaleItem extends AbstractDao<SaleItem> {
     }
 
     public boolean update(SaleItem saleItem) {
+        System.out.println("saleItem++++ = " + saleItem.getId());
         try {
             PreparedStatement prepare =
                     prepare("update " +

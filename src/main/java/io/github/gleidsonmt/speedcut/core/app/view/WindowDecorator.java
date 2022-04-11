@@ -26,6 +26,7 @@ import io.github.gleidsonmt.speedcut.core.app.exceptions.ControllerCastException
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
 import io.github.gleidsonmt.speedcut.core.app.layout.CenterLayout;
 import io.github.gleidsonmt.speedcut.core.app.layout.Root;
+import io.github.gleidsonmt.speedcut.core.app.layout.containers.SnackBar;
 import io.github.gleidsonmt.speedcut.core.app.layout.containers.Wrapper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -119,6 +120,10 @@ public class WindowDecorator extends GNDecorator implements Global {
         });
 
         bar.setPadding(new Insets(0,0,0, getWrapper().getDrawer().getWidth()));
+    }
+
+    public SnackBar createSnackBar() {
+        return root.createSnackBar();
     }
 
     @Deprecated
