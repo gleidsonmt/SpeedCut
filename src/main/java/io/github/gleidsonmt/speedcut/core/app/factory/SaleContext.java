@@ -28,7 +28,10 @@ import io.github.gleidsonmt.speedcut.presenter.ProfessionalPresenter;
 import io.github.gleidsonmt.speedcut.presenter.SalePresenter;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
+
+import java.util.Comparator;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -45,20 +48,22 @@ public class SaleContext extends ContextMenu implements IManager {
         menuDelete.setGraphic(new IconContainer(Icons.DELETE_OUTLINED));
 
         menuDelete.setOnAction(event -> {
+            Sale item = tableRow.getItem();
             window.createSnackBar()
-                    .type("done")
-                    .onAction(e -> {
+                    .onHide(e -> {
                         salePresenter.createConnection();
-                        salePresenter.store(tableRow.getItem());
+                        salePresenter.delete(item);
                         salePresenter.persist();
                     })
-                    .onFinished(e -> {
-                        salePresenter.delete(tableRow.getItem());
-                        salePresenter.persist();
+                    .undo(e -> {
+                        salePresenter.getElements().add(item);
+                        salePresenter.getElements().sort((saleOne, saleTwo) ->
+                                saleOne.getId() < saleTwo.getId() ? 0 : 1);
+                        tableRow.getTableView().getSelectionModel().select(item);
                     })
-                    .message("Venda removida")
+                    .action(e -> salePresenter.getElements().removeAll(item))
+                    .message("#" + item.getId() + " | Venda removida")
                     .show();
-
         });
 
         MenuItem menuAppointment = new MenuItem();
@@ -69,44 +74,9 @@ public class SaleContext extends ContextMenu implements IManager {
         menuProfessional.setText("Profissional");
         menuProfessional.setGraphic(new IconContainer(Icons.BADGE));
 
-
-
         menuProfessional.setOnAction(e -> {
-
-            int size = new ProfessionalPresenter().getSizeFromServer();
-            ActionViewController controller = window.getViews().getControllerFrom("professionals");
-
-            if (size < 6) {
-
-                window.getWrapper()
-                        .getPopOver()
-                        .size(320, 600)
-                        .arrowLocation("left_top")
-                        .visibleArrow(false)
-                        .content(window.getViews().getRootFrom("professionals"))
-                        .onEnter(event -> {
-                            controller.onEnter();
-                            controller.updateModel(tableRow.getItem());
-                        })
-                        .show(tableRow);
-
-                if (window.getWidth() < 700) {
-                    try {
-                        window.navigate("professionals");
-                        controller.updateModel(tableRow.getItem());
-
-                    } catch (NavigationException ed) {
-                        ed.printStackTrace();
-                    }
-                }
-            } else {
-                try {
-                    controller.updateModel(tableRow.getItem());
-                    window.navigate("professionals");
-                } catch (NavigationException ex) {
-                    ex.printStackTrace();
-                }
-            }
+            SalesController slCtrl = (SalesController) window.getViews().getControllerFrom("sales");
+            slCtrl.openProfessionals();
         });
 
         MenuItem menuClient = new MenuItem();
@@ -115,7 +85,7 @@ public class SaleContext extends ContextMenu implements IManager {
 
         menuClient.setOnAction(event -> {
             SalesController controller = (SalesController) window.getViews().getControllerFrom("sales");
-            controller.editClient();
+            controller.openClients();
         });
 
         this.getItems().addAll(menuClient, menuProfessional, menuAppointment, menuDelete);

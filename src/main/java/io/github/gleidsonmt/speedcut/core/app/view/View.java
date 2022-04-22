@@ -48,10 +48,14 @@ public class View implements IView {
     }
 
     @Override
-    public ActionViewController getController() throws ControllerCastException {
+    public ActionViewController getController() {
         if (loader.getController() != null) {
             if (!(loader.getController() instanceof ActionViewController)) {
-                throw new ControllerCastException("CAST", "Error on controller " + loader.getController() + " does not extends action view.");
+                try {
+                    throw new ControllerCastException("CAST", "Error on controller " + loader.getController() + " does not extends action view.");
+                } catch (ControllerCastException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return loader.getController();

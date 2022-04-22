@@ -17,6 +17,7 @@
 
 package io.github.gleidsonmt.speedcut.core.app.layout.containers;
 
+import animatefx.animation.*;
 import io.github.gleidsonmt.gncontrols.GNButton;
 import io.github.gleidsonmt.gncontrols.GNButtonHover;
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
@@ -29,7 +30,10 @@ import io.github.gleidsonmt.speedcut.core.app.layout.options.SnackBarType;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -46,19 +50,18 @@ import java.util.TimerTask;
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  09/03/2022
+ * Refactor 1.0
  */
 public class SnackBar  {
 
-    private final Timeline timeline = new Timeline();
-
     private final Root  root;
     private final Label snack = new Label("Snack Bar");
-    private final GNButtonHover labelAction = new GNButtonHover("Desfazer");
+    private final GNButton labelAction = new GNButton("Desfazer");
 
     private final IconContainer iconContainer = new IconContainer();
     private final VBox box = new VBox(iconContainer);
 
-    private SnackBarType type = SnackBarType.DONE;
+    private EventHandler<ActionEvent> undoEvent;
 
     public SnackBar(Root root) {
         this.root = root;
@@ -73,34 +76,29 @@ public class SnackBar  {
         box.setMaxSize(25,25);
         box.setAlignment(Pos.CENTER);
 
-        labelAction.setHoverType(GNHoverType.SWIPE);
-
         labelAction.setButtonType(GNButtonType.SEMI_ROUNDED);
-        labelAction.setPrefSize(80,30);
 
+        labelAction.setPrefSize(80,20);
+        labelAction.setMaxHeight(30);
         labelAction.setCursor(Cursor.HAND);
+        labelAction.setAlignment(Pos.CENTER);
 
         labelAction.getStyleClass().add("snack-button");
         snack.getStyleClass().add("snack-bar");
-        labelAction.setStyle("-base : -mint;");
 
+        labelAction.setStyle("-fx-border-width : 1px; " +
+                "-fx-text-fill : white;" +
+                "-fx-border-radius : 5; -fx-border-color : white;" +
+                "-fx-background-radius : 5;"
+        );
+
+//        labelAction.getStyleClass().add("depth-1");
         snack.setContentDisplay(ContentDisplay.RIGHT);
 
     }
 
-    @Deprecated
-    public SnackBar type(SnackBarType type) {
-        this.type = type;
-        return this;
-    }
-
     public SnackBar message(String message) {
         snack.setText(message);
-        return this;
-    }
-
-    public SnackBar type(String snackType) {
-        this.type = SnackBarType.valueOf(snackType.toUpperCase());
         return this;
     }
 
@@ -114,98 +112,67 @@ public class SnackBar  {
 
     private void show(boolean top) {
 
-        String color = "-mint";
-        String foreground = "white";
-//
-        iconContainer.setScaleX(0.8);
-        iconContainer.setScaleY(0.8);
-
-        switch (type) {
-            case DONE -> {
-                color = "-mint";
-                iconContainer.setContent(Icons.DONE);
-            }
-            case WARNING -> {
-                color = "-amber";
-                iconContainer.setContent(Icons.WARNING);
-            }
-            case INFO -> {
-                color = "-info";
-                color = "gray";
-                iconContainer.setContent(Icons.FAVORITE);
-            }
-//            case ERROR -> {
-//                color = "-grapefruit";
-//                iconContainer.setContent(Icons.ERROR);
-////                iconContainer.setScaleX(1.2);
-////                iconContainer.setScaleY(1.2);
-//            }
-        }
-
-
         if (top) root.setAlignment(Pos.TOP_CENTER);
         else root.setAlignment(Pos.BOTTOM_CENTER);
 
-        double trlY = !top ? snack.getPrefHeight()  : (snack.getPrefHeight() * -1 ) ; // 40 e o tamanho da barra
-
-        if (!root.getChildren().contains(snack)) {
+        if (!root.getChildren().contains(snack))
             root.getChildren().add(snack);
-            snack.setTranslateY(trlY);
-        }
 
-        timeline.getKeyFrames().setAll(
-                new KeyFrame(Duration.ZERO, new KeyValue(
-                        snack.translateYProperty(), snack.getTranslateY()
-                )),
-                new KeyFrame(Duration.millis(200), new KeyValue(
-                        snack.translateYProperty(), -5
-                ))
-        );
+        snack.setTranslateY(-10);
 
-//        timeline.setOnFinished(null);
-
-        box.setStyle("-fx-background-color : " + foreground + "; -fx-background-radius : 100;");
-        iconContainer.setStyle("-fx-fill : " + color + ";");
+        box.setStyle("-fx-background-color : -dark-gray; -fx-background-radius : 100;");
 //        setGraphic(box);
-        snack.setStyle("-fx-background-color : " + color + ";" +
+        snack.setStyle(
+                "-fx-background-color : -dark-gray;" +
                 "-fx-padding : 10; -fx-background-radius : 5; " +
                 "-fx-text-fill : white; -fx-font-weight : bold;" );
 
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                timeline.getKeyFrames().setAll(
-                        new KeyFrame(Duration.ZERO, new KeyValue(
-                                snack.translateYProperty(), snack.getTranslateY()
-                        )),
-                        new KeyFrame(Duration.millis(200), new KeyValue(
-                                snack.translateYProperty(),  top ? -40 -snack.getHeight() : snack.getHeight()
-                        ))
-                );
-                timeline.play();
+        RollIn animation = new RollIn(snack);
+        animation.setSpeed(1.5);
 
-                timeline.setOnFinished(e -> {
-                    root.getChildren().remove(snack);
-                });
-
-            }
-        };
-
-        Timer timer = new Timer();
-
-        timer.schedule(task, 3000);
-
-        timeline.play();
+        animation.play();
+        animation.getTimeline().setOnFinished(event -> {
+            RollOut out = new RollOut(snack);
+            out.setDelay(Duration.millis(3000));
+            out.play();
+        });
     }
 
-    public SnackBar onFinished(EventHandler<ActionEvent> event) {
-        timeline.setOnFinished(event);
+
+    public SnackBar onHide(EventHandler<ActionEvent> event) {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                        event.handle(new ActionEvent());
+                        RollOut out = new RollOut(snack);
+                        out.getTimeline().setOnFinished(e -> root.getChildren().remove(snack));
+                        out.play();
+                });
+            }
+        }, 3000);
         return this;
     }
 
-    public SnackBar onAction(EventHandler<ActionEvent> eventHandler) {
+    public SnackBar action(EventHandler<ActionEvent> eventHandler) {
         snack.setGraphic(labelAction);
-        labelAction.addEventFilter(ActionEvent.ACTION, eventHandler);
+
+        eventHandler.handle(new ActionEvent());
+
+        labelAction.addEventFilter(ActionEvent.ACTION, event -> {
+            Tada animation = new Tada(snack);
+            animation.play();
+            animation.getTimeline().setOnFinished(e -> root.getChildren().remove(snack));
+            undoEvent.handle(new ActionEvent());
+        });
+
+        return this;
+    }
+
+
+    public SnackBar undo(EventHandler<ActionEvent> undoEvent) {
+        this.undoEvent = undoEvent;
         return this;
     }
 }

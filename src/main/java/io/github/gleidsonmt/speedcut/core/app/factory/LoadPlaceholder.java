@@ -20,9 +20,12 @@ package io.github.gleidsonmt.speedcut.core.app.factory;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -44,6 +47,8 @@ public class LoadPlaceholder extends HBox {
 
         getChildren().addAll(one, two, three);
 
+//        VBox.setVgrow(this, Priority.ALWAYS);
+
 
         getChildren().forEach(
                 c -> {
@@ -56,15 +61,17 @@ public class LoadPlaceholder extends HBox {
                 }
         );
 
+
         createAnimation(one, 62, 2);
         createAnimation(two, 45, 1);
         createAnimation(three, 53, 1.5);
+
     }
 
     private void createAnimation(Rectangle rectangle, double height, double rate) {
         Timeline animation = new Timeline();
 
-        animation.setDelay(Duration.millis(500));
+        animation.setDelay(Duration.millis(0));
         animation.setCycleCount(-1);
         animation.setRate(rate);
         animation.setAutoReverse(true);

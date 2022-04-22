@@ -22,11 +22,11 @@ import io.github.gleidsonmt.gncontrols.GNFloatingButton;
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.gncontrols.options.GNButtonType;
-import io.github.gleidsonmt.speedcut.core.app.model.Entity;
 import io.github.gleidsonmt.speedcut.core.app.model.SaleItem;
 import io.github.gleidsonmt.speedcut.core.app.util.MoneyUtil;
 import io.github.gleidsonmt.speedcut.presenter.SaleItemPresenter;
-import io.github.gleidsonmt.speedcut.presenter.SalePresenter;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -34,27 +34,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.util.Callback;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  04/03/2022
  */
-public class QuantityColumnFactory<S extends SaleItem> implements Callback<TableColumn<S, Number>, TableCell<S, Number>>  {
-
-    private Label lbl;
-    private Label lbl_value;
-
-    public QuantityColumnFactory(Label lbl, Label lbl_value) {
-        this.lbl = lbl;
-        this.lbl_value = lbl_value;
-    }
+public record QuantityColumnFactory<S extends SaleItem>
+        (Label lbl, Label lbl_value)
+        implements Callback<TableColumn<S, Number>, TableCell<S, Number>> {
 
     @Override
     public TableCell<S, Number> call(TableColumn<S, Number> param) {
@@ -85,9 +76,9 @@ public class QuantityColumnFactory<S extends SaleItem> implements Callback<Table
                     plus.setButtonType(GNButtonType.ROUNDED);
 
                     container.getChildren().addAll(minus, count, plus);
-                    GridPane.setConstraints(minus, 0,0, 1,1, HPos.LEFT, VPos.CENTER, Priority.NEVER, Priority.NEVER);
-                    GridPane.setConstraints(count, 1,0, 1,1, HPos.CENTER, VPos.CENTER, Priority.ALWAYS, Priority.NEVER);
-                    GridPane.setConstraints(plus, 2,0, 1,1, HPos.RIGHT, VPos.CENTER, Priority.NEVER, Priority.NEVER);
+                    GridPane.setConstraints(minus, 0, 0, 1, 1, HPos.LEFT, VPos.CENTER, Priority.NEVER, Priority.NEVER);
+                    GridPane.setConstraints(count, 1, 0, 1, 1, HPos.CENTER, VPos.CENTER, Priority.ALWAYS, Priority.NEVER);
+                    GridPane.setConstraints(plus, 2, 0, 1, 1, HPos.RIGHT, VPos.CENTER, Priority.NEVER, Priority.NEVER);
 
                     minus.setMinSize(25, 25);
                     plus.setMinSize(25, 25);
@@ -133,24 +124,6 @@ public class QuantityColumnFactory<S extends SaleItem> implements Callback<Table
 
                     });
 
-//                    if (getTableRow().getItem() != null) {
-//                        getTableRow().getItem().discountProperty().addListener((observable, oldValue, newValue) -> {
-//                            if (getTableRow().getItem() != null) {
-//
-//                                System.out.println("newValue = " + newValue);
-//                                if (newValue != null) {
-//                                    if (!newValue.equals(BigDecimal.ZERO)) {
-//                                        getTableRow().getStyleClass().add("table-row-discount");
-//                                        getTableRow().setStyle("-base : -secondary; -primary-color : -secondary;");
-//                                    }
-//
-//                                }
-//                                updateValues(newValue);
-//                            }
-//
-//                        });
-//                    }
-
                 } else {
                     setText(null);
                     setGraphic(null);
@@ -171,7 +144,7 @@ public class QuantityColumnFactory<S extends SaleItem> implements Callback<Table
 
                 BigDecimal _totalDiscount =
                         getTableRow().getItem().getDiscount().multiply(
-                        BigDecimal.valueOf(getTableRow().getItem().getQuantity()));
+                                BigDecimal.valueOf(getTableRow().getItem().getQuantity()));
 
                 BigDecimal _total = MoneyUtil.get(lbl.getText());
                 lbl.setText(MoneyUtil.format(_total.subtract(_totalDiscount)));

@@ -152,11 +152,11 @@
 }
 
 .snack-bar .snack-button {
-    -fx-background-color : -base;
+    -fx-background-color : -dark-gray;
+    -gn-text-transition : -dark-gray;
     -fx-border-color : white;
     -fx-text-fill : white;
     -gn-background-transition : white;
-    -gn-text-transition : -base;
 }
 
 .img-avatar {

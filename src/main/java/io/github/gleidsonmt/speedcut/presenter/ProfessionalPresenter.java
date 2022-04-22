@@ -40,6 +40,7 @@ public final class ProfessionalPresenter extends Presenter<Professional> {
         return DAO_PROFESSIONAL.getElements();
     }
 
+    @Deprecated
     public int getSizeFromServer() {
         createConnection();
         return DAO_PROFESSIONAL.getSizeFromServer();

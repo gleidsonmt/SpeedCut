@@ -22,6 +22,7 @@ import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.speedcut.core.app.layout.containers.SnackBar;
 import io.github.gleidsonmt.speedcut.core.app.layout.containers.Wrapper;
+import io.github.gleidsonmt.speedcut.core.app.view.ResponsiveView;
 import io.github.gleidsonmt.speedcut.core.app.view.WindowDecorator;
 import javafx.scene.layout.*;
 
@@ -68,7 +69,8 @@ public class Root extends StackPane {
         window.widthProperty().addListener((observable, oldValue, newValue) -> {
             double drawerWidth = 250;
             double _new = newValue.doubleValue();
-            if ((_new / 4) < drawerWidth) {
+
+            if (_new < ResponsiveView.BreakPoints.X_LARGE) {
                 layout.setLeft(null);
                 window.addControl(0, hamburger);
 
@@ -76,6 +78,7 @@ public class Root extends StackPane {
                 window.removeControl(hamburger);
                 layout.setLeft(getLayout().getOldLeft());
             }
+
         });
     }
 

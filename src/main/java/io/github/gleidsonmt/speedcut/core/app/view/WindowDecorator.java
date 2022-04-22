@@ -39,6 +39,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
+import org.scenicview.ScenicView;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -165,30 +166,34 @@ public class WindowDecorator extends GNDecorator implements Global {
         navigate(_view, false);
     }
 
-    public void navigate(String _view, boolean animate) throws NavigationException {
-
+    public void navigate (String _view, boolean animate) throws NavigationException {
         IView view = views.get(_view);
+        if (view == null) {
+            throw new NavigationException("NAVIGATION", String.format("The view '%s' was not encountered.", _view));
+        }
+        navigate(view, animate);
+    }
 
-        if (view == null) throw new NavigationException("NAVIGATION", String.format("The view '%s' was not encountered.", _view));
+    public void navigate(IView view, boolean animate) throws NavigationException {
+
+        if (view == null) {
+            throw new NavigationException("NAVIGATION", "The view not found.");
+        }
 
         IView previous = views.getCurrent(); // Pega a view atual
 
-        try {
 
-            if (previous != null) { // Se view diferente de nulo
-                if (previous.getController() != null) // se controlador diferente de nulo
-                    previous.getController().onExit(); // executa a acao da visao antes de sair
-            }
-
-            if (view.getController() != null) { // verifica se a nova view possui controlador
-                view.getController().onEnter(); // executa a primeira acao
-            }
-
-            views.setCurrent(view); // atualiza a visao corrent na controladora de views.
-
-        } catch (ControllerCastException e) {
-            e.printStackTrace();
+        if (previous != null) { // Se view diferente de nulo
+            if (previous.getController() != null) // se controlador diferente de nulo
+                previous.getController().onExit(); // executa a acao da visao antes de sair
         }
+
+        if (view.getController() != null) { // verifica se a nova view possui controlador
+            view.getController().onEnter(); // executa a primeira acao
+        }
+
+        views.setCurrent(view); // atualiza a visao corrent na controladora de views.
+
 
 
         if (animate) {
@@ -304,6 +309,7 @@ public class WindowDecorator extends GNDecorator implements Global {
         getWindow().setOnHidden(event -> getRoot().getWrapper().getPopOver().hide());
 
         CSSFX.start();
-//        ScenicView.show(getWindow().getScene());
+        ScenicView.show(getWindow().getScene());
+
     }
 }

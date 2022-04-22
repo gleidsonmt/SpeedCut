@@ -54,12 +54,7 @@ public class ViewManager implements IViewManager {
     }
 
     public ActionViewController getControllerFrom(String name) {
-        try {
-            return VIEWS.get(name).getController();
-        } catch (ControllerCastException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return VIEWS.get(name).getController();
     }
 
     public IView getCurrent() {

@@ -53,11 +53,12 @@ public class SaleItemContext extends ContextMenu implements IManager {
 
         if (!tableRow.getItem().getItem().getDiscount().equals(BigDecimal.ZERO)) { // primeiro verifico so o item pode possuir algum desconto
             getItems().addAll(menuDiscount, menuEdit, menuRemove); // pode possuir entao adiona a opcao
-            if (!tableRow.getItem().getDiscount().equals(BigDecimal.ZERO)) { // se ja tiver desconto
-                menuDiscount.setGraphic(new IconContainer(Icons.CLEAR));
-            } else {
-                menuDiscount.setGraphic(new IconContainer(Icons.DISCOUNT));
-            }
+//            if (tableRow.getItem().getDiscount() != null)
+                if (!tableRow.getItem().getDiscount().equals(BigDecimal.ZERO)) { // se ja tiver desconto
+                    menuDiscount.setGraphic(new IconContainer(Icons.CLEAR));
+                } else {
+                    menuDiscount.setGraphic(new IconContainer(Icons.DISCOUNT));
+                }
         } else {
             getItems().addAll( menuEdit, menuRemove);
         }

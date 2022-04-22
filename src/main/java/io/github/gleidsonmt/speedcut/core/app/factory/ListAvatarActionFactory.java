@@ -17,36 +17,26 @@
 
 package io.github.gleidsonmt.speedcut.core.app.factory;
 
-import io.github.gleidsonmt.speedcut.core.app.model.Entity;
 import io.github.gleidsonmt.speedcut.core.app.model.Item;
-import io.github.gleidsonmt.speedcut.core.app.model.Product;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.*;
-import javafx.scene.effect.DropShadow;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
-import java.util.*;
-
+import java.util.Objects;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  26/02/2022
+ * Create on  14/04/2022
  */
-public class ListWithGraphicFactory<T extends Item> implements Callback<ListView<T>, ListCell<T>> {
+public record ListAvatarActionFactory<T extends Item> (EventHandler<MouseEvent> mouseEventEventHandler)
+        implements Callback<ListView<T>, ListCell<T>> {
 
     @Override
-    public ListCell<T> call(ListView param) {
+        public ListCell<T> call(ListView param) {
         return new ListCell<>(){
 
             @Override
@@ -73,6 +63,8 @@ public class ListWithGraphicFactory<T extends Item> implements Callback<ListView
                     } else {
                         setGraphic(AvatarCreator.createDefaultAvatar(item.getName(), 18));
                     }
+
+                    setOnMouseClicked(mouseEventEventHandler);
 
                     setGraphicTextGap(15);
                     setItem(item);

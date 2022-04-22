@@ -15,16 +15,14 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.controller;
+package io.github.gleidsonmt.speedcut.controller.sales;
 
-import animatefx.animation.Pulse;
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
-import io.github.gleidsonmt.gncontrols.options.model.Avatar;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
 import io.github.gleidsonmt.speedcut.core.app.factory.AvatarCreator;
-import io.github.gleidsonmt.speedcut.core.app.model.Professional;
-import io.github.gleidsonmt.speedcut.core.app.model.Sale;
+import io.github.gleidsonmt.speedcut.core.app.model.Entity;
+import io.github.gleidsonmt.speedcut.core.app.model.Person;
 import io.github.gleidsonmt.speedcut.core.app.view.IManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -34,18 +32,18 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import java.util.concurrent.Callable;
-
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  14/03/2022
+ * Create on  18/04/2022
  */
-public class ProfessionalTile extends ToggleButton implements IManager {
+public class Tile<T extends Person> extends ToggleButton implements IManager {
 
-    public ProfessionalTile(Professional professional) {
+    public Tile(T entity) {
+
         StackPane root = new StackPane();
-
         setCursor(Cursor.HAND);
+
+        setStyle("-fx-effect : none; -fx-background-color : transparent;");
 
         setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
@@ -72,10 +70,10 @@ public class ProfessionalTile extends ToggleButton implements IManager {
         setPrefSize(250, 300);
         setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
-        if (professional.getAvatar() != null) {
-            box.getChildren().add(AvatarCreator.createAvatar(professional, Color.WHITE, borderWidth, radius, 300, 0, true, true));
+        if (entity.getAvatar() != null) {
+            box.getChildren().add(AvatarCreator.createAvatar(entity, Color.WHITE, borderWidth, radius, 300, 0, true, true));
         } else {
-            Label avatar = AvatarCreator.createDefaultAvatar(professional.getName(), radius, borderWidth, 40);
+            Label avatar = AvatarCreator.createDefaultAvatar(entity.getName(), radius, borderWidth, 40);
             avatar.setStyle("-base : derive(-info, 30%); -fx-font-weight : bold; -fx-font-size : 40pt;");
             box.getChildren().add(avatar);
         }
@@ -84,7 +82,7 @@ public class ProfessionalTile extends ToggleButton implements IManager {
         boxDetails.setAlignment(Pos.CENTER);
         boxDetails.setPadding(new Insets(10));
 
-        Label lblName = new Label(professional.getName());
+        Label lblName = new Label(entity.getName());
         lblName.setAlignment(Pos.CENTER);
         lblName.setWrapText(true);
         lblName.setStyle("-fx-font-weight : bold; -fx-text-fill : -info;");

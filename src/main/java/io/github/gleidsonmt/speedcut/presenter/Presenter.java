@@ -75,4 +75,8 @@ public abstract class Presenter<T extends Entity> {
         return getDao().populateAllTask();
     }
 
+    public ObservableList<T> getElements() {
+        return getDao().getElements();
+    }
+
 }

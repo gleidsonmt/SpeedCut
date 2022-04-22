@@ -43,7 +43,9 @@ public class PaymentMethod extends VBox {
     private int cols = 0;
     private int rows = 0;
 
-    private GridPane content = new GridPane();
+    private final GridPane content = new GridPane();
+    private final GNMonetaryField monetaryField = new GNMonetaryField();
+
 
     public PaymentMethod(SalesController controller) {
 
@@ -60,7 +62,6 @@ public class PaymentMethod extends VBox {
         btnCard.setGraphic(createIcon(Graphics.CARD));
         btnTerm.setGraphic(createIcon(Graphics.TERM));
 
-        GNMonetaryField monetaryField = new GNMonetaryField();
         content.getChildren().add(monetaryField);
         monetaryField.setAlignment(Pos.CENTER);
         monetaryField.setStyle("-fx-font-size : 14pt; -fx-border-radius : 0;");
@@ -160,4 +161,7 @@ public class PaymentMethod extends VBox {
         }
     }
 
+    public void setValue(String value) {
+        monetaryField.setText(value);
+    }
 }

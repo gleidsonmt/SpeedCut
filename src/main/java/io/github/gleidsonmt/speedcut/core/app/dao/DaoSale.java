@@ -94,6 +94,7 @@ public final class DaoSale extends AbstractDao<Sale> {
     public void store(Sale model) throws SQLQueryError {
         try {
 
+            System.out.println( (getElements().contains(model)));
             if (getElements().contains(model)) return;
 
             String sql = "insert into " + table + "(discount, client_id, professional_id) "

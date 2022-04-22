@@ -15,29 +15,16 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.core.app.view;
-
-import io.github.gleidsonmt.speedcut.core.app.exceptions.ControllerCastException;
-import javafx.scene.Parent;
-
-import java.net.URL;
-import java.nio.charset.Charset;
+package io.github.gleidsonmt.speedcut.controller.sales;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  05/02/2022
+ * Create on  18/04/2022
  */
-public interface IView {
+public interface WorkingNode {
 
-    String getName();
+    void work(int id);
 
-    ViewComposer getComposer();
+    boolean isPopulate();
 
-    ActionViewController getController() ;
-
-    Parent getRoot();
-
-    Charset getCharset();
-
-    URL getLocation();
 }

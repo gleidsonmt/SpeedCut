@@ -19,18 +19,16 @@ package io.github.gleidsonmt.speedcut.controller;
 
 import io.github.gleidsonmt.gncontrols.GNFloatingButton;
 import io.github.gleidsonmt.gncontrols.GNListView;
-import io.github.gleidsonmt.gncontrols.GNTextBox;
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
-import io.github.gleidsonmt.gncontrols.options.FieldType;
-import io.github.gleidsonmt.gncontrols.options.GNButtonType;
-import io.github.gleidsonmt.gncontrols.options.TrayAction;
+import io.github.gleidsonmt.speedcut.controller.sales.GridTile;
 import io.github.gleidsonmt.speedcut.controller.sales.PayActions;
 import io.github.gleidsonmt.speedcut.controller.sales.PaymentMethod;
+import io.github.gleidsonmt.speedcut.controller.sales.SideNavigation;
 import io.github.gleidsonmt.speedcut.core.app.animations.Animations;
 import io.github.gleidsonmt.speedcut.core.app.dao.DaoCashier;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
-import io.github.gleidsonmt.speedcut.core.app.factory.*;
+import io.github.gleidsonmt.speedcut.core.app.factory.LoadPlaceholder;
 import io.github.gleidsonmt.speedcut.core.app.factory.column.AvatarColumnFactory;
 import io.github.gleidsonmt.speedcut.core.app.factory.column.MoneyColumnFactory;
 import io.github.gleidsonmt.speedcut.core.app.factory.column.ProductColumnFactory;
@@ -38,39 +36,31 @@ import io.github.gleidsonmt.speedcut.core.app.factory.column.QuantityColumnFacto
 import io.github.gleidsonmt.speedcut.core.app.factory.row.SaleItemsRowFactory;
 import io.github.gleidsonmt.speedcut.core.app.factory.row.SaleRowFactory;
 import io.github.gleidsonmt.speedcut.core.app.layout.containers.Popup;
-import io.github.gleidsonmt.speedcut.core.app.layout.options.SnackBarType;
 import io.github.gleidsonmt.speedcut.core.app.model.*;
 import io.github.gleidsonmt.speedcut.core.app.util.DiscountPopup;
 import io.github.gleidsonmt.speedcut.core.app.util.MoneyUtil;
-import io.github.gleidsonmt.speedcut.core.app.view.ActionViewController;
+import io.github.gleidsonmt.speedcut.core.app.view.IView;
 import io.github.gleidsonmt.speedcut.core.app.view.ResponsiveView;
+import io.github.gleidsonmt.speedcut.core.app.view.View;
 import io.github.gleidsonmt.speedcut.presenter.ClientPresenter;
 import io.github.gleidsonmt.speedcut.presenter.ProfessionalPresenter;
 import io.github.gleidsonmt.speedcut.presenter.SaleItemPresenter;
 import io.github.gleidsonmt.speedcut.presenter.SalePresenter;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.collections.FXCollections;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import javafx.util.Duration;
+import javafx.scene.layout.*;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -80,15 +70,21 @@ public class SalesController extends ResponsiveView {
 
     @FXML private ScrollPane scroll;
     @FXML private GridPane mainLayout;
-    @FXML private VBox columnAdd;
-    @FXML private VBox columnSales;
+    @FXML private HBox boxSalesControl;
+    @FXML private StackPane columnAdd;
+    @FXML private StackPane columnSales;
     @FXML private GridPane salesAction;
     @FXML private GridPane gridActions;
-    @FXML private VBox boxSales;
+    @FXML private VBox container;
+    @FXML private VBox columnContent;
+    @FXML private VBox columnSecondContent;
     @FXML private TableView<Sale> tableSales;
     @FXML private TableColumn<Sale, Number> columnId;
     @FXML private TableColumn<Sale, Professional> columnProfessional;
     @FXML private TableColumn<Sale, Client> columnClient;
+    @FXML private Label lbl_hour;
+    @FXML private VBox firstColumnContent;
+    @FXML private VBox containerSales;
 
     @FXML public  TableView<SaleItem> saleItems;
     @FXML private TableColumn<SaleItem, Number> columnSaleItemId;
@@ -104,45 +100,87 @@ public class SalesController extends ResponsiveView {
     @FXML private Label totalDiscount;
     @FXML private GNFloatingButton discountButton;
 
-    @FXML private Button include;
-    @FXML private Button btnSearchSale;
-    @FXML private Button btnViewProfessionals;
     @FXML private Button receive;
     @FXML private Button remove;
-
-    private final GNListView<Client>    listView    = new GNListView<>();
-    private final VBox                  boxSearch   = new VBox();
 
     private final SalePresenter salePresenter           = new SalePresenter();
     private final SaleItemPresenter saleItemPresenter   = new SaleItemPresenter();
 
-    private final PayActions payActions = new PayActions(this);
-    private final PaymentMethod paymentMethod = new PaymentMethod(this);
+    private final PayActions        payActions      = new PayActions(this);
+    private final PaymentMethod     paymentMethod   = new PaymentMethod(this);
 
-    private boolean boxSearchOpened = false;
+    private final SideNavigation<Client> searchClientBox = new SideNavigation<>(
+        this, Icons.ACCOUNT_CIRCLE,
+            "Selecionar Clientes",
+                new GridTile<>(this, new ClientPresenter())
+    );
+
+    private final SideNavigation<Professional> searchProfessionalBox = new SideNavigation<>(
+            this, Icons.BADGE,
+            "Selecionar Profissional",
+            new GridTile<>(this, new ProfessionalPresenter())
+    );
+
+    private final Button btnBack = new Button();
+    private Node previousNode = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         salesAction.getChildren().stream().map(e -> (Button)e).forEach(Animations::onHoverButton);
         gridActions.getChildren().stream().map(e -> (Button)e).forEach(Animations::onHoverButton);
+        boxSalesControl.getChildren().stream().map(e -> (Button)e).forEach(Animations::onHoverButton);
+
+        btnBack.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        btnBack.setGraphic(new IconContainer(Icons.ARROW_BACK));
+        btnBack.getStyleClass().addAll("btn-flat", "border", "border-r-1");
+        btnBack.setPrefWidth(50);
+        btnBack.setMinHeight(60);
+
+        Animations.onHoverButton(btnBack);
+        runWatch();
+
+        btnBack.setOnAction(event -> resetFirstColumn());
+
+        tableSales.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (newValue != null) {
+                searchProfessionalBox.select(newValue.getProfessional().getId());
+                searchClientBox.select(newValue.getClient().getId());
+            }
+        });
+    }
+
+    private void runWatch () {
+
+        Task task = new Task() {
+            @Override
+            protected Object call() throws Exception {
+                while (true) {
+                    Platform.runLater(() -> {
+
+                        LocalTime localTime = LocalTime.now();
+                        DateTimeFormatter formatter
+                                = DateTimeFormatter.ofPattern("HH:mm:ss");
+                        lbl_hour.setText(localTime.format(formatter));
+                    });
+
+                    Thread.sleep(1000);
+                }
+            }
+        };
+
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.setName("Task Watch");
+        thread.start();
+
     }
 
     @FXML
-    private void openPopupBuys() throws NavigationException {
-
-        if (window.getWidth() > 600) {
-
-            window.getWrapper().getPopup()
-                    .content(views.getRootFrom("buy"))
-                    .animation(Popup.Animations.PULSE)
-                    .onEnter(e -> views.getControllerFrom("buy").onEnter())
-                    .onExit(e -> views.getControllerFrom("buy").onExit())
-                    .size(600, 600)
-                    .show();
-
-        } else {
-            window.navigate("buy", true);
-        }
+    private void goItems() {
+        IView view = views.get("buy");
+        container.getChildren().setAll(grow(view.getRoot()));
+        view.getController().onEnter();
     }
 
     @FXML
@@ -175,211 +213,61 @@ public class SalesController extends ResponsiveView {
         if (salePresenter.persist())
             tableSales.getSelectionModel().select(sale);
 
-        try {
-            openPopupBuys();
-        } catch (NavigationException e) {
-            e.printStackTrace();
-        }
-//        sales.add(sale);
-//        window.getRoot().getWrapper().openDrawerRight("sale");
-    }
+        IView view = window.getViews().get("buy");
 
-    @FXML
-    private void openSearch() {
-        if (boxSearch.getChildren().size() < 1) {
-            createContainer();
-            openSearchBox();
-        } else if (!boxSearchOpened) {
-            openSearchBox();
-        }
-    }
+        view.getController().onEnter();
 
-    private final Timeline timeline = new Timeline();
-    private final GNTextBox textBox = new GNTextBox();
+        container.getChildren().setAll(grow(view.getRoot()));
 
-    private final GNFloatingButton btnSale = new GNFloatingButton();
-    private final GNFloatingButton btnEmployee = new GNFloatingButton();
-    private final GNFloatingButton btnClose = new GNFloatingButton();
-    private final GNFloatingButton btnEdit = new GNFloatingButton();
-    private final HBox searchActions = new HBox();
-
-    private void openSearchBox() {
-        timeline.getKeyFrames().setAll(
-                new KeyFrame(Duration.ZERO, new KeyValue(
-                        textBox.maxWidthProperty(), 0
-                )),
-                new KeyFrame(Duration.millis(300), new KeyValue(
-                        textBox.maxWidthProperty(), columnAdd.getWidth()
-                )),
-                new KeyFrame(Duration.ZERO, new KeyValue(
-                        listView.maxHeightProperty(), 0
-                )),
-                new KeyFrame(Duration.millis(200), new KeyValue(
-                        listView.maxHeightProperty(), 250
-                ))
-        );
-
-        timeline.setOnFinished(event -> {
-            if (!textBox.isFocused()) textBox.requestFocus();
-            boxSearchOpened = true;
-
-        });
-
-        timeline.play();
-
-        columnAdd.getChildren().remove(salesAction);
-        columnAdd.getChildren().add(0, boxSearch);
-        searchActions.getChildren().setAll(btnClose, btnSale, btnEmployee);
-    }
-
-    private void closeSearchBox() {
-        timeline.getKeyFrames().setAll(
-                new KeyFrame(Duration.ZERO, new KeyValue(
-                        listView.maxHeightProperty(), 250
-                )),
-                new KeyFrame(Duration.millis(200), new KeyValue(
-                        listView.maxHeightProperty(), 0
-                ))
-        );
-
-    }
-
-    private void createContainer() {
-
-        boxSearch.setAlignment(Pos.CENTER_LEFT);
-        boxSearch.setSpacing(5D);
-        textBox.setFloatPrompt(false);
-        textBox.setLeadIcon(Icons.SEARCH);
-        textBox.setFieldType(FieldType.FILLED);
-        textBox.setTrayAction(TrayAction.CLEAR);
-        textBox.setStyle("-fx-min-height : 50px;");
-
-        btnEmployee.setPrefWidth(-1);
-        btnSale.setPrefWidth(-1);
-
-        btnClose.setPrefSize(-1, -1);
-        btnClose.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-        btnClose.setPrefWidth(-1);
-        btnClose.setPrefWidth(-1);
-        btnClose.setGraphic(new IconContainer(Icons.CLEAR));
-
-        btnEmployee.getStyleClass().addAll("btn-mint", "deep-button");
-        btnClose.getStyleClass().addAll("btn-grapefruit", "deep-button");
-        btnSale.getStyleClass().addAll("deep-button");
-
-        btnEdit.setPrefSize(-1, -1);
-
-        btnEdit.setButtonType(GNButtonType.SEMI_ROUNDED);
-        btnSale.setButtonType(GNButtonType.SEMI_ROUNDED);
-        btnEmployee.setButtonType(GNButtonType.SEMI_ROUNDED);
-        btnClose.setButtonType(GNButtonType.SEMI_ROUNDED);
-
-        btnEdit.setGraphic(new IconContainer(Icons.DONE));
-        btnEdit.getStyleClass().addAll("btn-mint", "deep-button");
-
-        searchActions.setSpacing(5);
-        searchActions.getChildren().setAll(btnClose, btnSale, btnEmployee);
-        btnSale.setGraphic(new IconContainer(Icons.ADD_CIRCLE));
-        btnEmployee.setGraphic(new IconContainer(Icons.ACCOUNT_CIRCLE));
-        searchActions.getStyleClass().addAll("border", "border-b-1");
-//        searchActions.getChildren().stream().map(m -> (GNButton) m).forEach(f -> f.getStyleClass().addAll("deep-button"));
-        searchActions.setMinHeight(50);
-        searchActions.setAlignment(Pos.CENTER_RIGHT);
-        searchActions.setPadding(new Insets(0,5,0,0));
-
-        boxSearch.getChildren().setAll(textBox,  listView, searchActions);
-
-        textBox.setMinHeight(50);
-        textBox.setPrefHeight(50);
-
-//        salesAction.getChildren().setAll(textBox);
-        GridPane.setConstraints(textBox, 0,0, 3, 1, HPos.LEFT, VPos.CENTER, Priority.SOMETIMES, Priority.ALWAYS);
-        listView.setCellFactory(new ListWithGraphicFactory<>());
-
-        ClientPresenter clientPresenter = new ClientPresenter();
-        Task<ObservableList<Client>> populate = clientPresenter.createAllElements();
-        FilteredList<Client> filteredClients = new FilteredList<>(clientPresenter.getElements(), p -> true);
-        new Thread(populate).start();
-
-        listView.setItems(filteredClients);
-
-        populate.setOnSucceeded(p -> listView.getSelectionModel().selectFirst());
-
-        textBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                filteredClients.setPredicate(p -> p.getName().toLowerCase().contains(newValue.toLowerCase()));
-                listView.getSelectionModel().selectFirst();
-            }
-        });
-
-        btnClose.setOnAction(event -> {
-            closeSearchBox();
-            timeline.setOnFinished(e -> {
-                columnAdd.getChildren().remove( boxSearch );
-                columnAdd.getChildren().add(0, salesAction);
-            });
-            timeline.play();
-            boxSearchOpened = false;
-
-        });
-
-        btnSale.setOnAction(event -> {
-            Sale sale = new Sale();
-
-            Client client = listView.getSelectionModel().getSelectedItem();
-
-            sale.setClient(client);
-            sale.setProfessional(new ProfessionalPresenter().find(1));
-            sale.setDiscount(BigDecimal.ZERO);
-            sale.setSaleItems(FXCollections.observableArrayList());
-
-            salePresenter.store(sale);
-
-            if (salePresenter.persist())
-                tableSales.getSelectionModel().select(sale);
-
-            try {
-                openPopupBuys();
-            } catch (NavigationException e) {
-                e.printStackTrace();
-            }
-        });
-
-        btnEdit.setOnAction(event -> {
-            Client _client = listView.getSelectionModel().getSelectedItem();
-            Sale _sale = tableSales.getSelectionModel().getSelectedItem();
-            _sale.setClient(_client);
-            salePresenter.update(_sale);
-            if (salePresenter.persist()) {
-                window.getRoot().createSnackBar()
-                        .type("done")
-                        .message("Item Alterado.")
-                        .show();
-            }
-        });
+        tableSales.scrollTo(sale);
     }
 
     @Override
     protected void updateLayout(double width) {
 
-        if (width < 900) {
-            scroll.setContent(columnAdd);
-        } else {
-            scroll.setContent(mainLayout);
-            mainLayout.getChildren().setAll(columnAdd, columnSales);
-            update(columnAdd, 0,0, Pos.CENTER);
-            update(columnSales, 1,0, Pos.CENTER);
-        }
-//
-        if (width < 600) {
-            salesAction.setVgap(0);
-            salesAction.getChildren().stream().map(each -> (Button) each).forEach(each -> {
-                each.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        if (width < BreakPoints.MEDIUM) {
 
-                each.getStyleClass().addAll("border");
-            });
-            tableSales.getColumns().remove(columnId);
-            saleItems.getColumns().remove(columnSaleItemId);
+                if (!scroll.getContent().equals(container)) {
+                    scroll.setContent(container);
+                }
+
+                if (!boxSalesControl.getChildren().contains(btnBack)) {
+                    boxSalesControl.getChildren().add(0, btnBack);
+                    boxSalesControl.setAlignment(Pos.CENTER_LEFT);
+                }
+
+        } else {
+            if (!scroll.getContent().equals(mainLayout)) {
+                scroll.setContent(mainLayout);
+
+                if (!columnSales.getChildren().contains(container))
+                    columnSales.getChildren().setAll(container);
+
+                    columnAdd.getChildren().setAll(firstColumnContent);
+
+                    System.out.println(container.getChildren().size());
+
+                    if (previousNode != null) {
+                        if (container.getChildren().size() < 1)
+                            container.getChildren().setAll(previousNode);
+                    } else {
+                        resetSecondColumn();
+                    }
+                    boxSalesControl.getChildren().remove(btnBack);
+                    boxSalesControl.setAlignment(Pos.CENTER);
+            }
+        }
+
+        if (width < BreakPoints.LARGE) {
+            salesAction.setVgap(0);
+
+            salesAction.getChildren().stream().map(each -> (Button) each)
+                    .forEach(each -> each.setContentDisplay(ContentDisplay.GRAPHIC_ONLY));
+
+            if (columnId.isVisible()) {
+                columnId.setVisible(false);
+                columnSaleItemId.setVisible(false);
+            }
 
         } else {
             salesAction.setVgap(5);
@@ -389,29 +277,24 @@ public class SalesController extends ResponsiveView {
             if (!saleItems.getColumns().contains(columnSaleItemId)) {
                 saleItems.getColumns().add(0, columnSaleItemId);
             }
-            salesAction.getChildren().stream().map(each -> (Button) each).forEach(each -> {
-                each.setContentDisplay(ContentDisplay.LEFT);
-                each.getStyleClass().removeAll("border");
-            });
+            if (!columnId.isVisible()) {
+                columnId.setVisible(true);
+                columnSaleItemId.setVisible(true);
+            }
+
+            salesAction.getChildren().stream().map(each -> (Button) each)
+                    .forEach(each -> each.setContentDisplay(ContentDisplay.LEFT));
 
         }
     }
 
     public void goTableSalesItem() {
-        scroll.setContent(columnSales);
+        container.getChildren().setAll(containerSales);
+        previousNode = containerSales;
     }
 
     private boolean init = false;
-
-    FilteredList<Sale> filteredList = new FilteredList<>(salePresenter.getElements(), p -> true);
-
-    @FXML
-    private void openCashier() {
-        window.getWrapper().getPopup()
-                .content(window.getViews().getRootFrom("open"))
-                .size(400, 400)
-                .show();
-    }
+    private final FilteredList<Sale> filteredList = new FilteredList<>(salePresenter.getElements(), p -> true);
 
     @Override
     public void onEnter() {
@@ -422,6 +305,10 @@ public class SalesController extends ResponsiveView {
                     .content(window.getViews().getRootFrom("open"))
                     .size(400, 400)
                     .show();
+        }
+
+        if (columnSales.getChildren().isEmpty()) {
+            columnSales.getChildren().add(columnSecondContent);
         }
 
         if (!init) {
@@ -476,14 +363,12 @@ public class SalesController extends ResponsiveView {
                 } else lbl_value.setText(MoneyUtil.format(BigDecimal.ZERO));
             });
 
-            lbl_total.textProperty().addListener((observable, oldValue, newValue) -> {
-                lbl_amount.setText(
-                        MoneyUtil.format(
-                                MoneyUtil.get(newValue).subtract(
-                                tableSales.getSelectionModel().getSelectedItem().getDiscount()
-                        ))
-                );
-            });
+            lbl_total.textProperty().addListener((observable, oldValue, newValue) -> lbl_amount.setText(
+                    MoneyUtil.format(
+                            MoneyUtil.get(newValue).subtract(
+                            tableSales.getSelectionModel().getSelectedItem().getDiscount()
+                    ))
+            ));
 
             tableSales.setItems(filteredList);
 
@@ -507,17 +392,13 @@ public class SalesController extends ResponsiveView {
             });
 
             saleItems.itemsProperty().addListener((observable, oldValue, newValue) -> {
-//                receive.setDisable(newValue.size() < 1 || newValue.isEmpty());
-//                remove.setDisable(newValue.size() < 1 || newValue.isEmpty());
-
                 if (newValue != null) {
                     recount();
                 }
             });
+
             init = true;
         }
-        textBox.getEditor().requestFocus();
-        textBox.requestFocus();
     }
 
     @Override
@@ -562,20 +443,18 @@ public class SalesController extends ResponsiveView {
 
     public void updateItem(SaleItem saleItem) {
 
-//        System.out.println("saleItem = " + saleItem.getQuantity());
-
         SaleItem _item = saleItems.getItems().stream()
                         .filter(f -> f.getItem().getName().equalsIgnoreCase(saleItem.getItem().getName()))
                                 .findAny().orElseGet(SaleItem::new);
 
-        System.out.println("_item.getQuantity() = " + _item.getQuantity());
+        saleItems.getSelectionModel().select(_item.getId());
 
-        saleItem.setQuantity(saleItem.getQuantity() + _item.getQuantity());
-        saleItem.setId(_item.getId());
 
-        System.out.println("saleItem = " + saleItem.getQuantity());
+        int qtd = saleItem.getQuantity() + _item.getQuantity();
+        _item.setQuantity(qtd);
+//        saleItem.setQuantity(_item.getQuantity());
 
-        saleItemPresenter.update(saleItem);
+        saleItemPresenter.update(_item);
         saleItemPresenter.persist();
     }
 
@@ -592,79 +471,77 @@ public class SalesController extends ResponsiveView {
             }
         } else {
             window  .createSnackBar()
-                    .type("warning")
                     .message("Não existem itens de vendas.")
                     .show();
         }
     }
 
     @FXML
-    public void editClient() {
-        openSearch();
-        searchActions.getChildren().setAll(btnClose, btnEdit);
+    public void openProfessionals() {
+        container.getChildren().setAll(searchProfessionalBox);
+
+        if (tableSales.getSelectionModel().getSelectedItem() != null) {
+            Professional professional = tableSales.getSelectionModel().getSelectedItem().getProfessional();
+
+            searchProfessionalBox.onEnter(professional.getId());
+            searchProfessionalBox.select(professional.getId());
+            previousNode = searchProfessionalBox;
+        }
     }
 
     @FXML
-    private void openProfessionals() {
+    public void openClients() {
+        container.getChildren().setAll(searchClientBox);
+        if (tableSales.getSelectionModel().getSelectedItem() != null) {
+            Client professional = tableSales.getSelectionModel().getSelectedItem().getClient();
 
-        int size = new ProfessionalPresenter().getSizeFromServer();
-        ActionViewController controller = window.getViews().getControllerFrom("professionals");
-
-        if (size < 6) {
-
-            window.getWrapper()
-                    .getPopOver()
-                    .size(320, 600)
-                    .arrowLocation("left_top")
-                    .visibleArrow(false)
-                    .content(window.getViews().getRootFrom("professionals"))
-                    .onEnter(event -> {
-                        controller.onEnter();
-                        controller.updateModel(tableSales.getSelectionModel().getSelectedItem());
-                    })
-                    .show(btnViewProfessionals);
-
-            if (window.getWidth() < 700) {
-                try {
-                    window.navigate("professionals");
-                    controller.updateModel(tableSales.getSelectionModel().getSelectedItem());
-
-                } catch (NavigationException e) {
-                    e.printStackTrace();
-                }
-            }
-        } else {
-            try {
-                controller.updateModel(tableSales.getSelectionModel().getSelectedItem());
-                window.navigate("professionals");
-            } catch (NavigationException e) {
-                e.printStackTrace();
-            }
+            searchClientBox.onEnter(professional.getId());
+            searchClientBox.select(professional.getId());
+            previousNode = searchClientBox;
         }
     }
 
     @FXML
     private void openReceive () {
-//        window.getWrapper()
-//                .getPopup()
-//                .size(400, 600)
-//                .content(views.getRootFrom("sale_receive"))
-//                .show();
-
-//        columnSales.getChildren().remove(gridActions);
-//        columnSales.getChildren().add(payActions);
         switchPayControls(true);
+    }
+
+    public Sale getSelected () {
+        return tableSales.getSelectionModel().getSelectedItem();
+    }
+
+    public void select (Sale sale) {
+        tableSales.getSelectionModel().select(sale);
+        tableSales.scrollTo(sale);
     }
 
     public void switchPayControls(boolean pay) {
         if (pay) {
-            columnSales.getChildren().remove(gridActions);
-            columnSales.getChildren().add(payActions);
-            columnSales.getChildren().add(2, paymentMethod);
+            columnSecondContent.getChildren().remove(gridActions);
+            columnSecondContent.getChildren().add(payActions);
+            paymentMethod.setValue(MoneyUtil.format(lbl_amount.getText()));
+            columnSecondContent.getChildren().add(2, paymentMethod);
         } else {
-            columnSales.getChildren().add(gridActions);
-            columnSales.getChildren().remove(payActions);
-            columnSales.getChildren().remove(paymentMethod);
+            columnSecondContent.getChildren().add(gridActions);
+            columnSecondContent.getChildren().remove(payActions);
+            columnSecondContent.getChildren().remove(paymentMethod);
         }
     }
+
+    void resetFirstColumn () {
+        container.getChildren().clear();
+        container.getChildren().add(firstColumnContent);
+        VBox.setVgrow(firstColumnContent, Priority.ALWAYS);
+    }
+
+    public void resetSecondColumn () {
+        container.getChildren().clear();
+        container.getChildren().setAll(containerSales);
+    }
+
+    private Node grow(Node node) {
+        VBox.setVgrow(node, Priority.ALWAYS);
+        return node;
+    }
+
 }

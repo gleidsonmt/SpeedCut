@@ -31,13 +31,6 @@
   fxml: buy.fxml
 
 - !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
-  title: Professionals
-  name: professionals
-  directory: sales
-  fxml: professionals.fxml
-
-
-- !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
   title : Register
   name : register
   directory : register

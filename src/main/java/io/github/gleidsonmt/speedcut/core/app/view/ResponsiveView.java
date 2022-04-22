@@ -25,16 +25,73 @@ import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  24/02/2022
  */
-public abstract class ResponsiveView implements ActionViewController, Global {
+public abstract class ResponsiveView extends StackPane implements ActionViewController, Global {
 
     private final ChangeListener<Number> updateListener = (observable, oldValue, newValue) -> {
         updateLayout(newValue.doubleValue());
     };
+
+    // Testing
+    protected enum B {
+
+        X_SMALL(576),
+        SMALL(576),
+        MEDIUM(768),
+        LARGE(992),
+        X_LARGE(1200),
+        XX_LARGE(1400);
+
+        private final double size;
+
+        B(double size) {
+            this.size = size;
+        }
+
+        public double getSize () {
+            return size;
+        }
+    }
+
+    public static class BreakPoints {
+        public static final double X_SMALL = 576D;
+
+        public static final double SMALL = 576D;
+        public static final double MEDIUM = 768;
+        public static final double LARGE = 992;
+        public static final double X_LARGE = 1200;
+        public static final double XX_LARGE = 1400;
+        public static final double FHD = 1900;
+
+        public static boolean isXSmall () {
+            return window.getWidth() < SMALL;
+        }
+
+        public static boolean isSmall () {
+            return window.getWidth() >= SMALL && window.getWidth() <= MEDIUM;
+        }
+
+        public static boolean isMedium () {
+            return window.getWidth() >= MEDIUM && window.getWidth() <= LARGE;
+        }
+
+        public static boolean isLarge () {
+            return window.getWidth() >= LARGE && window.getWidth() <= X_LARGE;
+        }
+
+        public static boolean isXLarge () {
+            return window.getWidth() >= X_LARGE && window.getWidth() <= XX_LARGE;
+        }
+
+        public static boolean isXXLarge () {
+            return window.getWidth() > XX_LARGE && window.getWidth() <= FHD;
+        }
+    }
 
     protected abstract void updateLayout(double width);
 

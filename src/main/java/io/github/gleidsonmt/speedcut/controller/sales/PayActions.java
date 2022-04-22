@@ -39,7 +39,7 @@ public class PayActions extends GridPane  {
 
     public PayActions(SalesController controller) {
 
-        setMinHeight(60);
+        setMinHeight(50);
         setHgap(5);
         setVgap(5);
         setPadding(new Insets(2));
@@ -53,7 +53,6 @@ public class PayActions extends GridPane  {
 
         btnCancel.setOnAction(event ->
                 controller.switchPayControls(false));
-
     }
 
     private Button createButton(Icons icon, String clazz) {
@@ -62,6 +61,7 @@ public class PayActions extends GridPane  {
         button.getStyleClass().add("deep-button");
         button.getStyleClass().add(clazz);
         button.setGraphic(createIcon(icon));
+        button.setMinHeight(50);
 
         getChildren().add(button);
 
