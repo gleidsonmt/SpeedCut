@@ -15,16 +15,37 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.controller.sales;
+package io.github.gleidsonmt.speedcut.controller.payment;
+
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
+import java.math.BigDecimal;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  18/04/2022
+ * Create on  14/06/2022
  */
-public interface WorkingNode {
+public class TermPayment implements IPaymentMethod {
 
-    void work(int id);
+    private final ObjectProperty<BigDecimal> value = new SimpleObjectProperty<>();
 
-    boolean isPopulate();
+    public TermPayment(BigDecimal value) {
+        this.value.set(value);
+    }
 
+    @Override
+    public ObjectProperty<BigDecimal> valueProperty() {
+        return value;
+    }
+
+    @Override
+    public BigDecimal getValue() {
+        return value.get();
+    }
+
+    @Override
+    public void setValue(BigDecimal value) {
+        this.value.set(value);
+    }
 }
