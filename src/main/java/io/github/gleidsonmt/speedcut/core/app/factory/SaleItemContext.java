@@ -19,9 +19,11 @@ package io.github.gleidsonmt.speedcut.core.app.factory;
 
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
-import io.github.gleidsonmt.speedcut.controller.SalesController;
+import io.github.gleidsonmt.speedcut.controller.sales.main.SalesController;
+import io.github.gleidsonmt.speedcut.core.app.dao.Repositories;
+import io.github.gleidsonmt.speedcut.core.app.dao.Repository;
 import io.github.gleidsonmt.speedcut.core.app.model.SaleItem;
-import io.github.gleidsonmt.speedcut.core.app.view.IManager;
+import io.github.gleidsonmt.speedcut.core.app.view.Context;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableRow;
@@ -31,13 +33,11 @@ import java.math.BigDecimal;
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  28/03/2022
+ * @Revised 1.0
  */
-public class SaleItemContext extends ContextMenu implements IManager {
-
-    private final TableRow<SaleItem> tableRow;
+public class SaleItemContext extends ContextMenu implements Context {
 
     public SaleItemContext(TableRow<SaleItem> tableRow, SalesController controller) {
-        this.tableRow = tableRow;
 
         MenuItem menuDiscount = new MenuItem();
         menuDiscount.setText("Desconto");
@@ -51,63 +51,43 @@ public class SaleItemContext extends ContextMenu implements IManager {
         menuRemove.setText("Remover");
         menuRemove.setGraphic(new IconContainer(Icons.DELETE_OUTLINED));
 
+
         if (!tableRow.getItem().getItem().getDiscount().equals(BigDecimal.ZERO)) { // primeiro verifico so o item pode possuir algum desconto
             getItems().addAll(menuDiscount, menuEdit, menuRemove); // pode possuir entao adiona a opcao
-//            if (tableRow.getItem().getDiscount() != null)
-                if (!tableRow.getItem().getDiscount().equals(BigDecimal.ZERO)) { // se ja tiver desconto
-                    menuDiscount.setGraphic(new IconContainer(Icons.CLEAR));
-                } else {
-                    menuDiscount.setGraphic(new IconContainer(Icons.DISCOUNT));
-                }
         } else {
             getItems().addAll( menuEdit, menuRemove);
         }
 
         menuDiscount.setOnAction(event -> {
+            SaleItem saleItem = tableRow.getItem();
+            Repository<SaleItem> repo =  Repositories.get(SaleItem.class);
 
-            BigDecimal _discountSale = tableRow.getItem().getDiscount();
+            saleItem.setDiscount(!saleItem.isDiscount());
 
-            if (_discountSale.equals(BigDecimal.ZERO)) {
-                BigDecimal _discountSaleItem = tableRow.getItem().getItem().getDiscount();
-                if (!_discountSaleItem.equals(BigDecimal.ZERO)) {
-                    BigDecimal _calTotal =
-                            _discountSaleItem.multiply(BigDecimal.valueOf(tableRow.getItem().getQuantity()));
+            calcTrans(saleItem.isDiscount(), saleItem, controller);
 
-                    tableRow.getItem().setDiscount(_discountSaleItem);
+            repo.put(saleItem);
+            repo.persist();
 
-                    tableRow.getItem().setTotal(
-                            tableRow.getItem().getTotal().subtract(_calTotal)
-                    );
-                    addStyle(true);
-                    menuDiscount.setGraphic(new IconContainer(Icons.CLEAR));
-                } else {
-                    addStyle(false);
-                }
-            } else {
-                tableRow.getItem().setTotal(
-                        tableRow.getItem().getItem().getPrice().multiply(
-                                BigDecimal.valueOf(tableRow.getItem().getQuantity())
-                        )
-                );
-                tableRow.getItem().setDiscount(BigDecimal.ZERO);
-                addStyle(false);
-                menuDiscount.setGraphic(new IconContainer(Icons.DISCOUNT));
-
-            }
-            controller.recount();
         });
 
         menuRemove.setOnAction(event ->
-                controller.deleteSaleItem());
+                controller.getItemsColumnController().deleteSaleItem());
+
     }
 
-    void addStyle(boolean value) {
-        if (value) {
-            tableRow.getStyleClass().addAll("table-row-discount");
-            tableRow.setStyle("-base : -secondary; -primary-color : -secondary;");
+    private void calcTrans(boolean add, SaleItem item, SalesController controller) {
+
+        BigDecimal discount = item.getItem().getPrice().multiply(item.getItem().getDiscount());
+        BigDecimal all = BigDecimal.valueOf(item.getQuantity()).multiply(discount);
+
+        if (add) {
+            controller.getItemsColumnController().getTransaction().addDiscount(all);
+            controller.getItemsColumnController().getTransaction().subCurrent(all);
         } else {
-            tableRow.getStyleClass().removeAll("table-row-discount");
-            tableRow.setStyle("-base : -info; -primary-color : -info;");
+            controller.getItemsColumnController().getTransaction().subtractDiscount(all);
+            controller.getItemsColumnController().getTransaction().addCurrent(all);
+
         }
     }
 }

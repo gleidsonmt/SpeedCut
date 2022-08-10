@@ -17,10 +17,9 @@
 
 package io.github.gleidsonmt.speedcut.core.app.factory;
 
-import io.github.gleidsonmt.gncontrols.options.model.Model;
 import io.github.gleidsonmt.speedcut.core.app.model.Item;
+import io.github.gleidsonmt.speedcut.core.app.model.Model;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
@@ -28,9 +27,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.SVGPath;
 import javafx.scene.text.TextAlignment;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -79,6 +76,29 @@ public class AvatarCreator extends Label {
         return label;
     }
 
+    public static Label createDefaulRecttAvatar(String name, double size, double borderWidth, double textSize) {
+        Label label = new Label();
+        List<String> colors = Arrays.asList(
+                "#4FC1E9", "#48CFAD", "#AA66CC",
+                "#FFA000", "#ED5565");
+        label.setText(name.substring(0,1));
+
+        Random random = new Random();
+
+        label.setPrefSize(size * 2, size * 2);
+        label.setContentDisplay(ContentDisplay.CENTER);
+        label.setTextAlignment(TextAlignment.CENTER);
+        label.setAlignment(Pos.CENTER);
+
+        label.setId("custom-rect-avatar");
+
+        label.setStyle("-fx-font-size : " + textSize + ";" +
+                "-fx-border-width : " + borderWidth + ";" +
+                "-fx-background-color : " +
+                colors.get(random.nextInt(colors.size())) +";");
+        return label;
+    }
+
 
     public static Circle createAvatar(Item item) {
         String path = "/io.github.gleidsonmt.speedcut.core.app/";
@@ -104,9 +124,9 @@ public class AvatarCreator extends Label {
     public static Circle createAvatar(Image image) {
         Circle circle = new Circle();
         circle.setRadius(18);
-        circle.setStrokeWidth(2);
+        circle.setStrokeWidth(1);
         circle.setStroke(Color.WHITE);
-        circle.setEffect(new DropShadow(5, Color.gray(0.8)));
+//        circle.setEffect(new DropShadow(5, Color.gray(0.8)));
 
         circle.setFill(new ImagePattern(image));
         return circle;

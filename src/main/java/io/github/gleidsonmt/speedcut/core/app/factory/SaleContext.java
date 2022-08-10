@@ -19,29 +19,31 @@ package io.github.gleidsonmt.speedcut.core.app.factory;
 
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
-import io.github.gleidsonmt.speedcut.controller.SalesController;
-import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
+import io.github.gleidsonmt.speedcut.controller.sales.main.SalesController;
+import io.github.gleidsonmt.speedcut.core.app.dao.RepoSaleImpl;
+import io.github.gleidsonmt.speedcut.core.app.dao.Repositories;
 import io.github.gleidsonmt.speedcut.core.app.model.Sale;
-import io.github.gleidsonmt.speedcut.core.app.view.ActionViewController;
-import io.github.gleidsonmt.speedcut.core.app.view.IManager;
-import io.github.gleidsonmt.speedcut.presenter.ProfessionalPresenter;
+import io.github.gleidsonmt.speedcut.core.app.view.Context;
 import io.github.gleidsonmt.speedcut.presenter.SalePresenter;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 
-import java.util.Comparator;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  06/04/2022
  */
-public class SaleContext extends ContextMenu implements IManager {
+public class SaleContext extends ContextMenu implements Context {
 
     private final SalePresenter salePresenter = new SalePresenter();
 
-    public SaleContext(TableRow<Sale> tableRow) {
+    private RepoSaleImpl repoSale;
+
+    public SaleContext(TableRow<Sale> tableRow, Sale sale) {
+
+        repoSale = (RepoSaleImpl) Repositories.<Sale>get(Sale.class);
 
         MenuItem menuDelete = new MenuItem();
         menuDelete.setText("Remover");
@@ -49,19 +51,30 @@ public class SaleContext extends ContextMenu implements IManager {
 
         menuDelete.setOnAction(event -> {
             Sale item = tableRow.getItem();
-            window.createSnackBar()
+
+            AtomicBoolean delete = new AtomicBoolean(true);
+
+            app.window.createSnackBar()
                     .onHide(e -> {
-                        salePresenter.createConnection();
-                        salePresenter.delete(item);
-                        salePresenter.persist();
+                        if (delete.get()) {
+                            repoSale.delete(sale);
+                            repoSale.persist();
+                        }
+
                     })
                     .undo(e -> {
-                        salePresenter.getElements().add(item);
-                        salePresenter.getElements().sort((saleOne, saleTwo) ->
-                                saleOne.getId() < saleTwo.getId() ? 0 : 1);
-                        tableRow.getTableView().getSelectionModel().select(item);
+
+                        sale.getCashier().getActiveSales().add(sale);
+
+                        sale.getCashier().getActiveSales().sort((saleOne, saleTwo) ->
+                                saleOne.getId() < saleTwo.getId() ? 0 : 1
+                        );
+
+                        tableRow.getTableView().getSelectionModel().select(sale);
+//
+                        delete.set(false);
                     })
-                    .action(e -> salePresenter.getElements().removeAll(item))
+                    .action(e -> sale.getCashier().getActiveSales().remove(sale))
                     .message("#" + item.getId() + " | Venda removida")
                     .show();
         });
@@ -75,7 +88,7 @@ public class SaleContext extends ContextMenu implements IManager {
         menuProfessional.setGraphic(new IconContainer(Icons.BADGE));
 
         menuProfessional.setOnAction(e -> {
-            SalesController slCtrl = (SalesController) window.getViews().getControllerFrom("sales");
+            SalesController slCtrl = (SalesController) app.window.getViews().getControllerFrom("sales");
             slCtrl.openProfessionals();
         });
 
@@ -84,7 +97,7 @@ public class SaleContext extends ContextMenu implements IManager {
         menuClient.setGraphic(new IconContainer(Icons.PERSON));
 
         menuClient.setOnAction(event -> {
-            SalesController controller = (SalesController) window.getViews().getControllerFrom("sales");
+            SalesController controller = (SalesController) app.window.getViews().getControllerFrom("sales");
             controller.openClients();
         });
 

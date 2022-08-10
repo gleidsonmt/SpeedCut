@@ -56,9 +56,11 @@ public class ListAvatarFactory<T extends Item>
                             String imgPath = Objects.requireNonNull(getClass().getResource(path + avatar)).toExternalForm();
                             Image image = new Image(imgPath, 90, 0, true, false);
                             setGraphic(AvatarCreator.createAvatar(image));
+                            setGraphic(AvatarCreator.createAvatar(image));
                         }
                     } else {
-                        setGraphic(AvatarCreator.createDefaultAvatar(item.getName(), 18));
+//                        setGraphic(AvatarCreator.createDefaultAvatar(item.getName(), 18));
+                        setGraphic(AvatarCreator.createDefaulRecttAvatar(item.getName(), 15, 1, 12));
                     }
 
                     setGraphicTextGap(15);
