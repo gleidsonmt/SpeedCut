@@ -17,12 +17,12 @@
 
 package io.github.gleidsonmt.speedcut.core.app.model;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -30,8 +30,13 @@ import java.math.BigDecimal;
  */
 public final class Cashier extends Entity {
 
-    private BooleanProperty open = new SimpleBooleanProperty();
-    private ObjectProperty<BigDecimal> amount = new SimpleObjectProperty<>();
+    private final BooleanProperty open = new SimpleBooleanProperty();
+    private final ObjectProperty<BigDecimal> amount = new SimpleObjectProperty<>();
+
+    private final ListProperty<Sale> activeSales = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private final ListProperty<Sale> inactiveSales = new SimpleListProperty<>(FXCollections.observableArrayList());
+
+    private final ListProperty<Transaction> transactions = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     public BigDecimal getAmount() {
         return amount.get();
@@ -55,5 +60,52 @@ public final class Cashier extends Entity {
 
     public void setOpen(boolean open) {
         this.open.set(open);
+    }
+
+    public ObservableList<Sale> getActiveSales() {
+        return activeSales.get();
+    }
+
+    public ListProperty<Sale> activeSalesProperty() {
+        return activeSales;
+    }
+
+    public void setActiveSales(ObservableList<Sale> activeSales) {
+        this.activeSales.set(activeSales);
+    }
+
+    public ObservableList<Sale> getInactiveSales() {
+        return inactiveSales.get();
+    }
+
+    public ListProperty<Sale> inactiveSalesProperty() {
+        return inactiveSales;
+    }
+
+    public void setInactiveSales(ObservableList<Sale> inactiveSales) {
+        this.inactiveSales.set(inactiveSales);
+    }
+
+    public ObservableList<Transaction> getTransactions() {
+        return transactions.get();
+    }
+
+    public ListProperty<Transaction> transactionsProperty() {
+        return transactions;
+    }
+
+    public void setTransactions(ObservableList<Transaction> transactions) {
+        this.transactions.set(transactions);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Cashier{");
+        sb.append("open=").append(open);
+        sb.append(", amount=").append(amount);
+        sb.append(", activeSales=").append(activeSales);
+        sb.append(", inactiveSales=").append(inactiveSales);
+        sb.append('}');
+        return sb.toString();
     }
 }
