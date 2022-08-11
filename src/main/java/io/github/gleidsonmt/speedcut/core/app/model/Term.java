@@ -17,15 +17,28 @@
 
 package io.github.gleidsonmt.speedcut.core.app.model;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
+import java.time.LocalDate;
+
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  28/02/2022
+ * Create on  10/08/2022
  */
-public class Professional extends Person  {
+public class Term extends ValueItem {
 
+    private ObjectProperty<LocalDate> expDate = new SimpleObjectProperty<>();
 
-    @Override
-    public String toString() {
-        return getName();
+    public LocalDate getExpDate() {
+        return expDate.get();
+    }
+
+    public ObjectProperty<LocalDate> expDateProperty() {
+        return expDate;
+    }
+
+    public void setExpDate(LocalDate expDate) {
+        this.expDate.set(expDate);
     }
 }

@@ -17,15 +17,28 @@
 
 package io.github.gleidsonmt.speedcut.core.app.model;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
+import java.math.BigDecimal;
+
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  28/02/2022
+ * Create on  02/08/2022
  */
-public class Professional extends Person  {
+public class ValueItem extends Entity {
 
+    private final ObjectProperty<BigDecimal> value = new SimpleObjectProperty<>();
 
-    @Override
-    public String toString() {
-        return getName();
+    public BigDecimal getValue() {
+        return value.get();
+    }
+
+    public ObjectProperty<BigDecimal> valueProperty() {
+        return value;
+    }
+
+    public void setValue(BigDecimal value) {
+        this.value.set(value);
     }
 }

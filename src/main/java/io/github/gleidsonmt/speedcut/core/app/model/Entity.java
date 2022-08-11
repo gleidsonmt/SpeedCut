@@ -16,10 +16,13 @@
  */
 package io.github.gleidsonmt.speedcut.core.app.model;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+
+import java.util.HashMap;
+import java.util.Properties;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -27,8 +30,10 @@ import javafx.beans.property.StringProperty;
  */
 public class Entity extends Model  {
 
-    private final BooleanProperty valid         = new SimpleBooleanProperty();
-    private final StringProperty  error         = new SimpleStringProperty();
+    private final BooleanProperty valid         = new SimpleBooleanProperty(true);
+    private final StringProperty  error         = new SimpleStringProperty("No errors");
+
+    private ObservableMap<Object, Object> properties;
 
     public Entity() {
 
@@ -58,11 +63,18 @@ public class Entity extends Model  {
         this.error.set(error);
     }
 
+    public ObservableMap<Object, Object> getProperties() {
+        if (properties == null) {
+            properties = FXCollections.observableMap(new HashMap<Object, Object>());
+        }
+        return properties;
+    }
 
     @Override
     public String toString() {
         return getName() != null ? getName() : "Entity{" +
-                "valid=" + valid +
+                "id = " + super.getId() +
+                ", valid=" + valid +
                 ", error=" + error +
                 '}';
     }

@@ -19,13 +19,10 @@ package io.github.gleidsonmt.speedcut.core.app.model;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  28/02/2022
+ * Create on  05/08/2022
  */
-public class Professional extends Person  {
+public enum Type {
 
+    ENTER, EXIT
 
-    @Override
-    public String toString() {
-        return getName();
-    }
 }

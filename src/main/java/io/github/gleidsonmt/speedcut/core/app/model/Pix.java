@@ -17,15 +17,26 @@
 
 package io.github.gleidsonmt.speedcut.core.app.model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  28/02/2022
+ * Create on  09/08/2022
  */
-public class Professional extends Person  {
+public class Pix extends ValueItem {
 
+    private final StringProperty key = new SimpleStringProperty();
 
-    @Override
-    public String toString() {
-        return getName();
+    public String getKey() {
+        return key.get();
+    }
+
+    public StringProperty keyProperty() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key.set(key);
     }
 }

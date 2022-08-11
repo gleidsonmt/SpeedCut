@@ -17,10 +17,9 @@
 
 package io.github.gleidsonmt.speedcut.core.app.model;
 
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import io.github.gleidsonmt.speedcut.core.app.util.MoneyUtil;
+import javafx.beans.binding.StringBinding;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -32,11 +31,16 @@ import java.math.BigDecimal;
  */
 public class Sale extends Entity {
 
-    private final ObjectProperty<BigDecimal>    discount        = new SimpleObjectProperty<>();
     private final ObjectProperty<Professional>  professional    = new SimpleObjectProperty<>();
     private final ObjectProperty<Client>        client          = new SimpleObjectProperty<>();
+    private final ObjectProperty<Cashier>       cashier         = new SimpleObjectProperty<>();
+
+    private final BooleanProperty active = new SimpleBooleanProperty();
 
     private final ListProperty<SaleItem> saleItems = new SimpleListProperty<>();
+
+    public Sale() {
+    }
 
     public Professional getProfessional() {
         return professional.get();
@@ -74,25 +78,39 @@ public class Sale extends Entity {
         this.saleItems.set(saleItems);
     }
 
-    public BigDecimal getDiscount() {
-        return discount.get();
+    public boolean isActive() {
+        return active.get();
     }
 
-    public ObjectProperty<BigDecimal> discountProperty() {
-        return discount;
+    public BooleanProperty activeProperty() {
+        return active;
     }
 
-    public void setDiscount(BigDecimal discount) {
-        this.discount.set(discount);
+    public void setActive(boolean active) {
+        this.active.set(active);
     }
 
-    @Override
-    public String toString() {
-        return "Sale{" +
-                "id=" + getId() +
-                "professional=" + professional +
-                ", client=" + client +
-                ", saleItems=" + saleItems +
-                '}';
+    public Cashier getCashier() {
+        return cashier.get();
     }
+
+    public ObjectProperty<Cashier> cashierProperty() {
+        return cashier;
+    }
+
+    public void setCashier(Cashier cashier) {
+        this.cashier.set(cashier);
+    }
+
+
+
+//    @Override
+//    public String toString() {
+//        return "Sale{" +
+//                "id=" + getId() +
+//                "professional=" + professional +
+//                ", client=" + client +
+//                ", saleItems=" + saleItems +
+//                '}';
+//    }
 }

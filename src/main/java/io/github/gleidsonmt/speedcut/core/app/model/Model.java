@@ -28,6 +28,7 @@ import javafx.beans.property.StringProperty;
  */
 @SuppressWarnings("unused")
 public class Model {
+
     private final IntegerProperty id;
     private final StringProperty name;
     private final StringProperty description;

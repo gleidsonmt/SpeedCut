@@ -17,10 +17,11 @@
 
 package io.github.gleidsonmt.speedcut.core.app.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import io.github.gleidsonmt.speedcut.core.app.dao.RepoSaleItemImpl;
+import io.github.gleidsonmt.speedcut.core.app.dao.Repositories;
+import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 import java.math.BigDecimal;
 
@@ -31,11 +32,55 @@ import java.math.BigDecimal;
 @SuppressWarnings("unused")
 public final class SaleItem extends Entity {
 
+    private final BooleanProperty discount    = new SimpleBooleanProperty();
+
     private final IntegerProperty               quantity    = new SimpleIntegerProperty();
-    private final ObjectProperty<BigDecimal>    discount    = new SimpleObjectProperty<>();
     private final ObjectProperty<BigDecimal>    total       = new SimpleObjectProperty<>();
     private final ObjectProperty<Sale>          sale        = new SimpleObjectProperty<>();
-    private final ObjectProperty<TradeItem>     item        = new SimpleObjectProperty<>();
+    private final ObjectProperty<BigDecimal>    unit      =  new SimpleObjectProperty<>();
+    private final ObjectProperty<TradeItem>     tradeItem   = new SimpleObjectProperty<>();
+
+    public SaleItem() {
+
+        quantity.addListener((observable, oldValue, newValue) -> {
+            calcTotal();
+        });
+
+        discount.addListener((observable, oldValue, newValue) -> {
+            calcTotal();
+
+            if (newValue) {
+
+                BigDecimal discount = getItem().getPrice().multiply(getItem().getDiscount()); // fixed discount
+
+                unit.set(
+                    getItem().getPrice().subtract(discount)
+                );
+
+            } else {
+                unit.set(getItem().getPrice());
+            }
+
+        });
+
+    }
+
+
+
+    private BigDecimal getDiscount() {
+        return isDiscount() ? getItem().getPrice().multiply(getItem().getDiscount()) : BigDecimal.ZERO;
+    }
+
+    private void calcTotal() {
+//                ( (uni - desconto) * quant) = total
+        total.set(
+                getItem().getPrice()
+                        .subtract(getDiscount())
+                        .multiply(BigDecimal.valueOf(getQuantity())
+                        )
+        );
+
+    }
 
     public int getQuantity() {
         return quantity.get();
@@ -74,26 +119,54 @@ public final class SaleItem extends Entity {
     }
 
     public TradeItem getItem() {
-        return item.get();
+        return tradeItem.get();
     }
 
     public ObjectProperty<TradeItem> itemProperty() {
-        return item;
+        return tradeItem;
     }
 
-    public void setItem(TradeItem item) {
-        this.item.set(item);
+    public void setTradeItem(TradeItem item) {
+        this.tradeItem.set(item);
     }
 
-    public BigDecimal getDiscount() {
+    public boolean isDiscount() {
         return discount.get();
     }
 
-    public ObjectProperty<BigDecimal> discountProperty() {
+    public int hasDiscount() {
+        return getUnit().compareTo(getItem().getPrice());
+    }
+
+    public BooleanProperty discountProperty() {
         return discount;
     }
 
-    public void setDiscount(BigDecimal discount) {
+    public void setDiscount(boolean discount) {
         this.discount.set(discount);
+    }
+
+    public BigDecimal getUnit() {
+        return unit.get();
+    }
+
+    public ObjectProperty<BigDecimal> unitProperty() {
+        return unit;
+    }
+
+    public void setUnit(BigDecimal unit) {
+        this.unit.set(unit);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("SaleItem{");
+        sb.append("quantity=").append(quantity);
+        sb.append(", discount=").append(discount);
+        sb.append(", total=").append(total);
+        sb.append(", sale=\n").append(sale);
+        sb.append(", tradeItem=").append(tradeItem);
+        sb.append('}');
+        return sb.toString();
     }
 }

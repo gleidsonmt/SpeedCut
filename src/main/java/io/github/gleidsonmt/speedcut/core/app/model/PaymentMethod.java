@@ -17,15 +17,14 @@
 
 package io.github.gleidsonmt.speedcut.core.app.model;
 
+import javafx.beans.property.ListProperty;
+
+import java.util.List;
+
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  28/02/2022
+ * Create on  07/08/2022
  */
-public class Professional extends Person  {
+public class PaymentMethod extends ValueItem {
 
-
-    @Override
-    public String toString() {
-        return getName();
-    }
 }

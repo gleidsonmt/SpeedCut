@@ -17,6 +17,8 @@
 
 package io.github.gleidsonmt.speedcut.core.app.model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -29,6 +31,7 @@ public final class User extends Entity {
     private final StringProperty userName = new SimpleStringProperty();
     private final StringProperty password = new SimpleStringProperty();
     private byte[] salt;
+    private final BooleanProperty logged = new SimpleBooleanProperty();
 
     public User() {
         this(null);
@@ -68,5 +71,28 @@ public final class User extends Entity {
 
     public void setSalt(byte[] salt) {
         this.salt = salt;
+    }
+
+    public boolean isLogged() {
+        return logged.get();
+    }
+
+    public BooleanProperty loggedProperty() {
+        return logged;
+    }
+
+    public void setLogged(boolean logged) {
+        this.logged.set(logged);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("User{");
+        sb.append("userName=").append(userName);
+        sb.append(", password=").append(password);
+        sb.append(", salt=");
+        sb.append(", logged=").append(logged);
+        sb.append('}');
+        return sb.toString();
     }
 }

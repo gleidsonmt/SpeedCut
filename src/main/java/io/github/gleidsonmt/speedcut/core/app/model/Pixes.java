@@ -17,15 +17,31 @@
 
 package io.github.gleidsonmt.speedcut.core.app.model;
 
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.ObservableList;
+
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  28/02/2022
+ * Create on  11/08/2022
  */
-public class Professional extends Person  {
+public class Pixes extends PaymentMethod {
 
+    private final ListProperty<Pix> pixes = new SimpleListProperty<>();
 
-    @Override
-    public String toString() {
-        return getName();
+    public Pixes(ObservableList<Pix> _pixes) {
+        pixes.setValue(_pixes);
+    }
+
+    public ObservableList<Pix> getPixes() {
+        return pixes.get();
+    }
+
+    public ListProperty<Pix> pixesProperty() {
+        return pixes;
+    }
+
+    public void setPixes(ObservableList<Pix> pixes) {
+        this.pixes.set(pixes);
     }
 }

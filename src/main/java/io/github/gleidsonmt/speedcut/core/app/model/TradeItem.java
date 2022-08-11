@@ -32,6 +32,10 @@ public class TradeItem extends Item {
     private final ObjectProperty<BigDecimal> discount   = new SimpleObjectProperty<>();
     private final ObjectProperty<BigDecimal> price      = new SimpleObjectProperty<>();
 
+
+    public TradeItem() {
+    }
+
     public BigDecimal getDiscount() {
         return discount.get();
     }
@@ -54,5 +58,17 @@ public class TradeItem extends Item {
 
     public void setPrice(BigDecimal price) {
         this.price.set(price);
+    }
+
+
+
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("TradeItem{");
+        sb.append("discount=").append(discount);
+        sb.append(", price=").append(price);
+        sb.append('}');
+        return sb.toString();
     }
 }
