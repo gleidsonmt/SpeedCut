@@ -17,47 +17,40 @@
 
 package io.github.gleidsonmt.speedcut.core.app.factory.column;
 
-import io.github.gleidsonmt.speedcut.core.app.model.Entity;
-import io.github.gleidsonmt.speedcut.core.app.model.Item;
-import io.github.gleidsonmt.speedcut.core.app.util.MoneyUtil;
-import javafx.geometry.Pos;
-import javafx.scene.control.Hyperlink;
+import io.github.gleidsonmt.speedcut.core.app.model.Sale;
+import io.github.gleidsonmt.speedcut.core.app.model.Transaction;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.shape.SVGPath;
 import javafx.util.Callback;
-
-import java.math.BigDecimal;
-
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  04/03/2022
+ * Create on  05/08/2022
  */
-public class MoneyColumnFactory<T extends Entity> implements Callback<TableColumn<T, BigDecimal>, TableCell<T, BigDecimal>> {
+public class SaleColumnFactory implements Callback<TableColumn<Transaction, Sale>, TableCell<Transaction, Sale>> {
+
 
     @Override
-    public TableCell<T, BigDecimal> call(TableColumn<T, BigDecimal> param) {
-        return new TableCell<>(){
+    public TableCell<Transaction, Sale> call(TableColumn<Transaction, Sale> param) {
+        return new TableCell<>() {
             @Override
-            protected void updateItem(BigDecimal item, boolean empty) {
+            protected void updateItem(Sale item, boolean empty) {
                 super.updateItem(item, empty);
+
                 if (item != null) {
 
-//                    setText(MoneyUtil.format(item));
+                    SVGPath icon = new SVGPath();
+                    icon.setContent("M6 16.708 2.292 13 6 9.292l.771.77-2.396 2.396h12.417v1.084H4.375l2.396 2.396Zm8-6-.771-.77 2.396-2.396H3.208V6.458h12.417l-2.396-2.396.771-.77L17.708 7Z");
 
-                    setText(null);
-                    setGraphic(new Hyperlink(MoneyUtil.format(item)));
+                    setGraphic(icon);
 
-                    getStyleClass().addAll("border", "border-l-1");
+//                    setText(item.getId());
 
                 } else {
-
                     setItem(null);
-                    setGraphic(null);
                     setText(null);
-                    getStyleClass().removeAll("border", "border-l-1");
-                    setStyle(null);
-
+                    setGraphic(null);
                 }
             }
         };

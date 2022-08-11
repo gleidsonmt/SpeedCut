@@ -36,12 +36,6 @@ import java.util.Objects;
  */
 public class ProductColumnFactory<T extends SaleItem, S extends TradeItem> implements Callback<TableColumn<T, S>, TableCell<T, S>> {
 
-    private WindowDecorator window;
-
-    public ProductColumnFactory(WindowDecorator window) {
-        this.window = window;
-    }
-
     @Override
     public TableCell<T, S> call(TableColumn<T, S> param) {
         return new TableCell<>(){
@@ -50,7 +44,7 @@ public class ProductColumnFactory<T extends SaleItem, S extends TradeItem> imple
                 super.updateItem(item, empty);
 
                 if (item != null) {
-                    setText(item.toString());
+                    setText(item.getName());
                     setAlignment(Pos.CENTER_LEFT);
                     setId("badge-cell");
                     setGraphic(null);
@@ -67,14 +61,13 @@ public class ProductColumnFactory<T extends SaleItem, S extends TradeItem> imple
 
                         }
                     } else {
-                        setGraphic(AvatarCreator.createDefaultAvatar(item.getName(), 18));
+                        setGraphic(AvatarCreator.createDefaulRecttAvatar(item.getName(), 15, 1, 12));
                     }
-
-
 
                     setGraphicTextGap(10);
                     setItem(item);
                     getStyleClass().addAll("border", "border-l-1");
+
 //                    getTableRow().setStyle(creator.getStyle());
 //                    getTableRow().setId("table-row-custom");
 

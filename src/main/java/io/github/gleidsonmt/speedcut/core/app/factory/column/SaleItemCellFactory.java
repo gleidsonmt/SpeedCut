@@ -17,47 +17,47 @@
 
 package io.github.gleidsonmt.speedcut.core.app.factory.column;
 
-import io.github.gleidsonmt.speedcut.core.app.model.Entity;
-import io.github.gleidsonmt.speedcut.core.app.model.Item;
-import io.github.gleidsonmt.speedcut.core.app.util.MoneyUtil;
+import io.github.gleidsonmt.speedcut.core.app.factory.cell.SaleItemCell;
+import io.github.gleidsonmt.speedcut.core.app.model.SaleItem;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.util.Callback;
-
-import java.math.BigDecimal;
-
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  04/03/2022
+ * Create on  16/06/2022
  */
-public class MoneyColumnFactory<T extends Entity> implements Callback<TableColumn<T, BigDecimal>, TableCell<T, BigDecimal>> {
+public class SaleItemCellFactory implements Callback<ListView<SaleItem>, ListCell<SaleItem>> {
 
     @Override
-    public TableCell<T, BigDecimal> call(TableColumn<T, BigDecimal> param) {
-        return new TableCell<>(){
+    public ListCell<SaleItem> call(ListView<SaleItem> saleItemListView) {
+        return new ListCell<>() {
             @Override
-            protected void updateItem(BigDecimal item, boolean empty) {
-                super.updateItem(item, empty);
+            protected void updateItem(SaleItem item, boolean b) {
+                super.updateItem(item, b);
+
                 if (item != null) {
+                    setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
-//                    setText(MoneyUtil.format(item));
+                    SaleItemCell saleItemCell = new SaleItemCell(item);
+                    saleItemCell.setPadding(new Insets(5,10,5,10));
+                    saleItemCell.getStyleClass().add("border");
 
-                    setText(null);
-                    setGraphic(new Hyperlink(MoneyUtil.format(item)));
+                    setGraphic(saleItemCell);
 
-                    getStyleClass().addAll("border", "border-l-1");
+                    setAlignment(Pos.CENTER);
+                    setPadding(new Insets(0));
+                    setMouseTransparent(true);
+
 
                 } else {
-
                     setItem(null);
                     setGraphic(null);
                     setText(null);
-                    getStyleClass().removeAll("border", "border-l-1");
                     setStyle(null);
-
                 }
             }
         };

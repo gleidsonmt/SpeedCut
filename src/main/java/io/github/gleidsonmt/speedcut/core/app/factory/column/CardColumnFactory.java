@@ -17,10 +17,12 @@
 
 package io.github.gleidsonmt.speedcut.core.app.factory.column;
 
+import io.github.gleidsonmt.speedcut.controller.payment.IPaymentMethod;
+import io.github.gleidsonmt.speedcut.controller.payment.IPaymentMethod2;
+import io.github.gleidsonmt.speedcut.core.app.model.Card;
 import io.github.gleidsonmt.speedcut.core.app.model.Entity;
-import io.github.gleidsonmt.speedcut.core.app.model.Item;
 import io.github.gleidsonmt.speedcut.core.app.util.MoneyUtil;
-import javafx.geometry.Pos;
+import javafx.beans.property.ListProperty;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -33,21 +35,36 @@ import java.math.BigDecimal;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  04/03/2022
  */
-public class MoneyColumnFactory<T extends Entity> implements Callback<TableColumn<T, BigDecimal>, TableCell<T, BigDecimal>> {
+public class CardColumnFactory<T extends Entity> implements Callback<TableColumn<T, ListProperty<Card>>, TableCell<T, ListProperty<Card>>> {
 
     @Override
-    public TableCell<T, BigDecimal> call(TableColumn<T, BigDecimal> param) {
+    public TableCell<T, ListProperty<Card>> call(TableColumn<T, ListProperty<Card>> param) {
+
         return new TableCell<>(){
+
             @Override
-            protected void updateItem(BigDecimal item, boolean empty) {
+            protected void updateItem(ListProperty<Card> item, boolean empty) {
+
                 super.updateItem(item, empty);
-                if (item != null) {
 
-//                    setText(MoneyUtil.format(item));
+                if (item != null && !empty) {
 
+                    BigDecimal current = BigDecimal.ZERO;
+
+
+                    for (Card card : item) {
+
+//                        System.out.println("card = " + card.getValue());
+                        current = current.add(card.getValue());
+                    }
+
+                    Hyperlink link = new Hyperlink(MoneyUtil.format(current));
+
+                    link.setStyle(" -fx-border-color : -light-gray-2; -fx-border-width : 1px; -fx-border-radius : 3px;");
+
+                    setGraphic(link);
                     setText(null);
-                    setGraphic(new Hyperlink(MoneyUtil.format(item)));
-
+//                    setText("null");
                     getStyleClass().addAll("border", "border-l-1");
 
                 } else {

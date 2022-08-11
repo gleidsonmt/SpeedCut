@@ -17,10 +17,11 @@
 
 package io.github.gleidsonmt.speedcut.core.app.factory.column;
 
-import io.github.gleidsonmt.speedcut.core.app.model.Entity;
-import io.github.gleidsonmt.speedcut.core.app.model.Item;
+import io.github.gleidsonmt.speedcut.core.app.model.Amount;
+import io.github.gleidsonmt.speedcut.core.app.model.Transaction;
 import io.github.gleidsonmt.speedcut.core.app.util.MoneyUtil;
-import javafx.geometry.Pos;
+import javafx.beans.property.ListProperty;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -28,36 +29,53 @@ import javafx.util.Callback;
 
 import java.math.BigDecimal;
 
-
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  04/03/2022
+ * Create on  05/08/2022
  */
-public class MoneyColumnFactory<T extends Entity> implements Callback<TableColumn<T, BigDecimal>, TableCell<T, BigDecimal>> {
+public class AmountColumnFactory implements Callback<TableColumn<Transaction, ListProperty<Amount>>, TableCell<Transaction, ListProperty<Amount>>> {
+
 
     @Override
-    public TableCell<T, BigDecimal> call(TableColumn<T, BigDecimal> param) {
+    public TableCell<Transaction, ListProperty<Amount>> call(TableColumn<Transaction, ListProperty<Amount>> param) {
+
         return new TableCell<>(){
+
             @Override
-            protected void updateItem(BigDecimal item, boolean empty) {
+            protected void updateItem(ListProperty<Amount> item, boolean empty) {
                 super.updateItem(item, empty);
+
                 if (item != null) {
 
-//                    setText(MoneyUtil.format(item));
+                    BigDecimal total = BigDecimal.ZERO;
 
-                    setText(null);
-                    setGraphic(new Hyperlink(MoneyUtil.format(item)));
+                    for (Amount amount : item) {
+                        total = total.add(amount.getValue());
 
-                    getStyleClass().addAll("border", "border-l-1");
+
+                    }
+
+                    getStyleClass().addAll( "border", "border-l-1");
+
+//                    getStyleClass().add("amount");
+
+
+                    if (getTableRow().getItem() != null) {
+                        switch (getTableRow().getItem().getType()) {
+
+                            case ENTER -> setText("+ " + MoneyUtil.format(total));
+                            case EXIT -> setText("- " + MoneyUtil.format(total));
+
+                        }
+                    }
+
+                    setContentDisplay(ContentDisplay.TEXT_ONLY);
 
                 } else {
-
+                    setText(null);
                     setItem(null);
                     setGraphic(null);
-                    setText(null);
                     getStyleClass().removeAll("border", "border-l-1");
-                    setStyle(null);
-
                 }
             }
         };

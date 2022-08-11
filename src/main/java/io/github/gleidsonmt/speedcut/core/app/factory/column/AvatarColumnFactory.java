@@ -23,6 +23,7 @@ import io.github.gleidsonmt.speedcut.core.app.model.Item;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Callback;
@@ -44,7 +45,7 @@ public class AvatarColumnFactory<T extends Entity, S extends Item> implements Ca
 
                 if (item != null) {
                     setText(item.getName());
-                    setAlignment(Pos.CENTER_LEFT);
+                    setAlignment(Pos.CENTER);
                     setId("badge-cell");
                     setGraphic(null);
 
@@ -54,8 +55,12 @@ public class AvatarColumnFactory<T extends Entity, S extends Item> implements Ca
                         Image image = new Image(imgPath, 90, 0, true, true);
                         setGraphic(AvatarCreator.createAvatar(image));
                     } else {
-                        setGraphic(AvatarCreator.createDefaultAvatar(item.getName(), 18));
+                        setGraphic(AvatarCreator.createDefaultAvatar(item.getName(), 0, 0, 12));
                     }
+
+                    setTooltip(new Tooltip(
+                             item.getName() +"\n Data de Registro : "
+                    ));
 
                     setGraphicTextGap(10);
                     setItem(item);
