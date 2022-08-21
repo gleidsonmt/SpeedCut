@@ -43,11 +43,7 @@ public class MoneyColumnFactory<T extends Entity> implements Callback<TableColum
                 super.updateItem(item, empty);
                 if (item != null) {
 
-//                    setText(MoneyUtil.format(item));
-
-                    setText(null);
-                    setGraphic(new Hyperlink(MoneyUtil.format(item)));
-
+                    setText(MoneyUtil.format(item));
                     getStyleClass().addAll("border", "border-l-1");
 
                 } else {

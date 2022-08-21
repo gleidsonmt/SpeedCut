@@ -63,6 +63,26 @@ public class SnackBar  {
 
     private EventHandler<ActionEvent> undoEvent;
 
+    public enum Colors {
+        GRAY("-dark-gray"),
+        GRAPEFRUIT("-grapefruit"),
+        INFO("-info"),
+        WARNING("-warning"),
+        SUCCESS("-mint");
+
+        private final String color;
+
+        Colors(String color) {
+            this.color = color;
+        }
+
+        public String getColor() {
+            return color;
+        }
+    }
+
+    private Colors color = Colors.GRAY;
+
     public SnackBar(Root root) {
         this.root = root;
 
@@ -86,11 +106,7 @@ public class SnackBar  {
         labelAction.getStyleClass().add("snack-button");
         snack.getStyleClass().add("snack-bar");
 
-        labelAction.setStyle("-fx-border-width : 1px; " +
-                "-fx-text-fill : white;" +
-                "-fx-border-radius : 5; -fx-border-color : white;" +
-                "-fx-background-radius : 5;"
-        );
+
 
 //        labelAction.getStyleClass().add("depth-1");
         snack.setContentDisplay(ContentDisplay.RIGHT);
@@ -120,12 +136,19 @@ public class SnackBar  {
 
         snack.setTranslateY(-10);
 
-        box.setStyle("-fx-background-color : -dark-gray; -fx-background-radius : 100;");
+        box.setStyle("-fx-background-color : " + color.getColor() + "; -fx-background-radius : 100;");
 //        setGraphic(box);
         snack.setStyle(
-                "-fx-background-color : -dark-gray;" +
+                "-fx-background-color : " + color.getColor() + ";" +
                 "-fx-padding : 10; -fx-background-radius : 5; " +
                 "-fx-text-fill : white; -fx-font-weight : bold;" );
+
+        labelAction.setStyle("-fx-border-width : 1px; " +
+                "-fx-text-fill : white;" +
+                "-fx-border-radius : 5; -fx-border-color : white;" +
+                "-fx-background-color : " + color.getColor() + ";" +
+                "-fx-background-radius : 5;"
+        );
 
         RollIn animation = new RollIn(snack);
         animation.setSpeed(1.5);
@@ -170,6 +193,10 @@ public class SnackBar  {
         return this;
     }
 
+    public SnackBar color(Colors color) {
+        this.color = color;
+        return this;
+    }
 
     public SnackBar undo(EventHandler<ActionEvent> undoEvent) {
         this.undoEvent = undoEvent;

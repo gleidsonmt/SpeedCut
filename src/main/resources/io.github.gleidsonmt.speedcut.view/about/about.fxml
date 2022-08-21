@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="root" prefHeight="742.0" prefWidth="1018.0" xmlns:fx="http://javafx.com/fxml/1">
+   <stylesheets>
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/material-color.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/light.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/skeleton.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/bootstrap.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/shape.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/typographic.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/helpers.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/master.css" />
+   </stylesheets>
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+         <children>
+            <VBox alignment="CENTER_LEFT" prefHeight="646.0" prefWidth="278.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="211.0" prefWidth="278.0">
+                     <children>
+                        <ImageView fitHeight="250.0" fitWidth="223.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../Pictures/avatar.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox prefWidth="233.0">
+                           <children>
+                              <Label style="-fx-font-weight: bold;" styleClass="h4" text="Gleidson Neves da Silveira" />
+                              <Label layoutX="10.0" layoutY="10.0" styleClass="h5" text="Desenvolvedor Full-Stack">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Separator prefWidth="200.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Separator>
+                              <VBox prefWidth="233.0" spacing="10.0">
+                                 <children>
+                                    <GridPane prefHeight="97.0" prefWidth="233.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="24.0" vgrow="ALWAYS" />
+                                          <RowConstraints minHeight="10.0" prefHeight="24.0" vgrow="ALWAYS" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label graphicTextGap="8.0" style="-fx-font-weight: bold; -fx-text-fill: -text-color;" text="Telefone">
+                                             <graphic>
+                                                <SVGPath content="M19.95 21q-3.225 0-6.287-1.438-3.063-1.437-5.425-3.8-2.363-2.362-3.8-5.425Q3 7.275 3 4.05q0-.45.3-.75t.75-.3H8.1q.35 0 .625.225t.325.575l.65 3.5q.05.35-.012.637-.063.288-.288.513L6.975 10.9q1.05 1.8 2.638 3.375Q11.2 15.85 13.1 17l2.35-2.35q.225-.225.588-.338.362-.112.712-.062l3.45.7q.35.075.575.337.225.263.225.613v4.05q0 .45-.3.75t-.75.3ZM6.025 9l1.65-1.65L7.25 5H5.025q.125 1.025.35 2.025.225 1 .65 1.975Zm8.95 8.95q.975.425 1.988.675 1.012.25 2.037.325v-2.2l-2.35-.475ZM6.025 9Zm8.95 8.95Z" style="-fx-fill: -text-color;" />
+                                             </graphic>
+                                          </Label>
+                                          <Label style="-fx-text-fill: -text-color;" text="(66) 9996-7431" GridPane.columnIndex="1" />
+                                          <Label graphicTextGap="8.0" style="-fx-font-weight: bold; -fx-text-fill: -text-color;" text="Email" GridPane.rowIndex="1">
+                                             <graphic>
+                                                <SVGPath content="M4 20q-.825 0-1.412-.587Q2 18.825 2 18V6q0-.825.588-1.412Q3.175 4 4 4h16q.825 0 1.413.588Q22 5.175 22 6v12q0 .825-.587 1.413Q20.825 20 20 20Zm8-7L4 8v10h16V8Zm0-2 8-5H4ZM4 8V6v12Z" style="-fx-fill: -text-color;" />
+                                             </graphic>
+                                          </Label>
+                                          <Label style="-fx-text-fill: -text-color;" text="gleidisonmt@gmail.com" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label graphicTextGap="8.0" layoutX="10.0" layoutY="38.0" style="-fx-font-weight: bold; -fx-text-fill: -text-color;" text="Enderço" GridPane.rowIndex="2">
+                                             <graphic>
+                                                <SVGPath content="M12 12q.825 0 1.413-.588Q14 10.825 14 10t-.587-1.413Q12.825 8 12 8q-.825 0-1.412.587Q10 9.175 10 10q0 .825.588 1.412Q11.175 12 12 12Zm0 7.35q3.05-2.8 4.525-5.088Q18 11.975 18 10.2q0-2.725-1.738-4.463Q14.525 4 12 4 9.475 4 7.737 5.737 6 7.475 6 10.2q0 1.775 1.475 4.062Q8.95 16.55 12 19.35ZM12 22q-4.025-3.425-6.012-6.363Q4 12.7 4 10.2q0-3.75 2.413-5.975Q8.825 2 12 2t5.587 2.225Q20 6.45 20 10.2q0 2.5-1.987 5.437Q16.025 18.575 12 22Zm0-11.8Z" style="-fx-fill: -text-color;" />
+                                             </graphic>
+                                          </Label>
+                                          <Label style="-fx-text-fill: -text-color;" text="Confresa, MT" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <Separator prefWidth="200.0" />
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="260.0" spacing="5.0">
+                           <children>
+                              <Label prefHeight="17.0" prefWidth="80.0" style="-fx-font-weight: bold; -fx-text-color: -text-color;" styleClass="h5" text="Habilidades" />
+                              <Separator prefWidth="150.0" />
+                           </children>
+                        </HBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="59.0" minWidth="10.0" prefWidth="56.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="140.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="35.0" minWidth="10.0" prefWidth="35.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-fill: -text-color;" text="Java" />
+                                    <ProgressBar prefHeight="4.0" prefWidth="200.0" progress="0.89" GridPane.columnIndex="1">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                    </ProgressBar>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-fill: -text-color;" text="89%" GridPane.columnIndex="2" />
+                                 </children>
+                              </GridPane>
+                              <GridPane layoutX="15.0" layoutY="10.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="59.0" minWidth="10.0" prefWidth="56.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="140.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="35.0" minWidth="10.0" prefWidth="35.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-fill: -text-color;" text="JavaFx" />
+                                    <ProgressBar prefHeight="4.0" prefWidth="200.0" progress="0.92" GridPane.columnIndex="1">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                    </ProgressBar>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-fill: -text-color;" text="92%" GridPane.columnIndex="2" />
+                                 </children>
+                              </GridPane>
+                              <GridPane layoutX="15.0" layoutY="61.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="59.0" minWidth="10.0" prefWidth="56.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="140.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="35.0" minWidth="10.0" prefWidth="35.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-fill: -text-color;" text="Gui" />
+                                    <ProgressBar prefHeight="4.0" prefWidth="200.0" progress="0.72" GridPane.columnIndex="1">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                    </ProgressBar>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-fill: -text-color;" text="78%" GridPane.columnIndex="2" />
+                                 </children>
+                              </GridPane>
+                              <GridPane layoutX="15.0" layoutY="44.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="59.0" minWidth="10.0" prefWidth="56.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="140.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="35.0" minWidth="10.0" prefWidth="35.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-fill: -text-color;" text="Css" />
+                                    <ProgressBar prefHeight="4.0" prefWidth="200.0" progress="0.86" GridPane.columnIndex="1">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                    </ProgressBar>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-fill: -text-color;" text="86%" GridPane.columnIndex="2" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="25.0" right="20.0" top="25.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="646.0" prefWidth="308.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label style="-fx-text-fill: linear-gradient(to left, -info, -cyan); -fx-font-weight: bold;" styleClass="h2" text="Speed Cut" />
+                        <Label styleClass="h5" text="Um CRM para salões" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <Separator prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Separator>
+                  <Label style="-fx-font-weight: bold; -fx-text-fill: -text-color;" styleClass="h4" text="Teconlogias">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label style="-fx-font-weight: bold; -fx-text-fill: -text-color;" styleClass="h5" text="Interna" />
+                              <Label text="Java 17+" />
+                              <Label text="JavaFx 18+" />
+                              <Label layoutX="10.0" layoutY="27.0" text="Gradle 7+" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="117.0" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label style="-fx-font-weight: bold; -fx-text-fill: -text-color;" styleClass="h5" text="Externa" />
+                              <Label text="AnimateFx 1.2.0" />
+                              <Label text="GNDecorator 1.0.5" />
+                              <Label layoutX="10.0" layoutY="27.0" text="MySql Connector 8.0.14" />
+                              <Label layoutX="10.0" layoutY="61.0" text="Scenic View 8.0" />
+                              <Label layoutX="10.0" layoutY="44.0" text="GNDecorator 1.0.5" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Separator prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <Label layoutX="10.0" layoutY="81.0" style="-fx-font-weight: bold; -fx-text-fill: -text-color;" styleClass="h4" text="Design">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox layoutX="10.0" layoutY="218.0" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox spacing="5.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0">
+                                 <children>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../io.github.gleidsonmt.speedcut.core.app/theme/img/badges/flat_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Hyperlink text="FlatIcon - Medal Icons" />
+                                    <Label text="https://www.flaticon.com/free-icons/olympic" visible="false" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="33.0">
+                                 <children>
+                                    <ImageView fitHeight="21.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../io.github.gleidsonmt.speedcut.core.app/theme/img/badges/google_logo.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="3.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                    <Hyperlink graphicTextGap="8.0" text="Google Fonts">
+                                       <HBox.margin>
+                                          <Insets left="5.0" right="5.0" />
+                                       </HBox.margin>
+                                    </Hyperlink>
+                                    <Label text="https://fonts.google.com/icons" visible="false" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+         <StackPane.margin>
+            <Insets />
+         </StackPane.margin>
+         <padding>
+            <Insets left="50.0" right="50.0" />
+         </padding>
+      </HBox>
+   </children>
+</StackPane>

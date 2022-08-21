@@ -17,20 +17,13 @@
 
 package io.github.gleidsonmt.speedcut.core.app.dao;
 
-import io.github.gleidsonmt.gncontrols.options.model.Avatar;
-import io.github.gleidsonmt.speedcut.core.app.model.Client;
-import javafx.geometry.Point2D;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.*;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
+import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
+import io.github.gleidsonmt.speedcut.core.app.model.*;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.function.BiFunction;
+import java.util.List;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -38,60 +31,72 @@ import java.util.function.BiFunction;
  */
 public class DaoClient extends AbstractDao<Client> {
 
-    private Image getSLCircle(int width, int height) {
-        WritableImage raster = new WritableImage(width, height);
-        PixelWriter pixelWriter = raster.getPixelWriter();
-        Point2D center = new Point2D((double) width / 2, (double) height / 2);
-//        for (int y = 0; y < height; y++) {
-//            for (int x = 0; x < width; x++) {
-//                double dy = x - center.getX();
-//                double dx = y - center.getY();
-//                pixelWriter.setColor(x, y, Color.gray(dx, dy));
-//            }
-//        }
-        return raster;
-    }
-
-    public static <T> Image transform(Image in, BiFunction<Color, T, Color> f, T arg) {
-//        int width = (int) in.getWidth();
-//        int height = (int) in.getHeight();
-        int width = 200;
-        int height = 200;
-
-        WritableImage out = new WritableImage(width, height);
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                out.getPixelWriter().setColor(x, y, f.apply(in.getPixelReader().getColor(x, y), arg));
-            }
-        }
-        return out;
-    }
+    private final DaoCard   daoCard = new DaoCard();
+    private final DaoPix    daoPix  = new DaoPix();
+    private final DaoTerm    daoTerm  = new DaoTerm();
 
     @Override
-    protected Client createElement(long id, ResultSet result) {
+    protected Client createElement(ResultSet result) {
 
         Client element = new Client();
 
         try {
-            element.setId( (int) id);
-            element.setName(result.getString("NAME"));
-            element.setAvatar(result.getString("IMG_PATH"));
+
+            element.setId( result.getInt("id"));
+            element.setName(result.getString("name"));
+            element.setLastName(result.getString("last_name"));
+            element.setImgPath(result.getString("img_path"));
+            element.setImgPath(result.getString("img_path"));
+
+            element.setPayWithCard(result.getBoolean("card"));
+            element.setPayWithPix(result.getBoolean("pix"));
+            element.setPayWithTerm(result.getBoolean("term"));
+
+            element.getPaymentMethods().addAll(daoCard.readCardsForClient(element));
+            element.getPaymentMethods().addAll(daoPix.readPixesForClient(element));
+
+            element.getPaymentMethods().add(daoTerm.read(result.getInt("term_id")));
+
+            int _score = result.getInt("score");
+
+            if (_score < 1) {
+                element.setScore(Score.SPECIAL);
+            } else if (_score <= 9) { // 9 8 7.. 1
+                element.setScore(Score.NOVICE);
+            } else if (_score <= 49) { // 49 48
+                element.setScore(Score.USUALLY);
+            } else if (_score < 99) {
+                element.setScore(Score.VETERAN);
+            } else if (_score < 299) {
+                element.setScore(Score.PREMIUM);
+            } else {
+                element.setScore(Score.SUPER);
+            }
 
 
-
-//            if (imageUri.startsWith("theme")) {
-//                element.setAvatar(circle);
-//            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return element;
     }
 
-    // store(Field fields)
-    // store("name", "price");
-    // insert into(name, price) values
+    @Override
+    public void put(Client model) throws SQLQueryError {
 
-    // update
+        try {
+            List<String> cols = list("name");
 
+            PreparedStatement prepare = prepare(createStoreQuery(model, cols));
+
+            prepare.setString(1, model.getName());
+
+            prepare.execute();
+
+            System.out.println(model.getId());
+            setIdAndAdd(model);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

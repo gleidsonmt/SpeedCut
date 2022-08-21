@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.gleidsonmt.gncontrols.GNButton?>
+<?import io.github.gleidsonmt.gncontrols.GNTextBox?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+
+<StackPane fx:id="root" prefHeight="588.0" prefWidth="560.0" style="-fx-background-color: white; -fx-background-radius: 0 10 0 10;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.sales.side_views.Receive">
+
+   <children>
+      <VBox prefHeight="588.0" prefWidth="603.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="81.0" prefWidth="520.0" spacing="10.0">
+               <children>
+                  <Group>
+                     <children>
+                        <SVGPath content="M511.1 378.8l-26.7-160c-2.6-15.4-15.9-26.7-31.6-26.7H208v-64h96c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16H48c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h96v64H59.1c-15.6 0-29 11.3-31.6 26.7L.8 378.7c-.6 3.5-.9 7-.9 10.5V480c0 17.7 14.3 32 32 32h448c17.7 0 32-14.3 32-32v-90.7c.1-3.5-.2-7-.8-10.5zM280 248c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16h-16c-8.8 0-16-7.2-16-16v-16zm-32 64h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16h-16c-8.8 0-16-7.2-16-16v-16c0-8.8 7.2-16 16-16zm-32-80c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16h-16c-8.8 0-16-7.2-16-16v-16c0-8.8 7.2-16 16-16h16zM80 80V48h192v32H80zm40 200h-16c-8.8 0-16-7.2-16-16v-16c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16zm16 64v-16c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16h-16c-8.8 0-16-7.2-16-16zm216 112c0 4.4-3.6 8-8 8H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h176c4.4 0 8 3.6 8 8v16zm24-112c0 8.8-7.2 16-16 16h-16c-8.8 0-16-7.2-16-16v-16c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16zm48-80c0 8.8-7.2 16-16 16h-16c-8.8 0-16-7.2-16-16v-16c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16z" scaleX="0.05" scaleY="0.05" style="-fx-fill: -info;" />
+                     </children>
+                  </Group>
+                  <Label style="-fx-text-fill: -info;" styleClass="h3" text="Recebimento" />
+               </children>
+            </HBox>
+            <VBox minWidth="-Infinity" prefHeight="530.0" prefWidth="450.0" spacing="5.0">
+               <children>
+                  <TableView fx:id="items" prefHeight="262.0" prefWidth="520.0" styleClass="table-detail" stylesheets="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/custom-scroll.css">
+                    <columns>
+                        <TableColumn fx:id="quantity" prefWidth="75.0" text="Quantidade" />
+                      <TableColumn fx:id="unitValue" prefWidth="75.0" text="Valor Unitário" />
+                      <TableColumn fx:id="total" prefWidth="75.0" text="Total" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="350.0" prefHeight="91.0" prefWidth="520.0">
+                     <children>
+                        <GridPane hgap="5.0" prefHeight="92.0" prefWidth="520.0" vgap="5.0">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <ToggleButton disable="true" mnemonicParsing="false" prefHeight="46.0" prefWidth="179.0" style="-fx-pref-height: 89;" styleClass="btn-payments" text="Credit Card">
+                                 <graphic>
+                                    <Group>
+                                       <children>
+                                          <SVGPath content="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z" fill="#9e9a9a" scaleX="0.03" scaleY="0.03" />
+                                       </children>
+                                    </Group>
+                                 </graphic>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="payment" />
+                                 </toggleGroup>
+                              </ToggleButton>
+                              <ToggleButton disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="108.0" prefWidth="179.0" style="-fx-pref-height: 89;" styleClass="btn-payments" text="Cheque" toggleGroup="$payment" GridPane.columnIndex="2">
+                                 <graphic>
+                                    <Group>
+                                       <children>
+                                          <SVGPath content="M0 448c0 17.67 14.33 32 32 32h576c17.67 0 32-14.33 32-32V128H0v320zm448-208c0-8.84 7.16-16 16-16h96c8.84 0 16 7.16 16 16v32c0 8.84-7.16 16-16 16h-96c-8.84 0-16-7.16-16-16v-32zm0 120c0-4.42 3.58-8 8-8h112c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H456c-4.42 0-8-3.58-8-8v-16zM64 264c0-4.42 3.58-8 8-8h304c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8v-16zm0 96c0-4.42 3.58-8 8-8h176c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8v-16zM624 32H16C7.16 32 0 39.16 0 48v48h640V48c0-8.84-7.16-16-16-16z" scaleX="0.03" scaleY="0.03" />
+                                       </children>
+                                    </Group>
+                                 </graphic>
+                              </ToggleButton>
+                              <ToggleButton fx:id="btnTerm" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="179.0" style="-fx-pref-height: 89;" styleClass="btn-payments" text="Nota a prazo" toggleGroup="$payment" GridPane.rowIndex="1">
+                                 <graphic>
+                                    <Group>
+                                       <children>
+                                          <SVGPath content="M630.6 364.9l-90.3-90.2c-12-12-28.3-18.7-45.3-18.7h-79.3c-17.7 0-32 14.3-32 32v79.2c0 17 6.7 33.2 18.7 45.2l90.3 90.2c12.5 12.5 32.8 12.5 45.3 0l92.5-92.5c12.6-12.5 12.6-32.7.1-45.2zm-182.8-21c-13.3 0-24-10.7-24-24s10.7-24 24-24 24 10.7 24 24c0 13.2-10.7 24-24 24zm-223.8-88c70.7 0 128-57.3 128-128C352 57.3 294.7 0 224 0S96 57.3 96 128c0 70.6 57.3 127.9 128 127.9zm127.8 111.2V294c-12.2-3.6-24.9-6.2-38.2-6.2h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 287.9 0 348.1 0 422.3v41.6c0 26.5 21.5 48 48 48h352c15.5 0 29.1-7.5 37.9-18.9l-58-58c-18.1-18.1-28.1-42.2-28.1-67.9z" scaleX="0.03" scaleY="0.03" />
+                                       </children>
+                                    </Group>
+                                 </graphic>
+                              </ToggleButton>
+                              <ToggleButton fx:id="money" disable="true" layoutX="10.0" layoutY="40.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="179.0" style="-fx-pref-height: 89;" styleClass="btn-payments" text="Dinheiro" toggleGroup="$payment" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <graphic>
+                                    <SVGPath content="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" />
+                                 </graphic>
+                              </ToggleButton>
+                              <GNTextBox fx:id="monetaryField" prefHeight="96.0" prefWidth="167.0" promptText="R$ 0,00" style="-fx-border-color: -info; -fx-border-width: 1; -fx-font-size: 20pt;" GridPane.columnIndex="1" GridPane.rowSpan="2147483647" />
+                           </children>
+                        </GridPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox prefHeight="73.0" prefWidth="520.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: -light-gray;">
+                     <children>
+                        <HBox prefHeight="88.0" prefWidth="520.0" style="-fx-border-width: 1 0 0 0; -fx-border-color: -light-gray;" VBox.vgrow="ALWAYS">
+                           <children>
+                              <GridPane style="-fx-border-width: 0 1 0 0; -fx-border-color: -light-gray;" HBox.hgrow="ALWAYS">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Items" />
+                                    <Label text="Desconto" visible="false" GridPane.rowIndex="1" />
+                                    <Label fx:id="lbl_quantity" style="-fx-font-weight: bold; -fx-text-fill: rgba(0,0,0,0.8);" styleClass="h5" text="0" GridPane.columnIndex="1" />
+                                    <Label fx:id="lbl_discount" style="-fx-font-weight: bold; -fx-text-fill: rgba(0,0,0,0.8);" styleClass="h5" text="R$ 40,00" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane HBox.hgrow="ALWAYS">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Total" />
+                                    <Label fx:id="lbl_total" style="-fx-font-weight: bold; -fx-text-fill: rgba(0,0,0,0.8);" styleClass="h5" text="R$ 30,00" GridPane.columnIndex="1" />
+                                    <Label fx:id="lbl_return" text="Troco" GridPane.rowIndex="1" />
+                                    <Label fx:id="lbl_change" style="-fx-font-weight: bold; -fx-text-fill: rgba(0,0,0,0.8);" styleClass="h5" text="R$ 0,00" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </GridPane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="75.0" prefWidth="651.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <GridPane minHeight="-Infinity" prefHeight="83.0" prefWidth="651.0">
+                           <columnConstraints>
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="590.0" minWidth="10.0" prefWidth="399.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="53.0" prefWidth="639.0" spacing="10.0">
+                                 <children>
+                                    <GNButton buttonType="SEMI_ROUNDED" contentDisplay="TOP" mnemonicParsing="false" prefHeight="52.0" prefWidth="200.0" style="-fx-pref-height: 50px;" styleClass="btn-mint" text="Pagar">
+                                       <graphic>
+                                          <SVGPath content="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="WHITE" />
+                                       </graphic>
+                                    </GNButton>
+                                    <GNButton buttonType="SEMI_ROUNDED" contentDisplay="TOP" mnemonicParsing="false" prefHeight="52.0" prefWidth="200.0" style="-fx-pref-height: 50px;" styleClass="btn-warning" text="Print">
+                                       <graphic>
+                                          <SVGPath content="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z" fill="WHITE" />
+                                       </graphic>
+                                    </GNButton>
+                                    <GNButton fx:id="cancel" buttonType="SEMI_ROUNDED" contentDisplay="TOP" mnemonicParsing="false" onAction="#close" prefWidth="200.0" style="-fx-pref-height: 50px;" styleClass="btn-grapefruit" text="Cancelar">
+                                       <graphic>
+                                          <SVGPath content="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z" fill="WHITE" />
+                                       </graphic>
+                                    </GNButton>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </children>
+    <stylesheets>
+        <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/material-color.css" />
+        <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/light.css" />
+        <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/skeleton.css" />
+        <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/bootstrap.css" />
+        <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/shape.css" />
+        <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/typographic.css" />
+        <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/helpers.css" />
+        <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/master.css" />
+    </stylesheets>
+</StackPane>

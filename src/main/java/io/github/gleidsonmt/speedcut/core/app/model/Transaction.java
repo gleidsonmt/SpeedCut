@@ -17,8 +17,6 @@
 
 package io.github.gleidsonmt.speedcut.core.app.model;
 
-import io.github.gleidsonmt.speedcut.controller.payment.IPaymentMethod;
-import io.github.gleidsonmt.speedcut.controller.payment.IPaymentMethod2;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -43,7 +41,7 @@ public class Transaction extends Entity {
     private final ObjectProperty<Sale>      sale        = new SimpleObjectProperty<>();
     private final ObjectProperty<Cashier>   cashier     = new SimpleObjectProperty<>();
 
-    private  ListProperty<Amount> amounts = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private final ListProperty<Amount> amounts = new SimpleListProperty<>(FXCollections.observableArrayList());
 
 
     // Test
@@ -52,195 +50,6 @@ public class Transaction extends Entity {
     private final ObjectProperty<BigDecimal> total      = new SimpleObjectProperty<>(BigDecimal.ZERO);
     private final ObjectProperty<BigDecimal> change     = new SimpleObjectProperty<>(BigDecimal.ZERO);
 
-
-    private final ObjectProperty<BigDecimal>        cash    = new SimpleObjectProperty<>(BigDecimal.ZERO);
-
-    private final ObjectProperty<IPaymentMethod2>   card    = new SimpleObjectProperty<>();
-    private final ObjectProperty<IPaymentMethod>    check   = new SimpleObjectProperty<>();
-    private final ObjectProperty<IPaymentMethod>    term    = new SimpleObjectProperty<>();
-
-
-    public Transaction() {
-
-    }
-
-    @Deprecated
-    public void reset() {
-        change.set(BigDecimal.ZERO);
-        subtotal.set(BigDecimal.ZERO);
-        discount.set(BigDecimal.ZERO);
-        total.set(BigDecimal.ZERO);
-    }
-
-    public void addDiscount(BigDecimal newValue) {
-        this.discount.set(getDiscount().add(newValue));
-    }
-
-    public void subtractDiscount(BigDecimal newValue) {
-        this.discount.set(getDiscount().subtract(newValue));
-    }
-
-    public void addCurrent(BigDecimal newValue) {
-        this.current.set(getCurrent().add(newValue));
-    }
-
-    public void subCurrent(BigDecimal newValue) {
-        this.current.set(getCurrent().subtract(newValue));
-    }
-
-    // Adicionar sempre o valor bruto sem desconto ele vai calcular normal
-
-    public void addTotal(BigDecimal newValue) {
-        total.setValue(getTotal().add(newValue));
-    }
-
-    public void subTotal(BigDecimal newValue) {
-        total.setValue(getTotal().subtract(newValue));
-    }
-
-    public void addSub(BigDecimal newValue) {
-        subtotal.setValue(getSubtotal().add(newValue));
-
-        _calcTotal();
-    }
-
-    public void subSub(BigDecimal newValue) { // yes, yes.. that's the name
-        subtotal.setValue(getSubtotal().subtract(newValue));
-
-        _calcTotal();
-    }
-
-
-    @Deprecated
-    public void subtract(BigDecimal newValue) {
-//        this.setSubtotal(getSubtotal().subtract(newValue));
-//        _calcTotal();
-    }
-
-    public ObjectProperty<IPaymentMethod2> cardProperty() {
-        return card;
-    }
-
-    public void setCard(IPaymentMethod2 card) {
-        this.card.set(card);
-    }
-
-    public IPaymentMethod2 getCard() {
-        return card.get();
-    }
-
-
-    private void _calcTotal() {
-        total.set(subtotal.get().subtract(discount.get()));
-    }
-
-    public BigDecimal getTotal() {
-        return total.get();
-    }
-
-    public ObjectProperty<BigDecimal> totalProperty() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total.set(total);
-    }
-
-    public BigDecimal getDiscount() {
-        return discount.get();
-    }
-
-    public ObjectProperty<BigDecimal> discountProperty() {
-        return discount;
-    }
-
-    public void setDiscount(BigDecimal discount) {
-        this.discount.set(discount);
-    }
-
-    public Sale getSale() {
-        return sale.get();
-    }
-
-    public ObjectProperty<Sale> saleProperty() {
-        return sale;
-    }
-
-    public void setSale(Sale sale) {
-        this.sale.set(sale);
-    }
-
-    public BigDecimal getCash() {
-        return cash.get();
-    }
-
-    public ObjectProperty<BigDecimal> cashProperty() {
-        return cash;
-    }
-
-    public void setCash(BigDecimal cash) {
-        this.cash.set(cash);
-    }
-
-    public IPaymentMethod getCheck() {
-        return check.get();
-    }
-
-    public ObjectProperty<IPaymentMethod> checkProperty() {
-        return check;
-    }
-
-    public void setCheck(IPaymentMethod check) {
-        this.check.set(check);
-    }
-
-    public IPaymentMethod getTerm() {
-        return term.get();
-    }
-
-    public ObjectProperty<IPaymentMethod> termProperty() {
-        return term;
-    }
-
-    public void setTerm(IPaymentMethod term) {
-        this.term.set(term);
-    }
-
-    public Cashier getCashier() {
-        return cashier.get();
-    }
-
-    public ObjectProperty<Cashier> cashierProperty() {
-        return cashier;
-    }
-
-    public void setCashier(Cashier cashier) {
-        this.cashier.set(cashier);
-    }
-
-    public BigDecimal getSubtotal() {
-        return subtotal.get();
-    }
-
-    public ObjectProperty<BigDecimal> subtotalProperty() {
-        return subtotal;
-    }
-
-    public void setSubtotal(BigDecimal subtotal) {
-        this.subtotal.set(subtotal);
-    }
-
-    public BigDecimal getChange() {
-        return change.get();
-    }
-
-    public ObjectProperty<BigDecimal> changeProperty() {
-        return change;
-    }
-
-    public void setChange(BigDecimal change) {
-        this.change.set(change);
-    }
 
     public BigDecimal getCurrent() {
         return current.get();
@@ -252,18 +61,6 @@ public class Transaction extends Entity {
 
     public void setCurrent(BigDecimal current) {
         this.current.set(current);
-    }
-
-    public ObservableList<Amount> getAmounts() {
-        return amounts.get();
-    }
-
-    public ListProperty<Amount> amountsProperty() {
-        return amounts;
-    }
-
-    public void setAmounts(ObservableList<Amount> amounts) {
-        this.amounts.set(amounts);
     }
 
     public Type getType() {
@@ -290,16 +87,88 @@ public class Transaction extends Entity {
         this.category.set(category);
     }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("Transaction{");
-        sb.append("id=").append(getId());
-        sb.append(", cashChange=").append(change);
-        sb.append(", total=").append(total);
-        sb.append(", discount=").append(discount);
-        sb.append(", finalValue=").append(total);
-        sb.append('}');
-        return sb.toString();
+    public Sale getSale() {
+        return sale.get();
+    }
+
+    public ObjectProperty<Sale> saleProperty() {
+        return sale;
+    }
+
+    public void setSale(Sale sale) {
+        this.sale.set(sale);
+    }
+
+    public Cashier getCashier() {
+        return cashier.get();
+    }
+
+    public ObjectProperty<Cashier> cashierProperty() {
+        return cashier;
+    }
+
+    public void setCashier(Cashier cashier) {
+        this.cashier.set(cashier);
+    }
+
+    public ObservableList<Amount> getAmounts() {
+        return amounts.get();
+    }
+
+    public ListProperty<Amount> amountsProperty() {
+        return amounts;
+    }
+
+    public void setAmounts(ObservableList<Amount> amounts) {
+        this.amounts.set(amounts);
+    }
+
+    public BigDecimal getSubtotal() {
+        return subtotal.get();
+    }
+
+    public ObjectProperty<BigDecimal> subtotalProperty() {
+        return subtotal;
+    }
+
+    public void setSubtotal(BigDecimal subtotal) {
+        this.subtotal.set(subtotal);
+    }
+
+    public BigDecimal getDiscount() {
+        return discount.get();
+    }
+
+    public ObjectProperty<BigDecimal> discountProperty() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount.set(discount);
+    }
+
+    public BigDecimal getTotal() {
+        return total.get();
+    }
+
+    public ObjectProperty<BigDecimal> totalProperty() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total.set(total);
+    }
+
+    public BigDecimal getChange() {
+        return change.get();
+    }
+
+    public ObjectProperty<BigDecimal> changeProperty() {
+        return change;
+    }
+
+    public void setChange(BigDecimal change) {
+        this.change.set(change);
     }
 }
  

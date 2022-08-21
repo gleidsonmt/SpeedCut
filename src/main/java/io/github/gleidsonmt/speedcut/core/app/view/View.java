@@ -17,6 +17,8 @@
 package io.github.gleidsonmt.speedcut.core.app.view;
 
 import io.github.gleidsonmt.speedcut.core.app.exceptions.ControllerCastException;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.ActionView;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IView;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
@@ -48,9 +50,9 @@ public class View implements IView {
     }
 
     @Override
-    public ActionViewController getController() {
+    public ActionView getController() {
         if (loader.getController() != null) {
-            if (!(loader.getController() instanceof ActionViewController)) {
+            if (!(loader.getController() instanceof ActionView)) {
                 try {
                     throw new ControllerCastException("CAST", "Error on controller " + loader.getController() + " does not extends action view.");
                 } catch (ControllerCastException e) {

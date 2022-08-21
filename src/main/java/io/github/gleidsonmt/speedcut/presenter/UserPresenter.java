@@ -29,11 +29,11 @@ import io.github.gleidsonmt.speedcut.core.app.model.User;
 public final class UserPresenter extends AbstractDao.Presenter<User> {
 
     public User find(long id) {
-       return getDao().find(id);
+       return getDao().read(id);
     }
 
     public User find(String userName) {
-        return ((DaoUser) getDao()).find(userName);
+        return ((DaoUser) getDao()).read(userName);
     }
 
     public boolean validate(User user, String password) {
@@ -43,7 +43,7 @@ public final class UserPresenter extends AbstractDao.Presenter<User> {
     @Override
     public void store(User user) {
         try {
-            getDao().store(user);
+            getDao().put(user);
         } catch (SQLQueryError e) {
             e.printStackTrace();
         }

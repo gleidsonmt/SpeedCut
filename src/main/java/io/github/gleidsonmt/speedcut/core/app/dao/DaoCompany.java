@@ -39,33 +39,6 @@ public final class DaoCompany extends AbstractDao<Company> {
             new SimpleListProperty<>(FXCollections.observableArrayList());
 
 
-    @Override
-    public Company find(long id) {
-        Optional<Company> result = elements.stream()
-                .filter(f -> f.getId() == id)
-                .findAny();
-        return result.orElseGet(() -> findInServer(id));
-    }
-
-    private @Nullable Company findInServer(long id) {
-        connect();
-        executeSQL("select * from sale where id like '" + id + "';");
-
-        ResultSet result = result();
-        Company element = null;
-        try {
-            if (result.first()) {
-                element = createElement(id, result);
-                elements.add(element);
-            } else return null;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            disconnect();
-        }
-
-        return element;
-    }
 
     public Task<ObservableList<Company>> createTask() {
 
@@ -110,7 +83,7 @@ public final class DaoCompany extends AbstractDao<Company> {
     }
 
     @Override
-    protected @NotNull Company createElement(long id, ResultSet result) {
+    protected Company createElement( ResultSet result) {
         Company element = new Company();
 
 //        try {

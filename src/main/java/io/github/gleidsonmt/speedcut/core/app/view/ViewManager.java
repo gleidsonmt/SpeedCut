@@ -17,14 +17,8 @@
 
 package io.github.gleidsonmt.speedcut.core.app.view;
 
-import io.github.gleidsonmt.speedcut.core.app.exceptions.ControllerCastException;
-import io.github.gleidsonmt.speedcut.core.app.model.Entity;
-import javafx.application.Platform;
-import javafx.beans.value.WritableObjectValue;
-import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.scene.Parent;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IView;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IViewManager;
 
 import java.util.HashMap;
 
@@ -34,27 +28,19 @@ import java.util.HashMap;
  */
 public class ViewManager implements IViewManager {
 
-    private final static HashMap<String, IView> VIEWS = new HashMap<>();
+    private final HashMap<String, IView> views = new HashMap<>();
 
     private IView current;
     private IView previous;
 
     @Override
     public void add(IView view) {
-        VIEWS.put(view.getName(), view);
+        views.put(view.getName(), view);
     }
 
     @Override
     public IView get(String name)  {
-        return VIEWS.get(name);
-    }
-
-    public Parent getRootFrom(String name) {
-        return VIEWS.get(name).getRoot();
-    }
-
-    public ActionViewController getControllerFrom(String name) {
-        return VIEWS.get(name).getController();
+        return views.get(name);
     }
 
     public IView getCurrent() {
@@ -70,7 +56,11 @@ public class ViewManager implements IViewManager {
         this.current = view;
     }
 
+    public void setPrevious(IView previous) {
+        this.previous = previous;
+    }
+
     public boolean contains(String nameView) {
-        return VIEWS.containsKey(nameView);
+        return views.containsKey(nameView);
     }
 }

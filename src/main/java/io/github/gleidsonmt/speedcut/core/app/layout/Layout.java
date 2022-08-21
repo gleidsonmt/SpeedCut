@@ -17,20 +17,23 @@
 
 package io.github.gleidsonmt.speedcut.core.app.layout;
 
+import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.Parent;
+import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/02/2022
  */
-public class Layout extends BorderPane {
+public class Layout extends BorderPane implements ILayout {
 
     private Node oldLeftNode;
 
-    private final CenterLayout centerLayout = new CenterLayout();
+    private final CenterLayout  centerLayout = new CenterLayout();
+    private final FlowPane      bar          = new FlowPane();
+    private final Text          title        = new Text("SpeedCut");
 
     public Layout() {
         setCenter(centerLayout);
@@ -40,14 +43,64 @@ public class Layout extends BorderPane {
         });
 
         getStyleClass().add("layout");
+
+        //        getChildren().add(0, bar);
+        centerLayout.setPadding(new Insets(0, 0, 0,0));
+
+        bar.setPrefHeight(40);
+        bar.setMinHeight(40);
+
+        bar.getStyleClass().addAll("border", "border-b-1");
+        VBox.setMargin(bar, new Insets(0, 10, 0, 10));
+
+        title.setStyle("-fx-font-size : 18pt; -fx-fill : -info;");
+
+        title.setMouseTransparent(true);
+        bar.getChildren().add(title);
+
+        setCenter(centerLayout);
+//        setTop(bar);
+//        bar.toBack();
     }
 
-    public CenterLayout getCenterLayout() {
-        return centerLayout;
+    public FlowPane getBar() {
+        return bar;
+    }
+
+    public void setTitle(String _title) {
+        title.setText(_title);
     }
 
     public Node getOldLeft() {
         return oldLeftNode;
     }
 
+    public CenterLayout getContent() {
+        return centerLayout;
+    }
+
+    @Override
+    public void setContent(Parent iView) {
+        centerLayout.setBody(iView);
+    }
+
+    @Override
+    public void setDrawer(Parent iView) {
+        setLeft(iView);
+    }
+
+    @Override
+    public void setAside(Parent iView) {
+        setRight(iView);
+    }
+
+    @Override
+    public void setNav(Parent iView) {
+        setTop(iView);
+    }
+
+    @Override
+    public void setFooter(Parent iView) {
+        setBottom(iView);
+    }
 }

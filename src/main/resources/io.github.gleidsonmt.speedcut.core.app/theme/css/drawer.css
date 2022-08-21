@@ -8,8 +8,6 @@
 {
   -fx-background-color: transparent;
 }
-
-
 .drawer .box-search
 {
     -fx-background-repeat : no-repeat;
@@ -67,8 +65,6 @@
   -fx-fill : -mint;
     /* -fx-padding : 2 2 2 10; */
 }
-
-
 .drawer .scroll .drawer-content .drawer-menu .title .arrow-button .arrow {
   -fx-shape : "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z";
 }
@@ -105,6 +101,7 @@
   -fx-pref-height : 10px;
   -fx-pref-width : 10px;
 }
+
 .drawer .scroll .drawer-content .drawer-menu:expanded .title .arrow-button .arrow
 {
   -fx-pref-height : -45px;
@@ -113,7 +110,7 @@
 
 .drawer .scroll .drawer-content .drawer-menu .title .text,
 .drawer .scroll .drawer-content .drawer-menu .title .icon,
-.drawer .scroll .drawer-content .drawer-menu .title .arrow-button .arrow,
+.drawer .scroll .drawer-content .drawer-menu .title .arrow-button .arrow
 {
   -fx-fill : -text-color;
 }
@@ -142,8 +139,6 @@
     -fx-fill : -secondary;
     -fx-background-color : -secondary;
 }
-
-
 
 .drawer .scroll .drawer-content .menu-selected:expanded .title .text,
 .drawer .scroll .drawer-content .menu-selected:expanded .title .arrow-button .arrow,
@@ -183,7 +178,6 @@
 {
          -fx-background-color : -base;
 }
-
 
 .drawer .scroll .drawer-content .menu-selected:expanded .drawer-item
 {

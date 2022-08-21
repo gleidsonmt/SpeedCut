@@ -17,6 +17,7 @@
 package io.github.gleidsonmt.speedcut.core.app.dao;
 
 
+import io.github.gleidsonmt.speedcut.core.app.database.DataConnection;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
 import io.github.gleidsonmt.speedcut.core.app.model.Entity;
 
@@ -26,13 +27,10 @@ import io.github.gleidsonmt.speedcut.core.app.model.Entity;
  */
 public interface Dao<T extends Entity> {
 
-    T find(long id);
+    T read(long id);
 
-    void store(T model) throws SQLQueryError;
-
-    boolean update(T model) throws SQLQueryError;
+    void put(T model) throws SQLQueryError;
 
     boolean delete(T model);
-
 
 }

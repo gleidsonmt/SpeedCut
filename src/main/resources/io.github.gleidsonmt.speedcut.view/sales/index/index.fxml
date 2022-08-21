@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.gleidsonmt.gncontrols.GNButton?>
+<?import io.github.gleidsonmt.gncontrols.GNTextBox?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.SVGPath?>
+
+<!--
+  ~    Copyright (C) Gleidson Neves da Silveira
+  ~
+  ~    This program is free software: you can redistribute it and/or modify
+  ~    it under the terms of the GNU General Public License as published by
+  ~    the Free Software Foundation, either version 3 of the License, or
+  ~    (at your option) any later version.
+  ~
+  ~    This program is distributed in the hope that it will be useful,
+  ~    but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~    GNU General Public License for more details.
+  ~
+  ~    You should have received a copy of the GNU General Public License
+  ~    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<StackPane prefHeight="780.0" prefWidth="1565.0" style="-fx-background-color: white; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.sales.index.IndexController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="450.0" prefWidth="339.0" StackPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="537.0" prefWidth="1033.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox fx:id="tableContent" prefHeight="737.0" prefWidth="306.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <VBox maxHeight="100.0" minHeight="100.0" prefHeight="110.0" prefWidth="791.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="719.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <GNButton contentDisplay="GRAPHIC_ONLY" onAction="#back" prefWidth="40.0" styleClass="btn-flat">
+                                       <graphic>
+                                          <SVGPath content="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" style="-fx-fill: gray;" />
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets right="5.0" />
+                                       </HBox.margin>
+                                    </GNButton>
+                                    <Label style="-fx-font-weight: bold;" styleClass="h4" text="Controle de vendas" />
+                                    <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label prefHeight="45.0" styleClass="field-outlined" text="Mostrar" />
+                                          <ComboBox fx:id="cmbEntries" minHeight="-Infinity" prefHeight="40.0" prefWidth="119.0" style="-fx-border-color: -box-fill; -fx-border-width: 0 0 1 0;" visibleRowCount="5">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ComboBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="534.0" VBox.vgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="0.0" left="0.0" right="5.0" top="0.0" />
+                                 </padding>
+                                 <children>
+                                    <GNTextBox fx:id="tfSearch" fieldType="FILLED" floatPrompt="true" leadIcon="SEARCH" maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="574.0" promptText="Procurar" trayAction="CLEAR" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <TableView fx:id="transactionTable" VBox.vgrow="ALWAYS">
+                          <columns>
+                              <TableColumn fx:id="idColumn" maxWidth="2000.0" prefWidth="75.0" text="#" />
+                            <TableColumn fx:id="clientColumn" prefWidth="75.0" text="Cliente" />
+                              <TableColumn fx:id="categoryColumn" prefWidth="75.0" text="Categoria" />
+                              <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Tipo" />
+                              <TableColumn fx:id="amountColumn" prefWidth="75.0" text="Montante" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <contextMenu>
+                              <ContextMenu>
+                                <items>
+                                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                                </items>
+                              </ContextMenu>
+                           </contextMenu>
+                        </TableView>
+                     </children>
+                  </VBox>
+                  <StackPane fx:id="boxInfoLeft">
+                     <children>
+                        <VBox fx:id="boxSaleDetail" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="646.0" prefWidth="350.0">
+                           <children>
+                              <VBox alignment="CENTER" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <GNButton fx:id="btnPayDetail" buttonType="RECT" graphicTextGap="10.0" minHeight="66.0" onAction="#viewPayments" prefHeight="66.0" prefWidth="322.0" style="-fx-border-color: -text-color; -fx-border-radius: 10;" text="Detalhes da Venda">
+                                       <graphic>
+                                          <SVGPath fx:id="iconDetails" content="M6 22q-.825 0-1.412-.587Q4 20.825 4 20V8q0-.825.588-1.412Q5.175 6 6 6h2q0-1.65 1.175-2.825Q10.35 2 12 2q1.65 0 2.825 1.175Q16 4.35 16 6h2q.825 0 1.413.588Q20 7.175 20 8v12q0 .825-.587 1.413Q18.825 22 18 22Zm0-2h12V8h-2v2q0 .425-.287.712Q15.425 11 15 11t-.712-.288Q14 10.425 14 10V8h-4v2q0 .425-.287.712Q9.425 11 9 11t-.712-.288Q8 10.425 8 10V8H6v12Zm4-14h4q0-.825-.587-1.412Q12.825 4 12 4q-.825 0-1.412.588Q10 5.175 10 6ZM6 20V8v12Z" scaleX="1.2" scaleY="1.2" style="-fx-fill: -text-color;" />
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="btn-flat" />
+                                          <String fx:value="h4" />
+                                       </styleClass>
+                                    </GNButton>
+                                 </children>
+                              </VBox>
+                              <VBox VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <VBox VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <VBox maxHeight="-Infinity" minHeight="-Infinity" prefWidth="143.0" spacing="10.0">
+                                             <children>
+                                                <GridPane>
+                                                   <columnConstraints>
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="10.0" prefWidth="151.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="242.0" minWidth="10.0" prefWidth="117.0" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="298.0" spacing="5.0" GridPane.columnIndex="1">
+                                                         <children>
+                                                            <Label style="-fx-font-weight: bold;" styleClass="h5" text="Data:" />
+                                                            <Label fx:id="lblTime" style="-fx-text-fill: -text-color;" text="Sept 7, 23:35" />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" GridPane.rowIndex="1">
+                                                         <children>
+                                                            <Label style="-fx-font-weight: bold;" styleClass="h5" text="ID #" />
+                                                            <Label fx:id="lblIdOrder" style="-fx-font-weight: bold;" styleClass="h5" text="1090" />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                         <children>
+                                                            <Label style="-fx-font-weight: bold;" styleClass="h5" text="Venda #" />
+                                                            <Label fx:id="lblSaleId" style="-fx-font-weight: bold;" styleClass="h5" text="1090" />
+                                                         </children>
+                                                      </HBox>
+                                                      <Label style="-fx-font-weight: bold;" styleClass="h5" text="Cliente" />
+                                                      <Label style="-fx-font-weight: bold;" styleClass="h5" text="Montante:" GridPane.rowIndex="2" />
+                                                      <Label fx:id="lblAmount" alignment="BASELINE_RIGHT" prefHeight="20.0" prefWidth="191.0" style="-fx-text-fill: -text-color; -fx-font-weight: bold;" styleClass="h5" text="R$1 0,00" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                   </children>
+                                                   <styleClass>
+                                                      <String fx:value="border-b-1" />
+                                                      <String fx:value="border" />
+                                                   </styleClass>
+                                                </GridPane>
+                                                <Label style="-fx-font-weight: bold;" styleClass="h4" text="Profissional" textOverrun="CLIP" />
+                                                <HBox spacing="5.0">
+                                                   <children>
+                                                      <VBox fx:id="avatarBox" alignment="CENTER">
+                                                         <children>
+                                                            <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                                                         </children>
+                                                      </VBox>
+                                                      <GridPane>
+                                                         <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="218.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints maxHeight="21.0" minHeight="10.0" prefHeight="19.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <Label fx:id="lblProfName" style="-fx-font-weight: bold; -fx-text-fill: -text-color;" text="Gleidson Neves da Silveira" />
+                                                            <Label layoutX="10.0" layoutY="11.0" text="gleidsonmt@gmail.com" GridPane.rowIndex="1" />
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets bottom="20.0" />
+                                                   </VBox.margin>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                          <VBox fx:id="boxDetailContent" spacing="5.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <VBox fx:id="boxItems" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <Label style="-fx-text-fill: -text-color; -fx-font-weight: bold;" styleClass="h4" text="Itens" textOverrun="CLIP">
+                                                         <VBox.margin>
+                                                            <Insets top="10.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <ListView fx:id="listItems" prefWidth="387.0" styleClass="list-presentation" VBox.vgrow="ALWAYS" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                             <styleClass>
+                                                <String fx:value="border" />
+                                                <String fx:value="border-t-1" />
+                                             </styleClass>
+                                          </VBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <styleClass>
+                                          <String fx:value="border" />
+                                          <String fx:value="border-b-1" />
+                                       </styleClass>
+                                    </VBox>
+                                    <GridPane maxHeight="130.0" minHeight="130.0" prefHeight="130.0" prefWidth="339.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label style="-fx-font-weight: bold;" styleClass="h5" text="Subtotal:" GridPane.rowIndex="1" />
+                                          <Label fx:id="lblSub" alignment="BASELINE_RIGHT" prefHeight="20.0" prefWidth="215.0" style="-fx-text-fill: -text-color; -fx-font-weight: bold;" styleClass="h5" text="R$ 100,00" textAlignment="JUSTIFY" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label layoutX="10.0" layoutY="17.0" style="-fx-font-weight: bold;" styleClass="h5" text="Desconto:" GridPane.rowIndex="2" />
+                                          <Label fx:id="lblDiscount" style="-fx-text-fill: -text-color; -fx-font-weight: bold;" styleClass="h5" text="R$ 0,00" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Label layoutX="10.0" layoutY="47.0" style="-fx-font-weight: bold;" styleClass="h5" text="Troco:" GridPane.rowIndex="3" />
+                                          <Label fx:id="lblTotal" style="-fx-text-fill: -text-color; -fx-font-weight: bold;" styleClass="h5" text="R$ 0,00" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <Label style="-fx-font-weight: bold;" styleClass="h5" text="Total:" GridPane.rowIndex="4" />
+                                          <Label fx:id="lblChange" style="-fx-text-fill: -text-color; -fx-font-weight: bold;" styleClass="h5" text="R$ 0,00" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </GridPane>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <styleClass>
+                                    <String fx:value="border" />
+                                    <String fx:value="border-t-1" />
+                                 </styleClass>
+                              </VBox>
+                           </children>
+                           <styleClass>
+                              <String fx:value="border" />
+                              <String fx:value="border-l-1" />
+                           </styleClass>
+                        </VBox>
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../../../io.github.gleidsonmt.speedcut.core.app/theme/css/material-color.css" />
+      <URL value="@../../../io.github.gleidsonmt.speedcut.core.app/theme/css/skeleton.css" />
+      <URL value="@../../../io.github.gleidsonmt.speedcut.core.app/theme/css/light.css" />
+      <URL value="@../../../io.github.gleidsonmt.speedcut.core.app/theme/css/bootstrap.css" />
+      <URL value="@../../../io.github.gleidsonmt.speedcut.core.app/theme/css/forms.css" />
+      <URL value="@../../../io.github.gleidsonmt.speedcut.core.app/theme/css/typographic.css" />
+      <URL value="@../../../io.github.gleidsonmt.speedcut.core.app/theme/css/helpers.css" />
+      <URL value="@../../../io.github.gleidsonmt.speedcut.core.app/theme/css/master.css" />
+   </stylesheets>
+</StackPane>

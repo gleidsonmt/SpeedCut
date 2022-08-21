@@ -16,15 +16,11 @@
 
 .table-view .column-header-background .nested-column-header .table-column:last-visible
 {
-    -fx-padding : 12px;
-    -fx-alignment : center;
 }
 
 .layout {
     -fx-background-color : -background-color;
 }
-
-
 
 .hamburger {
     -gn-button-type : rounded;
@@ -52,6 +48,22 @@
     -fx-font-size : 14pt;
 }
 
+#custom-rect-avatar {
+.table-cell #custom-rect-avatar,
+.list-cell #custom-rect-avatar {
+
+   -fx-background-radius : 5px;
+    -fx-background-color : -base;
+    -fx-border-width : 1px;
+    -fx-border-radius : 5px;
+    -fx-background-radius : 5px;
+    -fx-border-color : transparent;
+}
+
+#custom-rect-avatar .text {
+    -fx-fill : white;
+}
+
 
 #custom-avatar,
 .table-cell #custom-avatar,
@@ -77,6 +89,50 @@
 
 }
 
+.table-view .table-row-cell .table-cell SVGPath {
+    -fx-fill : -text-color;
+}
+
+.table-view .table-row-enter:selected {
+    -fx-background-color : derive(-mint, 98%);
+    -fx-border-color : -mint;
+    -fx-border-width : 0 0 0 3;
+}
+
+.table-view .table-row-enter .icon-enter {
+    -fx-fill : -mint;
+    -fx-stroke : derive(-mint, 80%);
+}
+
+.table-view .table-row-enter .amount .text {
+    -fx-fill : -mint;
+}
+
+.table-view .table-row-enter:selected .table-cell SVGPath,
+.table-view .table-row-enter:selected .table-cell .text {
+    -fx-fill : -mint;
+}
+
+.table-view .table-row-exit:selected {
+    -fx-background-color : derive(-bittersweet, 99.99%);
+    -fx-border-color : -bittersweet;
+    -fx-border-width : 0 0 0 3;
+}
+
+.table-view .table-row-exit:selected .table-cell .text {
+    -fx-fill : -bittersweet;
+}
+
+.table-view .table-row-exit .type .icon-exit {
+    -fx-fill : -bittersweet;
+    -fx-stroke : derive(-bittersweet, 80%);
+}
+
+.table-view .table-row-exit:selected .table-cell SVGPath,
+.table-view .table-row-exit .amount .text {
+    -fx-fill : -bittersweet;
+}
+
 #custom-avatar {
     -fx-font-weight : bold;
 }
@@ -92,7 +148,7 @@
 
 #badge-cell:filled:even:selected,
 #badge-cell:filled:selected {
-      -fx-background-color : derive(-primary-color, 90%);
+      -fx-background-color : red;
     -fx-padding : 0 0 0 20;
 }
 
@@ -170,6 +226,11 @@
     -fx-border-color : -secondary;
 }
 
+.table-view .table-row-discount:selected:focused {
+    -fx-background-color : derive(-secondary, 105%);
+
+}
+
 .table-view .table-row-discount .table-cell .text,
 .table-view .table-row-discount .label .text {
     -fx-fill : -secondary;
@@ -178,4 +239,211 @@
 
 .table-view .table-row-cell {
     -fx-border-width :  0 0 0 3;
+}
+
+.table-view .table-row-cell {
+    -fx-border-color : transparent;
+}
+
+.table-view:row-selection:constrained-resize:unconstrained-resize{
+    -fx-border-color : transparent;
+}
+
+.paginator .paginator-button {
+    -fx-background-color : transparent;
+    -fx-pref-width : 30;
+    -fx-pref-width : 30;
+    -fx-max-height : 30;
+    -fx-pref-height : 30;
+    -fx-effect : none;
+}
+
+.paginator .paginator-button:selected {
+    -fx-background-color : -info;
+    -fx-pref-width : 30;
+    -fx-pref-width : 30;
+    -fx-max-height : 30;
+    -fx-pref-height : 30;
+
+    -fx-background-radius : 100;
+
+}
+
+.paginator .paginator-button:selected {
+    -fx-text-fill : white;
+}
+
+.paginator .page-indi {
+    -fx-pref-width : 30;
+    -fx-pref-width : 30;
+    -fx-max-height : 30;
+    -fx-pref-height : 30;
+    -fx-background-color : white;
+}
+
+.paginator .page-indi SVGPath,
+.paginator .page-indi .icon {
+    -fx-fill : -text-color;
+    -fx-scale-x : 0.3;
+    -fx-scale-y : 0.3;
+
+}
+
+.list-presentation {
+    -fx-border-width : 0;
+    -fx-border-color : transparent;
+    -fx-background-color: transparent;
+}
+
+.list-presentation > .virtual-flow > .clipped-container > .sheet > .list-cell {
+    -fx-padding : 5px;
+    -fx-cell-size : 50px;
+}
+
+.list-presentation > .virtual-flow > .clipped-container > .sheet > .list-cell:focused:filled:even {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width : 0px;
+    -fx-padding : 5px;
+}
+
+
+
+.popup {
+    -fx-background-color : white;
+}
+
+.gn-date-picker .date-picker-popup {
+      -fx-background-color: linear-gradient(to top, -primary-color, -aqua);
+      -fx-border-color : transparent;
+}
+
+
+.popover  {
+    -fx-background-color: white;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,.01) , 10, 0 , 0 , 1 );
+    -fx-stroke: linear-gradient(to top, -primary-color, -aqua);
+
+    -fx-border-width : 0 ;
+    -fx-border-width : 0;
+    -fx-background-radius : 2px;
+    -fx-border-radius : 2px;
+    -base : -info;
+
+    -fx-border-color: -light-gray;
+}
+
+.popover > .border {
+	-fx-stroke-width: 0.0;
+	-fx-fill: transparent;
+	-fx-effect: null;
+	-fx-stroke-type : inside;
+}
+
+.popover > .content {
+    -fx-background-color: white;
+    -fx-background-radius: 0px;
+    -fx-border-width : 0px;
+
+	-fx-padding: 0;
+}
+
+.popover > .detached {
+	-fx-background-color: white;
+}
+
+.popover > .content > .title > .text  {
+	-fx-padding: 0 6.0 12.0 6.0;
+	-fx-text-fill: rgba(120, 120, 120, .8);
+	-fx-font-weight: bold;
+}
+
+.popover > .content .scroll-pane .viewport
+{
+    -fx-background-color : transparent;
+}
+
+.gn-date-picker .date-picker-popup .today-content {
+    -fx-background-color : transparent;
+}
+
+.gn-date-picker .date-picker-popup  .today-content .today {
+   -fx-background-color : white;
+   -fx-text-fill : #00BCD4;
+   -fx-min-height : 40px;
+   -fx-pref-width : 250px;
+   -fx-background-radius : 5px;
+   -fx-cursor : hand;
+}
+
+.img-card {
+    -fx-background-image : url('../img/back_green.png');
+    -fx-background-size : stretch;
+    -fx-padding : 0px;
+    -fx-background-insets : 0px;
+}
+
+.table-column:last-visible {
+}
+
+.tab:top .tab-container .tab-label {
+    -fx-content-display : graphic_only;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+    -fx-pref-width : 50;
+}
+
+.tab-pane:top .tab-header-area .headers-region  {
+    -fx-alignment : center;
+}
+
+#gn-background,
+#gn-body,
+#gn-container,
+#gn-scroll
+{
+    -fx-padding : 0px;
+    -fx-border-width : 0px;
+    -fx-border-color : transparent;
+}
+
+#root .layout .center-layout  .center-body {
+     -fx-border-color : -text-color;
+    -fx-border-width : 2;
+}
+
+#person-tile  {
+    -fx-background-color : white;
+    -fx-border-radius : 10px;
+    -fx-padding : 2px;
+    -fx-border-width : 1px;
+    -fx-border-color : -medium-gray;
+    -fx-effect: none;
+    -fx-cursor : hand;
+}
+
+#person-tile:selected {
+    -fx-border-radius : 10px;
+    -fx-border-color : -info;
+    -fx-border-width : 2px;
+}
+
+#person-tile #box-left #tile-box #title {
+    -fx-font-weight : bold;
+}
+
+#person-tile:selected #box-left #tile-box #title {
+    -fx-text-fill : -info;
+}
+
+#person-tile #box-left #tile-box #title .icon-tile {
+    -fx-shape : "M6 42V6h36v36Zm3-3h30V9H9Z";
+    -fx-background-color : -light-gray-2;
+
+}
+
+#person-tile:selected #box-left #tile-box #title .icon-tile {
+    -fx-shape : "m10.6 16.2 7.05-7.05-1.4-1.4-5.65 5.65-2.85-2.85-1.4 1.4ZM3 21V3h18v18Z";
+    -fx-background-color : -info;
 }

@@ -17,6 +17,7 @@
 
 package io.github.gleidsonmt.speedcut.core.app.dao;
 
+import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
 import io.github.gleidsonmt.speedcut.core.app.factory.AvatarCreator;
 import io.github.gleidsonmt.speedcut.core.app.model.Professional;
 import io.github.gleidsonmt.speedcut.core.app.model.Professional;
@@ -45,14 +46,13 @@ import java.util.*;
 public final class DaoProfessional extends AbstractDao<Professional> {
 
     @Override
-    protected Professional createElement(long id, ResultSet result) {
+    protected Professional createElement(ResultSet result) {
         Professional element = new Professional();
 
         try {
-            element.setId( (int) id);
-            element.setName(result.getString("NAME"));
-
-            element.setAvatar(result.getString("IMG_PATH"));
+            element.setId( result.getInt("id"));
+            element.setName(result.getString("name"));
+            element.setImgPath(result.getString("img_path"));
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -61,18 +61,4 @@ public final class DaoProfessional extends AbstractDao<Professional> {
         return element;
     }
 
-    public int getSizeFromServer() {
-        executeSQL("select count(id) as count from " + table + ";");
-        ResultSet result = result();
-//        int size = 0;
-        try {
-            if (result.first()) {
-                return result.getInt("count");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-        return 0;
-    }
 }

@@ -22,21 +22,26 @@ import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.speedcut.core.app.layout.containers.SnackBar;
 import io.github.gleidsonmt.speedcut.core.app.layout.containers.Wrapper;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IRoot;
 import io.github.gleidsonmt.speedcut.core.app.view.ResponsiveView;
 import io.github.gleidsonmt.speedcut.core.app.view.WindowDecorator;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.geometry.Insets;
 import javafx.scene.layout.*;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/02/2022
  */
-public class Root extends StackPane {
+public class Root extends StackPane implements IRoot {
 
     private final Layout layout = new Layout();
     private final Wrapper wrapper;
 
     private SnackBar snackBar;
 
+    private final BooleanProperty needsBar = new SimpleBooleanProperty(false);
     private final GNFloatingButton hamburger = new GNFloatingButton();
 
     public Root(WindowDecorator window) {
@@ -45,11 +50,21 @@ public class Root extends StackPane {
 //        getChildren().add(wrapper);
         getChildren().add(layout);
 
-        getStyleClass().addAll("border", "border-b-1");
         hamburger.getStyleClass().add("hamburger");
         hamburger.setMinSize(35, 35);
         hamburger.setMaxSize(35, 35);
         hamburger.setGraphic(new IconContainer(Icons.HAMBURGER));
+
+        needsBar.addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                layout.getContent().setPadding(new Insets(0));
+                layout.getContent().getChildren().add(0, layout.getBar());
+            } else  {
+
+                layout.getContent().setPadding(new Insets(40, 0,0,0));
+                layout.getContent().getChildren().remove(layout.getBar());
+            }
+        });
 
 
         hamburger.setOnAction(event -> {
@@ -63,20 +78,26 @@ public class Root extends StackPane {
                     .side("left")
                     .show();
 
-            window.hideControls(false);
         });
+
 
         window.widthProperty().addListener((observable, oldValue, newValue) -> {
             double drawerWidth = 250;
             double _new = newValue.doubleValue();
 
-            if (_new < ResponsiveView.BreakPoints.X_LARGE) {
-                layout.setLeft(null);
-                window.addControl(0, hamburger);
+            needsBar.set(window.getContent().equals(this));
 
-            } else {
-                window.removeControl(hamburger);
-                layout.setLeft(getLayout().getOldLeft());
+            if (needsBar.get()) {
+                if (_new < ResponsiveView.BreakPoints.X_LARGE) {
+                    layout.setLeft(null);
+                    window.addControl(0, hamburger);
+                    getLayout().getBar().setPadding(new Insets(0,0,0,40));
+
+                } else {
+                    window.removeControl(hamburger);
+                    layout.setLeft(getLayout().getOldLeft());
+                    getLayout().getBar().setPadding(new Insets(0));
+                }
             }
 
         });
@@ -86,14 +107,28 @@ public class Root extends StackPane {
         return wrapper;
     }
 
-    public CenterLayout getCenterLayout() {
-        return layout.getCenterLayout();
-    }
-
     public Layout getLayout() {
         return layout;
     }
 
+    public boolean isNeedsBar() {
+        return needsBar.get();
+    }
+
+    public BooleanProperty needsBarProperty() {
+        return needsBar;
+    }
+
+    public void setNeedsBar(boolean needsBar) {
+        this.needsBar.set(needsBar);
+    }
+
+    @Override
+    public void setTitle(String _title) {
+        layout.setTitle(_title);
+    }
+
+    @Override
     public SnackBar createSnackBar() {
         return new SnackBar(this);
     }

@@ -19,12 +19,8 @@ package io.github.gleidsonmt.speedcut.presenter;
 
 import io.github.gleidsonmt.speedcut.core.app.dao.AbstractDao;
 import io.github.gleidsonmt.speedcut.core.app.dao.DaoClient;
-import io.github.gleidsonmt.speedcut.core.app.dao.DaoSale;
-import io.github.gleidsonmt.speedcut.core.app.dao.DaoService;
 import io.github.gleidsonmt.speedcut.core.app.model.Client;
-import io.github.gleidsonmt.speedcut.core.app.model.Sale;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com

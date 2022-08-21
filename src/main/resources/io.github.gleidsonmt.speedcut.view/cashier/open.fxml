@@ -18,7 +18,7 @@
 
 <?import io.github.gleidsonmt.gncontrols.GNMonetaryField?>
 <?import io.github.gleidsonmt.gncontrols.GNButton?>
-<StackPane fx:id="root" prefHeight="372.0" prefWidth="435.0" style="-fx-background-color: white; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.OpenController">
+<StackPane fx:id="root" prefHeight="372.0" prefWidth="435.0" style="-fx-background-color: white; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.Open">
 
    <children>
       <VBox prefHeight="450.0" prefWidth="339.0">

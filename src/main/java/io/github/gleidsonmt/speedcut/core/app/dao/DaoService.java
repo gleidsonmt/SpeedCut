@@ -41,24 +41,19 @@ import java.util.*;
  */
 public class DaoService extends AbstractDao<Service> {
 
-    private static final ListProperty<Service> elements =
-            new SimpleListProperty<>(FXCollections.observableArrayList());
-
-    private final String table = getClass().getSimpleName().replaceAll("Dao", "");
-
     @Override
-    protected Service createElement(long id, ResultSet result) {
+    protected Service createElement(ResultSet result) {
         Service element = new Service();
 
         try {
-            element.setId( (int) id);
+            element.setId( result.getInt("id") );
             element.setName(result.getString("NAME"));
             element.setPrice(result.getBigDecimal("PRICE"));
 
             BigDecimal discount = result.getBigDecimal("DISCOUNT");
             element.setDiscount( discount == null ? BigDecimal.ZERO : discount);
 
-            element.setAvatar(result.getString("IMG_PATH"));
+            element.setImgPath(result.getString("IMG_PATH"));
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -88,7 +83,7 @@ public class DaoService extends AbstractDao<Service> {
     }
 
     @Override
-    public void store(Service model)  {
+    public void put(Service model)  {
         PreparedStatement prepare = prepare("insert into " + table + "(NAME, PRICE) values(?, ?);");
         try {
             prepare.setString(1, model.getName());

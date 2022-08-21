@@ -48,7 +48,7 @@ public class ListAvatarFactory<T extends Item>
                     if (item.getAvatar() != null) {
 //                        setGraphic(item.getAvatar());
 
-                        String avatar = item.getAvatar();
+                        String avatar = item.getImgPath();
 
                         if (avatar.contains("theme")) {
 

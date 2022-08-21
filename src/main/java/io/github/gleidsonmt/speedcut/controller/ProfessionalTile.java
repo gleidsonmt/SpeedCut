@@ -17,30 +17,23 @@
 
 package io.github.gleidsonmt.speedcut.controller;
 
-import animatefx.animation.Pulse;
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
-import io.github.gleidsonmt.gncontrols.options.model.Avatar;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
-import io.github.gleidsonmt.speedcut.core.app.factory.AvatarCreator;
 import io.github.gleidsonmt.speedcut.core.app.model.Professional;
-import io.github.gleidsonmt.speedcut.core.app.model.Sale;
-import io.github.gleidsonmt.speedcut.core.app.view.IManager;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-
-import java.util.concurrent.Callable;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  14/03/2022
  */
-public class ProfessionalTile extends ToggleButton implements IManager {
+public class ProfessionalTile extends ToggleButton implements Context {
 
     public ProfessionalTile(Professional professional) {
         StackPane root = new StackPane();
@@ -50,7 +43,7 @@ public class ProfessionalTile extends ToggleButton implements IManager {
         setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 try {
-                    window.navigate("sales");
+                    context.getRoutes().setContent("sales");
                 } catch (NavigationException e) {
                     e.printStackTrace();
                 }
@@ -72,13 +65,16 @@ public class ProfessionalTile extends ToggleButton implements IManager {
         setPrefSize(250, 300);
         setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
-        if (professional.getAvatar() != null) {
-            box.getChildren().add(AvatarCreator.createAvatar(professional, Color.WHITE, borderWidth, radius, 300, 0, true, true));
-        } else {
-            Label avatar = AvatarCreator.createDefaultAvatar(professional.getName(), radius, borderWidth, 40);
-            avatar.setStyle("-base : derive(-info, 30%); -fx-font-weight : bold; -fx-font-size : 40pt;");
-            box.getChildren().add(avatar);
-        }
+//        if (professional.getAvatar() != null) {
+//            box.getChildren().add(
+//                    pro
+//            );
+//        } else {
+//            Label avatar = AvatarCreator.createDefaultAvatar(professional.getName(), radius, borderWidth, 40);
+//            avatar.setStyle("-base : derive(-info, 30%); -fx-font-weight : bold; -fx-font-size : 40pt;");
+//            box.getChildren().add(avatar);
+//        }
+        box.getChildren().add(professional.getAvatar());
 
         VBox boxDetails = new VBox();
         boxDetails.setAlignment(Pos.CENTER);

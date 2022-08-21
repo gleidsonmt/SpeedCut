@@ -102,15 +102,15 @@ public class DataConnection {
         }
     }
 
-    public boolean executeSQL(String SQL) throws SQLException {
+    public ResultSet executeSQL(String SQL) throws SQLException {
         try {
             this.setStatement(getConnection().createStatement());
             this.setResult(getStatement().executeQuery(SQL));
-            return true;
+            return this.result;
         } catch (SQLException ex) {
             System.err.println("Error : " + ex);
             ex.printStackTrace();
-            return false;
+            return null;
         }
     }
 

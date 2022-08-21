@@ -17,53 +17,89 @@
 
 package io.github.gleidsonmt.speedcut.core.app.factory.row;
 
-import io.github.gleidsonmt.speedcut.controller.SalesController;
+import animatefx.animation.FadeIn;
+import io.github.gleidsonmt.speedcut.controller.sales.main.SalesController;
 import io.github.gleidsonmt.speedcut.core.app.factory.SaleItemContext;
 import io.github.gleidsonmt.speedcut.core.app.model.SaleItem;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  27/03/2022
+ * @Revised 0.1
  */
-public record SaleItemsRowFactory(
-        SalesController controller) implements Callback<TableView<SaleItem>, TableRow<SaleItem>> {
+public class SaleItemsRowFactory
+        implements Callback<TableView<SaleItem>, TableRow<SaleItem>> {
+
+    private SalesController controller;
+
+    public SaleItemsRowFactory(SalesController controller) {
+        this.controller = controller;
+    }
 
     @Override
     public TableRow<SaleItem> call(TableView<SaleItem> param) {
         return new TableRow<>() {
 
             private void addStyle(boolean value) {
+
+                getStyleClass().removeAll("table-row-discount");
+
                 if (value) {
                     getStyleClass().addAll("table-row-discount");
-                    setStyle("-base : -secondary; -primary-color : -secondary;");
+                    setStyle("-base : -secondary; -primary-color : -secondary; -fx-font-weight:bold;");
                 } else {
                     getStyleClass().removeAll("table-row-discount");
-                    setStyle("-base : -info; -primary-color : -info;");
+                    setStyle("-base : -info; -primary-color : -info; -fx-font-weight:bold;");
                 }
+
             }
 
             @Override
             protected void updateItem(SaleItem item, boolean empty) {
                 super.updateItem(item, empty);
 
-                if (item != null) {
+                if (item != null && !empty) {
                     setItem(item);
-                    addStyle(!Objects.equals(item.getDiscount(), BigDecimal.ZERO));
                     setContextMenu(new SaleItemContext(this, controller));
+
+                    if (item.getProperties().get("init") != null) {
+                        this.setOpacity(0);
+
+                        getStyleClass().addAll("table-row-discount");
+
+                        FadeIn fadeIn = new FadeIn(this);
+                        fadeIn.play();
+
+                        item.getProperties().remove("init");
+
+
+                    }
+
+                    addStyle(item.hasDiscount());
+
+//                    if (item.hasDiscount()) item.setDiscount();
+
+                    item.hasDiscountProperty().addListener((observable, oldValue, newValue) -> {
+                        addStyle(newValue);
+                    });
+
+//                    addListener(item);
+
                 } else {
                     setItem(null);
+                    setStyle(null);
                     addStyle(false);
                 }
             }
         };
+
+
     }
 }

@@ -19,6 +19,7 @@ package io.github.gleidsonmt.speedcut.core.app.dao;
 import io.github.gleidsonmt.speedcut.core.app.database.DataConnection;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
 import io.github.gleidsonmt.speedcut.core.app.model.Entity;
+import io.github.gleidsonmt.speedcut.core.app.model.Sale;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -33,7 +34,7 @@ import java.util.*;
  * Create on  25/12/2020
  */
 @SuppressWarnings("unused")
-public abstract class AbstractDao<T extends Entity> implements Dao<T> {
+public abstract class AbstractDao<T extends Entity> implements Dao<T>, Connection {
 
     private static final DataConnection dataConnection =
             new DataConnection();
@@ -41,14 +42,12 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
     private final ListProperty<T> elements =
             new SimpleListProperty<>(FXCollections.observableArrayList()); // monostate
 
-    protected final String table =
+    protected String table =
             getClass().getSimpleName().replaceAll("Dao", "").toLowerCase();
 
     public AbstractDao() {
 
     }
-
-
 
     /**********************************************************************************
      *
@@ -56,20 +55,15 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
      *
      **********************************************************************************/
 
-    @Deprecated
-    protected Connection getConnection() {
-        return dataConnection.getConnection();
-    }
 
-    public void createConnection() {
-        connect();
-    }
-
-    protected void connect() {
+    @Override
+    public void connect() {
         try {
             if (dataConnection.getConnection() == null) {
                     dataConnection.init();
-            } else if (dataConnection.getConnection().isClosed()) {
+            }
+
+            if (dataConnection.getConnection().isClosed()) {
                 dataConnection.init();
             }
         } catch (SQLException e) {
@@ -77,8 +71,20 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
         }
     }
 
+    @Deprecated
     public boolean isClosed() {
         return dataConnection.isClosed();
+    }
+
+    public boolean isConnected() {
+        try {
+            if (dataConnection.getConnection() == null) return false;
+            return dataConnection.getConnection().isClosed();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     public void disconnect() {
@@ -89,11 +95,12 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
         }
     }
 
-    protected void executeSQL(String sql) {
+    protected ResultSet executeSQL(String sql) {
         try {
-            dataConnection.executeSQL(sql);
+            return dataConnection.executeSQL(sql);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return null;
         }
     }
 
@@ -103,6 +110,9 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
 
     protected PreparedStatement prepare(String sql) {
         try {
+
+            if (dataConnection.isClosed()) connect();
+
             return dataConnection.getConnection().prepareStatement(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -123,7 +133,7 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
         try {
             result = prepare("delete from " +
                     table +
-                    " where id like '" + model.getId() + "';").execute();
+                    "s where id like '" + model.getId() + "';").execute();
 
             elements.remove(model);
         } catch (SQLException throwables) {
@@ -133,17 +143,55 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
     }
 
     @Override
-    public void store(T model) throws SQLQueryError {
+    public void put(T model) throws SQLQueryError {
         throw new SQLQueryError("SQLQueryError: " ,
                 String.format("Not implemented method for %s yet.",
                         table));
     }
 
-    @Override
-    public boolean update(T model) throws SQLQueryError {
-            throw new SQLQueryError("SQLQueryError: " ,
-                    String.format("Not implemented method for %s yet.",
-                            table));
+
+    // Creates an update or store query using cols as an array
+    protected String createStoreQuery(T model, List<String> values) {
+
+        StringBuilder columns = new StringBuilder();
+        StringBuilder _items = new StringBuilder();
+
+        String sql;
+
+        if (create(model)) {
+
+            for (int i = 0; i < values.size(); i++) {
+                if (i != (values.size() -1 )) {
+
+                    columns.append(values.get(i).concat(", "));
+                    _items.append("?, ");
+                } else {
+                    columns.append(values.get(i));
+                    _items.append("?");
+                }
+            }
+
+            sql = "insert into " + table + "s(" + columns + ") "
+                    + "values(" + _items + ");";
+        } else {
+
+            for (int i = 0; i < values.size(); i++) {
+                if (i != (values.size() -1 )) {
+                    columns.append(values.get(i).concat(" = ?, "));
+                } else {
+                    columns.append(values.get(i)).append(" = ?");
+                }
+            }
+
+            sql = "update " + table + "s set " + columns + " "
+                    + "where id = " + model.getId() + ";";
+        }
+
+        return sql;
+    }
+
+    public ArrayList<String> list(String... items) {
+        return new ArrayList<>(List.of(items));
     }
 
     public boolean commit() {
@@ -176,21 +224,69 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
      *
      **********************************************************************************/
 
-    protected T createElement(long id, ResultSet result) {
+    @Deprecated
+    protected T createElement(long id, ResultSet result) throws SQLException {
         return null;
     }
 
+    protected abstract T createElement(ResultSet result);
+
+    protected void add(T t) {
+        if (!contains(t.getId())) getElements().add(t);
+    }
+
+    protected boolean create(T t) {
+        return t.getId() == 0;
+    }
+
+    protected boolean contains (long id) {
+        return elements.stream().anyMatch(f -> f.getId() == id);
+    }
+
+    protected boolean contains (List<T> list, long id) {
+        return list.stream().anyMatch(f -> f.getId() == id);
+    }
+
+    protected void setId(T t) {
+        if (create(t)) {
+            ResultSet re = executeSQL("select last_insert_id();");
+            try {
+                if (re.first()) {
+                    t.setId(re.getInt(1));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    protected void setIdAndAdd(T t) {
+        if (create(t)) {
+            ResultSet re = executeSQL("select last_insert_id();");
+            try {
+                if (re.first()) {
+                    t.setId(re.getInt(1));
+                    add(t);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
-    public T find(long id) {
+    public T read(long id) {
         // Find in elements
         Optional<T> result = elements.stream()
                 .filter(f -> f.getId() == id)
                 .findAny();
+
         // return element in java array or find in sql server
         return result.orElseGet(() -> findInServer(id));
     }
 
-    public T find(String name) {
+    // Read an element from the list if don't have anyone reads from server
+    public T read(String name) {
         Optional<T> result = elements.stream()
                 .filter(f -> Objects.equals(f.getName(), name))
                 .findAny();
@@ -198,15 +294,34 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
         return result.orElseGet(() -> findInServer(name));
     }
 
-    private T findInServer(long id) {
-        connect();
-        executeSQL("select * from " + table + " where id like '" + id + "';");
+    // Reads a list when the list contains a conditition using liked ex where like 'id'
+    public ObservableList<T> readListWhere(String column, int id) {
 
-        ResultSet result = result();
+        ObservableList<T> list = FXCollections.observableArrayList();
+        try {
+
+            connect();
+            ResultSet resultSet = executeSQL("select * from " + table + "s where " + column + " like '" + id + "';");
+
+            while (resultSet.next()) {
+                T element = createElement(resultSet);
+                list.add(element);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    // Find in server an entity
+    protected T findInServer(long id) {
+        connect();
+        ResultSet result = executeSQL("select * from " + table + "s where id like '" + id + "';");
         T element;
         try {
             if (result.first()) {
-                element = createElement(id, result);
+                element = createElement( result);
                 elements.add(element);
                 return element;
             } else return null;
@@ -216,15 +331,15 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
         return null;
     }
 
+    // Find in server for an entity from your name
     private T findInServer(String name) {
         connect();
-        executeSQL("select * from " + table +" where NAME like '" + name + "';");
+        ResultSet result = executeSQL("select * from " + table +"s where name like '" + name + "';");
 
-        ResultSet result = result();
         T element;
         try {
             if (result.first()) {
-                element = createElement(result.getInt("id"), result);
+                element = createElement(result);
                 elements.add(element);
                 return element;
             } else return null;
@@ -234,19 +349,39 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
         return null;
     }
 
+    protected T findInServer(String col, String value) {
+        connect();
+        ResultSet result = executeSQL("select * from " + table +"s where " + col + " like '" + value + "';");
+
+        T element;
+        try {
+            if (result.first()) {
+                element = createElement(result);
+                elements.add(element);
+                return element;
+            } else return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Deprecated
     public Task<ObservableList<T>> populateAllTask() {
         return new Task<>() {
 
             @Override
             protected void failed() {
                 System.err.println("Error on finding items for dao class " + getClass());
+
                 getException().printStackTrace();
             }
 
             @Override
-            protected ObservableList<T> call() {
+            protected synchronized ObservableList<T> call() {
+                connect();
 
-                executeSQL("select count(id) as count from " + table + ";");
+                executeSQL("select count(id) as count from " + table + "s;");
                 ResultSet result = result();
 
                 try {
@@ -259,15 +394,16 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
                     e.printStackTrace();
                 }
 
-                executeSQL("select * from " + table + ";");
+                executeSQL("select * from " + table + "s;");
                 result = result();
 
                 try {
                     while (result.next()) {
-                        int id = result.getInt("ID");
+                        int id = result.getInt("id");
+
 
                         if (elements.stream().noneMatch(f -> f.getId() == id)) {
-                            elements.add(createElement(id, result));
+                            elements.add(createElement(result));
                         }
 
                     }
@@ -275,6 +411,58 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
                     throwables.printStackTrace();
                 }
 
+                disconnect();
+                return elements.get();
+//                return elements;
+            }
+        };
+    }
+
+    public Task<ObservableList<T>> fetchAll() {
+        return new Task<>() {
+
+            @Override
+            protected void failed() {
+                System.err.println("Error on finding items for dao class " + getClass());
+
+                getException().printStackTrace();
+            }
+
+            @Override
+            protected synchronized ObservableList<T> call() {
+                connect();
+
+                executeSQL("select count(id) as count from " + table + "s;");
+                ResultSet result = result();
+
+                try {
+                    if (result.first()) {
+                        if (result().getInt("count") == elements.size()) {
+                            return elements;
+                        }
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                executeSQL("select * from " + table + "s;");
+                result = result();
+
+                try {
+                    while (result.next()) {
+                        int id = result.getInt("id");
+
+
+                        if (elements.stream().noneMatch(f -> f.getId() == id)) {
+                            elements.add(createElement(result));
+                        }
+
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
+                disconnect();
                 return elements.get();
 //                return elements;
             }
@@ -305,27 +493,19 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
      *
      **********************************************************************************/
 
+    @Deprecated
     public abstract static class Presenter<T extends Entity> {
 
         public void store(T model) {
             try {
-                getDao().store(model);
+                getDao().put(model);
             } catch (SQLQueryError e) {
                 e.printStackTrace();
             }
-        }
-
-        public boolean update(T model) {
-            try {
-                return getDao().update(model);
-            } catch (SQLQueryError e) {
-                e.printStackTrace();
-            }
-            return false;
         }
 
         public T find(long id) {
-            return  getDao().find(id);
+            return  getDao().read(id);
         }
 
         boolean delete(T model) {

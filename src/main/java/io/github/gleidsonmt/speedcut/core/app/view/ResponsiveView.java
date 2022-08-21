@@ -17,7 +17,8 @@
 
 package io.github.gleidsonmt.speedcut.core.app.view;
 
-import io.github.gleidsonmt.speedcut.core.app.Global;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.ActionView;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -25,17 +26,14 @@ import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  24/02/2022
  */
-public abstract class ResponsiveView extends StackPane implements ActionViewController, Global {
+public abstract class ResponsiveView implements ActionView, Context {
 
-    private final ChangeListener<Number> updateListener = (observable, oldValue, newValue) -> {
-        updateLayout(newValue.doubleValue());
-    };
+    private final ChangeListener<Number> updateListener = (observable, oldValue, newValue) -> updateLayout(newValue.doubleValue());
 
     // Testing
     protected enum B {
@@ -59,6 +57,7 @@ public abstract class ResponsiveView extends StackPane implements ActionViewCont
     }
 
     public static class BreakPoints {
+
         public static final double X_SMALL = 576D;
 
         public static final double SMALL = 576D;
@@ -69,42 +68,40 @@ public abstract class ResponsiveView extends StackPane implements ActionViewCont
         public static final double FHD = 1900;
 
         public static boolean isXSmall () {
-            return window.getWidth() < SMALL;
+            return context.getWindow().getWidth() < SMALL;
         }
 
         public static boolean isSmall () {
-            return window.getWidth() >= SMALL && window.getWidth() <= MEDIUM;
+            return context.getDecorator().getWidth() >= SMALL && context.getWindow().getWidth() <= MEDIUM;
         }
 
         public static boolean isMedium () {
-            return window.getWidth() >= MEDIUM && window.getWidth() <= LARGE;
+            return context.getDecorator().getWidth() >= MEDIUM && context.getWindow().getWidth() <= LARGE;
         }
 
         public static boolean isLarge () {
-            return window.getWidth() >= LARGE && window.getWidth() <= X_LARGE;
+            return context.getDecorator().getWidth() >= LARGE && context.getWindow().getWidth() <= X_LARGE;
         }
 
         public static boolean isXLarge () {
-            return window.getWidth() >= X_LARGE && window.getWidth() <= XX_LARGE;
+            return context.getDecorator().getWidth() >= X_LARGE && context.getWindow().getWidth() <= XX_LARGE;
         }
 
         public static boolean isXXLarge () {
-            return window.getWidth() > XX_LARGE && window.getWidth() <= FHD;
+            return context.getDecorator().getWidth() > XX_LARGE && context.getWindow().getWidth() <= FHD;
         }
     }
 
     protected abstract void updateLayout(double width);
 
+    @Deprecated
     public void update(Node node, int col, int row) {
         GridPane.clearConstraints(node);
         GridPane.setConstraints(node, col, row, 1,1, HPos.CENTER, VPos.CENTER, Priority.ALWAYS, Priority.ALWAYS);
     }
 
-    public void update(Node node, int col, int row, int colSpan, int rowSpan) {
-        GridPane.clearConstraints(node);
-        GridPane.setConstraints(node, col, row, colSpan, rowSpan, HPos.CENTER, VPos.CENTER, Priority.ALWAYS, Priority.ALWAYS);
 
-    }
+    @Deprecated
     public void update(Node node, int col, int row, Pos pos) {
 
         switch (pos) {
@@ -114,22 +111,25 @@ public abstract class ResponsiveView extends StackPane implements ActionViewCont
 
     }
 
-    private void switchPos(Pos pos) {
-
-    }
-
     @Override
     public void onEnter() {
-        updateLayout(window.getCenterLayout().getWidth());
-        window.getCenterLayout()
+
+        updateLayout(context.getDecorator().getRoot().getWidth());
+
+        context.getDecorator()
+                .getRoot()
                 .widthProperty()
                 .addListener(updateListener);
+
     }
 
     @Override
     public void onExit() {
-        window.getCenterLayout()
+
+        context.getDecorator()
+                .getRoot()
                 .widthProperty()
                 .removeListener(updateListener);
+
     }
 }

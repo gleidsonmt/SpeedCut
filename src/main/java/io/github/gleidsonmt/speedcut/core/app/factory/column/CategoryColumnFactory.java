@@ -43,7 +43,7 @@ public class CategoryColumnFactory implements Callback<TableColumn<Transaction, 
 
                 super.updateItem(item, empty);
 
-                if (item != null) {
+                if (item != null ) {
 
 //                    setText(item.name().equals("ENTER") ? "Entrada" : "Saída");
 
@@ -56,7 +56,7 @@ public class CategoryColumnFactory implements Callback<TableColumn<Transaction, 
                     getStyleClass().addAll( "border", "border-l-1");
                     switch (item) {
                         case SALE -> {
-                            setText("Venda");
+                            setText( "Venda");
                             // icon transfer
                             icon.setContent("m6.083 16.833-3.895-3.895 3.895-3.876.979 1-2.187 2.188h11.979v1.396H4.875l2.187 2.187Zm7.855-5.895-.98-1 2.188-2.188h-12V6.354h12l-2.188-2.187.98-1 3.874 3.875Z");
 

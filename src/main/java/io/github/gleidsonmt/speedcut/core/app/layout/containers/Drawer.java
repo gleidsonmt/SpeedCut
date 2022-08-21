@@ -18,7 +18,7 @@
 package io.github.gleidsonmt.speedcut.core.app.layout.containers;
 
 import io.github.gleidsonmt.speedcut.core.app.layout.util.AlignmentUtil;
-import io.github.gleidsonmt.speedcut.core.app.view.IManager;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -36,7 +36,7 @@ import javafx.util.Duration;
  * Create on  29/03/2022
  */
 @SuppressWarnings("unused")
-public class Drawer implements IManager {
+public class Drawer implements Context {
 
     private final StackPane     container   = new StackPane();
     private final VBox          content     = new VBox();
@@ -111,10 +111,10 @@ public class Drawer implements IManager {
 
         timeline.getKeyFrames().setAll(
                 new KeyFrame(Duration.ZERO, new KeyValue(
-                        container.translateXProperty(), window.getWidth()
+                        container.translateXProperty(), context.getDecorator().getWidth()
                 )),
                 new KeyFrame(Duration.millis(250), new KeyValue(
-                        container.translateXProperty(),   window.getWidth() - width
+                        container.translateXProperty(),   context.getDecorator().getWidth() - width
                 ))
         );
 
@@ -141,14 +141,13 @@ public class Drawer implements IManager {
                             container.translateXProperty(), container.getTranslateX()
                     )),
                     new KeyFrame(Duration.millis(200), new KeyValue(
-                            container.translateXProperty(), window.getWidth()
+                            container.translateXProperty(), context.getDecorator().getWidth()
                     ))
             );
         }
 
         timeline.setOnFinished(e -> {
-            window.hideControls(true);
-            window.lockControls(false);
+
             content.setTranslateX(0);
             content.setTranslateY(0);
             root.setOnMouseClicked(null);

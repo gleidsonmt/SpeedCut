@@ -26,12 +26,13 @@ import javafx.beans.property.StringProperty;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  14/02/2022
  */
-public final class User extends Entity {
+public final class User extends Person {
 
     private final StringProperty userName = new SimpleStringProperty();
     private final StringProperty password = new SimpleStringProperty();
-    private byte[] salt;
     private final BooleanProperty logged = new SimpleBooleanProperty();
+    private byte[] salt;
+
 
     public User() {
         this(null);
@@ -85,13 +86,14 @@ public final class User extends Entity {
         this.logged.set(logged);
     }
 
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("User{");
         sb.append("userName=").append(userName);
         sb.append(", password=").append(password);
-        sb.append(", salt=");
         sb.append(", logged=").append(logged);
+        sb.append(", avatar=").append(super.getAvatar());
         sb.append('}');
         return sb.toString();
     }

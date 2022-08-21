@@ -26,7 +26,7 @@ import java.time.LocalDate;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  10/08/2022
  */
-public class Term extends ValueItem {
+public class Term extends PaymentMethod {
 
     private ObjectProperty<LocalDate> expDate = new SimpleObjectProperty<>();
 

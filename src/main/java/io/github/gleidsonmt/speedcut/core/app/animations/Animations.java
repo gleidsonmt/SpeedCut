@@ -21,6 +21,8 @@ import animatefx.animation.Pulse;
 import io.github.gleidsonmt.gncontrols.GNButton;
 import io.github.gleidsonmt.gncontrols.GNTextBox;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBase;
+import javafx.scene.control.ToggleButton;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -34,7 +36,7 @@ public class Animations {
         animation.play();
     }
 
-    public static void onHoverButton(Button button) {
+    public static void onHoverButton(ButtonBase button) {
         Pulse animation = new Pulse(button);
         animation.setSpeed(3);
         button.hoverProperty().addListener((observable, oldValue, newValue) -> {

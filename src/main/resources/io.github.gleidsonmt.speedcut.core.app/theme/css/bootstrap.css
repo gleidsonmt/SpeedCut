@@ -5,6 +5,12 @@
 *
 *************************************************************************************/
 
+.root {
+    -hover-color : -mint;
+    -background-color : white;
+    -focused-color : -info;
+}
+
 .input-filled
 
 {
@@ -394,6 +400,10 @@
     -fx-border-color : -border-color;
 }
 
+.no-border {
+    -fx-border-width : 0px;
+}
+
 .border-0 {
   -fx-border-width : 0px;
 }
@@ -579,6 +589,8 @@
   -fx-border-radius : 1px;
   -fx-text-fill : -dark-gray;
   -fx-effect : null;
+
+
 }
 
 .btn-payments:selected
@@ -586,12 +598,25 @@
     -fx-effect : null;
     -fx-border-width : 2px;
     -fx-border-color : -dark-gray;
+
 }
 
 .btn-payments SVGPath,
 .btn-options SVGPath
 {
-    -fx-fill : -dark-gray;
+    -fx-fill : -text-color;
+}
+
+.btn-payments:selected Group SVGPath,
+.btn-payments:selected .icon
+{
+    -fx-fill : white;
+}
+
+.btn-payments:selected:hover Group SVGPath,
+.btn-payments:selected:hover .icon
+{
+    -fx-fill : -text-color;
 }
 
 .btn-options,
@@ -621,3 +646,4 @@
     -fx-background-color : derive(-base, 90%);
     -fx-fill : -base;
 }
+

@@ -17,16 +17,12 @@
 
 package io.github.gleidsonmt.speedcut.presenter;
 
-import io.github.gleidsonmt.speedcut.core.app.dao.AbstractDao;
-import io.github.gleidsonmt.speedcut.core.app.dao.DaoSale;
+import io.github.gleidsonmt.speedcut.core.app.dao.*;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
-import io.github.gleidsonmt.speedcut.core.app.model.Entity;
 import io.github.gleidsonmt.speedcut.core.app.model.Sale;
-import javafx.beans.property.ListProperty;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 
-import java.sql.ResultSet;
+import java.util.List;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -34,34 +30,37 @@ import java.sql.ResultSet;
  */
 public class SalePresenter extends Presenter<Sale> {
 
-    private static final DaoSale dao = new DaoSale();
+//    private static final DaoSale getDao() = new DaoSale();
 
     @Override
     protected AbstractDao<Sale> getDao() {
-        return dao;
+//        return Provider.of(DaoSale.class);
+        return null;
     }
 
-    public Sale createDefaultSale() {
-        createConnection();
-        return dao.createDefaultSale();
+    public void createDefaultSale() {
+//        createConnection();
+//        return getDao().createDefaultSale();
     }
 
     public boolean delete(Sale sale) {
-        createConnection();
-        return dao.delete(sale);
+//        createConnection();
+        return getDao().delete(sale);
     }
 
     public boolean update(Sale sale) {
-        createConnection();
-        try {
-            return dao.update(sale);
-        } catch (SQLQueryError e) {
-            e.printStackTrace();
-        }
+//        createConnection();
+//        try {
+//            return getDao().update(sale);
+//        } catch (SQLQueryError e) {
+//            e.printStackTrace();
+//        }
         return false;
     }
 
     public ObservableList<Sale> getElements() {
-        return dao.getElements();
+        return getDao().getElements();
     }
+
+
 }

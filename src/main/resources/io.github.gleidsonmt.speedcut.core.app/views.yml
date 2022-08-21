@@ -1,9 +1,4 @@
 
-- !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
-  title : Register
-  name : register
-  directory : login
-  fxml : register.fxml
 
 - !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
   title : Login
@@ -18,11 +13,21 @@
   fxml : sales.fxml
   views :
     - name : sale_index
-      title : Controle de Vendas novos do silva
+      directory : index
+      title : Transações
       fxml : index.fxml
-    - name : sale_receive
-      title : Receber
-      fxml : receive.fxml
+
+- !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
+  title: Form client
+  name: form_client
+  directory: form
+  fxml: client_form.fxml
+
+- !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
+  title : Dashboard
+  name : dash
+  directory : dashboard
+  fxml : dash.fxml
 
 - !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
   title: Buys
@@ -35,6 +40,17 @@
   name : register
   directory : register
   fxml : register.fxml
+  views :
+    - name : client_register
+      title : Cliente Register
+      directory : client
+      fxml : client_register.fxml
+
+- !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
+  title : Caixa
+  name : open_cashier
+  directory : cashier
+  fxml : main.fxml
 
 - !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
   title : Caixa
@@ -42,4 +58,9 @@
   directory : cashier
   fxml : open.fxml
 
+- !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
+  title : Sobre
+  name : about
+  directory : about
+  fxml : about.fxml
 

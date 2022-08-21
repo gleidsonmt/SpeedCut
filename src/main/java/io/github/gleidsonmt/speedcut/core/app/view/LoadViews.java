@@ -17,10 +17,8 @@
 
 package io.github.gleidsonmt.speedcut.core.app.view;
 
-import io.github.gleidsonmt.speedcut.core.app.Global;
-import io.github.gleidsonmt.speedcut.core.app.dao.Dao;
-import io.github.gleidsonmt.speedcut.core.app.dao.DaoCashier;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -32,21 +30,25 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  28/12/2021
  */
-public class LoadViews extends Service<ViewComposer> implements Global, IManager {
+public class LoadViews extends Service<ViewComposer> implements Context {
 
     private final   StringBuilder       builder = new StringBuilder();
     private         List<ViewComposer>  yamlViews = null;
 
-    public LoadViews() {
+    private WindowDecorator decorator;
+
+    public LoadViews(WindowDecorator decorator) {
+        this.decorator = decorator;
+
         Yaml yaml = new Yaml(new Constructor(List.class));
+
         yamlViews = yaml.load(getClass().getResourceAsStream(
-                corePath + "views.yml"));
+                context.getPaths().getCore() + "views.yml"));
     }
 
     @Override
@@ -55,7 +57,7 @@ public class LoadViews extends Service<ViewComposer> implements Global, IManager
             @Override
             protected ViewComposer call()  {
 
-                setLoadText("Starting application.. ");
+                setLoadText("Iniciando Aplicação.. ");
 
                 try {
                     Thread.sleep(1000);
@@ -63,7 +65,7 @@ public class LoadViews extends Service<ViewComposer> implements Global, IManager
                     e.printStackTrace();
                 }
 
-                setLoadText("Loading database...");
+                setLoadText("Carregando base de dados...");
 
                 try {
                     Thread.sleep(1000);
@@ -84,24 +86,32 @@ public class LoadViews extends Service<ViewComposer> implements Global, IManager
 
     private void setLoadText(String message) {
         final Label labelInfo = (Label)
-                window.lookup("#labelLoading");
+                decorator.lookup("#labelLoading");
         Platform.runLater( () -> labelInfo.setText(message));
     }
 
     @Override
     protected void succeeded() {
         try {
-            if (properties.isLogged()) {
 
-                window.setLeftDrawer(FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
-                        corePath + "view/drawer.fxml"))));
 
-                window.navigate("sales");
+            if (context.getUser() != null && context.getUser().isLogged()) {
 
-            } else if (!properties.isRegistered()) {
-                window.navigate("register");
+                decorator.fullBody();
+
+                decorator.getLayout()
+                        .setDrawer(context.getRoutes().load(
+                        "layout/drawer.fxml", "Drawer", "drawer"
+                        ).getRoot()
+                );
+
+                context.getRoutes().setContent("dash");
+
+//                context.getDecorator().getRoot().setNeedsBar(true);
+
             } else {
-                window.navigate("login");
+//                context.getDecorator().getRoot().setNeedsBar(false);
+                context.getRoutes().setView("login");
             }
         } catch (NavigationException | IOException e) {
             e.printStackTrace();
@@ -165,7 +175,8 @@ public class LoadViews extends Service<ViewComposer> implements Global, IManager
             }
 
             setLoadText("Loading Views [" + view.getName() + "]");
-            window.getViews().add(new View(view, loader));
+
+            context.getRoutes().addView(new View(view, loader));
 
         } else if(view.getFxml() != null) {
             IOException io = new IOException("The fxml with ["

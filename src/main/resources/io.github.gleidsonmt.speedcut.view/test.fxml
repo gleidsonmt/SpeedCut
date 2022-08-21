@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.gleidsonmt.gncontrols.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<StackPane fx:id="root" prefHeight="381.0" prefWidth="536.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.sales.side_views.BuyController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+         <padding>
+            <Insets bottom="50.0" left="100.0" right="100.0" top="50.0" />
+         </padding>
+         <children>
+            <VBox prefHeight="118.0" prefWidth="539.0" style="-fx-border-width: 2; -fx-border-color: -light-gray-2; -fx-border-radius: 10;">
+               <children>
+                  <GridPane prefHeight="102.0" prefWidth="639.0" VBox.vgrow="ALWAYS">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="73.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <GNRadioButton prefWidth="202.0" style="-fx-text-fill: -info; -fx-font-weight: bold;" styleClass="h4" text="Bruna" />
+                        <StackPane alignment="CENTER_RIGHT" prefHeight="114.0" prefWidth="257.0" GridPane.columnIndex="1" GridPane.rowSpan="2147483647">
+                           <children>
+                              <ImageView fitHeight="104.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../Pictures/538252715c35cb80bc80c492d3a63732.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </StackPane>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.rowIndex="1">
+                           <children>
+                              <ImageView fitHeight="77.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../Pictures/icon/special.png" />
+                                 </image>
+                              </ImageView>
+                              <VBox alignment="CENTER_LEFT">
+                                 <children>
+                                    <Label style="-fx-text-fill: -amber;" styleClass="h3" text="53" />
+                                    <Label style="-fx-font-weight: bold;" styleClass="h5" text="Premium" wrapText="true" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </GridPane>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+            <VBox layoutX="60.0" layoutY="60.0" prefHeight="111.0" prefWidth="539.0" style="-fx-border-width: 1; -fx-border-color: white; -fx-border-radius: 10; -fx-background-color: linear-gradient(to left, -info, -cyan); -fx-background-radius: 10; -fx-background-insets: 1;">
+               <children>
+                  <GridPane prefHeight="102.0" prefWidth="639.0" VBox.vgrow="ALWAYS">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="79.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <GNRadioButton prefWidth="202.0" style="-fx-text-fill: white; -fx-font-weight: bold;" styleClass="h4" text="Bruna" />
+                        <StackPane alignment="CENTER_RIGHT" prefHeight="104.0" prefWidth="292.0" GridPane.columnIndex="1" GridPane.rowSpan="2147483647">
+                           <children>
+                              <ImageView fitHeight="106.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../Pictures/538252715c35cb80bc80c492d3a63732.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </StackPane>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.rowIndex="1">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="GRAPHIC_ONLY" prefHeight="51.0" prefWidth="51.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="Label">
+                                 <graphic>
+                                    <ImageView fitHeight="41.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                       <image>
+                                          <Image url="@../io.github.gleidsonmt.speedcut.core.app/theme/img/badges/special.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Label>
+                              <VBox alignment="CENTER_LEFT">
+                                 <children>
+                                    <Label style="-fx-text-fill: white;" styleClass="h3" text="53" />
+                                    <Label style="-fx-font-weight: bold; -fx-text-fill: white;" styleClass="h5" text="Premium" wrapText="true" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </GridPane>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <effect>
+                  <DropShadow height="11.48" radius="5.4225" spread="0.14" width="12.21">
+                     <color>
+                        <Color opacity="0.18702290952205658" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/material-color.css" />
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/light.css" />
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/skeleton.css" />
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/bootstrap.css" />
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/shape.css" />
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/typographic.css" />
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/helpers.css" />
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/master.css" />
+   </stylesheets>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</StackPane>

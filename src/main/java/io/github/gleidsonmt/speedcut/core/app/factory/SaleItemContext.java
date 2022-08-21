@@ -23,7 +23,7 @@ import io.github.gleidsonmt.speedcut.controller.sales.main.SalesController;
 import io.github.gleidsonmt.speedcut.core.app.dao.Repositories;
 import io.github.gleidsonmt.speedcut.core.app.dao.Repository;
 import io.github.gleidsonmt.speedcut.core.app.model.SaleItem;
-import io.github.gleidsonmt.speedcut.core.app.view.Context;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableRow;
@@ -52,7 +52,7 @@ public class SaleItemContext extends ContextMenu implements Context {
         menuRemove.setGraphic(new IconContainer(Icons.DELETE_OUTLINED));
 
 
-        if (!tableRow.getItem().getItem().getDiscount().equals(BigDecimal.ZERO)) { // primeiro verifico so o item pode possuir algum desconto
+        if (!tableRow.getItem().getTradeItem().getDiscount().equals(BigDecimal.ZERO)) { // primeiro verifico so o item pode possuir algum desconto
             getItems().addAll(menuDiscount, menuEdit, menuRemove); // pode possuir entao adiona a opcao
         } else {
             getItems().addAll( menuEdit, menuRemove);
@@ -62,9 +62,7 @@ public class SaleItemContext extends ContextMenu implements Context {
             SaleItem saleItem = tableRow.getItem();
             Repository<SaleItem> repo =  Repositories.get(SaleItem.class);
 
-            saleItem.setDiscount(!saleItem.isDiscount());
-
-            calcTrans(saleItem.isDiscount(), saleItem, controller);
+            saleItem.setHasDiscount(!saleItem.hasDiscount());
 
             repo.put(saleItem);
             repo.persist();
@@ -72,22 +70,8 @@ public class SaleItemContext extends ContextMenu implements Context {
         });
 
         menuRemove.setOnAction(event ->
-                controller.getItemsColumnController().deleteSaleItem());
+                controller.deleteSaleItem());
 
     }
 
-    private void calcTrans(boolean add, SaleItem item, SalesController controller) {
-
-        BigDecimal discount = item.getItem().getPrice().multiply(item.getItem().getDiscount());
-        BigDecimal all = BigDecimal.valueOf(item.getQuantity()).multiply(discount);
-
-        if (add) {
-            controller.getItemsColumnController().getTransaction().addDiscount(all);
-            controller.getItemsColumnController().getTransaction().subCurrent(all);
-        } else {
-            controller.getItemsColumnController().getTransaction().subtractDiscount(all);
-            controller.getItemsColumnController().getTransaction().addCurrent(all);
-
-        }
-    }
 }

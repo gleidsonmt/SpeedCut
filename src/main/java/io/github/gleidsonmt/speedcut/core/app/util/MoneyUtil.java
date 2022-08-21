@@ -29,6 +29,7 @@ import java.text.NumberFormat;
  * Create on  27/02/2022
  */
 public class MoneyUtil {
+
     private static DecimalFormat formatter;
 
     public static @NotNull String format(String value) {

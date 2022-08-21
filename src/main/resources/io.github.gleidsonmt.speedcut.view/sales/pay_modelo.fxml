@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.gleidsonmt.gncontrols.GNButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+
+<!--
+  ~    Copyright (C) Gleidson Neves da Silveira
+  ~
+  ~    This program is free software: you can redistribute it and/or modify
+  ~    it under the terms of the GNU General Public License as published by
+  ~    the Free Software Foundation, either version 3 of the License, or
+  ~    (at your option) any later version.
+  ~
+  ~    This program is distributed in the hope that it will be useful,
+  ~    but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~    GNU General Public License for more details.
+  ~
+  ~    You should have received a copy of the GNU General Public License
+  ~    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<StackPane fx:id="root" prefHeight="929.0" prefWidth="536.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.sales.side_views.BuyController">
+   <stylesheets>
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/material-color.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/light.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/skeleton.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/bootstrap.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/shape.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/typographic.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/helpers.css" />
+      <URL value="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/master.css" />
+   </stylesheets>
+   <children>
+      <VBox fx:id="boxSaleDetail1" alignment="CENTER_LEFT" maxWidth="-Infinity" prefWidth="727.0" StackPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER_LEFT" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" prefWidth="407.0" styleClass="btn-flat">
+               <children>
+                  <GNButton buttonType="RECT" styleClass="btn-flat" text="Voltar">
+                     <graphic>
+                        <SVGPath content="m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6Z" style="-fx-fill: -text-color;" />
+                     </graphic>
+                  </GNButton>
+               </children>
+            </VBox>
+            <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@../../io.github.gleidsonmt.speedcut.core.app/theme/css/custom-scroll.css" VBox.vgrow="ALWAYS">
+               <content>
+                  <VBox spacing="5.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <styleClass>
+                        <String fx:value="border" />
+                        <String fx:value="border-t-1" />
+                     </styleClass>
+                     <children>
+                        <Label style="-fx-font-weight: bold;" styleClass="h4" text="Metódos de Pagamento" />
+                        <VBox prefHeight="157.0" prefWidth="473.0" spacing="10.0" styleClass="border">
+                           <children>
+                              <Label text="Cartões">
+                                 <graphic>
+                                    <Group>
+                                       <children>
+                                          <SVGPath content="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z" scaleX="0.03" scaleY="0.03" style="-fx-fill: -text-color;" styleClass="icon-box" />
+                                       </children>
+                                    </Group>
+                                 </graphic>
+                              </Label>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <StackPane alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label alignment="BOTTOM_RIGHT" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: -bittersweet; -fx-background-radius: 5; -fx-font-size: 8;" text="123" textFill="WHITE">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="20.0" prefWidth="50.0" text=".. .." textFill="WHITE">
+                                             <padding>
+                                                <Insets left="5.0" right="5.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </StackPane>
+                                    <Label style="-fx-text-fill: -text-color;" text="Dédito / Bradesco" GridPane.columnIndex="1" />
+                                    <Label style="-fx-text-fill: -text-color; -fx-font-weight: bold;" text="R$ 74,30" GridPane.columnIndex="2" />
+                                 </children>
+                              </GridPane>
+                              <Separator prefWidth="200.0" />
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <StackPane alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label alignment="BOTTOM_RIGHT" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: -info; -fx-background-radius: 5; -fx-font-size: 8;" text="123" textFill="WHITE">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="20.0" prefWidth="50.0" text=".. .." textFill="WHITE">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </StackPane>
+                                    <Label style="-fx-text-fill: -text-color;" text="Crédito / BB" GridPane.columnIndex="1" />
+                                    <Label style="-fx-text-fill: -text-color; -fx-font-weight: bold;" text="R$ 30.00" GridPane.columnIndex="2" />
+                                    <Label style="-fx-text-fill: -text-color;" text="12/05/2023" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <graphic>
+                                          <SVGPath content="M5 22q-.825 0-1.413-.587Q3 20.825 3 20V6q0-.825.587-1.412Q4.175 4 5 4h1V2h2v2h8V2h2v2h1q.825 0 1.413.588Q21 5.175 21 6v14q0 .825-.587 1.413Q19.825 22 19 22Zm0-2h14V10H5v10ZM5 8h14V6H5Zm0 0V6v2Z" scaleX="0.8" scaleY="0.8" style="-fx-fill: -text-color;" />
+                                       </graphic>
+                                    </Label>
+                                    <GNButton contentDisplay="GRAPHIC_ONLY" prefHeight="30.0" prefWidth="30.0" style="-fx-border-color: -text-color; -fx-border-radius: 100;" styleClass="btn-flat" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                       <graphic>
+                                          <SVGPath content="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" style="-fx-fill: -text-color;" />
+                                       </graphic>
+                                    </GNButton>
+                                 </children>
+                              </GridPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </VBox>
+                        <VBox layoutX="20.0" layoutY="21.0" prefWidth="100.0" spacing="10.0" styleClass="border">
+                           <children>
+                              <Label text="Contas Criadas">
+                                 <graphic>
+                                    <Group>
+                                       <children>
+                                          <SVGPath content="M630.6 364.9l-90.3-90.2c-12-12-28.3-18.7-45.3-18.7h-79.3c-17.7 0-32 14.3-32 32v79.2c0 17 6.7 33.2 18.7 45.2l90.3 90.2c12.5 12.5 32.8 12.5 45.3 0l92.5-92.5c12.6-12.5 12.6-32.7.1-45.2zm-182.8-21c-13.3 0-24-10.7-24-24s10.7-24 24-24 24 10.7 24 24c0 13.2-10.7 24-24 24zm-223.8-88c70.7 0 128-57.3 128-128C352 57.3 294.7 0 224 0S96 57.3 96 128c0 70.6 57.3 127.9 128 127.9zm127.8 111.2V294c-12.2-3.6-24.9-6.2-38.2-6.2h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 287.9 0 348.1 0 422.3v41.6c0 26.5 21.5 48 48 48h352c15.5 0 29.1-7.5 37.9-18.9l-58-58c-18.1-18.1-28.1-42.2-28.1-67.9z" scaleX="0.03" scaleY="0.03" style="-fx-fill: -text-color;" styleClass="icon-box" />
+                                       </children>
+                                    </Group>
+                                 </graphic>
+                              </Label>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <GridPane prefHeight="10.0" prefWidth="347.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label style="-fx-text-fill: -text-color; -fx-font-weight: bold;" text="R$ 250.00" GridPane.columnIndex="1" />
+                                          <Label style="-fx-text-fill: -text-color;" text="12/05/2023">
+                                             <graphic>
+                                                <SVGPath content="M5 22q-.825 0-1.413-.587Q3 20.825 3 20V6q0-.825.587-1.412Q4.175 4 5 4h1V2h2v2h8V2h2v2h1q.825 0 1.413.588Q21 5.175 21 6v14q0 .825-.587 1.413Q19.825 22 19 22Zm0-2h14V10H5v10ZM5 8h14V6H5Zm0 0V6v2Z" style="-fx-fill: -text-color;" />
+                                             </graphic>
+                                          </Label>
+                                          <GNButton contentDisplay="GRAPHIC_ONLY" maxHeight="35.0" prefHeight="30.0" prefWidth="30.0" style="-fx-border-color: -text-color; -fx-border-radius: 100;" styleClass="btn-flat" GridPane.columnIndex="2">
+                                             <graphic>
+                                                <SVGPath content="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" style="-fx-fill: -text-color;" />
+                                             </graphic>
+                                          </GNButton>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                              <Separator prefWidth="200.0" />
+                              <VBox layoutX="30.0" layoutY="57.0" spacing="10.0">
+                                 <children>
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label style="-fx-text-fill: -text-color; -fx-font-weight: bold;" text="R$ 63.00" GridPane.columnIndex="1" />
+                                          <Label style="-fx-text-fill: -text-color;" text="07/09/2022">
+                                             <graphic>
+                                                <SVGPath content="M5 22q-.825 0-1.413-.587Q3 20.825 3 20V6q0-.825.587-1.412Q4.175 4 5 4h1V2h2v2h8V2h2v2h1q.825 0 1.413.588Q21 5.175 21 6v14q0 .825-.587 1.413Q19.825 22 19 22Zm0-2h14V10H5v10ZM5 8h14V6H5Zm0 0V6v2Z" style="-fx-fill: -text-color;" />
+                                             </graphic>
+                                          </Label>
+                                          <GNButton contentDisplay="GRAPHIC_ONLY" maxHeight="35.0" prefHeight="30.0" prefWidth="30.0" style="-fx-border-color: -text-color; -fx-border-radius: 100;" styleClass="btn-flat" GridPane.columnIndex="2">
+                                             <graphic>
+                                                <SVGPath content="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" style="-fx-fill: -text-color;" />
+                                             </graphic>
+                                          </GNButton>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </VBox>
+                        <VBox layoutX="20.0" layoutY="221.0" spacing="10.0" styleClass="border">
+                           <children>
+                              <Label text="Pix">
+                                 <graphic>
+                                    <Group>
+                                       <children>
+                                          <SVGPath content="M112.57 391.19c20.056 0 38.928-7.808 53.12-22l76.693-76.692c5.385-5.404 14.765-5.384 20.15 0l76.989 76.989c14.191 14.172 33.045 21.98 53.12 21.98h15.098l-97.138 97.139c-30.326 30.344-79.505 30.344-109.85 0l-97.415-97.416h9.232zm280.068-271.294c-20.056 0-38.929 7.809-53.12 22l-76.97 76.99c-5.551 5.53-14.6 5.568-20.15-.02l-76.711-76.693c-14.192-14.191-33.046-21.999-53.12-21.999h-9.234l97.416-97.416c30.344-30.344 79.523-30.344 109.867 0l97.138 97.138h-15.116z M22.758 200.753l58.024-58.024h31.787c13.84 0 27.384 5.605 37.172 15.394l76.694 76.693c7.178 7.179 16.596 10.768 26.033 10.768 9.417 0 18.854-3.59 26.014-10.75l76.989-76.99c9.787-9.787 23.331-15.393 37.171-15.393h37.654l58.3 58.302c30.343 30.344 30.343 79.523 0 109.867l-58.3 58.303H392.64c-13.84 0-27.384-5.605-37.171-15.394l-76.97-76.99c-13.914-13.894-38.172-13.894-52.066.02l-76.694 76.674c-9.788 9.788-23.332 15.413-37.172 15.413H80.782L22.758 310.62c-30.344-30.345-30.344-79.524 0-109.868" scaleX="0.03" scaleY="0.03" style="-fx-fill: -text-color;" styleClass="icon-box" />
+                                       </children>
+                                    </Group>
+                                 </graphic>
+                              </Label>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label style="-fx-text-fill: -text-color; -fx-font-weight: bold;" text="R$ 44.00" GridPane.columnIndex="1" />
+                                          <Label style="-fx-text-fill: -text-color;" text="046.794.241-25">
+                                             <graphic>
+                                                <SVGPath content="m6 20 1-4H3.5l.5-2h3.5l1-4h-4L5 8h4l1-4h2l-1 4h4l1-4h2l-1 4h3.5l-.5 2h-3.5l-1 4h4l-.5 2h-4l-1 4h-2l1-4H9l-1 4Zm3.5-6h4l1-4h-4Z" style="-fx-fill: -text-color;" />
+                                             </graphic>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                              <Separator prefWidth="200.0" />
+                              <VBox layoutX="30.0" layoutY="57.0" spacing="10.0">
+                                 <children>
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label style="-fx-text-fill: -text-color; -fx-font-weight: bold;" text="R$ 22.00" GridPane.columnIndex="1" />
+                                          <Label style="-fx-text-fill: -text-color;" text="(66) 99996-362299">
+                                             <graphic>
+                                                <SVGPath content="M19.95 21q-3.225 0-6.287-1.438-3.063-1.437-5.425-3.8-2.363-2.362-3.8-5.425Q3 7.275 3 4.05q0-.45.3-.75t.75-.3H8.1q.35 0 .625.225t.325.575l.65 3.5q.05.35-.012.637-.063.288-.288.513L6.975 10.9q1.05 1.8 2.638 3.375Q11.2 15.85 13.1 17l2.35-2.35q.225-.225.588-.338.362-.112.712-.062l3.45.7q.35.075.575.337.225.263.225.613v4.05q0 .45-.3.75t-.75.3ZM6.025 9l1.65-1.65L7.25 5H5.025q.125 1.025.35 2.025.225 1 .65 1.975Zm8.95 8.95q.975.425 1.988.675 1.012.25 2.037.325v-2.2l-2.35-.475ZM6.025 9Zm8.95 8.95Z" style="-fx-fill: -text-color;" />
+                                             </graphic>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                              <Separator layoutX="31.0" layoutY="78.0" prefWidth="200.0" />
+                              <VBox layoutX="30.0" layoutY="84.0" spacing="10.0">
+                                 <children>
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label style="-fx-text-fill: -text-color; -fx-font-weight: bold;" text="R$ 31,50" GridPane.columnIndex="1" />
+                                          <Label style="-fx-text-fill: -text-color;" text="gleidisonmt@gmail.com">
+                                             <graphic>
+                                                <SVGPath content="M4 20q-.825 0-1.412-.587Q2 18.825 2 18V6q0-.825.588-1.412Q3.175 4 4 4h16q.825 0 1.413.588Q22 5.175 22 6v12q0 .825-.587 1.413Q20.825 20 20 20Zm8-7L4 8v10h16V8Zm0-2 8-5H4ZM4 8V6v12Z" style="-fx-fill: -text-color;" />
+                                             </graphic>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </VBox>
+                        <VBox layoutX="20.0" layoutY="355.0" spacing="10.0" styleClass="border">
+                           <children>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label style="-fx-text-fill: -text-color; -fx-font-weight: bold;" text="R$ 31,50" GridPane.columnIndex="1" />
+                                    <Label style="-fx-text-fill: -text-color;" text="Dinheiro">
+                                       <graphic>
+                                          <SVGPath content="M14 13q-1.25 0-2.125-.875T11 10q0-1.25.875-2.125T14 7q1.25 0 2.125.875T17 10q0 1.25-.875 2.125T14 13Zm-7 3q-.825 0-1.412-.588Q5 14.825 5 14V6q0-.825.588-1.412Q6.175 4 7 4h14q.825 0 1.413.588Q23 5.175 23 6v8q0 .825-.587 1.412Q21.825 16 21 16Zm2-2h10q0-.825.587-1.413Q20.175 12 21 12V8q-.825 0-1.413-.588Q19 6.825 19 6H9q0 .825-.588 1.412Q7.825 8 7 8v4q.825 0 1.412.587Q9 13.175 9 14Zm11 6H3q-.825 0-1.412-.587Q1 18.825 1 18V7h2v11h17ZM7 14V6v8Z" style="-fx-fill: -text-color;" />
+                                       </graphic>
+                                    </Label>
+                                 </children>
+                              </GridPane>
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </VBox>
+                        <VBox layoutX="20.0" layoutY="363.0" spacing="10.0" styleClass="border">
+                           <children>
+                              <Label text="Pix">
+                                 <graphic>
+                                    <Group>
+                                       <children>
+                                          <SVGPath content="M112.57 391.19c20.056 0 38.928-7.808 53.12-22l76.693-76.692c5.385-5.404 14.765-5.384 20.15 0l76.989 76.989c14.191 14.172 33.045 21.98 53.12 21.98h15.098l-97.138 97.139c-30.326 30.344-79.505 30.344-109.85 0l-97.415-97.416h9.232zm280.068-271.294c-20.056 0-38.929 7.809-53.12 22l-76.97 76.99c-5.551 5.53-14.6 5.568-20.15-.02l-76.711-76.693c-14.192-14.191-33.046-21.999-53.12-21.999h-9.234l97.416-97.416c30.344-30.344 79.523-30.344 109.867 0l97.138 97.138h-15.116z M22.758 200.753l58.024-58.024h31.787c13.84 0 27.384 5.605 37.172 15.394l76.694 76.693c7.178 7.179 16.596 10.768 26.033 10.768 9.417 0 18.854-3.59 26.014-10.75l76.989-76.99c9.787-9.787 23.331-15.393 37.171-15.393h37.654l58.3 58.302c30.343 30.344 30.343 79.523 0 109.867l-58.3 58.303H392.64c-13.84 0-27.384-5.605-37.171-15.394l-76.97-76.99c-13.914-13.894-38.172-13.894-52.066.02l-76.694 76.674c-9.788 9.788-23.332 15.413-37.172 15.413H80.782L22.758 310.62c-30.344-30.345-30.344-79.524 0-109.868" scaleX="0.03" scaleY="0.03" style="-fx-fill: -text-color;" styleClass="icon-box" />
+                                       </children>
+                                    </Group>
+                                 </graphic>
+                              </Label>
+                              <Separator layoutX="31.0" layoutY="78.0" prefWidth="200.0" />
+                              <VBox layoutX="30.0" layoutY="84.0" spacing="10.0">
+                                 <children>
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label style="-fx-text-fill: -text-color; -fx-font-weight: bold;" text="R$ 31,50" GridPane.columnIndex="1" />
+                                          <Label style="-fx-text-fill: -text-color;" text="gleidisonmt@gmail.com">
+                                             <graphic>
+                                                <SVGPath content="M4 20q-.825 0-1.412-.587Q2 18.825 2 18V6q0-.825.588-1.412Q3.175 4 4 4h16q.825 0 1.413.588Q22 5.175 22 6v12q0 .825-.587 1.413Q20.825 20 20 20Zm8-7L4 8v10h16V8Zm0-2 8-5H4ZM4 8V6v12Z" style="-fx-fill: -text-color;" />
+                                             </graphic>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+            <VBox alignment="BOTTOM_CENTER" maxHeight="100.0" minHeight="100.0">
+               <children>
+                  <GridPane prefHeight="91.0" prefWidth="288.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label style="-fx-font-weight: bold;" styleClass="h5" text="Subtotal:" />
+                        <Label fx:id="lblSub1" style="-fx-text-fill: -text-color; -fx-font-weight: bold;" styleClass="h5" text="R$ 0,00" GridPane.columnIndex="1" />
+                        <Label layoutX="10.0" layoutY="17.0" style="-fx-font-weight: bold;" styleClass="h5" text="Desconto:" GridPane.rowIndex="1" />
+                        <Label fx:id="lblDiscount1" layoutX="159.0" layoutY="17.0" style="-fx-text-fill: -bittersweet; -fx-font-weight: bold;" styleClass="h5" text="R$ 0,00" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label layoutX="10.0" layoutY="47.0" style="-fx-font-weight: bold;" styleClass="h5" text="Troco:" GridPane.rowIndex="2" />
+                        <Label fx:id="lblTotal1" layoutX="159.0" layoutY="47.0" style="-fx-text-fill: -text-color; -fx-font-weight: bold;" styleClass="h5" text="R$ 0,00" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label style="-fx-font-weight: bold;" styleClass="h5" text="Total:" GridPane.rowIndex="3" />
+                        <Label fx:id="lblTotal11" style="-fx-text-fill: -text-color; -fx-font-weight: bold;" styleClass="h5" text="R$ 0,00" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </GridPane>
+               </children>
+               <styleClass>
+                  <String fx:value="border" />
+                  <String fx:value="border-t-1" />
+               </styleClass>
+            </VBox>
+         </children>
+         <styleClass>
+            <String fx:value="border" />
+            <String fx:value="border-l-1" />
+         </styleClass>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</StackPane>

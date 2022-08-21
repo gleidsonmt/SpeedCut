@@ -16,8 +16,23 @@
  */
 package io.github.gleidsonmt.speedcut.core.app.model;
 
+import io.github.gleidsonmt.speedcut.core.app.factory.AvatarCreator;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.Node;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+
+import java.io.File;
+import java.sql.Struct;
+import java.util.Objects;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -26,17 +41,94 @@ import javafx.beans.property.StringProperty;
 
 public class Item extends Entity {
 
-    private StringProperty avatar = new SimpleStringProperty();
+    private final ObjectProperty<Rectangle> avatar = new SimpleObjectProperty<>();
+    private final StringProperty imgPath = new SimpleStringProperty();
 
-    public String getAvatar() {
-        return avatar.get();
+    private Rectangle recAvatar;
+//    Image image = new Image(imgPath, 90, 0, true, false);
+
+
+    public Item() {
     }
 
-    public StringProperty avatarProperty() {
-        return avatar;
+    public Node getAvatar() {
+        return getAvatar(30);
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar.set(avatar);
+    public Node getAvatar(double size) {
+        return getAvatar(size, 1);
+    }
+
+    public Node getAvatar(double size, double borderWidth) {
+        return getAvatar(size, borderWidth, Color.WHITE);
+    }
+
+    public Node getAvatar(double size, double borderWidth, Color stroke) {
+        return getAvatar(size, borderWidth, stroke, null);
+    }
+
+    public Node getAvatar(double size, double borderWidth, double arc) {
+        return getAvatar(size, size, arc, borderWidth, Color.WHITE, null);
+    }
+
+    public Node getAvatar(double size, double borderWidth, Color stroke, Effect effect) {
+        return getAvatar(size, size, borderWidth, 1, stroke, effect);
+    }
+
+    public Node getAvatar(double width, double height, double arc, double borderWidth, Color stroke, Effect effect) {
+        if (imgPath.get() == null) {
+            imgPath.set("theme/img/avatars/woman@400.png");
+        }
+            File file = new File(imgPath.get());
+
+            if (file.exists()) {
+                return createAvatar(
+                        new Image(file.getAbsolutePath(), 200, 200, true, true),
+                        width, height, arc, borderWidth, stroke, effect);
+            } else{
+                String path = "/io.github.gleidsonmt.speedcut.core.app/";
+                return createAvatar(
+                        new Image(
+                                Objects.requireNonNull(getClass().getResource(path + getImgPath())).toExternalForm(),  200, 200, true, true ),
+                        width, height, arc, borderWidth, stroke, effect
+                );
+            }
+    }
+
+    private Rectangle createAvatar(Image image, double width, double height, double arc, double borderWidth, Color stroke, Effect effect) {
+
+        if (avatar.get() == null) {
+            recAvatar = new Rectangle();
+            avatar.set(recAvatar);
+        }
+
+        Rectangle recAvatar = new Rectangle();
+
+        recAvatar.setWidth(width);
+        recAvatar.setHeight(height);
+
+        recAvatar.setStroke(stroke);
+        recAvatar.setEffect(effect);
+//
+        recAvatar.setArcWidth(arc);
+        recAvatar.setArcHeight(arc);
+//
+        recAvatar.setStrokeWidth(borderWidth);
+
+        recAvatar.setFill(new ImagePattern(image));
+
+        return recAvatar;
+    }
+
+    public String getImgPath() {
+        return imgPath.get();
+    }
+
+    public StringProperty imgPathProperty() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath.set(imgPath);
     }
 }

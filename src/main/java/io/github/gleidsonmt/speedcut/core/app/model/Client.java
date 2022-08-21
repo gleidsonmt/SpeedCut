@@ -17,10 +17,7 @@
 
 package io.github.gleidsonmt.speedcut.core.app.model;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -36,6 +33,8 @@ public final class Client extends Person {
     private final BooleanProperty payWithPix    = new SimpleBooleanProperty();
     private final BooleanProperty payWithMoney  = new SimpleBooleanProperty();
     private final BooleanProperty payWithTerm   = new SimpleBooleanProperty();
+
+    private final ObjectProperty<Score> score = new SimpleObjectProperty<>();
 
     public boolean isPayWithCard() {
         return payWithCard.get();
@@ -95,5 +94,17 @@ public final class Client extends Person {
 
     public void setPayWithTerm(boolean payWithTerm) {
         this.payWithTerm.set(payWithTerm);
+    }
+
+    public Score getScore() {
+        return score.get();
+    }
+
+    public ObjectProperty<Score> scoreProperty() {
+        return score;
+    }
+
+    public void setScore(Score score) {
+        this.score.set(score);
     }
 }

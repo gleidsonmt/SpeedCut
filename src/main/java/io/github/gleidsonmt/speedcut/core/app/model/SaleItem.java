@@ -32,54 +32,78 @@ import java.math.BigDecimal;
 @SuppressWarnings("unused")
 public final class SaleItem extends Entity {
 
-    private final BooleanProperty discount    = new SimpleBooleanProperty();
+    private final BooleanProperty hasDiscount    = new SimpleBooleanProperty();
 
     private final IntegerProperty               quantity    = new SimpleIntegerProperty();
     private final ObjectProperty<BigDecimal>    total       = new SimpleObjectProperty<>();
     private final ObjectProperty<Sale>          sale        = new SimpleObjectProperty<>();
-    private final ObjectProperty<BigDecimal>    unit      =  new SimpleObjectProperty<>();
+    private final ObjectProperty<BigDecimal>    unit        =  new SimpleObjectProperty<>();
+    private final ObjectProperty<BigDecimal>    discount    =  new SimpleObjectProperty<>();
     private final ObjectProperty<TradeItem>     tradeItem   = new SimpleObjectProperty<>();
 
     public SaleItem() {
 
-        quantity.addListener((observable, oldValue, newValue) -> {
-            calcTotal();
+        quantity.addListener((observable, oldValue, newValue) -> { // calcula a quantidade de desconto total este sale item
+
+            discount.set(
+                    // desconto em dinheiro vezes a quantidade da a ele um desconto total
+                    // multiplica o preco pelo desconto 10 * 0.02 = 0.20 e depois umtilica pela quantidade 5 * 0.20 = 1.00
+                    getTradeItem().getPrice().multiply(
+                            getTradeItem().getDiscount()
+                    ).multiply(BigDecimal.valueOf(newValue.intValue()))
+            );
+
+            calcTotal(hasDiscount()); // calcula o total com o desconto total do item
         });
 
-        discount.addListener((observable, oldValue, newValue) -> {
-            calcTotal();
+        hasDiscount.addListener((observable, oldValue, newValue) -> {
 
-            if (newValue) {
-
-                BigDecimal discount = getItem().getPrice().multiply(getItem().getDiscount()); // fixed discount
-
-                unit.set(
-                    getItem().getPrice().subtract(discount)
-                );
-
-            } else {
-                unit.set(getItem().getPrice());
-            }
+            calcTotal(newValue); // calcula o total com o desconto
+            unit.set(
+                    newValue ? // se tem desconto
+                    getTradeItem().getPrice().subtract( // subtrai o preco pelo desconto
+                            getTradeItem().getPrice().multiply(getTradeItem().getDiscount()) // calcula o desconto total em dinheiro
+                    ) :
+                    getTradeItem().getPrice()); // se nao tem desconto retorna o valor fixo de preco
 
         });
 
+//        setDiscount();
     }
 
 
 
-    private BigDecimal getDiscount() {
-        return isDiscount() ? getItem().getPrice().multiply(getItem().getDiscount()) : BigDecimal.ZERO;
-    }
-
-    private void calcTotal() {
+    private void calcTotal(boolean hasDiscount) {
 //                ( (uni - desconto) * quant) = total
-        total.set(
-                getItem().getPrice()
-                        .subtract(getDiscount())
-                        .multiply(BigDecimal.valueOf(getQuantity())
-                        )
-        );
 
+        if (hasDiscount) {
+
+            total.set(
+                    getTradeItem().getPrice()
+                            .multiply(BigDecimal.valueOf(getQuantity()))
+                            .subtract(getDiscount())
+            );
+
+
+        } else {
+            total.set(
+                    getTradeItem().getPrice()
+                            .multiply(BigDecimal.valueOf(getQuantity()))
+            );
+        }
+
+    }
+
+    public boolean hasDiscount() {
+        return hasDiscount.get();
+    }
+
+    public BooleanProperty hasDiscountProperty() {
+        return hasDiscount;
+    }
+
+    public void setHasDiscount(boolean hasDiscount) {
+        this.hasDiscount.set(hasDiscount);
     }
 
     public int getQuantity() {
@@ -118,34 +142,6 @@ public final class SaleItem extends Entity {
         this.sale.set(sale);
     }
 
-    public TradeItem getItem() {
-        return tradeItem.get();
-    }
-
-    public ObjectProperty<TradeItem> itemProperty() {
-        return tradeItem;
-    }
-
-    public void setTradeItem(TradeItem item) {
-        this.tradeItem.set(item);
-    }
-
-    public boolean isDiscount() {
-        return discount.get();
-    }
-
-    public int hasDiscount() {
-        return getUnit().compareTo(getItem().getPrice());
-    }
-
-    public BooleanProperty discountProperty() {
-        return discount;
-    }
-
-    public void setDiscount(boolean discount) {
-        this.discount.set(discount);
-    }
-
     public BigDecimal getUnit() {
         return unit.get();
     }
@@ -156,6 +152,30 @@ public final class SaleItem extends Entity {
 
     public void setUnit(BigDecimal unit) {
         this.unit.set(unit);
+    }
+
+    public BigDecimal getDiscount() {
+        return discount.get();
+    }
+
+    public ObjectProperty<BigDecimal> discountProperty() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount.set(discount);
+    }
+
+    public TradeItem getTradeItem() {
+        return tradeItem.get();
+    }
+
+    public ObjectProperty<TradeItem> tradeItemProperty() {
+        return tradeItem;
+    }
+
+    public void setTradeItem(TradeItem tradeItem) {
+        this.tradeItem.set(tradeItem);
     }
 
     @Override

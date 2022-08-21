@@ -17,13 +17,8 @@
 
 package io.github.gleidsonmt.speedcut.core.app.model;
 
-import io.github.gleidsonmt.speedcut.core.app.util.MoneyUtil;
-import javafx.beans.binding.StringBinding;
 import javafx.beans.property.*;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.math.BigDecimal;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -36,6 +31,8 @@ public class Sale extends Entity {
     private final ObjectProperty<Cashier>       cashier         = new SimpleObjectProperty<>();
 
     private final BooleanProperty active = new SimpleBooleanProperty();
+
+    private final ObjectProperty<Transaction>  Transaction    = new SimpleObjectProperty<>();
 
     private final ListProperty<SaleItem> saleItems = new SimpleListProperty<>();
 
@@ -102,9 +99,19 @@ public class Sale extends Entity {
         this.cashier.set(cashier);
     }
 
+    public Transaction getTransaction() {
+        return Transaction.get();
+    }
 
+    public ObjectProperty<Transaction> transactionProperty() {
+        return Transaction;
+    }
 
-//    @Override
+    public void setTransaction(Transaction transaction) {
+        this.Transaction.set(transaction);
+    }
+
+    //    @Override
 //    public String toString() {
 //        return "Sale{" +
 //                "id=" + getId() +

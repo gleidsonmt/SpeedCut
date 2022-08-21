@@ -44,12 +44,12 @@ public class TradeItemPresenter extends Presenter<TradeItem> {
     }
 
     public Task<ObservableList<Product>> createProducts() {
-        createConnection();
+//        createConnection();
         return DAO_PRODUCT.populateAllTask();
     }
 
     public Task<ObservableList<Service>> createServices() {
-        createConnection();
+//        createConnection();
         return DAO_SERVICE.populateAllTask();
     }
 }

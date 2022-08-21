@@ -236,7 +236,6 @@ public class DiscountPopup extends PopOver  {
                 monetary.setText("");
             } else if(value.isSelected() && monetary.getLength() > 0) {
                 field.setText("");
-                System.out.println(MoneyUtil.get(monetary.getText()));
                 builder.append(
                         monetary.getLength() < 1 ? "" : MoneyUtil.format(MoneyUtil.get(monetary.getText()))
                 );
@@ -285,7 +284,7 @@ public class DiscountPopup extends PopOver  {
                 } else {
                     result = act.add(val);
                 }
-            } else if(add.getText().contains("-")){
+            } else if(add.getText().contains("-")) {
                 if (add.getText().contains("%")){
                     percent = percent.divide(new BigDecimal(100), MathContext.DECIMAL32);
                     result = val.subtract(val.multiply(percent)).setScale(2, RoundingMode.HALF_UP);

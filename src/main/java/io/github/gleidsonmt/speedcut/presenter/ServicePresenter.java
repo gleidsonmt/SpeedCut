@@ -38,7 +38,7 @@ public class ServicePresenter extends DaoUser.Presenter<Service> {
 
     @Override
     public void store(Service model) {
-        dao.store(model);
+        dao.put(model);
     }
 
     public boolean update(Service model) {

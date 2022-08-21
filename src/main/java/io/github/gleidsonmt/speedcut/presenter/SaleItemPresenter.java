@@ -41,17 +41,16 @@ public class SaleItemPresenter extends Presenter<SaleItem> {
     }
 
     public boolean update(SaleItem saleItem) {
-        try {
-            createConnection();
-            return getDao().update(saleItem);
-        } catch (SQLQueryError e) {
-            e.printStackTrace();
+//        try {
+//            createConnection();
+////            return getDao().update(saleItem);
+//        } catch (SQLQueryError e) {
+//            e.printStackTrace();
             return false;
-        }
+//        }
     }
 
     public boolean delete(SaleItem saleItem) {
-        createConnection();
         return getDao().delete(saleItem);
     }
 

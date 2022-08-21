@@ -27,25 +27,26 @@ import javafx.util.Callback;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  04/03/2022
  */
-public class QuantityColumnFactory<S extends SaleItem>
-        implements Callback<TableColumn<S, Number>, TableCell<S, Number>> {
+public class QuantityColumnFactory
+        implements Callback<TableColumn<SaleItem, Number>, TableCell<SaleItem, Number>> {
 
     @Override
-    public TableCell<S, Number> call(TableColumn<S, Number> param) {
+    public TableCell<SaleItem, Number> call(TableColumn<SaleItem, Number> param) {
         return new TableCell<>() {
 
             @Override
             protected void updateItem(Number item, boolean empty) {
                 super.updateItem(item, empty);
+
                 if (item != null) {
                     setText(null);
 
                     if (getTableRow().getItem() != null)
 
                         setGraphic(
-                                new QuantityCell(getTableRow().getItem()));
+                                new QuantityCell(getTableView(), getTableRow().getItem()));
 
-                    getStyleClass().addAll("border", "border-l-1");
+                            getStyleClass().addAll("border", "border-l-1");
 //
                 } else {
                     setText(null);

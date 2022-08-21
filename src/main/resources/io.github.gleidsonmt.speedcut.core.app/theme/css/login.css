@@ -26,4 +26,13 @@
     -fx-shape : 'M 23 2 C 21 1 21 3 19 3 C 18.3333 3.3333 17 3 17 4 C 17 5 15 3 15 5 C 15 6 13 4 9 6 C 8 7 5 5 3 4 L 3 6 L 3 7 C 5 5 5 7.6667 6 8 C 7 8.3333 8 7 9 7 L 11 7 C 11 6 14 6 15 7 C 20 3 19 6.3333 21 6 C 21.3333 5.3333 21.6667 4.6667 23 4 M 15 0';
 }
 
+.badge-super {
+    -fx-background-repead: non-repeat;
+    -fx-background-size : cover;
+}
+
+.box-linear {
+    -fx-background-color : linear-gradient(to top, -mint, -info);
+}
+
 /* https://yqnn.github.io/svg-path-editor/ */

@@ -18,11 +18,8 @@
 package io.github.gleidsonmt.speedcut.core.app.layout.containers;
 
 import io.github.gleidsonmt.speedcut.core.app.layout.Root;
-import io.github.gleidsonmt.speedcut.core.app.view.IView;
 import io.github.gleidsonmt.speedcut.core.app.view.WindowDecorator;
-import javafx.animation.Timeline;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -37,6 +34,7 @@ public class Wrapper {
 
     private final StackPane  container  = new StackPane();
     private final AnchorPane root       = new AnchorPane();
+
 
     public Wrapper(Root _root, WindowDecorator window) {
         this.window = window;

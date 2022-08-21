@@ -17,20 +17,18 @@
 
 package io.github.gleidsonmt.speedcut;
 
-import io.github.gleidsonmt.speedcut.core.app.App;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+import io.github.gleidsonmt.speedcut.core.app.Main;
+import io.github.gleidsonmt.speedcut.core.app.dao.RepoClientImpl;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/02/2022
  */
-public class Start extends App {
+public class Start extends Main {
 
     public static void main(String[] args) {
         launch(args);
     }
-
 }

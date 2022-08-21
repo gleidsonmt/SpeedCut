@@ -44,26 +44,29 @@ public class DaoSaleItem extends AbstractDao<SaleItem> {
     private final DaoProduct DAO_PRODUCT = new DaoProduct();
 
     @Override
-    protected SaleItem createElement(long id, ResultSet result) {
+    protected SaleItem createElement( ResultSet result) {
         SaleItem element = new SaleItem();
-        try {
-            element.setId( (int) id);
 
-            element.setItem(
+        try {
+            element.setId( result.getInt("id"));
+
+            element.setTradeItem(
                      result.getInt("SERVICE_ID") == 0 ?
-                             DAO_PRODUCT.find(result.getInt("PRODUCT_ID")) :
-                             DAO_SERVICE.find(result.getInt("SERVICE_ID"))
+                             DAO_PRODUCT.read(result.getInt("PRODUCT_ID")) :
+                             DAO_SERVICE.read(result.getInt("SERVICE_ID"))
             );
 
-            element.setQuantity(result.getInt("QTD"));
+            element.setDiscount(result.getBigDecimal("discount"));
+
+            element.setQuantity(result.getInt("qtd"));
 
             element.setTotal(BigDecimal.valueOf(element.getQuantity() *
-                    element.getItem().getPrice().doubleValue()));
+                    element.getTradeItem().getPrice().doubleValue()));
 
-            element.setDiscount(
-                    result.getBigDecimal("discount") == null ? BigDecimal.ZERO :
-                            result.getBigDecimal("discount")
-            );
+
+            element.setUnit(element.getTradeItem().getPrice());
+
+            element.setHasDiscount(result.getBoolean("has_discount"));
 
 
         } catch (SQLException throwables) {
@@ -78,15 +81,16 @@ public class DaoSaleItem extends AbstractDao<SaleItem> {
 
         ObservableList<SaleItem> saleItems = FXCollections.observableArrayList();
 
-        executeSQL("select * from sale_item where sale_id like " + sale.getId() + ";");
-        ResultSet result = result();
+        ResultSet result = executeSQL("select * from sale_items where sale_id like " + sale.getId() + ";");
 
         try {
             while (result.next()) {
 
-                SaleItem saleItem = createElement(result.getInt("id"), result);
+                SaleItem saleItem = createElement(result);
+
                 saleItem.setSale(sale);
                 saleItems.add(saleItem);
+
             }
         } catch (SQLException e){
             e.printStackTrace();
@@ -94,48 +98,37 @@ public class DaoSaleItem extends AbstractDao<SaleItem> {
         return saleItems;
     }
 
-    public boolean update(SaleItem saleItem) {
-        try {
-            PreparedStatement prepare =
-                    prepare("update " +
-                            "sale_item set QTD = ? where id like "
-                            + saleItem.getId() + ";");
-
-            prepare.setInt(1, saleItem.getQuantity());
-            return prepare.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     @Override
-    public void store(SaleItem model) throws SQLQueryError {
+    public void put(SaleItem model) throws SQLQueryError {
         try {
 
-            String itemType = "PRODUCT";
+            String itemType = "product";
 
-            if (model.getItem() instanceof Service) {
-                itemType = "SERVICE";
+            if (model.getTradeItem() instanceof Service) {
+                itemType = "service";
             }
 
-            PreparedStatement prepare = prepare("insert into sale_item" +
-                    "(QTD, SALE_ID, " + itemType + "_ID, TOTAL) values(?, ?, ?, ?)");
+            table = "sale_item";
 
-            System.out.println("saleid = " + model.getId());
+            PreparedStatement prepare = prepare(createStoreQuery(
+                    model,
+                    list(
+                            "qtd", "SALE_ID", itemType + "_id",
+                            "has_discount", "discount"
+                    )
+            ));
 
             prepare.setInt(1, model.getQuantity());
             prepare.setInt(2, model.getSale().getId());
-            prepare.setInt(3, model.getItem().getId());
-            prepare.setBigDecimal(4, model.getTotal());
+            prepare.setInt(3, model.getTradeItem().getId());
+            prepare.setBoolean(4, model.hasDiscount());
+            prepare.setBigDecimal(5, model.getDiscount());
 
             prepare.execute();
 
+            setId(model);
+            add(model);
             // retrieve last id
-            executeSQL("select last_insert_id()");
-            result().first();
-
-            model.setId(result().getInt(1));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -148,7 +141,7 @@ public class DaoSaleItem extends AbstractDao<SaleItem> {
         boolean result = false;
 
         try {
-            prepare("delete from sale_item" +
+            prepare("delete from sale_items" +
                     " where id like " + model.getId() + ";").execute();
 
             model.getSale().getSaleItems().remove(model);
@@ -163,7 +156,7 @@ public class DaoSaleItem extends AbstractDao<SaleItem> {
         for (SaleItem model : items) {
 
             try {
-                prepare("delete from sale_item" +
+                prepare("delete from sale_items" +
                         " where id like " + model.getId() + ";").execute();
 
 //            getElements().remove(model);

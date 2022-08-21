@@ -19,6 +19,8 @@ package io.github.gleidsonmt.speedcut.core.app.dao;
 
 import io.github.gleidsonmt.speedcut.core.app.model.TradeItem;
 
+import java.sql.ResultSet;
+
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  21/03/2022
@@ -26,5 +28,8 @@ import io.github.gleidsonmt.speedcut.core.app.model.TradeItem;
 public class DaoTradeItem extends AbstractDao<TradeItem> {
 
 
-
+    @Override
+    protected TradeItem createElement(ResultSet result) {
+        return null;
+    }
 }

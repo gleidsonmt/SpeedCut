@@ -16,7 +16,7 @@
  */
 package io.github.gleidsonmt.speedcut.controller;
 
-import io.github.gleidsonmt.speedcut.core.app.view.IManager;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -32,7 +32,7 @@ import javafx.scene.shape.SVGPath;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  04/10/2021
  */
-public class DrawerBehavior implements IManager {
+public class DrawerBehavior implements Context {
 
     private ScrollPane  scroll;
 //    private VBox        drawerBox;
@@ -62,8 +62,8 @@ public class DrawerBehavior implements IManager {
                 .forEach(e -> {
                     e.setToggleGroup(group);
                     e.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
-                        if (window.getWrapper().getDrawer().isShowing()) {
-                            window.getWrapper().getDrawer().close();
+                        if (context.getWindow().getWrapper().getDrawer().isShowing()) {
+                            context.getWindow().getWrapper().getDrawer().close();
                         }
                     });
                     e.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
@@ -101,8 +101,8 @@ public class DrawerBehavior implements IManager {
                 .forEach(c -> {
                     c.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
                         if (c.isSelected()) event.consume();
-                        if (window.getWrapper().getDrawer().isShowing()) {
-                            window.getWrapper().getDrawer().close();
+                        if (context.getWindow().getWrapper().getDrawer().isShowing()) {
+                            context.getWindow().getWrapper().getDrawer().close();
                         }
                     });
 

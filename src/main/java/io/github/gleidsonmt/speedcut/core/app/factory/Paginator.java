@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -92,6 +93,8 @@ public class Paginator<T extends Entity> extends GridPane {
     /** Total de itens a serem exibidos por página. **/
     private final IntegerProperty itemsPerPage = new SimpleIntegerProperty(10);
 
+    private Comparator<T> comparator = (o1, o2) -> 0;
+
     public int getLimit() {
         return itemsPerPage.get();
     }
@@ -104,6 +107,9 @@ public class Paginator<T extends Entity> extends GridPane {
         this.itemsPerPage.set(limit);
     }
 
+    public void setComparator(Comparator<T> comparator) {
+        this.comparator = comparator;
+    }
 
     /**
      * Construtor padrão, com as configurações padrão.
@@ -115,7 +121,6 @@ public class Paginator<T extends Entity> extends GridPane {
 
         this.fullList = fullList;
         this.tableView = tableView;
-
 
 
         btnRight.setButtonType(GNButtonType.ROUNDED);
@@ -179,6 +184,8 @@ public class Paginator<T extends Entity> extends GridPane {
 
     public void refresh() {
 //        setItems(0, 5);
+
+
         init((long) fullList.size());
         setItems(0, itemsPerPage.get());
 
@@ -211,6 +218,7 @@ public class Paginator<T extends Entity> extends GridPane {
             toggleGroup.getToggles().get(0)
         );
 
+
 //        tableView.getSelectionModel().selectFirst();
 //
     }
@@ -240,6 +248,7 @@ public class Paginator<T extends Entity> extends GridPane {
      * Calcula e carrega todas as informações necessárias para a exibição da paginação.
      */
     public void load() {
+
         firstPage = FIRST_PAGE;
         nextPage = calculateNextPage();
         previousPage = calculatePreviousPage();
@@ -358,12 +367,13 @@ public class Paginator<T extends Entity> extends GridPane {
             }
         });
 
+        fullList.predicateProperty().addListener((observable, oldValue, newValue) -> refresh());
+
 
         fullList.getSource().addListener((ListChangeListener<T>) c -> {
             if (c.next()) {
 
                 totalItens = fullList.size();
-
 
                 if (c.wasAdded()) {
 
@@ -429,6 +439,9 @@ public class Paginator<T extends Entity> extends GridPane {
             }
         });
 
+//        fullList.getSource().sort(comparator);
+//        refresh();
+
     }
 
     public T getSkipItem (int index) { // Pega o primeiro item lista anterior paginada
@@ -441,12 +454,15 @@ public class Paginator<T extends Entity> extends GridPane {
                 .limit(1).toList();
 
         return subList.get(0);
+
     }
 
 
     private void setItems( int index, int limit ) {
 
         ObservableList<T> data;
+
+        fullList.getSource().sort( comparator );
 
         List<T> subList = fullList.
                 stream()
@@ -455,13 +471,7 @@ public class Paginator<T extends Entity> extends GridPane {
 
         data = FXCollections.observableArrayList(subList);
 
-//        data.sort( comparator );
-
         tableView.setItems(data);
-
-//        data.sort( comparator );
-//        fullList.sort( comparator );
-
         tableView.getSelectionModel().selectFirst();
 
         int entries = getLimit();
@@ -501,7 +511,7 @@ public class Paginator<T extends Entity> extends GridPane {
         int size = Math.min((max - index), 4) ;
 
 
-        if (min +1 <= 0) return;
+        if (min + 1 <= 0) return;
 
         pagContent.getChildren().clear();
         toggleGroup.getToggles().clear();
@@ -622,8 +632,6 @@ public class Paginator<T extends Entity> extends GridPane {
 
         pagContent.getChildren().addAll(btnFirst, btnLeft);
 
-        System.out.println("recreate = " + fullList.size());
-
         int indexTotal = (int) Math.ceil(fullList.size()/5f);
 
         int size = Math.min(indexTotal, 5);
@@ -633,9 +641,11 @@ public class Paginator<T extends Entity> extends GridPane {
         }
 
         pagContent.getChildren().addAll(btnRight, btnLast);
-        toggleGroup.selectToggle(
-                toggleGroup.getToggles().get(0)
-        );
+
+        if (toggleGroup.getToggles().size() > 0)
+            toggleGroup.selectToggle(
+                    toggleGroup.getToggles().get(0)
+            );
     }
 
     private void disabelRightButtons(boolean value) {

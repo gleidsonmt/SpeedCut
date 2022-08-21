@@ -17,7 +17,6 @@
 
 package io.github.gleidsonmt.speedcut.core.app.factory.row;
 
-import io.github.gleidsonmt.speedcut.controller.SalesController;
 import io.github.gleidsonmt.speedcut.core.app.factory.SaleContext;
 import io.github.gleidsonmt.speedcut.core.app.model.Sale;
 import javafx.scene.control.TableRow;
@@ -28,11 +27,11 @@ import javafx.util.Callback;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  28/03/2022
  */
-public record SaleRowFactory(SalesController controller)
+public class SaleRowFactory
         implements Callback<TableView<Sale>, TableRow<Sale>> {
 
     @Override
-    public TableRow<Sale> call(TableView<Sale> param) {
+    public synchronized TableRow<Sale> call(TableView<Sale> param) {
         return new TableRow<>(){
             @Override
             protected void updateItem(Sale item, boolean empty) {
@@ -40,10 +39,14 @@ public record SaleRowFactory(SalesController controller)
 
                 if (item != null) {
                     setOnMouseClicked(event -> {
-                        if (event.getClickCount() == 2)
-                            controller.goTableSalesItem();
+//                        if (event.getClickCount() == 2)
+//                            controller.goTableSalesItem();
                     });
-                    setContextMenu(new SaleContext(this));
+
+
+                    setContextMenu(new SaleContext(this, item));
+                    setItem(item);
+
                 } else {
                     setItem(null);
                     setOnMouseClicked(null);

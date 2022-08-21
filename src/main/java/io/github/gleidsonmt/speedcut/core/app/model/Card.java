@@ -17,8 +17,6 @@
 
 package io.github.gleidsonmt.speedcut.core.app.model;
 
-import io.github.gleidsonmt.speedcut.controller.PaymentType;
-import io.github.gleidsonmt.speedcut.controller.payment.IPaymentMethod2;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -30,7 +28,7 @@ import java.math.BigDecimal;
  */
 public class Card extends ValueItem {
 
-    private IntegerProperty cvc = new SimpleIntegerProperty();
+    private final IntegerProperty cvc = new SimpleIntegerProperty();
 
     public Card() {
 
@@ -44,21 +42,15 @@ public class Card extends ValueItem {
         return cvc.get();
     }
 
-    public IntegerProperty cvcProperty() {
-        return cvc;
-    }
-
     public void setCvc(int cvc) {
         this.cvc.set(cvc);
     }
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Card{");
-        sb.append("id=").append(super.getId()).append(", ");
-        sb.append("value=").append(super.getValue()).append(", ");
-        sb.append("cvc=").append(cvc);
-        sb.append('}');
-        return sb.toString();
+        return "Card{" + "id=" + super.getId() + ", " +
+                "value=" + super.getValue() + ", " +
+                "cvc=" + cvc +
+                '}';
     }
 }

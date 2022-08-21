@@ -21,6 +21,9 @@ import io.github.gleidsonmt.speedcut.core.app.dao.AbstractDao;
 import io.github.gleidsonmt.speedcut.core.app.dao.DaoCashier;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
 import io.github.gleidsonmt.speedcut.core.app.model.Cashier;
+import io.github.gleidsonmt.speedcut.core.app.model.Service;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -28,7 +31,7 @@ import io.github.gleidsonmt.speedcut.core.app.model.Cashier;
  */
 public class CashierPresenter extends Presenter<Cashier> {
 
-    private final DaoCashier DAO_CASHIER = new DaoCashier();
+    private final static DaoCashier DAO_CASHIER = new DaoCashier();
 
     @Override
     protected AbstractDao<Cashier> getDao() {
@@ -40,12 +43,16 @@ public class CashierPresenter extends Presenter<Cashier> {
     }
 
     public void store(Cashier model) {
-        try {
-            createConnection();
-            DAO_CASHIER.store(model);
-        } catch (SQLQueryError e) {
-            e.printStackTrace();
-        }
+//        try {
+//            createConnection();
+//            DAO_CASHIER.store(model);
+//        } catch (SQLQueryError e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    public Task<ObservableList<Cashier>> createAllElements() {
+        return DAO_CASHIER.populateAllTask();
     }
 
 }

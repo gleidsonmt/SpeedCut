@@ -33,18 +33,21 @@ public class DaoProduct extends AbstractDao<Product> {
     private final String table = getClass().getSimpleName().replaceAll("Dao", "");
 
     @Override
-    protected Product createElement(long id, ResultSet result) {
+    protected Product createElement(ResultSet result) {
         Product element = new Product();
 
         try {
-            element.setId( (int) id);
+            element.setId( result.getInt("id") );
             element.setName(result.getString("NAME"));
             element.setPrice(result.getBigDecimal("PRICE"));
+
 
             BigDecimal discount = result.getBigDecimal("DISCOUNT");
             element.setDiscount( discount == null ? BigDecimal.ZERO : discount);
 
-            element.setAvatar(result.getString("IMG_PATH"));
+
+
+            element.setImgPath(result.getString("img_path"));
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -54,7 +57,7 @@ public class DaoProduct extends AbstractDao<Product> {
     }
 
     @Override
-    public void store(Product model)  {
+    public void put(Product model)  {
         PreparedStatement prepare = prepare("insert into " + table + "(name, price) values(?, ?);");
         try {
             prepare.setString(1, model.getName());

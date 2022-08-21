@@ -15,16 +15,15 @@ module io.github.gleidsonmt.speedcut {
     requires animatefx;
     requires java.sql;
 
-    requires com.dlsc.formsfx;
+//    requires com.dlsc.formsfx;
     requires fr.brouillard.oss.cssfx;
 
     requires controlsfx;
 
-
     exports io.github.gleidsonmt.speedcut.core.app.exceptions;
 
-    exports io.github.gleidsonmt.speedcut;
-    opens io.github.gleidsonmt.speedcut to javafx.fxml;
+
+    opens io.github.gleidsonmt.speedcut.core.app.model to javafx.base;
 
     opens io.github.gleidsonmt.speedcut.core.app.layout to javafx.fxml;
 
@@ -32,6 +31,8 @@ module io.github.gleidsonmt.speedcut {
     opens io.github.gleidsonmt.speedcut.controller to javafx.fxml;
 
     opens io.github.gleidsonmt.speedcut.controller.sales to javafx.fxml;
+    opens io.github.gleidsonmt.speedcut.controller.client to javafx.fxml;
+    opens io.github.gleidsonmt.speedcut.controller.form to javafx.fxml;
 
     opens io.github.gleidsonmt.speedcut.core.app.view to org.yaml.snakeyaml;
     opens io.github.gleidsonmt.speedcut.core.app.factory to javafx.fxml;
@@ -40,6 +41,19 @@ module io.github.gleidsonmt.speedcut {
     opens io.github.gleidsonmt.speedcut.core.app.layout.containers to javafx.fxml;
     opens io.github.gleidsonmt.speedcut.core.app.factory.column to javafx.fxml;
     opens io.github.gleidsonmt.speedcut.core.app.factory.row to javafx.fxml;
+    exports io.github.gleidsonmt.speedcut.core.app;
+    opens io.github.gleidsonmt.speedcut.core.app to javafx.fxml;
+    exports io.github.gleidsonmt.speedcut;
+    opens io.github.gleidsonmt.speedcut to javafx.fxml;
+    opens io.github.gleidsonmt.speedcut.controller.sales.main to javafx.fxml;
+    opens io.github.gleidsonmt.speedcut.controller.sales.index to javafx.fxml;
+    opens io.github.gleidsonmt.speedcut.controller.sales.side_views to javafx.fxml;
+    opens io.github.gleidsonmt.speedcut.controller.sales.main.componets to javafx.fxml;
+    opens io.github.gleidsonmt.speedcut.controller.sales.payment_layout to javafx.fxml;
+    opens io.github.gleidsonmt.speedcut.controller.sales.aside to javafx.fxml;
+    opens io.github.gleidsonmt.speedcut.controller.login to javafx.fxml;
+    exports io.github.gleidsonmt.speedcut.core.app.view.intefaces;
+    opens io.github.gleidsonmt.speedcut.core.app.view.intefaces to javafx.fxml, org.yaml.snakeyaml;
 
 
 }

@@ -791,8 +791,11 @@
     -fx-border-color : -light-gray-2;
     -fx-border-radius : 5px;
     -fx-background-radius : 5px;
+    -fx-background-radius : 50px;
     -fx-border-width : 1px;
     -fx-font-family : Roboto;
+        -fx-background-radius : 50px;
+
 }
 
 > .list-view > .virtual-flow > .clipped-container > .sheet,
@@ -823,12 +826,17 @@
 .combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:hover,
 .combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:hover:selected
 {
-    -fx-background-color: -primary-color;
+    -fx-background-color: -base;
 }
 
 .combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:selected {
     -fx-background-color: -light-gray;
     -fx-text-fill: -text-color;
+    -fx-border-color : -base;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:selected:hover {
+    -fx-border-color : transparent;
 }
 
 .combo-box .list-cell:selected .text
@@ -1070,7 +1078,6 @@
 }
 
 .table-view:constrained-resize:focused {
-    -fx-border-color : red;
 }
 
 .table-view:constrained-resize {
@@ -1170,9 +1177,18 @@
     -fx-fill : -base;
 }
 
+.table-row-cell:selected .tooltip,
+.table-row-cell:filled:hover .tooltip {
+    -fx-font-size : 10pt;
+    -fx-background-color : -dark-gray;
+    -fx-font-weight : bold;
+
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,.01) , 10, 0 , 0 , 1 );
+}
+
 .table-row-cell:filled:hover .tooltip .text
 {
-  -fx-fill : red;
+  -fx-fill : white;
 }
 
 .button .tooltip .text {
@@ -1203,18 +1219,24 @@
   -fx-padding : 2px;
 }
 
-.table-view .table-row-cell:selected
+.table-view .table-row-cell:selected,
+.table-view .table-row-cell:focused:filled:selected:odd:even
 {
-    -fx-background-color : derive(-primary-color, 90%);
-    -fx-border-color : -base;
+    -fx-background-color : derive(-focused-color, 108%);
+    -fx-border-color : -focused-color;
     -fx-border-width : 0 0 0 3;
 }
 
 .table-row-cell:filled:selected .table-column .text
 {
-  -fx-fill : -base;
+  -fx-fill : -focused-color;
   -fx-font-weight : bold;
 }
+
+.table-row-cell:filled:selected .table-column .tooltip .text {
+    -fx-fill : white;
+}
+
 
 .table-row-cell
 {
@@ -1245,7 +1267,18 @@
 
 .table-row-cell:filled:hover
 {
-    -fx-background-color : -light-gray;
+    -fx-background-color : transparent;
+
+}
+
+.table-row-cell:filled:hover .table-cell {
+    -fx-border-color : -light-gray-2;
+    -fx-border-width : 1 0 1 0;
+}
+
+.table-row-cell:filled:hover:selected .table-cell {
+    -fx-border-color : -light-gray-2;
+    -fx-border-width : 0;
 }
 
 .table-view:row-selection:constrained-resize .virtual-flow {

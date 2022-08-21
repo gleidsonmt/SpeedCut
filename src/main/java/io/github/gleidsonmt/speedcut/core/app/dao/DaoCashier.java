@@ -19,6 +19,7 @@ package io.github.gleidsonmt.speedcut.core.app.dao;
 
 import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
 import io.github.gleidsonmt.speedcut.core.app.model.Cashier;
+import io.github.gleidsonmt.speedcut.core.app.model.Sale;
 import io.github.gleidsonmt.speedcut.core.app.model.SaleItem;
 import io.github.gleidsonmt.speedcut.core.app.model.Service;
 import javafx.beans.property.ListProperty;
@@ -37,15 +38,24 @@ import java.util.Optional;
  */
 public class DaoCashier extends AbstractDao<Cashier> {
 
-    private static final ListProperty<Cashier> elements =
+    private final DaoSale DAO_SALE = new DaoSale();
+
+
+    private final ListProperty<Sale> activeSales =
+            new SimpleListProperty<>(FXCollections.observableArrayList()); // monostate
+
+    private final ListProperty<Sale> inactiveSales =
             new SimpleListProperty<>(FXCollections.observableArrayList());
 
-    private final String table = getClass().getSimpleName().replaceAll("Dao", "");
+
+    private Cashier opened = null;
 
     public Cashier findOpened() {
-        Optional<Cashier> result = elements.stream()
+
+        Optional<Cashier> result = getElements().stream()
                 .filter(Cashier::isOpen)
                 .findAny();
+
         return result.orElseGet(this::findOpenedInServer);
     }
 
@@ -53,12 +63,17 @@ public class DaoCashier extends AbstractDao<Cashier> {
         connect();
         executeSQL("select * from " + table + " where open = 1;");
         ResultSet result = result();
-        Cashier element;
+
+//        Cashier opened;
+
         try {
             if (result.first()) {
-                element = createElement(result.getInt("ID"), result);
-                elements.add(element);
-                return element;
+                opened = createElement(result.getInt("ID"), result);
+
+                if (!contains(opened.getId()))
+                    getElements().addAll(opened);
+                
+                return opened;
             } else return null;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,6 +91,12 @@ public class DaoCashier extends AbstractDao<Cashier> {
             BigDecimal amount = result.getBigDecimal("AMOUNT");
             element.setAmount( amount == null ? BigDecimal.ZERO : amount);
 
+//            if (!element.isOpen()) {
+//                element.setSales(DAO_SALE.findForCashier(element));
+//            } else {
+//                element.setSales(DAO_SALE.findActivesFrom(element));
+//            }
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -84,7 +105,12 @@ public class DaoCashier extends AbstractDao<Cashier> {
     }
 
     @Override
-    public void store(Cashier model) throws SQLQueryError {
+    protected Cashier createElement(ResultSet result) {
+        return null;
+    }
+
+    @Override
+    public void put(Cashier model) throws SQLQueryError {
         try {
 
             PreparedStatement prepare = prepare("insert into cashier" +

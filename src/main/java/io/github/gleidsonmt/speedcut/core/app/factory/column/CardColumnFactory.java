@@ -17,8 +17,6 @@
 
 package io.github.gleidsonmt.speedcut.core.app.factory.column;
 
-import io.github.gleidsonmt.speedcut.controller.payment.IPaymentMethod;
-import io.github.gleidsonmt.speedcut.controller.payment.IPaymentMethod2;
 import io.github.gleidsonmt.speedcut.core.app.model.Card;
 import io.github.gleidsonmt.speedcut.core.app.model.Entity;
 import io.github.gleidsonmt.speedcut.core.app.util.MoneyUtil;

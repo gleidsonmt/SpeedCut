@@ -26,8 +26,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Objects;
 
 
@@ -49,13 +53,28 @@ public class AvatarColumnFactory<T extends Entity, S extends Item> implements Ca
                     setId("badge-cell");
                     setGraphic(null);
 
-                    if (item.getAvatar() != null) {
-                        String path = "/io.github.gleidsonmt.speedcut.core.app/";
-                        String imgPath = Objects.requireNonNull(getClass().getResource(path + item.getAvatar())).toExternalForm();
-                        Image image = new Image(imgPath, 90, 0, true, true);
-                        setGraphic(AvatarCreator.createAvatar(image));
+                    if (item.getImgPath() != null) {
+
+                        String path;
+                        String imgPath;
+                        Image image = null;
+
+
+                        if (item.getImgPath().contains("theme")) {
+//                            path = "/io.github.gleidsonmt.speedcut.core.app/";
+//                            imgPath = Objects.requireNonNull(getClass().getResource(path + "theme/img/avatars/man@400.png")).toExternalForm();
+//                            image = new Image(imgPath, 400, 400, true, false);
+
+                            setGraphic(item.getAvatar(35, 1, 100));
+                        } else {
+
+                            setGraphic(item.getAvatar(35, 1, 100));
+                        }
+
+
+//                        setGraphic(AvatarCreator.createAvatar(image, Color.WHITE, 2, 16));
                     } else {
-                        setGraphic(AvatarCreator.createDefaultAvatar(item.getName(), 0, 0, 12));
+//                        setGraphic(AvatarCreator.createDefaultAvatar(item.getName(), 0, 0, 12));
                     }
 
                     setTooltip(new Tooltip(
@@ -65,6 +84,7 @@ public class AvatarColumnFactory<T extends Entity, S extends Item> implements Ca
                     setGraphicTextGap(10);
                     setItem(item);
                     getStyleClass().addAll("border", "border-l-1");
+
 
                 } else {
 

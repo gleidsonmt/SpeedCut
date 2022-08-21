@@ -23,7 +23,7 @@ import io.github.gleidsonmt.speedcut.controller.sales.main.SalesController;
 import io.github.gleidsonmt.speedcut.core.app.dao.RepoSaleImpl;
 import io.github.gleidsonmt.speedcut.core.app.dao.Repositories;
 import io.github.gleidsonmt.speedcut.core.app.model.Sale;
-import io.github.gleidsonmt.speedcut.core.app.view.Context;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
 import io.github.gleidsonmt.speedcut.presenter.SalePresenter;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -54,7 +54,9 @@ public class SaleContext extends ContextMenu implements Context {
 
             AtomicBoolean delete = new AtomicBoolean(true);
 
-            app.window.createSnackBar()
+            context.getDecorator()
+                    .getRoot()
+                    .createSnackBar()
                     .onHide(e -> {
                         if (delete.get()) {
                             repoSale.delete(sale);
@@ -88,7 +90,7 @@ public class SaleContext extends ContextMenu implements Context {
         menuProfessional.setGraphic(new IconContainer(Icons.BADGE));
 
         menuProfessional.setOnAction(e -> {
-            SalesController slCtrl = (SalesController) app.window.getViews().getControllerFrom("sales");
+            SalesController slCtrl = (SalesController) context.getRoutes().getView("sales");
             slCtrl.openProfessionals();
         });
 
@@ -97,8 +99,7 @@ public class SaleContext extends ContextMenu implements Context {
         menuClient.setGraphic(new IconContainer(Icons.PERSON));
 
         menuClient.setOnAction(event -> {
-            SalesController controller = (SalesController) app.window.getViews().getControllerFrom("sales");
-            controller.openClients();
+            SalesController controller = (SalesController) context.getRoutes().getView("sales");
         });
 
         this.getItems().addAll(menuClient, menuProfessional, menuAppointment, menuDelete);

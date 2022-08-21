@@ -21,7 +21,9 @@ import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
 import io.github.gleidsonmt.speedcut.core.app.model.Entity;
 import io.github.gleidsonmt.speedcut.core.app.model.User;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -32,6 +34,7 @@ import java.security.SecureRandom;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -41,87 +44,76 @@ import java.util.Optional;
  */
 public final class DaoUser extends AbstractDao<User> {
 
-    private static final ListProperty<User> elements =
-            new SimpleListProperty<>(FXCollections.observableArrayList());
+    private final ObjectProperty<User> current = new SimpleObjectProperty<>();
 
-    @Override
-    public User find(long id) {
-        // Find in elements
-        Optional<User> result = elements.stream()
-                .filter(f -> f.getId() == id)
-                .findAny();
-        // return element in java array or find in sql server
-        return result.orElseGet(() -> findInServer(id));
-    }
+    public boolean validate(User user, String compare) {
 
-    public User find(String userName) {
-        Optional<User> result = elements.stream()
-                .filter(f -> Objects.equals(f.getUserName(), userName))
-                .findAny();
-        // return element in java array or find in sql server
-        return result.orElseGet(() -> findInServer(userName));
-    }
-
-
-    public boolean validate(User user, String password) {
         return user.getPassword().
                 equals(
-                        createSecurePassword(password, user.getSalt())
+                        createSecurePassword(compare, user.getSalt())
                 );
     }
 
-    // Find user in sql server
-    private User findInServer(long id) {
-        connect();
-        executeSQL("select * from user where id like '" + id + "';");
-
-        ResultSet result = result();
-        User element;
-        try {
-            if (result.first()) {
-                element = createElement(id, result);
-                elements.add(element);
-                return element;
-            } else return null;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            disconnect();
-        }
-        return null;
+    // used to read with the username...
+    public User read(String col, String value) {
+        return findInServer(col, value);
     }
 
-    private User findInServer(String userName) {
-        connect();
-        executeSQL("select * from user where USERNAME like '" + userName + "';");
-
-        ResultSet result = result();
-        User element;
-        try {
-            if (result.first()) {
-                element = createElement(result.getInt("id"), result);
-                elements.add(element);
-                return element;
-            } else return null;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            disconnect();
+    @Deprecated
+    public ObjectProperty<User> actProperty() {
+        if (current.get() == null) {
+            try {
+                connect();
+                executeSQL("select * from users where logged = true;");
+                if (result().next()) {
+                    User user = createElement(result());
+                    current.set(user);
+                    return current;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        return null;
+        return current;
+    }
+
+    public User getCurrent() {
+        if (current.get() == null) {
+            try {
+                connect();
+                executeSQL("select * from users where logged = true;");
+                if (result().next()) {
+                    User user = createElement(result());
+                    current.set(user);
+                    return current.get();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return current.get();
     }
 
     @Override
-    protected User createElement(long id, ResultSet result) {
+    protected User createElement(ResultSet result) {
         User element = new User();
 
         try {
-            element.setSalt(getSalt());
-            element.setId( (int) id);
-            element.setUserName(result.getString("USERNAME"));
 
-            element.setPassword(result.getString("PASSWORD"));
-            element.setSalt(result.getBytes("SALT"));
+            element.setId(result.getInt("id"));
+
+            element.setUserName(result.getString("username"));
+            element.setLogged(result.getBoolean("logged"));
+
+
+            element.setPassword(result.getString("password"));
+            element.setSalt(result.getBytes("salt"));
+
+            element.setEmail(result.getString("email"));
+
+
+            element.setImgPath(result.getString("img_path"));
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -131,29 +123,50 @@ public final class DaoUser extends AbstractDao<User> {
     }
 
     @Override
-    public void store(User model)  {
+    public void put(User model)  {
         connect();
-        PreparedStatement prepare = prepare("insert into user(username, password, salt) values(?, ?, ?);");
+        
+        List<String> cols = !create(model) ?
+                list("username", "logged") :
+                list("username", "logged", "password", "salt");
+        
+
+        PreparedStatement prepare = prepare(createStoreQuery(model, cols));
+
         try {
-            model.setSalt(getSalt());
-            prepare.setString(1, model.getUserName());
-            prepare.setString(2, createSecurePassword(
-                    model.getPassword(),
-                    model.getSalt())
-            );
-            prepare.setBytes(3, model.getSalt());
+
+            if (model.getSalt() == null)
+                model.setSalt(getSalt());
+
+            prepare.setString(1, model.getUserName());            
+            prepare.setBoolean(2, model.isLogged());
+
+
+            if (create(model)) { // Exception for create a sha password
+                prepare.setString(3, createSecurePassword(
+                        model.getPassword(),
+                        model.getSalt())
+                );
+                prepare.setBytes(4, model.getSalt());
+            }
+
+
             prepare.execute();
+
+            add(model);
+
+            if (model.isLogged()) {
+                current.set(model);
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public Task<ObservableList<User>> populateAllTask() {
-        return null;
-    }
 
-    public String createSecurePassword(String password, byte[] salt) {
+
+    private String createSecurePassword(String password, byte[] salt) {
 
         String generatedPassword = null;
         try {
@@ -169,6 +182,7 @@ public final class DaoUser extends AbstractDao<User> {
             e.printStackTrace();
         }
         return generatedPassword;
+
     }
 
     private byte[] getSalt()  {
@@ -177,5 +191,6 @@ public final class DaoUser extends AbstractDao<User> {
         random.nextBytes(salt);
         return salt;
     }
+
 
 }
