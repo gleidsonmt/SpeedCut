@@ -28,6 +28,7 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -36,13 +37,12 @@ import javafx.scene.layout.VBox;
 public class SideHeaderNavigation extends HBox implements Context {
 
     private final Button btnBack = new Button();
-    private final Label lblInfo = new Label();
 
     public SideHeaderNavigation(Icons icon, String title) {
         this(new IconContainer(icon), title);
     }
 
-    public SideHeaderNavigation(IconContainer icon, String title) {
+    public SideHeaderNavigation(@NotNull IconContainer icon, String title) {
 
         VBox.setMargin(this, new Insets(0, 5,0,5));
 
@@ -66,6 +66,7 @@ public class SideHeaderNavigation extends HBox implements Context {
 
         btnBack.getStyleClass().addAll("btn-flat", "border", "border-r-1");
 
+        Label lblInfo = new Label();
         lblInfo.setText(title);
         lblInfo.getStyleClass().addAll("h4");
         lblInfo.setStyle("-fx-font-weight : bold;");
@@ -80,13 +81,9 @@ public class SideHeaderNavigation extends HBox implements Context {
     }
 
     private void configActions() {
-
         btnBack.setOnAction(action -> {
-
-            context.workAndLeave();
-
-            ((SalesController) context.getControlller("sales")).resetSecondColumn();
-
+                SalesController controller = (SalesController) context.getRoutes().getView("sales").getController();
+                controller.remove();
             }
         );
 
