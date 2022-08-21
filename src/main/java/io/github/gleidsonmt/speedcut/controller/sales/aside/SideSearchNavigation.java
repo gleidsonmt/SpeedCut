@@ -22,8 +22,8 @@ import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.gncontrols.options.FieldType;
 import io.github.gleidsonmt.gncontrols.options.TrayAction;
-import io.github.gleidsonmt.speedcut.controller.sales.main.componets.GridTile;
 import io.github.gleidsonmt.speedcut.controller.sales.main.SalesController;
+import io.github.gleidsonmt.speedcut.controller.sales.main.componets.GridTile;
 import io.github.gleidsonmt.speedcut.core.app.model.Person;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
 import javafx.geometry.Pos;
@@ -48,8 +48,6 @@ public class SideSearchNavigation<T extends Person> extends StackPane implements
     private final GridTile<T> content;
 
     private SalesController controller;
-
-    private String next = "saleItem";
 
     private final SideHeaderNavigation header;
 
@@ -112,22 +110,14 @@ public class SideSearchNavigation<T extends Person> extends StackPane implements
 
     public void onEnter(int id, String next) {
 
-        System.out.println("id = " + id);
-
         if (!content.isPopulate()) {
             setAlignment(Pos.CENTER);
             content.work(id, search);
-        } else search.requestFocus();
+        }
 
-        this.next = next;
-    }
+        search.getEditor().requestFocus();
+        search.getEditor().clear();
 
-    public String getNext() {
-        return next;
-    }
-
-    public GNTextBox getSearch () {
-        return search;
     }
 
     public void select (int id) {
@@ -135,9 +125,10 @@ public class SideSearchNavigation<T extends Person> extends StackPane implements
     }
 
     public SalesController getController() {
-        if (this.controller == null) this.controller = (SalesController) context.getControlller("sales");
+        if (this.controller == null) this.controller = (SalesController) context.getRoutes().getView("sales").getController();
         return controller;
     }
+
 
 
 }
