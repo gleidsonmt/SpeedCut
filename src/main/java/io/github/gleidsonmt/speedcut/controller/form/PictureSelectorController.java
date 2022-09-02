@@ -22,37 +22,29 @@ import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.speedcut.controller.sales.aside.SideHeaderNavigation;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.ActionView;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.Separator;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
-import java.util.IllegalFormatCodePointException;
 import java.util.ResourceBundle;
 
 /**
@@ -119,12 +111,16 @@ public class PictureSelectorController implements ActionView, Context, Initializ
 
         imageView.setCursor(Cursor.CROSSHAIR);
 
-        double delta = event.getDeltaY();
+        double delta = event.getDeltaY() * -1; // * -1 invert scroll rolling
+
+        System.out.println("delta = " + delta);
+
         Rectangle2D viewport = imageView.getViewport();
 
         double width = imageView.getImage().getWidth();
         double height = imageView.getImage().getHeight();
 
+//        double scale = clamp(Math.pow(1.01, delta),
         double scale = clamp(Math.pow(1.01, delta),
 
                 // don't scale so we're zoomed in to fewer than MIN_PIXELS in any direction:
