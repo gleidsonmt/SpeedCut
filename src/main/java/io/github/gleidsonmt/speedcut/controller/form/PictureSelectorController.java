@@ -457,6 +457,32 @@ public class PictureSelectorController implements ActionView, Context, Initializ
 
 
     }
+    @FXML
+    private void resizeFromTopRight(@NotNull MouseEvent event) {
+
+        if (!event.isPrimaryButtonDown() || (initX == -1 && initY == -1)) return; // if out of bounds and not the primary button(left)
+        if (event.isStillSincePress()) return; // if the mouse doesn't continuos pressed
+
+        // get the new x positions
+        newX = event.getSceneX();
+        newY = event.getSceneY();
+
+        // get the difference from initial clicked to dragg
+        deltaX = newX - initX;
+        deltaY = newY - initY;
+
+        // get the bounds for the box
+        double maxX = (boxContainer.getLocalToSceneTransform().getTx() + boxContainer.getWidth()) -2;
+        double maxY = (boxContainer.getLocalToSceneTransform().getTy() -2);
+
+        System.out.println("newY = " + newY);
+        System.out.println("maxY = " + maxY);
+
+        if (newX < maxX) setWidth(boxSelector.getPrefWidth() + deltaX);
+        if (newY > maxY) setHeight(boxSelector.getPrefHeight() - deltaY);
+
+    }
+
 
     @FXML
     private void getInitialCordinates(@NotNull MouseEvent event) {
