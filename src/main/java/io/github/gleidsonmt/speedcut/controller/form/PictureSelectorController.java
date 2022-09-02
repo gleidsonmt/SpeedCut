@@ -32,6 +32,7 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Separator;
 import javafx.scene.effect.ColorAdjust;
@@ -88,19 +89,18 @@ public class PictureSelectorController implements ActionView, Context, Initializ
     private double deltaX;
     private double deltaY;
 
+    // Port for rectangle view
     private double viewWidth = 600;
     private double viewHeight = 400;
 
-    private double positionReferPointY = 0;
 
     private SideHeaderNavigation sideHeaderNavigation;
 
-    private final DoubleProperty viewMaxWidthPort = new SimpleDoubleProperty();
-    private final DoubleProperty viewMaxHeightPort = new SimpleDoubleProperty();
+//    private final DoubleProperty viewMaxWidthPort = new SimpleDoubleProperty();
+//    private final DoubleProperty viewMaxHeightPort = new SimpleDoubleProperty();
 
-    private ObjectProperty<Point2D> mouseDown = new SimpleObjectProperty<>();
+    private final ObjectProperty<Point2D> mouseDown = new SimpleObjectProperty<>();
 
-    private Separator separator = new Separator(Orientation.HORIZONTAL);
 
 
     @Override
@@ -300,20 +300,16 @@ public class PictureSelectorController implements ActionView, Context, Initializ
 
 //        btnLockInTop.setVisible(true);
 
-//        getInitialCordinates(event);
-
         initY = clampPointerBottomY(event);
         initX = clampPointerForLeftX(event);
 
-        AnchorPane.clearConstraints(boxSelector);
+        clearConstraints(boxSelector);
 
         double _minX =  (boxSelector.getLocalToParentTransform().getTx()  ) ;
         double _minY =  (boxSelector.getLocalToParentTransform().getTy()  ) ;
 
-//        double maxPortW = imageView.getImage().getWidth() > viewMaxWidthPort.get() ? boxContainer.getWidth() : imageView.getImage().getWidth();
+        double _maxX = viewWidth - (_minX + boxSelector.getWidth());
 
-        double _maxX = viewMaxWidthPort.get() - (_minX + boxSelector.getWidth());
-//
         AnchorPane.setRightAnchor( boxSelector, _maxX );
         AnchorPane.setTopAnchor( boxSelector, _minY );
 
@@ -351,22 +347,24 @@ public class PictureSelectorController implements ActionView, Context, Initializ
     @FXML
     private void fixedOnTopLeft(MouseEvent event) {
 
-        btnLockInTop.setVisible(true); //256
+//        btnLockInTop.setVisible(true); //256
 
+        // Gets the initial cordinates and clamp with the size of circle
         initY = clampPointerTopY(event);
         initX = clampPointerForLeftX(event);
 
-        AnchorPane.clearConstraints(boxSelector);
+        // Remove old anchors
+        clearConstraints(boxSelector);
 
+        // Get the min x and y postion (Relative to boxContainer)
         double _minX =  (boxSelector.getLocalToParentTransform().getTx() ) ;
         double _minY =  (boxSelector.getLocalToParentTransform().getTy()  ) ;
 
-//        double limiter = imageView.getImage().getWidth() > viewMaxWidthPort.get() ? boxContainer.getWidth() : imageView.getImage().getWidth();
-        double _maxX = viewMaxWidthPort.get() - (_minX + boxSelector.getWidth());
-//
-//        double _maxX = limiter - (_minX + boxSelector.getWidth());
+        // Get the maxX and maxY position in the parent (Relative to boxContainer)
+        double _maxX = viewWidth - (_minX + boxSelector.getWidth());
         double _maxY = boxContainer.getHeight() - (_minY + boxSelector.getHeight());
 
+        // Anchor positions (Relative to boxContainer)
         AnchorPane.setRightAnchor(boxSelector, _maxX );
         AnchorPane.setBottomAnchor(boxSelector, _maxY );
 
@@ -408,6 +406,10 @@ public class PictureSelectorController implements ActionView, Context, Initializ
             initY = (event.getScreenY()) - (boxSelector.getLocalToParentTransform().getTy());
 //
         }
+    }
+
+    private void clearConstraints(Node node) {
+        AnchorPane.clearConstraints(node);
     }
 
     private double clampPointerForLeftX(@NotNull MouseEvent event) {
@@ -516,26 +518,20 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         sideHeaderNavigation = new SideHeaderNavigation(Icons.DRAW, "Recorte seu novo avatar.", false);
         body.getChildren().add(0, sideHeaderNavigation);
 
-        separator.setStyle("-fx-background-color : red;");
-        separator.setPrefSize(5, 200);
-
-        context.getDecorator().getWrapper().addContent(separator);
-
     }
 
     private void centerImage(Image image) {
 
-        viewMaxWidthPort.setValue(
-                Math.min( image.getWidth(),  (context.getDecorator().getWidth() /2) )
-        );
+        // Get the actual view port
+        viewWidth = Math.min(image.getWidth(), (context.getDecorator().getWidth() /2));
+        viewHeight = Math.min(image.getHeight(), (context.getDecorator().getHeight() / 2));
 
-        viewMaxHeightPort.setValue(Math.min(image.getHeight(), context.getDecorator().getHeight() / 2));
-//
-//
-        imageView.setViewport(new Rectangle2D(0,0, viewMaxWidthPort.get(), viewMaxHeightPort.get()));
+        // Sets the view port
+        imageView.setViewport(new Rectangle2D(0,0, viewWidth, viewHeight));
 
-        imageView.setFitWidth(viewMaxWidthPort.get());
-        imageView.setFitHeight(400);
+        // Sets the image view size
+        imageView.setFitWidth(viewWidth);
+        imageView.setFitHeight(viewHeight);
 
     }
 }

@@ -140,9 +140,10 @@ public class LoadViews extends Service<ViewComposer> implements Context {
                 // a condi;'ao dele ficar muito pequeno eh transformar em um root no principal
 
                 double width = Math.min(image.getWidth(), (context.getDecorator().getWidth() / 2));
+                double height = image.getHeight();
+
 //                double height = context.getDecorator().getHeight() - 50;
 //                double width = image.getWidth();
-                double height = image.getHeight();
 
                 context .getDecorator()
                         .getRoot()
