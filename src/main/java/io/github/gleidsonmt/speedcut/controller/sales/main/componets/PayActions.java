@@ -54,13 +54,13 @@ public class PayActions extends GridPane implements Context {
 
 
         btnCancel.setOnAction(event -> {
-            SalesController controller = (SalesController) context.getControlller("sales");
+            SalesController controller = (SalesController) context.getRoutes().getView("sales").getController();
             controller.closePaymentBox();
         });
 
         btnPay.setOnAction(e -> {
 
-            SalesController controller = (SalesController) context.getControlller("sales");
+            SalesController controller = (SalesController) context.getRoutes().getView("sales").getController();
             controller.pay();
 
         });

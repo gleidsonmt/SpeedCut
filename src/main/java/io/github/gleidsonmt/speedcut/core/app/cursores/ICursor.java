@@ -15,28 +15,16 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.presenter;
-
-import io.github.gleidsonmt.speedcut.core.app.dao.AbstractDao;
-import io.github.gleidsonmt.speedcut.core.app.dao.DaoClient;
-import io.github.gleidsonmt.speedcut.core.app.model.Client;
-import javafx.collections.ObservableList;
+package io.github.gleidsonmt.speedcut.core.app.cursores;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  02/03/2022
+ * Create on  30/08/2022
  */
-public class ClientPresenter extends Presenter<Client> {
+public interface ICursor {
 
-    private static final DaoClient dao = new DaoClient();
+    AppCursores cursor = new AppCursores();
 
-    @Override
-    protected AbstractDao<Client> getDao() {
-        return dao;
-    }
 
-    public ObservableList<Client> getElements() {
-        return dao.getElements();
-    }
 
 }

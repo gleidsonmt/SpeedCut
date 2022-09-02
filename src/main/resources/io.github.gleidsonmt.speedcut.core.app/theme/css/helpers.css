@@ -1,4 +1,10 @@
 
+/*
+    Created on : 25/10/2018, 08:00:15
+    Author     : Gleidson Neves da Silveira
+    Hearders text
+*/
+
 .btn-raised:pressed, .btn-raised:focused,
 .raised:pressed, .raised:focused {
   -fx-effect: dropshadow( gaussian , rgba(0,0,0,.2) , 18, 0 , 0 , 10 );

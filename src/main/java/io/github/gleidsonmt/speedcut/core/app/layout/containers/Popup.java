@@ -115,6 +115,8 @@ public class Popup {
         wrapper.addContent(this.content);
 
         ((Pane) this.content).setPrefSize(width, height);
+        ((Pane) this.content).setMaxSize(width, height);
+        ((Pane) this.content).setMinSize(width, height);
 
         switch (pos) {
             case TOP_LEFT, BASELINE_LEFT -> AlignmentUtil.topLeft(content, this.insets);
@@ -125,6 +127,7 @@ public class Popup {
             case BOTTOM_CENTER -> AlignmentUtil.bottomCenter(content, this.insets);
             case BOTTOM_LEFT -> AlignmentUtil.bottomLeft(content, this.insets);
             case CENTER_LEFT -> AlignmentUtil.centerLeft(content, this.insets);
+
             case CENTER -> AlignmentUtil.topLeft(content, new Insets(
                     (wrapper.getHeight() / 2) - (height / 2),
                     0, 0,
@@ -132,6 +135,7 @@ public class Popup {
             ));
             default -> throw new IllegalStateException("Unexpected value: " + pos);
         }
+
 
         switch (animation) {
             case PULSE -> {
@@ -145,11 +149,14 @@ public class Popup {
         }
 
         if (animation != null) {
+
+            if (onEnter != null)
+                onEnter.handle(new ActionEvent());
+
             animationFX.getTimeline().setOnFinished(event -> {
-                if (onEnter != null)
-                    onEnter.handle(new ActionEvent());
                 popupOpen.handle(new ActionEvent());
             });
+
             animationFX.play();
         }
     }

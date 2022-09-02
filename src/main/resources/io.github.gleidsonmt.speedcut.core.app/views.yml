@@ -7,17 +7,6 @@
   fxml : login.fxml
 
 - !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
-  title : Sales
-  name : sales
-  directory : sales
-  fxml : sales.fxml
-  views :
-    - name : sale_index
-      directory : index
-      title : Transações
-      fxml : index.fxml
-
-- !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
   title: Form client
   name: form_client
   directory: form
@@ -28,6 +17,17 @@
   name : dash
   directory : dashboard
   fxml : dash.fxml
+
+- !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
+  title: Sales
+  name: sales
+  directory: sales
+  fxml: sales.fxml
+  views :
+    - title : Transações
+      name : sales_index
+      directory : index
+      fxml : index.fxml
 
 - !!io.github.gleidsonmt.speedcut.core.app.view.ViewComposer
   title: Buys

@@ -19,6 +19,7 @@ module io.github.gleidsonmt.speedcut {
     requires fr.brouillard.oss.cssfx;
 
     requires controlsfx;
+    requires fxsvgimage;
 
     exports io.github.gleidsonmt.speedcut.core.app.exceptions;
 
@@ -54,6 +55,10 @@ module io.github.gleidsonmt.speedcut {
     opens io.github.gleidsonmt.speedcut.controller.login to javafx.fxml;
     exports io.github.gleidsonmt.speedcut.core.app.view.intefaces;
     opens io.github.gleidsonmt.speedcut.core.app.view.intefaces to javafx.fxml, org.yaml.snakeyaml;
+    exports io.github.gleidsonmt.speedcut.core.app.view.core;
+    opens io.github.gleidsonmt.speedcut.core.app.view.core to javafx.fxml, org.yaml.snakeyaml;
+
+
 
 
 }

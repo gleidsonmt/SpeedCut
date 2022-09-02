@@ -17,28 +17,44 @@
 
 package io.github.gleidsonmt.speedcut.core.app.layout;
 
-import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IView;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.ReadOnlyDoubleProperty;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
 import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  20/08/2022
+ * Create on  15/02/2022
  */
-@SuppressWarnings("unused")
-public interface ILayout {
+public class RightLayout extends VBox implements Context {
 
-    void setDrawer(IView iView);
+    private final ScrollPane    body        = new ScrollPane();
 
-    void setAside(IView iView);
+    public RightLayout() {
+        getChildren().add(0, body);
+        body.setFitToWidth(true);
+        body.setFitToHeight(true);
+        VBox.setVgrow(body, Priority.ALWAYS);
 
-    void setNav(IView iView);
+//        VBox.setMargin(body, new Insets(0, 0, 0,0));
+        body.getStyleClass().addAll("border", "border-t-1");
 
-    void setFooter(IView iView);
+        body.setMinHeight(-1);
+        body.setMinWidth(-1);
 
-    ReadOnlyDoubleProperty drawerWidthProperty();
+    }
 
-    ReadOnlyBooleanProperty hasDrawerProperty();
+    public void setBody(Parent body) {
+        this.body.setContent(body);
+    }
+
+    public ScrollPane getBody() {
+        return this.body;
+    }
+
+
+
 
 }

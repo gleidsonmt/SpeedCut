@@ -38,8 +38,4 @@ public class IndexController implements ActionView {
 
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
 }

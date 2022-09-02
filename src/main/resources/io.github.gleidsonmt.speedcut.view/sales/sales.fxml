@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.gleidsonmt.gncontrols.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 
-<StackPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="io.github.gleidsonmt.speedcut.controller.sales.main.SalesController">
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.sales.main.SalesController">
    <children>
-      <GNFloatingButton maxHeight="-Infinity" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" mouseTransparent="true" visible="false">
-         <styleClass>
-            <String fx:value="round" />
-            <String fx:value="btn-mint" />
-         </styleClass>
-         <graphic>
-            <SVGPath content="M12.79,21L3,11.21v2c0,0.53,0.21,1.04,0.59,1.41l7.79,7.79c0.78,0.78,2.05,0.78,2.83,0l6.21-6.21 c0.78-0.78,0.78-2.05,0-2.83L12.79,21z M11.38,17.41c0.39,0.39,0.9,0.59,1.41,0.59c0.51,0,1.02-0.2,1.41-0.59l6.21-6.21c0.78-0.78,0.78-2.05,0-2.83l-7.79-7.79 C12.25,0.21,11.74,0,11.21,0H5C3.9,0,3,0.9,3,2v6.21c0,0.53,0.21,1.04,0.59,1.41L11.38,17.41z M5,2h6.21L19,9.79L12.79,16L5,8.21 V2z" fill="WHITE" />
-         </graphic>
-      </GNFloatingButton>
       <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true" StackPane.alignment="CENTER">
          <content>
             <HBox fx:id="mainLayout">

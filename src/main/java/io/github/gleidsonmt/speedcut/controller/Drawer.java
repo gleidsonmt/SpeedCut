@@ -27,6 +27,7 @@ import io.github.gleidsonmt.speedcut.core.app.view.intefaces.ActionView;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
 import io.github.gleidsonmt.speedcut.core.app.view.ResponsiveView;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
@@ -44,7 +45,7 @@ import java.util.ResourceBundle;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  14/09/2020
  */
-public class Drawer extends ResponsiveView implements ActionView, Context {
+public class Drawer extends ResponsiveView implements Initializable, ActionView, Context {
 
     @FXML private VBox drawerBox;
     @FXML private HBox searchBox;
@@ -129,12 +130,17 @@ public class Drawer extends ResponsiveView implements ActionView, Context {
     @FXML
     private void goSales() throws NavigationException {
 
-        RepoCashierImpl repo = (RepoCashierImpl) Repositories.<Cashier>get(Cashier.class);
+//        RepoCashierImpl repo = (RepoCashierImpl) Repositories.<Cashier>get(Cashier.class);
+//
+//        if (repo.getOpened() == null) {
+//            context.getRoutes().setContent("open_cashier");
+//        } else
 
-        if (repo.getOpened() == null) {
-            context.getRoutes().setContent("open_cashier");
-        } else
-            context.getRoutes().setContent("sales");
+
+//            context.getRoutes().setContent("sales");
+
+        context.getRoutes().setContent("sales");
+
     }
 
     @FXML

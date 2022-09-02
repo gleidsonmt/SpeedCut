@@ -19,6 +19,7 @@ package io.github.gleidsonmt.speedcut.controller.sales.side_views;
 
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.ActionView;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,7 +28,7 @@ import java.util.ResourceBundle;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  06/04/2022
  */
-public class Receive implements ActionView {
+public class Receive implements ActionView, Initializable {
 
     @Override
     public void onEnter() {

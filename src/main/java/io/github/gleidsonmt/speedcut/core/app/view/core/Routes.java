@@ -15,7 +15,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.core.app;
+package io.github.gleidsonmt.speedcut.core.app.view.core;
 
 import animatefx.animation.FadeIn;
 import animatefx.animation.FadeOut;
@@ -151,16 +151,27 @@ public final class Routes implements IRotes {
     }
 
     private void setContent(@NotNull IView iView) {
-        decorator.getLayout().setContent(iView.getRoot()); // Configura o layout center
+        decorator.getRoot().setContent(iView.getRoot()); // Configura o layout center
         decorator.setModule(iView.getComposer().getTitle());
     }
 
     @Override
-    public @NotNull IView load(String folder, String title, String name) throws IOException {
+    public @NotNull IView load(String folder, String title, String name)  {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(paths.getViews() + folder));
-        loader.load();
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+//        if (loader.getController() != null) {
+//            if (loader.getController() instanceof ActionView) {
+//                ( (ActionView) loader.getController()).onEnter();
+//            }
+//        }
 
         return new IView() {
 

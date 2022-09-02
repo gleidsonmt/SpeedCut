@@ -36,17 +36,18 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.stream.Collectors;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  18/04/2022
- * Refactor 1
+ * Refactor 2
  */
+@SuppressWarnings("all")
 public class GridTile<T extends Person> extends ScrollPane implements Context {
 
-//    private final Presenter<T> presenter;
     private boolean populate = false;
 
     private SalesController controller;
@@ -87,7 +88,7 @@ public class GridTile<T extends Person> extends ScrollPane implements Context {
         }
     }
 
-    private void populate(Repository<T> repository, int id, GNTextBox search) {
+    private void populate(@NotNull Repository<T> repository, int id, GNTextBox search) {
 
         Task<ObservableList<T>> createElements = repository.fetchAll();
 
@@ -251,7 +252,7 @@ public class GridTile<T extends Person> extends ScrollPane implements Context {
     }
 
     private SalesController getController() {
-        if (controller == null) controller = ( SalesController) context.getControlller("sales");
+        if (controller == null) controller = ( SalesController) context.getRoutes().getView("sales").getController();
         return controller;
     }
 

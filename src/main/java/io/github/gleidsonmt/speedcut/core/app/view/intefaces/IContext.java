@@ -41,8 +41,6 @@ public interface IContext {
     Cashier getCashier();
 
     @Deprecated
-    ActionView getControlller(String view);
-
     Parent getRoot(String view);
 
     IView workAndGet(String view);

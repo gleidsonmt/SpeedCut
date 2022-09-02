@@ -20,6 +20,7 @@ package io.github.gleidsonmt.speedcut.controller.sales.main;
 import io.github.gleidsonmt.speedcut.core.app.dao.*;
 import io.github.gleidsonmt.speedcut.core.app.model.*;
 import io.github.gleidsonmt.speedcut.core.app.util.DefaultCreator;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.ActionView;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IView;
 import io.github.gleidsonmt.speedcut.core.app.view.ResponsiveView;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -28,8 +29,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -40,13 +43,6 @@ public class SalesController extends ResponsiveView {
 
     @FXML private VBox container;
     @FXML private VBox containerSales;
-
-
-//    private final SideNavigation<Professional> searchProfessionalBox = new SideNavigation<>(
-//            this, Icons.BADGE,
-//            "Selecionar Profissional",
-//            new GridTile<>(this, Repositories.get(Professional.class))
-//    );
 
     private final Transaction transaction = new Transaction();
 
@@ -62,17 +58,36 @@ public class SalesController extends ResponsiveView {
     @FXML private StackPane itemsColumn;
     @FXML private StackPane salesColumn;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    private ObservableList<Node> oldViews = FXCollections.observableArrayList();
 
+    public ObservableList<Node> getOldViews() {
+        return oldViews;
     }
 
-    public void setFirsColumn(Node node) {
+    public void remove() {
+        if (!getOldViews().isEmpty()) {
+            if (getOldViews().size() > 1) {
+
+                oldViews.remove(oldViews.get(oldViews.size() - 1)); // remove o primeiro
+                setSecondColumn(oldViews.get(oldViews.size() - 1)); // navega para o anterior
+
+            } else {
+                oldViews.remove(oldViews.get(oldViews.size() - 1));
+                resetSecondColumn();
+            }
+        } else resetSecondColumn();
+    }
+
+    public void setFirstColumn(Node node) {
         firstColumn.getChildren().setAll(node);
     }
 
-    public void setSecondColumn(Node node) {
-        secondColumn.getChildren().setAll(node);
+    public void setSecondColumn(@NotNull IView view) {
+        secondColumn.getChildren().setAll(view.getRoot());
+    }
+
+    public void setSecondColumn(@NotNull Node view) {
+        secondColumn.getChildren().setAll(view);
     }
 
     public int getCols() {
@@ -81,7 +96,6 @@ public class SalesController extends ResponsiveView {
 
     public void resetSecondColumn () {
         secondColumn.getChildren().setAll(itemsColumn);
-
     }
 
     public void resetFirstColumn () {
@@ -97,6 +111,10 @@ public class SalesController extends ResponsiveView {
         IView view = context.getRoutes().getView("buy");
         container.getChildren().setAll(grow(view.getRoot()));
         view.getController().onEnter();
+
+
+        oldViews.add(view.getRoot());
+
     }
 
 
@@ -211,7 +229,6 @@ public class SalesController extends ResponsiveView {
     public void openProfessionals() {
 
     }
-
 
 
     public void pay() {

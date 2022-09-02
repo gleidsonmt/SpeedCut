@@ -41,7 +41,7 @@ public interface IRotes {
 
     void addView(IView iView);
 
-    IView load(String folder, String title, String name) throws IOException;
+    IView load(String folder, String title, String name);
 
     void goHome();
 

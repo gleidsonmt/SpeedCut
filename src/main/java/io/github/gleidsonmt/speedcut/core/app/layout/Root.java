@@ -22,13 +22,14 @@ import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.speedcut.core.app.layout.containers.SnackBar;
 import io.github.gleidsonmt.speedcut.core.app.layout.containers.Wrapper;
-import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IRoot;
 import io.github.gleidsonmt.speedcut.core.app.view.ResponsiveView;
 import io.github.gleidsonmt.speedcut.core.app.view.WindowDecorator;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IRoot;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
-import javafx.scene.layout.*;
+import javafx.scene.Parent;
+import javafx.scene.layout.StackPane;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -50,18 +51,18 @@ public class Root extends StackPane implements IRoot {
 //        getChildren().add(wrapper);
         getChildren().add(layout);
 
+
         hamburger.getStyleClass().add("hamburger");
         hamburger.setMinSize(35, 35);
         hamburger.setMaxSize(35, 35);
         hamburger.setGraphic(new IconContainer(Icons.HAMBURGER));
 
         needsBar.addListener((observable, oldValue, newValue) -> {
+
             if (newValue) {
-                layout.getContent().setPadding(new Insets(0));
                 layout.getContent().getChildren().add(0, layout.getBar());
             } else  {
 
-                layout.getContent().setPadding(new Insets(40, 0,0,0));
                 layout.getContent().getChildren().remove(layout.getBar());
             }
         });
@@ -73,7 +74,7 @@ public class Root extends StackPane implements IRoot {
 //            wrapper.openDrawerLeft(getLayout().getOldLeft());
 
             wrapper.getDrawer()
-                    .content(getLayout().getOldLeft())
+                    .content(layout.getOldLeft())
                     .width(250D)
                     .side("left")
                     .show();
@@ -91,12 +92,12 @@ public class Root extends StackPane implements IRoot {
                 if (_new < ResponsiveView.BreakPoints.X_LARGE) {
                     layout.setLeft(null);
                     window.addControl(0, hamburger);
-                    getLayout().getBar().setPadding(new Insets(0,0,0,40));
+                    layout.getBar().setPadding(new Insets(0,0,0,40));
 
                 } else {
                     window.removeControl(hamburger);
-                    layout.setLeft(getLayout().getOldLeft());
-                    getLayout().getBar().setPadding(new Insets(0));
+                    layout.setLeft(layout.getOldLeft());
+                    layout.getBar().setPadding(new Insets(0));
                 }
             }
 
@@ -107,8 +108,14 @@ public class Root extends StackPane implements IRoot {
         return wrapper;
     }
 
-    public Layout getLayout() {
+    @Override
+    public ILayout getLayout() {
         return layout;
+    }
+
+    @Override
+    public void setContent(Parent content) {
+        layout.setContent(content);
     }
 
     public boolean isNeedsBar() {

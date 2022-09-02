@@ -33,11 +33,12 @@ import java.util.function.Predicate;
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  05/05/2022
+ *
+ * Needs a big refactoring
  */
 @SuppressWarnings("unused")
 public class Paginator<T extends Entity> extends GridPane {
 
-    private static final int FIRST_PAGE = 1;
     private static final int RANGE_DEFAULT = 4;
 
 
@@ -76,17 +77,18 @@ public class Paginator<T extends Entity> extends GridPane {
     /** Lista das páginas que ficam à direita da página atual. **/
     private List<Integer> rightPages;
 
-    private ToggleGroup toggleGroup = new ToggleGroup();
+    /// FIxndo items
+    private ToggleGroup     toggleGroup = new ToggleGroup();
+    private HBox            pagContent = new HBox();
+
     private FilteredList<T> fullList ;
-    private TableView<T> tableView ;
-    private HBox pagContent = new HBox();
+    private TableView<T>    tableView ;
 
     private final GNButton btnLeft = new GNButton("<");
     private final GNButton btnRight = new GNButton(">");
 
     private final Hyperlink btnFirst = new Hyperlink("Primeiro");
     private final Hyperlink btnLast = new Hyperlink("Último");
-
 
     private int currentIndex = 0;
 
@@ -116,12 +118,11 @@ public class Paginator<T extends Entity> extends GridPane {
      */
     public Paginator(FilteredList<T> fullList, TableView<T> tableView) {
 
-        this.currentPage = FIRST_PAGE;
+        this.currentPage = 1;
         this.range = RANGE_DEFAULT;
 
         this.fullList = fullList;
         this.tableView = tableView;
-
 
         btnRight.setButtonType(GNButtonType.ROUNDED);
         btnLeft.setButtonType(GNButtonType.ROUNDED);
@@ -249,7 +250,6 @@ public class Paginator<T extends Entity> extends GridPane {
      */
     public void load() {
 
-        firstPage = FIRST_PAGE;
         nextPage = calculateNextPage();
         previousPage = calculatePreviousPage();
         lastPage = calculateLastPage();

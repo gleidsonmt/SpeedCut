@@ -19,8 +19,9 @@ package io.github.gleidsonmt.speedcut.core.app.view;
 
 import fr.brouillard.oss.cssfx.CSSFX;
 import io.github.gleidsonmt.gndecorator.GNDecorator;
+import io.github.gleidsonmt.speedcut.core.app.view.core.LoadViews;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.AppPaths;
-import io.github.gleidsonmt.speedcut.core.app.Theme;
+import io.github.gleidsonmt.speedcut.core.app.view.core.Theme;
 import io.github.gleidsonmt.speedcut.core.app.dao.Repositories;
 import io.github.gleidsonmt.speedcut.core.app.layout.ILayout;
 import io.github.gleidsonmt.speedcut.core.app.layout.Root;
@@ -29,8 +30,10 @@ import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IDecorator;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IRoot;
 import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.NotNull;
+import org.scenicview.ScenicView;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -43,7 +46,6 @@ import java.util.Properties;
 public class WindowDecorator extends GNDecorator implements IDecorator {
 
     private final IRoot root = new Root(this);
-    private HostServices hostServices;
 
     public WindowDecorator(Properties _properties, @NotNull AppPaths _path) throws IOException {
 
@@ -51,10 +53,11 @@ public class WindowDecorator extends GNDecorator implements IDecorator {
         getStylesheets().setAll(theme.getStyleesheets());
         getIcons().addAll(theme.getLogo());
 
-        root.getLayout().setContent(FXMLLoader.load(Objects.requireNonNull(getClass().getResource(_path.getViews() + "layout/loader.fxml"))));
+        root.setContent( FXMLLoader.load(Objects.requireNonNull(getClass().getResource(_path.getViews() + "layout/loader.fxml"))));
 
         if (root instanceof StackPane) {
             setContent( (StackPane) root);
+
         }
 
         fullBody();
@@ -98,7 +101,6 @@ public class WindowDecorator extends GNDecorator implements IDecorator {
 
     @Override
     public void show(HostServices hostServices) {
-        this.hostServices = hostServices;
 
         if (!hasInstance()) {
 
@@ -120,4 +122,8 @@ public class WindowDecorator extends GNDecorator implements IDecorator {
         this.getWindow().hide();
     }
 
+    @Override
+    public Scene getScene() {
+        return this.getWindow().getScene();
+    }
 }

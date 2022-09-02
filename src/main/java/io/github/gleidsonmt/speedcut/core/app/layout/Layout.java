@@ -17,11 +17,18 @@
 
 package io.github.gleidsonmt.speedcut.core.app.layout;
 
+import io.github.gleidsonmt.speedcut.core.app.layout.containers.Drawer;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IView;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -32,8 +39,13 @@ public class Layout extends BorderPane implements ILayout {
     private Node oldLeftNode;
 
     private final CenterLayout  centerLayout = new CenterLayout();
+    private final StackPane drawerBody = new StackPane();
+
+
     private final FlowPane      bar          = new FlowPane();
     private final Text          title        = new Text("SpeedCut");
+
+    private BooleanProperty hasDrawer = new SimpleBooleanProperty();
 
     public Layout() {
         setCenter(centerLayout);
@@ -41,6 +53,8 @@ public class Layout extends BorderPane implements ILayout {
         leftProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) oldLeftNode = newValue;
         });
+
+        hasDrawer.bind(leftProperty().isNull());
 
         getStyleClass().add("layout");
 
@@ -51,6 +65,7 @@ public class Layout extends BorderPane implements ILayout {
         bar.setMinHeight(40);
 
         bar.getStyleClass().addAll("border", "border-b-1");
+
         VBox.setMargin(bar, new Insets(0, 10, 0, 10));
 
         title.setStyle("-fx-font-size : 18pt; -fx-fill : -info;");
@@ -59,6 +74,8 @@ public class Layout extends BorderPane implements ILayout {
         bar.getChildren().add(title);
 
         setCenter(centerLayout);
+        setLeft(drawerBody);
+
 //        setTop(bar);
 //        bar.toBack();
     }
@@ -79,28 +96,39 @@ public class Layout extends BorderPane implements ILayout {
         return centerLayout;
     }
 
-    @Override
-    public void setContent(Parent iView) {
-        centerLayout.setBody(iView);
+    public void setContent(Parent content) {
+        centerLayout.setBody(content);
     }
 
     @Override
-    public void setDrawer(Parent iView) {
-        setLeft(iView);
+    public void setDrawer(@NotNull IView iView) {
+        drawerBody.getChildren().setAll(iView.getRoot());
     }
 
     @Override
-    public void setAside(Parent iView) {
-        setRight(iView);
+    public void setAside(@NotNull IView iView) {
+        setRight(iView.getRoot());
     }
 
     @Override
-    public void setNav(Parent iView) {
-        setTop(iView);
+    public void setNav(@NotNull IView iView) {
+        setTop(iView.getRoot());
     }
 
     @Override
-    public void setFooter(Parent iView) {
-        setBottom(iView);
+    public void setFooter(@NotNull IView iView) {
+        setBottom(iView.getRoot());
     }
+
+    @Override
+    public ReadOnlyDoubleProperty drawerWidthProperty() {
+        return drawerBody.widthProperty();
+    }
+
+    @Override
+    public ReadOnlyBooleanProperty hasDrawerProperty() {
+        return ReadOnlyBooleanProperty.readOnlyBooleanProperty(hasDrawer);
+    }
+
+
 }

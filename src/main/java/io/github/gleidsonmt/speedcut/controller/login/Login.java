@@ -29,6 +29,7 @@ import io.github.gleidsonmt.speedcut.core.app.view.ResponsiveView;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.layout.GridPane;
@@ -46,7 +47,7 @@ import java.util.ResourceBundle;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  22/02/2022
  */
-public class Login extends ResponsiveView  {
+public class Login extends ResponsiveView implements Initializable {
 
     @FXML private GridPane loginContent;
     @FXML private GridPane registerContent;
@@ -101,19 +102,13 @@ public class Login extends ResponsiveView  {
 
                 context.getRoutes().goHome();
 
-                try {
 
 //                    context.getDecorator().getRoot().setNeedsBar(true);
 
                     context.getDecorator().getLayout().setDrawer(
-                            context.getRoutes().load("layout/drawer.fxml", "Drawer", "drawer").getRoot()
+                            context.getRoutes().load("layout/drawer.fxml", "Drawer", "drawer")
                     );
 
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             } else {
                 passwordBox.setValid(false);
                 Animations.errorOnTextBox(passwordBox);

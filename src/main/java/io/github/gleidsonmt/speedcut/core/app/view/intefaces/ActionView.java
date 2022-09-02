@@ -17,13 +17,11 @@
 
 package io.github.gleidsonmt.speedcut.core.app.view.intefaces;
 
-import javafx.fxml.Initializable;
-
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  05/02/2022
  */
-public interface ActionView extends Context, Initializable {
+public interface ActionView extends Context {
 
     void onEnter() ;
 

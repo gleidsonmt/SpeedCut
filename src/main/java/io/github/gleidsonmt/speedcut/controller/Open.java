@@ -24,6 +24,7 @@ import io.github.gleidsonmt.speedcut.core.app.model.Cashier;
 import io.github.gleidsonmt.speedcut.core.app.util.MoneyUtil;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.ActionView;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,7 +33,7 @@ import java.util.ResourceBundle;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  02/04/2022
  */
-public class Open implements ActionView {
+public class Open implements ActionView, Initializable {
 
     @FXML private GNMonetaryField monetaryField;
 

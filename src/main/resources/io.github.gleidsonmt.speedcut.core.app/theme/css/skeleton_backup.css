@@ -140,17 +140,7 @@
     -fx-border-radius : 100px;
 }
 
-.button:hover,
-.table-row-cell:filled:pressed
-{
-  -fx-background-color : derive(-base, -40%);
-}
 
-.button:focused {
-  -fx-border-width : 4px;
-  -fx-background-color : derive(-base, -40%), derive(-base, -40%), -base;
-
-}
 
 .hyperlink {
   -fx-border-color : transparent;
@@ -1606,39 +1596,7 @@ Text {
 *
 *************************************************************************************/
 
-.text-10, .btn-small, .text-small {
-  -fx-font-size : 10px;
-}
 
-.text-12, .h6 {
-    -fx-font-size : 12px;
-}
-
-.text-14, .h5, .sub-title,
-.text-large, .flat:focused,
-.btn-large {
-  -fx-font-size : 14px;
-}
-
-.text-18, .h4 {
-  -fx-font-size : 18px;
-}
-
-.text-24, .h3 {
-  -fx-font-size : 24px;
-}
-
-.text-30, .h2 {
-  -fx-font-size : 30px;
-}
-
-.text-36, .h1 {
-  -fx-font-size : 36px;
-}
-
-.title {
-  -fx-font-family : Roboto;
-}
 
 /************************************************************************************
 *

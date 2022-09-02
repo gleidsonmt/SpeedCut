@@ -60,7 +60,7 @@ public interface Repository<E extends Entity> extends Dao<E> {
     }
 
     default Task<ObservableList<E>> fetchAll() {
-        return getDao().populateAllTask();
+        return getDao().fetchAll();
     }
 
 }

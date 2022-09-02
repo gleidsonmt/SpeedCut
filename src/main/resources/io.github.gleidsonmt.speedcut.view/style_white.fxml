@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="root" prefHeight="631.0" prefWidth="806.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.sales.side_views.BuyController">
+   <children>
+      <VBox spacing="20.0" StackPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <Separator prefWidth="200.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Texts">
+                     <styleClass>
+                        <String fx:value="h3" />
+                        <String fx:value="title" />
+                     </styleClass>
+                  </Text>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </VBox>
+            <TilePane alignment="CENTER" hgap="10.0" layoutX="10.0" layoutY="75.0" tileAlignment="BASELINE_CENTER" vgap="10.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Title" />
+                  <Text disable="true" layoutX="58.0" layoutY="49.0" strokeType="OUTSIDE" styleClass="subtitle" text="subtitle" />
+               </children>
+            </TilePane>
+            <TilePane alignment="CENTER" hgap="10.0" tileAlignment="BASELINE_CENTER" vgap="10.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="h1" />
+                  <Text layoutX="10.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="h2" />
+                  <Text layoutX="58.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="h3" />
+                  <Text layoutX="106.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h4" text="h4" />
+                  <Text layoutX="170.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h5" text="h5" />
+               </children>
+            </TilePane>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="10.0">
+               <children>
+                  <Separator prefWidth="200.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Labels">
+                     <styleClass>
+                        <String fx:value="h3" />
+                        <String fx:value="title" />
+                     </styleClass>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </VBox>
+            <TilePane alignment="CENTER" hgap="10.0" layoutX="10.0" layoutY="107.0" tileAlignment="BOTTOM_CENTER" vgap="10.0">
+               <children>
+                  <Label layoutX="85.0" layoutY="10.0" text="Default">
+                     <graphic>
+                        <SVGPath content="M14 21q-.425 0-.712-.288Q13 20.425 13 20t.288-.712Q13.575 19 14 19q1.175 0 2.087-.462Q17 18.075 17 17.5q0-.35-.325-.65-.325-.3-.9-.55l1.475-1.475q.8.475 1.275 1.125.475.65.475 1.55 0 1.65-1.575 2.575Q15.85 21 14 21Zm-9.425-7.65q-.725-.425-1.15-.988Q3 11.8 3 11q0-1.05.775-1.763.775-.712 2.775-1.587 1.575-.725 2.012-1.013Q9 6.35 9 6q0-.4-.488-.7Q8.025 5 7 5q-.625 0-1.05.15-.425.15-.775.5-.275.275-.675.325-.4.05-.725-.225Q3.45 5.5 3.4 5.1q-.05-.4.225-.725Q4.1 3.8 4.988 3.4 5.875 3 7 3q1.8 0 2.9.812Q11 4.625 11 6q0 .975-.725 1.75T7.35 9.475q-1.45.625-1.9.925-.45.3-.45.6 0 .225.287.438.288.212.788.412ZM18.85 10.4 14.6 6.15l1.05-1.05q.6-.6 1.437-.6.838 0 1.413.6l1.4 1.4q.6.575.6 1.412 0 .838-.6 1.438ZM6 19h1.4l7.2-7.2-1.4-1.4L6 17.6Zm-2 2v-4.25l9.2-9.2 4.25 4.25-9.2 9.2Zm9.2-10.6 1.4 1.4Z" />
+                     </graphic></Label>
+                  <Label disable="true" layoutX="162.0" layoutY="10.0" styleClass="llbl-outer" text="Disable">
+                     <graphic>
+                        <SVGPath content="M14 21q-.425 0-.712-.288Q13 20.425 13 20t.288-.712Q13.575 19 14 19q1.175 0 2.087-.462Q17 18.075 17 17.5q0-.35-.325-.65-.325-.3-.9-.55l1.475-1.475q.8.475 1.275 1.125.475.65.475 1.55 0 1.65-1.575 2.575Q15.85 21 14 21Zm-9.425-7.65q-.725-.425-1.15-.988Q3 11.8 3 11q0-1.05.775-1.763.775-.712 2.775-1.587 1.575-.725 2.012-1.013Q9 6.35 9 6q0-.4-.488-.7Q8.025 5 7 5q-.625 0-1.05.15-.425.15-.775.5-.275.275-.675.325-.4.05-.725-.225Q3.45 5.5 3.4 5.1q-.05-.4.225-.725Q4.1 3.8 4.988 3.4 5.875 3 7 3q1.8 0 2.9.812Q11 4.625 11 6q0 .975-.725 1.75T7.35 9.475q-1.45.625-1.9.925-.45.3-.45.6 0 .225.287.438.288.212.788.412ZM18.85 10.4 14.6 6.15l1.05-1.05q.6-.6 1.437-.6.838 0 1.413.6l1.4 1.4q.6.575.6 1.412 0 .838-.6 1.438ZM6 19h1.4l7.2-7.2-1.4-1.4L6 17.6Zm-2 2v-4.25l9.2-9.2 4.25 4.25-9.2 9.2Zm9.2-10.6 1.4 1.4Z" />
+                     </graphic>
+                  </Label>
+               </children>
+            </TilePane>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="165.0" spacing="10.0">
+               <children>
+                  <Separator prefWidth="200.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Buttons">
+                     <styleClass>
+                        <String fx:value="h3" />
+                        <String fx:value="title" />
+                     </styleClass>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </VBox>
+            <TilePane alignment="CENTER" hgap="5.0" prefHeight="86.0" prefWidth="766.0" tileAlignment="TOP_LEFT" vgap="5.0">
+               <children>
+                  <Button defaultButton="true" layoutX="58.0" layoutY="33.0" mnemonicParsing="false" prefWidth="151.0" text="Default">
+                     <graphic>
+                        <SVGPath content="M14 21q-.425 0-.712-.288Q13 20.425 13 20t.288-.712Q13.575 19 14 19q1.175 0 2.087-.462Q17 18.075 17 17.5q0-.35-.325-.65-.325-.3-.9-.55l1.475-1.475q.8.475 1.275 1.125.475.65.475 1.55 0 1.65-1.575 2.575Q15.85 21 14 21Zm-9.425-7.65q-.725-.425-1.15-.988Q3 11.8 3 11q0-1.05.775-1.763.775-.712 2.775-1.587 1.575-.725 2.012-1.013Q9 6.35 9 6q0-.4-.488-.7Q8.025 5 7 5q-.625 0-1.05.15-.425.15-.775.5-.275.275-.675.325-.4.05-.725-.225Q3.45 5.5 3.4 5.1q-.05-.4.225-.725Q4.1 3.8 4.988 3.4 5.875 3 7 3q1.8 0 2.9.812Q11 4.625 11 6q0 .975-.725 1.75T7.35 9.475q-1.45.625-1.9.925-.45.3-.45.6 0 .225.287.438.288.212.788.412ZM18.85 10.4 14.6 6.15l1.05-1.05q.6-.6 1.437-.6.838 0 1.413.6l1.4 1.4q.6.575.6 1.412 0 .838-.6 1.438ZM6 19h1.4l7.2-7.2-1.4-1.4L6 17.6Zm-2 2v-4.25l9.2-9.2 4.25 4.25-9.2 9.2Zm9.2-10.6 1.4 1.4Z" />
+                     </graphic>
+                  </Button>
+                  <Button defaultButton="true" mnemonicParsing="false" prefWidth="151.0" text="Default">
+                     <graphic>
+                        <SVGPath content="M14 21q-.425 0-.712-.288Q13 20.425 13 20t.288-.712Q13.575 19 14 19q1.175 0 2.087-.462Q17 18.075 17 17.5q0-.35-.325-.65-.325-.3-.9-.55l1.475-1.475q.8.475 1.275 1.125.475.65.475 1.55 0 1.65-1.575 2.575Q15.85 21 14 21Zm-9.425-7.65q-.725-.425-1.15-.988Q3 11.8 3 11q0-1.05.775-1.763.775-.712 2.775-1.587 1.575-.725 2.012-1.013Q9 6.35 9 6q0-.4-.488-.7Q8.025 5 7 5q-.625 0-1.05.15-.425.15-.775.5-.275.275-.675.325-.4.05-.725-.225Q3.45 5.5 3.4 5.1q-.05-.4.225-.725Q4.1 3.8 4.988 3.4 5.875 3 7 3q1.8 0 2.9.812Q11 4.625 11 6q0 .975-.725 1.75T7.35 9.475q-1.45.625-1.9.925-.45.3-.45.6 0 .225.287.438.288.212.788.412ZM18.85 10.4 14.6 6.15l1.05-1.05q.6-.6 1.437-.6.838 0 1.413.6l1.4 1.4q.6.575.6 1.412 0 .838-.6 1.438ZM6 19h1.4l7.2-7.2-1.4-1.4L6 17.6Zm-2 2v-4.25l9.2-9.2 4.25 4.25-9.2 9.2Zm9.2-10.6 1.4 1.4Z" />
+                     </graphic></Button>
+                  <Button cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefWidth="162.0" text="Cancel">
+                     <graphic>
+                        <SVGPath content="M14 21q-.425 0-.712-.288Q13 20.425 13 20t.288-.712Q13.575 19 14 19q1.175 0 2.087-.462Q17 18.075 17 17.5q0-.35-.325-.65-.325-.3-.9-.55l1.475-1.475q.8.475 1.275 1.125.475.65.475 1.55 0 1.65-1.575 2.575Q15.85 21 14 21Zm-9.425-7.65q-.725-.425-1.15-.988Q3 11.8 3 11q0-1.05.775-1.763.775-.712 2.775-1.587 1.575-.725 2.012-1.013Q9 6.35 9 6q0-.4-.488-.7Q8.025 5 7 5q-.625 0-1.05.15-.425.15-.775.5-.275.275-.675.325-.4.05-.725-.225Q3.45 5.5 3.4 5.1q-.05-.4.225-.725Q4.1 3.8 4.988 3.4 5.875 3 7 3q1.8 0 2.9.812Q11 4.625 11 6q0 .975-.725 1.75T7.35 9.475q-1.45.625-1.9.925-.45.3-.45.6 0 .225.287.438.288.212.788.412ZM18.85 10.4 14.6 6.15l1.05-1.05q.6-.6 1.437-.6.838 0 1.413.6l1.4 1.4q.6.575.6 1.412 0 .838-.6 1.438ZM6 19h1.4l7.2-7.2-1.4-1.4L6 17.6Zm-2 2v-4.25l9.2-9.2 4.25 4.25-9.2 9.2Zm9.2-10.6 1.4 1.4Z" />
+                     </graphic>
+                  </Button>
+                  <Button disable="true" layoutX="86.0" layoutY="10.0" mnemonicParsing="false" prefWidth="164.0" text="Default">
+                     <graphic>
+                        <SVGPath content="M14 21q-.425 0-.712-.288Q13 20.425 13 20t.288-.712Q13.575 19 14 19q1.175 0 2.087-.462Q17 18.075 17 17.5q0-.35-.325-.65-.325-.3-.9-.55l1.475-1.475q.8.475 1.275 1.125.475.65.475 1.55 0 1.65-1.575 2.575Q15.85 21 14 21Zm-9.425-7.65q-.725-.425-1.15-.988Q3 11.8 3 11q0-1.05.775-1.763.775-.712 2.775-1.587 1.575-.725 2.012-1.013Q9 6.35 9 6q0-.4-.488-.7Q8.025 5 7 5q-.625 0-1.05.15-.425.15-.775.5-.275.275-.675.325-.4.05-.725-.225Q3.45 5.5 3.4 5.1q-.05-.4.225-.725Q4.1 3.8 4.988 3.4 5.875 3 7 3q1.8 0 2.9.812Q11 4.625 11 6q0 .975-.725 1.75T7.35 9.475q-1.45.625-1.9.925-.45.3-.45.6 0 .225.287.438.288.212.788.412ZM18.85 10.4 14.6 6.15l1.05-1.05q.6-.6 1.437-.6.838 0 1.413.6l1.4 1.4q.6.575.6 1.412 0 .838-.6 1.438ZM6 19h1.4l7.2-7.2-1.4-1.4L6 17.6Zm-2 2v-4.25l9.2-9.2 4.25 4.25-9.2 9.2Zm9.2-10.6 1.4 1.4Z" />
+                     </graphic>
+                  </Button>
+                  <Button cancelButton="true" disable="true" layoutX="177.0" layoutY="10.0" mnemonicParsing="false" prefWidth="162.0" text="Cancel">
+                     <graphic>
+                        <SVGPath content="M14 21q-.425 0-.712-.288Q13 20.425 13 20t.288-.712Q13.575 19 14 19q1.175 0 2.087-.462Q17 18.075 17 17.5q0-.35-.325-.65-.325-.3-.9-.55l1.475-1.475q.8.475 1.275 1.125.475.65.475 1.55 0 1.65-1.575 2.575Q15.85 21 14 21Zm-9.425-7.65q-.725-.425-1.15-.988Q3 11.8 3 11q0-1.05.775-1.763.775-.712 2.775-1.587 1.575-.725 2.012-1.013Q9 6.35 9 6q0-.4-.488-.7Q8.025 5 7 5q-.625 0-1.05.15-.425.15-.775.5-.275.275-.675.325-.4.05-.725-.225Q3.45 5.5 3.4 5.1q-.05-.4.225-.725Q4.1 3.8 4.988 3.4 5.875 3 7 3q1.8 0 2.9.812Q11 4.625 11 6q0 .975-.725 1.75T7.35 9.475q-1.45.625-1.9.925-.45.3-.45.6 0 .225.287.438.288.212.788.412ZM18.85 10.4 14.6 6.15l1.05-1.05q.6-.6 1.437-.6.838 0 1.413.6l1.4 1.4q.6.575.6 1.412 0 .838-.6 1.438ZM6 19h1.4l7.2-7.2-1.4-1.4L6 17.6Zm-2 2v-4.25l9.2-9.2 4.25 4.25-9.2 9.2Zm9.2-10.6 1.4 1.4Z" />
+                     </graphic>
+                  </Button>
+               </children>
+            </TilePane>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/material-color.css" />  <!-- Needs to update -->
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/designer.css" /> <!-- Updating -->
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/skeletonF.css" /> <!-- Needs to update -->
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/bootstrapF.css" /> <!-- Needs to update -->
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/shape.css" /> <!-- Needs to update -->
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/typographic.css" /> <!-- *** Updated *** -->
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/helpers.css" /> <!-- Mutable -->
+   </stylesheets>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</StackPane>

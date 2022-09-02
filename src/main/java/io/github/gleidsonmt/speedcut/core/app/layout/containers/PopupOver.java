@@ -112,6 +112,7 @@ public class PopupOver {
         }
 
         pop.setOnShowing(event -> onEnter.handle(new ActionEvent()));
+
         pop.setOnHidden(event -> {
             pop.setContentNode(null);   // has a bug with set content
         });

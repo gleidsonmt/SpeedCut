@@ -57,7 +57,7 @@ public class SideSearchNavigation<T extends Person> extends StackPane implements
 
     public SideSearchNavigation(Icons icon, String title, GridTile<T> content, Node... actions) {
         this.content = content;
-        this.header = new SideHeaderNavigation(new IconContainer(icon), title);
+        this.header = new SideHeaderNavigation(new IconContainer(icon), title, true);
 
         HBox leftActions = new HBox();
         leftActions.setAlignment(Pos.CENTER_RIGHT);

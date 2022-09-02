@@ -46,6 +46,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -62,7 +63,7 @@ import java.util.ResourceBundle;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  25/07/2022
  */
-public class SalesColumnController extends WorkView implements ActionView {
+public class SalesColumnController extends WorkView implements ActionView, Initializable {
 
     @FXML private GridPane salesAction;
     @FXML private GridPane transactionBox;
@@ -159,9 +160,14 @@ public class SalesColumnController extends WorkView implements ActionView {
         );
 
         btn.setOnAction(event -> {
-            getController().setSecondColumn(
-                    context.workAndGet("form_client").getRoot()
-            );
+//            getController().setSecondColumn(
+//                    context.workAndGet("form_client").getRoot()
+//            );
+
+            IView iView = context.getRoutes().getView("form_client");
+
+            getController().setSecondColumn(iView);
+            getController().getOldViews().add(iView.getRoot());
         });
 
         searchProfessionalBox = new SideSearchNavigation<>(
@@ -180,10 +186,12 @@ public class SalesColumnController extends WorkView implements ActionView {
         IView view = context.getRoutes().getView("buy");
 
         if (getController().getCols() < 2) {
-            getController().setFirsColumn(view.getRoot());
+            getController().setFirstColumn(view.getRoot());
         } else {
-            getController().setSecondColumn(view.getRoot());
+            getController().setSecondColumn(view);
         }
+
+        getController().getOldViews().add(view.getRoot());
 
         view.getController().pass(true);
         view.getController().onEnter();
@@ -195,10 +203,12 @@ public class SalesColumnController extends WorkView implements ActionView {
 
 
         if (getController().getCols() < 2) {
-            getController().setFirsColumn(searchClientBox);
+            getController().setFirstColumn(searchClientBox);
         } else {
             getController().setSecondColumn(searchClientBox);
         }
+
+        salesController.getOldViews().add(searchClientBox);
 
         if(getController().selectedProperty().get() != null) {
 
@@ -216,7 +226,7 @@ public class SalesColumnController extends WorkView implements ActionView {
 
 
         if (getController().getCols() < 2) {
-            getController().setFirsColumn(searchProfessionalBox);
+            getController().setFirstColumn(searchProfessionalBox);
         } else {
             getController().setSecondColumn(searchProfessionalBox);
         }
@@ -339,7 +349,7 @@ public class SalesColumnController extends WorkView implements ActionView {
 
 //            new PropertyValueFactory<>()
 
-            IndexController indexController = (IndexController) context.getControlller("sale_index");
+            IndexController indexController = (IndexController) context.getRoutes().getView("sales_index").getController();
             indexController.onEnter();
 
         });
@@ -352,7 +362,7 @@ public class SalesColumnController extends WorkView implements ActionView {
     }
 
     public SalesController getController() {
-        if (this.salesController == null) this.salesController = (SalesController) context.getControlller("sales");
+        if (this.salesController == null) this.salesController = (SalesController) context.getRoutes().getView("sales").getController();
         return salesController;
     }
 

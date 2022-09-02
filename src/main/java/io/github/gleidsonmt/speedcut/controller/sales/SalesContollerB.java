@@ -18,6 +18,7 @@
 package io.github.gleidsonmt.speedcut.controller.sales;
 
 import io.github.gleidsonmt.speedcut.core.app.view.ResponsiveView;
+import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,7 +27,7 @@ import java.util.ResourceBundle;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  24/02/2022
  */
-public class SalesContollerB extends ResponsiveView {
+public class SalesContollerB extends ResponsiveView implements Initializable {
 
 //    @FXML private ScrollPane scroll;
 //    @FXML private GridPane mainLayout;

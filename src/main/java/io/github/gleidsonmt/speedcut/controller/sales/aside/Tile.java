@@ -29,6 +29,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -136,7 +137,7 @@ public class Tile<T extends Person> extends ToggleButton implements Context {
         return wrapper;
     }
 
-    private VBox createDetailsForClientB(Client model) {
+    private @NotNull VBox createDetailsForClientB(@NotNull Client model) {
 
         VBox boxDetails = new VBox();
         boxDetails.setAlignment(Pos.CENTER);

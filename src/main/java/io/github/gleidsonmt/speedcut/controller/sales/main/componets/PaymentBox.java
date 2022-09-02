@@ -113,25 +113,25 @@ public class PaymentBox extends VBox implements Context {
 
         group.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue!= null) {
-                SalesController salesController = (SalesController) context.getControlller("sales");
-
-                if (newValue.getUserData() != null && salesController != null && salesController.getSaleSelected() != null) {
-
-                    PaymentType paymentType = (PaymentType) newValue.getUserData();
-
-                    if (!getChildren().contains(boxPay)) {
-                        getChildren().add(boxPay);
-                    }
-
-                    if (paymentType.equals(PaymentType.CARD) ) {
-                        updateContent(Graphics.CARD, "Selecionar Cartões", paymentType, salesController.getSaleSelected().getClient());
-
-                    } else if (paymentType.equals(PaymentType.PIX)) {
-                        updateContent(Graphics.PIX, "Selecionar Pix", paymentType, salesController.getSaleSelected().getClient());
-                    } else {
-                        getChildren().remove(boxPay);
-                    }
-                }
+//                SalesController salesController = (SalesController) context.getRoutes().getView("sales").getController();
+//
+//                if (newValue.getUserData() != null && salesController != null && salesController.getSaleSelected() != null) {
+//
+//                    PaymentType paymentType = (PaymentType) newValue.getUserData();
+//
+//                    if (!getChildren().contains(boxPay)) {
+//                        getChildren().add(boxPay);
+//                    }
+//
+//                    if (paymentType.equals(PaymentType.CARD) ) {
+//                        updateContent(Graphics.CARD, "Selecionar Cartões", paymentType, salesController.getSaleSelected().getClient());
+//
+//                    } else if (paymentType.equals(PaymentType.PIX)) {
+//                        updateContent(Graphics.PIX, "Selecionar Pix", paymentType, salesController.getSaleSelected().getClient());
+//                    } else {
+//                        getChildren().remove(boxPay);
+//                    }
+//                }
             }
         });
 

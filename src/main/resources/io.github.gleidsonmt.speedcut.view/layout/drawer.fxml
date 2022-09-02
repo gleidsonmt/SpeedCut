@@ -16,7 +16,6 @@
   ~    You should have received a copy of the GNU General Public License
   ~    along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
-
 <!--<?import com.gn.GNAvatarView?>-->
 
 <?import java.lang.*?>
@@ -28,6 +27,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
+
 
 <VBox id="drawer" fx:id="drawer" alignment="TOP_CENTER" minWidth="250.0" prefWidth="250.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.Drawer">
    <styleClass>
@@ -226,7 +226,7 @@
                         <RowConstraints maxHeight="18.0" minHeight="8.0" prefHeight="13.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label fx:id="lblUsername" prefHeight="15.0" style="-fx-font-weight: bold;" styleClass="h5" text="John Jones" GridPane.columnIndex="1" />
+                        <Label fx:id="lblUsername" prefHeight="15.0" style="-fx-font-weight: bold;" styleClass="h5" text="Jhon" GridPane.columnIndex="1" />
                         <StackPane fx:id="boxAvatar" alignment="BOTTOM_RIGHT" prefHeight="25.0" prefWidth="33.0" GridPane.rowSpan="2147483647">
                            <children>
                               <Rectangle fx:id="avatarCircle" arcHeight="100.0" arcWidth="100.0" fill="WHITE" height="40.0" stroke="WHITE" strokeType="INSIDE" styleClass="depth-1" width="40.0" />

@@ -49,20 +49,23 @@ public class ProductColumnFactory<T extends SaleItem, S extends TradeItem> imple
                     setId("badge-cell");
                     setGraphic(null);
 
-                    if (item.getImgPath() != null) {
-//                        setGraphic(item.getAvatar());
-                        String avatar = item.getImgPath();
-                        if (avatar.contains("theme")) {
+//                    if (item.getImgPath() != null) {
+////                        setGraphic(item.getAvatar());
+//                        String avatar = item.getImgPath();
+//                        if (avatar.contains("theme")) {
+//
+//                            String path = "/io.github.gleidsonmt.speedcut.core.app/";
+//                            String imgPath = Objects.requireNonNull(getClass().getResource(path + "theme/img/avatars/man@.png")).toExternalForm();
+//                            Image image = new Image(imgPath, 90, 0, true, false);
+//                            setGraphic(AvatarCreator.createAvatar(image));
+//
+//                        }
+//                    } else {
+//
+//                    }
 
-                            String path = "/io.github.gleidsonmt.speedcut.core.app/";
-                            String imgPath = Objects.requireNonNull(getClass().getResource(path + "theme/img/avatars/man@.png")).toExternalForm();
-                            Image image = new Image(imgPath, 90, 0, true, false);
-                            setGraphic(AvatarCreator.createAvatar(image));
+                    setGraphic(AvatarCreator.createDefaulRecttAvatar(item.getName(), 15, 1, 12));
 
-                        }
-                    } else {
-                        setGraphic(AvatarCreator.createDefaulRecttAvatar(item.getName(), 15, 1, 12));
-                    }
 
                     setGraphicTextGap(10);
                     setItem(item);

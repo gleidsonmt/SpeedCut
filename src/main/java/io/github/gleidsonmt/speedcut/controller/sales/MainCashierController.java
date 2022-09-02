@@ -19,6 +19,7 @@ package io.github.gleidsonmt.speedcut.controller.sales;
 
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.ActionView;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,7 +28,7 @@ import java.util.ResourceBundle;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  24/07/2022
  */
-public class MainCashierController implements ActionView {
+public class MainCashierController implements ActionView, Initializable {
 
     @FXML
     private void openNewCashier() {

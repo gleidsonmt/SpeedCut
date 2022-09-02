@@ -113,12 +113,12 @@ public class ItemsColumnController
 //        creater = false;
         IView view = context.getRoutes().getView("buy");
 
-        view.getController().pass(getController().getSaleSelected() != null);
+//        view.getController().pass(getController().getSaleSelected() != null);
 
         if (getController().getCols() < 2) {
-            getController().setFirsColumn(view.getRoot());
+            getController().setFirstColumn(view.getRoot());
         } else {
-            getController().setSecondColumn(view.getRoot());
+            getController().setSecondColumn(view);
         }
 //
         view.getController().pass(false);
@@ -204,11 +204,11 @@ public class ItemsColumnController
             case TERM -> {
                 amount.setPaymentType(PaymentType.TERM);
 
-                for (PaymentMethod paymentMethod : getController().getSaleSelected().getClient().getPaymentMethods()) {
-                    if (paymentMethod instanceof Term) {
-                        amount.setItem(paymentMethod);
-                    }
-                }
+//                for (PaymentMethod paymentMethod : getController().getSaleSelected().getClient().getPaymentMethods()) {
+//                    if (paymentMethod instanceof Term) {
+//                        amount.setItem(paymentMethod);
+//                    }
+//                }
             }
             case MONEY -> amount.setPaymentType(PaymentType.MONEY);
             default -> throw new IllegalStateException("Unexpected value: " + paymentBox.getPaymentType());
@@ -272,7 +272,7 @@ public class ItemsColumnController
         startAnimation.play();
 
         // if has only one
-        ((IndexController) context.getControlller("sale_index")).selectFirst();
+        ((IndexController) context.getRoutes().getView("sales_index").getController()).selectFirst();
 
     }
 
@@ -306,7 +306,8 @@ public class ItemsColumnController
 
             Repository<Sale> rep = Repositories.get(Sale.class);
 
-            Sale sale = getController().getSaleSelected();
+//            Sale sale = getController().getSaleSelected();
+            Sale sale = new Sale();
 
             AtomicBoolean delete = new AtomicBoolean(true);
 
@@ -328,7 +329,7 @@ public class ItemsColumnController
                                 saleOne.getId() < saleTwo.getId() ? 0 : 1
                         );
 
-                        getController().select(sale);
+//                        getController().select(sale);
 
                         delete.set(false);
                     })
@@ -494,7 +495,7 @@ public class ItemsColumnController
 
         totalColumn.setCellValueFactory(param -> param.getValue().totalProperty());
 
-        SalesController salesController = (SalesController) context.getControlller("sales");
+        SalesController salesController = (SalesController) context.getRoutes().getView("sales").getController();
 
         quantityColumn.setCellFactory(new QuantityColumnFactory());
         tableItems.setRowFactory(new SaleItemsRowFactory(salesController));
@@ -571,7 +572,7 @@ public class ItemsColumnController
     @FXML
     private void goControl () {
         try {
-            context.getRoutes().setContent("sale_index");
+            context.getRoutes().setContent("sales_index");
         } catch (NavigationException e) {
             e.printStackTrace();
         }
@@ -586,7 +587,7 @@ public class ItemsColumnController
     }
 
     public SalesController getController() {
-        if (this.salesController == null) this.salesController = (SalesController) context.getControlller("sales");
+        if (this.salesController == null) this.salesController = (SalesController) context.getRoutes().getView("sales").getController();
         return salesController;
     }
 

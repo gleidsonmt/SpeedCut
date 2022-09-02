@@ -69,8 +69,8 @@ public class SaleItemContext extends ContextMenu implements Context {
 
         });
 
-        menuRemove.setOnAction(event ->
-                controller.deleteSaleItem());
+//        menuRemove.setOnAction(event ->
+//                controller.deleteSaleItem());
 
     }
 

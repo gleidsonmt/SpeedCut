@@ -21,22 +21,31 @@ import io.github.gleidsonmt.gncontrols.GNTextBox;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.gncontrols.skin.TextBox;
 import io.github.gleidsonmt.speedcut.controller.sales.aside.SideHeaderNavigation;
+import io.github.gleidsonmt.speedcut.controller.sales.main.SalesController;
 import io.github.gleidsonmt.speedcut.core.app.dao.Repositories;
 import io.github.gleidsonmt.speedcut.core.app.dao.Repository;
 import io.github.gleidsonmt.speedcut.core.app.model.Client;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.ActionView;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IView;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
@@ -46,8 +55,9 @@ import java.util.ResourceBundle;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/08/2022
  */
-public class FormClientController implements ActionView, Context {
+public class FormClientController implements Initializable, ActionView, Context {
 
+    @FXML private StackPane root;
     @FXML private VBox body;
     @FXML private GNTextBox tfName;
     @FXML private Circle avatarCircle;
@@ -78,6 +88,7 @@ public class FormClientController implements ActionView, Context {
 
     @FXML
     private void openFileChooser() {
+
         FileChooser fileChooser = new FileChooser();
 
         fileChooser.setTitle("Selecione uma imagem");
@@ -89,10 +100,44 @@ public class FormClientController implements ActionView, Context {
                 new FileChooser.ExtensionFilter("Simple Images", "*.jpg")
         );
 
-        File file = fileChooser.showOpenDialog(context.getWindow().getWindow());
+        File file = fileChooser.showOpenDialog(context.getDecorator().getScene().getWindow());
 
+        if (file == null) return;
+
+        IView view = context.getRoutes().load("popups/picture_selector.fxml", "Picture Selector", "pic_selector");
+
+        PictureSelectorController viewController = (PictureSelectorController) view.getController();
+
+        Image image = new Image(String.valueOf(file));
+        viewController.setImage(image);
+
+        // a condi;'ao dele ficar muito pequeno eh transformar em um root no principal
+
+//        double width = Math.min(image.getWidth(), (context.getDecorator().getWidth() / 2));
+//        double width = image.getWidth();
+//        double height = context.getDecorator().getHeight() - 50;
+
+        context .getDecorator()
+                .getRoot()
+                .getWrapper()
+                .getPopup()
+//                .size( width, height )
+                .onEnter(event -> {
+                    viewController.setImage(image);
+                    viewController.onEnter();
+                })
+                .onExit(event -> setAvatar(viewController.getImage()))
+                .alignment(Pos.CENTER)
+                .content(view.getRoot())
+                .show();
 
     }
+
+    public void setAvatar(Image image) {
+        avatarCircle.setFill(new ImagePattern(image));
+    }
+
+
 
     @Override
     public void onEnter() {

@@ -1,23 +1,16 @@
 
-Ideias
+Ultimo Dao exemplo DaoCard Seguir modelo
 
-    Mais velocidade na indexacao passando item por item para a lista
-    Mais velocidade para listas adicionando poupularidade como indexador..
-
-
-animations ideas
-https://cssfx.netlify.app
-
-Continuar ideia dao.. abstract faz meotodos dao.. e presenter implementa esse mtedodo
-
+Proximo Modulo -> Registros -> Registros de clientes
 
 ** Views
 
 - Main
 	Sales -- Doing
 	{
-	    Tela de Funcionarios,
-	    Tela de recebimentos.
+	    Tela escolha de clientes ********************
+	    Tela de Funcionarios [Anexado como popup ou view no modo pequeno] *********
+	    Tela de recebimentos. *******
 	}
 	Appointment
     Stock
@@ -28,7 +21,10 @@ Continuar ideia dao.. abstract faz meotodos dao.. e presenter implementa esse mt
     About
 - CRUD
     PROFESSIONAL
-    CLIENT
+    CLIENT -- Doing
+    {
+
+    }
     PRODUCT
     SERVICE
     USER
@@ -36,7 +32,55 @@ Continuar ideia dao.. abstract faz meotodos dao.. e presenter implementa esse mt
 - ShortCuts
 - Tutorials
 
+---------------------------------- Actions ----------------------
 
--------------------------------------- Improvements ---------------------
+1 - Refatoracao
+2 - Melhoria
+3 - Bug
 
-- Animacao do popup demora muito
+------------------------------------  Melhorias ---------------------
+
+1 - Animacao do popup demora muito - ************** //
+2 - Criacao gigantesca de popups para as table cells contextMenu 111111111111
+3 - Data atualizando sozinha ********
+4 - T do nome nao aparce no drawer 333333333333
+
+-------------------------------------- Bugs ---------------------
+
+Screen
+1 - Ao alterar o tamnho da view a barra desaparece 1111111
+2 - Ao alterar para view de selecionar funcionario search nao recebe o foco 11111111111 *********
+3 - Ao pesquisar o nome de funcionarios os tiles nao se ajeitam 222222222222
+
+View = Vendas
+
+1 - Adiciona Item com desconto
+2 - Nao atualiza items quando o mesmo item eh adicionado
+3 - Linha dos bottos da primeira coluna somem
+4 -
+
+---- Legendas --
+
+******************* = Feito
+/////////////////// = Pode Melhorar
+000000000000000000 = Critico
+111111111111111111 = Necessario
+222222222222222222 = Refatoramento
+3333333333333333333 = Design
+4444444444444444444 =
+
+
+-------------------------------------- Extras ----
+
+-- = Titulo
+[ algo ] = Informacao Extra
+
+-------------------------------------- Ideias ----
+
+Mais velocidade na indexacao passando item por item para a lista
+Mais velocidade para listas adicionando poupularidade como indexador..
+
+animations ideas
+https://cssfx.netlify.app
+
+Continuar ideia dao.. abstract faz meotodos dao.. e presenter implementa esse mtedodo

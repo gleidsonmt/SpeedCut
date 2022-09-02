@@ -35,6 +35,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -48,7 +49,7 @@ import java.util.ResourceBundle;
  * Create on  25/02/2022
  */
 @SuppressWarnings("rawtypes")
-public class BuyController implements ActionView {
+public class BuyController implements ActionView, Initializable {
 
     @FXML private StackPane root;
     @FXML private GNListView<TradeItem> listItems;
@@ -189,7 +190,7 @@ public class BuyController implements ActionView {
     public void onEnter() {
 
         if (salesContoller == null) salesContoller =
-                (SalesController) context.getControlller("sales");
+                (SalesController) context.getRoutes().getView("sales").getController();
 
         if (!init) {
             init = true;
@@ -295,7 +296,7 @@ public class BuyController implements ActionView {
     @FXML
     private void back () {
         if (salesContoller.getCols() > 1) {
-            salesContoller.resetSecondColumn();
+            salesContoller.remove();
         } else salesContoller.resetFirstColumn();
     }
 

@@ -15,18 +15,27 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.core.app.view;
+package io.github.gleidsonmt.speedcut.core.app.view.core;
 
+import io.github.gleidsonmt.speedcut.controller.form.PictureSelectorController;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
+import io.github.gleidsonmt.speedcut.core.app.view.View;
+import io.github.gleidsonmt.speedcut.core.app.view.ViewComposer;
+import io.github.gleidsonmt.speedcut.core.app.view.WindowDecorator;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IView;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -94,7 +103,6 @@ public class LoadViews extends Service<ViewComposer> implements Context {
     protected void succeeded() {
         try {
 
-
             if (context.getUser() != null && context.getUser().isLogged()) {
 
                 decorator.fullBody();
@@ -102,10 +110,53 @@ public class LoadViews extends Service<ViewComposer> implements Context {
                 decorator.getLayout()
                         .setDrawer(context.getRoutes().load(
                         "layout/drawer.fxml", "Drawer", "drawer"
-                        ).getRoot()
+                        )
                 );
 
                 context.getRoutes().setContent("dash");
+
+                FileChooser fileChooser = new FileChooser();
+
+                fileChooser.setTitle("Selecione uma imagem");
+                fileChooser.setInitialDirectory(new File("C:\\Users\\" + System.getProperties().get("user.name") + "\\Pictures\\"));
+
+
+                fileChooser.getExtensionFilters().addAll(
+                        new FileChooser.ExtensionFilter("Transparent Images", "*.png"),
+                        new FileChooser.ExtensionFilter("Simple Images", "*.jpg")
+                );
+
+                File file = fileChooser.showOpenDialog(context.getDecorator().getScene().getWindow());
+
+                if (file == null) return;
+
+                IView view = context.getRoutes().load("popups/picture_selector.fxml", "Picture Selector", "pic_selector");
+
+                PictureSelectorController viewController = (PictureSelectorController) view.getController();
+
+                Image image = new Image(String.valueOf(file));
+                viewController.setImage(image);
+
+                // a condi;'ao dele ficar muito pequeno eh transformar em um root no principal
+
+                double width = Math.min(image.getWidth(), (context.getDecorator().getWidth() / 2));
+//                double height = context.getDecorator().getHeight() - 50;
+//                double width = image.getWidth();
+                double height = image.getHeight();
+
+                context .getDecorator()
+                        .getRoot()
+                        .getWrapper()
+                        .getPopup()
+                        .size( width + 40, 400 + 350)
+                        .onEnter(event -> {
+                            viewController.setImage(image);
+                            viewController.onEnter();
+                        })
+//                        .onExit(event -> setAvatar(viewController.getImage()))
+                        .alignment(Pos.CENTER)
+                        .content(view.getRoot())
+                        .show();
 
 //                context.getDecorator().getRoot().setNeedsBar(true);
 
@@ -113,7 +164,7 @@ public class LoadViews extends Service<ViewComposer> implements Context {
 //                context.getDecorator().getRoot().setNeedsBar(false);
                 context.getRoutes().setView("login");
             }
-        } catch (NavigationException | IOException e) {
+        } catch (NavigationException e) {
             e.printStackTrace();
         }
     }

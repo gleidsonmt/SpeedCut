@@ -20,6 +20,7 @@ package io.github.gleidsonmt.speedcut.core.app.view.intefaces;
 import io.github.gleidsonmt.speedcut.core.app.layout.ILayout;
 import io.github.gleidsonmt.speedcut.core.app.layout.containers.Wrapper;
 import javafx.application.HostServices;
+import javafx.scene.Scene;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -40,6 +41,10 @@ public interface IDecorator {
 
     double getWidth();
 
+    double getHeight();
+
     void show(HostServices hostServices);
+
+    Scene getScene();
 
 }

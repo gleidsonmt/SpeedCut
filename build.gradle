@@ -1,3 +1,4 @@
+
 plugins {
     id 'java'
     id 'application'
@@ -7,10 +8,13 @@ plugins {
 
 group 'io.github.gleidsonmt.speedcut'
 version '1.0'
-mainClassName = 'io.github.gleidsonmt.speedcut.Start'
+//mainClassName = io.github.gleidsonmt.speedcut.core.app/Start'
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://jitpack.io'
+    }
 }
 
 ext {
@@ -22,38 +26,46 @@ targetCompatibility = '17'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+    options.warnings = false
+    options.compilerArgs += ["-nowarn", "-XDenableSunApiLintControl"]
 }
 
 application {
     mainModule = 'io.github.gleidsonmt.speedcut'
-    mainClass = mainClassName
+    mainClass = 'io.github.gleidsonmt.speedcut.Start'
 }
 
 javafx {
-    version = '17.0.1'
-    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web']
+    version = '18.0.1'
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web', 'javafx.graphics']
 }
 
 dependencies {
 
-    implementation 'org.yaml:snakeyaml:1.29'
-    implementation 'fr.brouillard.oss:cssfx:11.5.0'
-    implementation 'org.jetbrains:annotations:22.0.0'
+    implementation 'org.yaml:snakeyaml:1.30'
+    implementation 'fr.brouillard.oss:cssfx:11.5.1'
+    implementation 'org.jetbrains:annotations:23.0.0'
+
+//    implementation 'com.github.User:Repo:Tag'
+    implementation 'com.github.hervegirod:fxsvgimage:1.0b2'
 
     implementation files('E:/Projetos/Atual/GNControls/build/libs/GNControls-1.1.1.jar')
 
     implementation files('vendor/GNDecorator-1.0.5.jar')
-    implementation files('vendor/scenicView.jar')
     implementation files('vendor/animatefx-1.2.0.jar')
-    implementation files('vendor/mysql-connector-java-8.0.14.jar')
-    implementation files('vendor/GNAvatarView-1.0-rc.jar')
-    implementation files('vendor/formsfx-core-11.5.0.jar')
     implementation files('vendor/controlsfx-8.40.17.jar')
+    implementation files('vendor/mysql-connector-java-8.0.14.jar')
+
+    implementation files('vendor/scenicView.jar')
+//    implementation files('vendor/GNAvatarView-1.0-rc.jar')
+//    implementation files('vendor/formsfx-core-11.5.0.jar')
 
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
 }
+
 
 test {
     useJUnitPlatform()
@@ -67,14 +79,15 @@ jlink {
     }
 
     jpackage {
+
         imageOptions = [
-                '--icon', 'logo.ico'
+                '--icon', 'logoT.ico'
         ]
         installerType = 'exe'
         installerOptions = [
-            '--description', "Project Example for JavaFx",
-            '--copyright', 'Copyrigth © 2021-2022 GLEIDSON NEVES DA SILVEIRA',
-            '--icon', 'logo.ico'
+            '--description', "Projeto CRM de salões de beleza.",
+            '--copyright', 'Copyrigth © 2021-2022 GLEIDSON NEVES DA SILVEIRA'
+            , '--icon', 'logoT.ico'
 
         ]
 
@@ -82,6 +95,25 @@ jlink {
     }
 }
 
+//jar {
+//
+//    manifest {
+//        attributes(
+//                'Main-Class': 'io.github.gleidsonmt.speedcut.Start'
+//        )
+//    }
+////    from {
+////        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+////    }
+//}
+
+task copyDocs(type: Copy) {
+    from 'src/main/resources/io.github.gleidsonmt.speedcut.core.app'
+    into 'build/jpackage/SpeedCut/app'
+    include "*.properties"
+}
+
 jlinkZip {
     group = 'distribution'
 }
+

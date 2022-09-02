@@ -400,6 +400,7 @@
 .button {
     -fx-text-fill : -inner-color;
     -gn-button-type : semi_rounded;
+    -fx-font-weight : bold;
 }
 
 .gn-button-hover {
@@ -420,7 +421,24 @@
 }
 
 .button {
-    -fx-border-radius : 0px;
+    -fx-border-radius : 2px;
+}
+
+.gn-button:cancel:focused:hover,
+.gn-button:cancel:focused,
+.gn-button:cancel:hover,
+.gn-button:cancel {
+     -fx-font-weight : bold;
+    -fx-border-width : 2;
+    -fx-background-radius : 2;
+    -fx-background-color : transparent;
+    -gn-ripple-fill : -info;
+    -fx-border-color : -info;
+    -fx-text-fill : -text-color;
+}
+
+.gn-button:cancel SVGPath {
+    -fx-fill : -info;
 }
 
 .button:hover,

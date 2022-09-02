@@ -36,13 +36,17 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SideHeaderNavigation extends HBox implements Context {
 
-    private final Button btnBack = new Button();
+    private Button btnBack;
 
-    public SideHeaderNavigation(Icons icon, String title) {
-        this(new IconContainer(icon), title);
+    public SideHeaderNavigation(Icons icon, String title, boolean needsBackButton) {
+        this(new IconContainer(icon), title, needsBackButton);
     }
 
-    public SideHeaderNavigation(@NotNull IconContainer icon, String title) {
+    public SideHeaderNavigation(Icons icon, String title) {
+        this(new IconContainer(icon), title, true);
+    }
+
+    public SideHeaderNavigation(@NotNull IconContainer icon, String title, boolean needsBackButton) {
 
         VBox.setMargin(this, new Insets(0, 5,0,5));
 
@@ -55,18 +59,8 @@ public class SideHeaderNavigation extends HBox implements Context {
         this.setAlignment(Pos.CENTER_LEFT);
         this.getStyleClass().addAll("border", "border-b-1");
 
-        btnBack.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-        btnBack.setGraphic(new IconContainer(Icons.ARROW_BACK));
-
-        btnBack.setPrefWidth(60);
-        btnBack.setPrefHeight(60);
-        btnBack.setMinWidth(60);
-        btnBack.setMinHeight(60);
-        btnBack.setMaxWidth(60);
-
-        btnBack.getStyleClass().addAll("btn-flat", "border", "border-r-1");
-
         Label lblInfo = new Label();
+        lblInfo.setMaxHeight(60);
         lblInfo.setText(title);
         lblInfo.getStyleClass().addAll("h4");
         lblInfo.setStyle("-fx-font-weight : bold;");
@@ -75,9 +69,31 @@ public class SideHeaderNavigation extends HBox implements Context {
         HBox.setMargin(lblInfo, new Insets(0, 0, 0, 15));
         lblInfo.setGraphicTextGap(10);
 
-        this.getChildren().setAll(btnBack, lblInfo);
+        if (needsBackButton) {
+            btnBack = new Button();
 
-        configActions();
+            btnBack.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            btnBack.setGraphic(new IconContainer(Icons.ARROW_BACK));
+
+            btnBack.setPrefWidth(60);
+            btnBack.setPrefHeight(60);
+            btnBack.setMinWidth(60);
+            btnBack.setMinHeight(60);
+            btnBack.setMaxWidth(60);
+
+            btnBack.getStyleClass().addAll("btn-flat", "border", "border-r-1");
+
+            this.getChildren().setAll( btnBack, lblInfo);
+
+
+        }
+
+        this.getChildren().setAll( lblInfo);
+
+
+
+        if (btnBack != null)
+            configActions();
     }
 
     private void configActions() {

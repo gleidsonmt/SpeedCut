@@ -29,4 +29,6 @@ public interface AppPaths {
 
     String getAvatars();
 
+    String getCursores();
+
 }

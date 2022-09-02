@@ -23,6 +23,7 @@ import io.github.gleidsonmt.speedcut.core.app.dao.Repositories;
 import io.github.gleidsonmt.speedcut.core.app.model.Cashier;
 import io.github.gleidsonmt.speedcut.core.app.model.User;
 import io.github.gleidsonmt.speedcut.core.app.view.*;
+import io.github.gleidsonmt.speedcut.core.app.view.core.Routes;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.*;
 import javafx.application.HostServices;
 import javafx.beans.property.ObjectProperty;
@@ -121,6 +122,7 @@ public class App implements AppPaths, IContext {
         return this.routes.getView(view).getController();
     }
 
+    @Deprecated
     public Parent getRoot(String view) {
         return routes.getView(view).getRoot();
     }
@@ -211,5 +213,10 @@ public class App implements AppPaths, IContext {
     @Override
     public String getAvatars() {
         return "/io.github.gleidsonmt.speedcut.core.app/theme/img/avatars/";
+    }
+
+    @Override
+    public String getCursores() {
+        return "/io.github.gleidsonmt.speedcut.core.app/theme/img/cursores/";
     }
 }

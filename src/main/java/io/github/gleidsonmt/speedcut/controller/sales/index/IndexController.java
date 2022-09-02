@@ -42,6 +42,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
@@ -61,7 +62,7 @@ import java.util.function.Predicate;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  03/04/2022
  */
-public class IndexController implements ActionView {
+public class IndexController implements ActionView, Initializable {
 
     @FXML private TableView<Transaction> transactionTable;
     @FXML private TableColumn<Transaction, Client> clientColumn;
@@ -183,11 +184,11 @@ public class IndexController implements ActionView {
 
                 transactionTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
 
-                    System.out.println("fuckkkkkk ");
                     if (newValue != null) {
 
 
-                        updateAvatar(newValue.getSale().getProfessional());
+//                        updateAvatar(newValue.getSale().getProfessional());
+
                         listItems.setItems(newValue.getSale().getSaleItems());
 
                         boxPaymentDetails.updateContent(
@@ -233,18 +234,19 @@ public class IndexController implements ActionView {
 //    }
 
     private void updateAvatar(Professional professional) {
-        String avatar = professional.getImgPath();
-        avatarBox.getChildren().clear();
-
-        if (avatar != null) {
-            String path = "/io.github.gleidsonmt.speedcut.core.app/";
-            String imgPath = Objects.requireNonNull(getClass().getResource(path + avatar)).toExternalForm();
-            Image image = new Image(imgPath, 90, 0, true, true);
-//                        setGraphic(AvatarCreator.createAvatar(image));
-            avatarBox.getChildren().add(AvatarCreator.createAvatar(image));
-//                    } else {
-//                        setGraphic(AvatarCreator.createDefaultAvatar(item.getName(), 18));
-        }
+//        String avatar = professional.getImgPath();
+//        avatarBox.getChildren().clear();
+//
+//        if (avatar != null) {
+//            String path = "/io.github.gleidsonmt.speedcut.core.app/";
+//            String imgPath = Objects.requireNonNull(getClass().getResource(path + avatar)).toExternalForm();
+//            Image image = new Image(imgPath, 90, 0, true, true);
+////                        setGraphic(AvatarCreator.createAvatar(image));
+//            avatarBox.getChildren().add(AvatarCreator.createAvatar(image));
+//
+////                    } else {
+////                        setGraphic(AvatarCreator.createDefaultAvatar(item.getName(), 18));
+//        }
     }
 
     @Override

@@ -20,6 +20,7 @@ package io.github.gleidsonmt.speedcut.controller.client;
 import io.github.gleidsonmt.speedcut.core.app.factory.AvatarCreator;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.ActionView;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -34,7 +35,7 @@ import java.util.ResourceBundle;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  06/08/2022
  */
-public class ClientController implements ActionView {
+public class ClientController implements ActionView, Initializable {
 
 
     @FXML

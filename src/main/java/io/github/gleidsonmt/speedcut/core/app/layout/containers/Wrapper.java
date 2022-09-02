@@ -21,6 +21,7 @@ import io.github.gleidsonmt.speedcut.core.app.layout.Root;
 import io.github.gleidsonmt.speedcut.core.app.view.WindowDecorator;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -37,13 +38,14 @@ public class Wrapper {
 
 
     public Wrapper(Root _root, WindowDecorator window) {
+
         this.window = window;
         container.getChildren().add(root);
 
-        container.setBackground(
+        root.setBackground(
                 new Background(
                         new BackgroundFill(
-                                Color.gray(0.5, 0.5),
+                                Color.gray(0.5, 0.3),
 //                                Color.WHITE,
                                 CornerRadii.EMPTY,
                                 Insets.EMPTY))
@@ -54,8 +56,10 @@ public class Wrapper {
 
     public void addContent(Node node) {
         // usado como drawer, popup and alerts
-        root.getChildren().clear();
+//        root.getChildren().clear();
         root.getChildren().add(node);
+
+//        node.setBlendMode(BlendMode.COLOR_BURN);
     }
 
     private PopupOver popupOver;

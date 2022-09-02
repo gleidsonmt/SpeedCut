@@ -15,7 +15,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.core.app;
+package io.github.gleidsonmt.speedcut.core.app.view.core;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
