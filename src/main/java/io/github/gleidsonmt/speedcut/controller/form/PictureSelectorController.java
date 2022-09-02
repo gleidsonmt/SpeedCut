@@ -389,8 +389,6 @@ public class PictureSelectorController implements ActionView, Context, Initializ
     @FXML
     private void fixedOnTopLeft(MouseEvent event) {
 
-//        btnLockInTop.setVisible(true); //256
-
         // Gets the initial cordinates and clamp with the size of circle
         initY = clampPointerTopY(event);
         initX = clampPointerForLeftX(event);
@@ -433,6 +431,31 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         // don't leave from the limit
         if (newY > maxY) setHeight(boxSelector.getPrefHeight()  - deltaY);
         if (newX > maxX) setWidth(boxSelector.getPrefWidth()    - deltaX);
+    }
+
+    @FXML
+    private void fixedOnTopRight(MouseEvent event) {
+
+        // Gets the initial cordinates and clamp with the size of circle
+        initY = clampPointerTopY(event);
+        initX = clampPointerForRightX(event);
+
+        // Remove old anchors
+        clearConstraints(boxSelector);
+
+        // Get the min x and y postion (Relative to boxContainer)
+        double _minX =  (boxSelector.getLocalToParentTransform().getTx() ) ;
+        double _minY =  (boxSelector.getLocalToParentTransform().getTy()  ) ;
+
+        // Get the maxX and maxY position in the parent (Relative to boxContainer)
+        double _maxX = viewWidth - (_minX + boxSelector.getWidth());
+        double _maxY = boxContainer.getHeight() - (_minY + boxSelector.getHeight());
+
+        // Anchor positions (Relative to boxContainer)
+        AnchorPane.setLeftAnchor(boxSelector, _minX );
+        AnchorPane.setBottomAnchor(boxSelector, _maxY );
+
+
     }
 
     @FXML
