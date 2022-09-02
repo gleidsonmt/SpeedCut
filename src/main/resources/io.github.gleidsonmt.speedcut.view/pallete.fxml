@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="root" prefHeight="381.0" prefWidth="536.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.sales.side_views.BuyController">
+   <children>
+      <VBox StackPane.alignment="CENTER">
+         <children>
+            <HBox VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: -info;" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Cor de destaque" textFill="WHITE" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: -mint;" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Cor de hover" textFill="WHITE" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="189.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Background" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: -text-color;" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Text Color" textFill="WHITE" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/material-color.css" />
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/light.css" />
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/skeleton.css" />
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/bootstrap.css" />
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/shape.css" />
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/typographic.css" />
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/helpers.css" />
+      <URL value="@../io.github.gleidsonmt.speedcut.core.app/theme/css/master.css" />
+   </stylesheets>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</StackPane>
