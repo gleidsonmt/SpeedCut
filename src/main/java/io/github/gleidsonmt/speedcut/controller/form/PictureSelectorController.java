@@ -43,6 +43,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
@@ -345,6 +346,24 @@ public class PictureSelectorController implements ActionView, Context, Initializ
     }
 
     @FXML
+    private void fixedOnBottomRight(MouseEvent event) {
+
+//        btnLockInTop.setVisible(true);
+
+        initY = clampPointerBottomY(event);
+        initX = clampPointerForRightX(event);
+
+        clearConstraints(boxSelector);
+//
+        double _minX =  (boxSelector.getLocalToParentTransform().getTx()  ) ;
+        double _minY =  (boxSelector.getLocalToParentTransform().getTy()  ) ;
+
+        AnchorPane.setRightAnchor( boxSelector, _minX );
+        AnchorPane.setTopAnchor( boxSelector, _minY );
+
+    }
+
+    @FXML
     private void fixedOnTopLeft(MouseEvent event) {
 
 //        btnLockInTop.setVisible(true); //256
@@ -419,6 +438,13 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         return  _sum - 1;
     }
 
+    private double clampPointerForRightX(@NotNull MouseEvent event) {
+        double min = (boxSelector.getLocalToSceneTransform().getTx() + boxSelector.getWidth()) -2;
+        double _count = event.getSceneX() - min;
+        double _sum = event.getSceneX() - _count;
+        return  _sum - 1;
+    }
+
     private double clampPointerTopY(@NotNull MouseEvent event) {
         double min = boxSelector.getLocalToSceneTransform().getTy();
         double _count = event.getSceneY() - min;
@@ -429,12 +455,11 @@ public class PictureSelectorController implements ActionView, Context, Initializ
     private double clampPointerBottomY(@NotNull MouseEvent event) {
         double min = (boxSelector.getLocalToSceneTransform().getTy() + boxSelector.getHeight()) -2; // two border width
 
-
         double _count = event.getSceneY() - min;
         double _sum = event.getSceneY() - _count;
 
 
-//        Separator separator = new Separator(Orientation.HORIZONTAL);
+//        Pane separator = new Pane();
 //        separator.setPrefSize(200, 200);
 //        separator.setStyle("-fx-background-color : red;");
 //
