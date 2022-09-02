@@ -26,6 +26,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
@@ -38,9 +39,11 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import org.jetbrains.annotations.NotNull;
 
@@ -486,6 +489,75 @@ public class PictureSelectorController implements ActionView, Context, Initializ
 
     }
 
+
+    @FXML
+    private void getBoxCordinates(@NotNull MouseEvent event) {
+
+        if (event.getTarget() instanceof Circle) return; // dont use the path or update
+
+//        initX = (event.getSceneX() ) - (boxSelector.getLocalToParentTransform().getTx());
+//        initY = (event.getSceneY() ) - (boxSelector.getLocalToParentTransform().getTy());
+
+//        initX = ( boxContainer.getLocalToSceneTransform().getTx() + boxSelector.getLocalToParentTransform().getTx() +event.getX())  -2;
+//        initX =  - (boxSelector.getLocalToSceneTransform().getTx() + event.getX()) -2;
+//        initY = (boxContainer.getLocalToSceneTransform().getTy() + event.getY()) -2;
+
+
+        initX = (event.getScreenX() ) - (boxSelector.getLocalToParentTransform().getTx());
+        initY = (event.getScreenY() ) - (boxSelector.getLocalToParentTransform().getTy());
+
+
+        Pane separator = new Pane();
+        separator.setStyle("-fx-background-color : red;");
+        separator.setPrefSize(1, 300);
+        context.getDecorator().getWrapper().addContent(separator);
+
+        AnchorPane.setLeftAnchor(separator, initX);
+//        AnchorPane.setBottomAnchor(separator, initY);
+//
+//        boxSelector.setCursor(Cursor.MOVE);
+
+    }
+
+    @FXML
+    private void moveBox(@NotNull MouseEvent event) {
+
+        if (event.getTarget() instanceof Circle) return;
+
+        if (!event.isPrimaryButtonDown() || (initX == -1 && initY == -1)) return;
+        if (event.isStillSincePress()) return;
+
+        clearConstraints(boxSelector);
+
+
+        newX = event.getScreenX();
+        newY = event.getScreenY();
+//
+        deltaX = newX - initX;
+        deltaY = newY - initY;
+        Bounds bounds = imageView.getLayoutBounds();
+
+        double padX = imageView.getLocalToParentTransform().getTx();
+        double padY = imageView.getLocalToParentTransform().getTy();
+
+//        boolean maxX = (deltaX + boxSelector.getWidth()) < 401;
+//        boolean maxY = (deltaY + boxSelector.getHeight()) < 401 ;
+        boolean maxX = (deltaX + boxSelector.getWidth()) < (bounds.getWidth() ) + (padX + 2);
+        boolean maxY = (deltaY + boxSelector.getHeight()) < (bounds.getHeight() ) + (padY + 2);
+
+//        System.out.println("deltaX = " + deltaX);
+//        System.out.println("newX = " + newX);
+//        System.out.println("boxContainer = " + boxContainer.getLocalToSceneTransform());
+
+//        if (deltaX > (padX) && maxX)
+        if (deltaX > (padX-2) )
+            boxSelector.setLayoutX( deltaX);
+
+//        if (deltaY > (padY) && maxY)
+        if (deltaY > (padY-2))
+            boxSelector.setLayoutY( deltaY );
+
+    }
 
     @FXML
     private void getInitialCordinates(@NotNull MouseEvent event) {

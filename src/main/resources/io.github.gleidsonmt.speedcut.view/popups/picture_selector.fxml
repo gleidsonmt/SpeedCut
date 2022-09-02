@@ -53,9 +53,9 @@
                         </VBox>
                         <AnchorPane fx:id="boxContainer" onMouseDragged="#dragImage" onMousePressed="#getImageCord" onMouseReleased="#updateCursor" StackPane.alignment="CENTER">
                            <children>
-                              <AnchorPane fx:id="boxSelector" minHeight="100.0" minWidth="100.0" onMouseDragged="#draggBoxSelector" onMousePressed="#getInitialCordinates" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white; -fx-border-width: 2;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <AnchorPane fx:id="boxSelector" minHeight="100.0" minWidth="100.0" onMouseDragged="#moveBox" onMousePressed="#getBoxCordinates" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white; -fx-border-width: 2;">
                                  <children>
-                                    <VBox fx:id="boxLight" alignment="CENTER" blendMode="OVERLAY" layoutX="2.0" maxHeight="-Infinity" maxWidth="-Infinity" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <VBox fx:id="boxLight" alignment="CENTER" blendMode="OVERLAY" maxHeight="-Infinity" maxWidth="-Infinity" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <opaqueInsets>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </opaqueInsets>
