@@ -358,8 +358,31 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         double _minX =  (boxSelector.getLocalToParentTransform().getTx()  ) ;
         double _minY =  (boxSelector.getLocalToParentTransform().getTy()  ) ;
 
-        AnchorPane.setRightAnchor( boxSelector, _minX );
         AnchorPane.setTopAnchor( boxSelector, _minY );
+        AnchorPane.setLeftAnchor( boxSelector, _minX );
+
+    }
+
+    @FXML
+    private void resizeFromBottomRight(@NotNull MouseEvent event) {
+
+        if (!event.isPrimaryButtonDown() || (initX == -1 && initY == -1)) return; // if out of bounds and not the primary button(left)
+        if (event.isStillSincePress()) return; // if the mouse doesn't continuos pressed
+
+        // get the new x positions
+        newX = event.getSceneX();
+        newY = event.getSceneY();
+
+        // get the difference from initial clicked to dragg
+        deltaX = newX - initX;
+        deltaY = newY - initY;
+
+        double maxX = (boxContainer.getLocalToSceneTransform().getTx() + boxContainer.getWidth())  -2; // 2 is the border width
+        double maxY = (boxContainer.getLocalToSceneTransform().getTy() + boxContainer.getHeight()) -2;
+
+        // don't out the limits
+        if (newX < maxX) setWidth(boxSelector.getPrefWidth() + deltaX);
+        if (newY < maxY) setHeight(boxSelector.getPrefHeight() + deltaY);
 
     }
 
