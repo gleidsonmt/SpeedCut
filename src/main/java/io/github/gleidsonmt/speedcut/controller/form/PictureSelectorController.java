@@ -156,27 +156,42 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         boxContainer.setCursor(Cursor.DEFAULT);
     }
 
+    /**
+     * Gets the initial view port position.
+     * @param event Mouse event for get x and y pos.
+     */
     @FXML
     private void getImageCord(@NotNull MouseEvent event) {
 
         if (event.getTarget() instanceof Circle) return;
-        if (event.getTarget() instanceof Path) return;
 
+        // Get the mouse position in image when is clicked.
         Point2D mousePress = imageViewToImage(imageView, new Point2D(event.getX(), event.getY()));
+
+        // Set the initial point 2D
         mouseDown.set(mousePress);
+
         boxContainer.setCursor(Cursor.CROSSHAIR);
     }
 
+    /**
+     * Drag image
+     * @param event Mouse event for get x and y pos.
+     */
     @FXML
-    private void draggImage(@NotNull MouseEvent event) {
+    private void dragImage(@NotNull MouseEvent event) {
 
         if (event.getTarget() instanceof Circle) return;
-        if (event.getTarget() instanceof Path) return;
 
         if (!event.isControlDown()) return;
 
+        // Get new cordinates from the event.
         Point2D dragPoint = imageViewToImage(imageView, new Point2D(event.getX(), event.getY()));
-        shift(imageView, dragPoint.subtract(mouseDown.get()));
+
+        // Move the image for the next cordinates
+        moveViewPort(imageView, dragPoint.subtract(mouseDown.get()));
+
+        // Register actual coordinates
         mouseDown.set(imageViewToImage(imageView, new Point2D(event.getX(), event.getY())));
 
         boxContainer.setCursor(Cursor.MOVE);
@@ -184,16 +199,20 @@ public class PictureSelectorController implements ActionView, Context, Initializ
 
     // shift the viewport of the imageView by the specified delta, clamping so
     // the viewport does not move off the actual image:
-    private void shift(@NotNull ImageView imageView, @NotNull Point2D delta) {
+    private void moveViewPort(@NotNull ImageView imageView, @NotNull Point2D delta) {
 
+        // Get the view port actual
         Rectangle2D viewport = imageView.getViewport();
 
+        // Get th e properties from iaveView
         double width = imageView.getImage().getWidth() ;
         double height = imageView.getImage().getHeight() ;
 
+        // Get max positions
         double maxX = width - viewport.getWidth();
         double maxY = height - viewport.getHeight();
 
+        // Move
         double minX = clamp(viewport.getMinX() - delta.getX(), 0, maxX);
         double minY = clamp(viewport.getMinY() - delta.getY(), 0, maxY);
 
@@ -231,19 +250,6 @@ public class PictureSelectorController implements ActionView, Context, Initializ
     public void setImage(Image image) {
         imageView.setImage(image);
         centerImage(image);
-    }
-
-    private boolean exited;
-
-    @FXML
-    private void onMouseExited() {
-        exited = true;
-    }
-
-    @FXML
-    private void onMouseEntered() {
-//        top_left.setOnMouseDragged(this::resizeFromTopLeft);
-        exited = false;
     }
 
     @FXML
@@ -475,9 +481,6 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         double maxX = (boxContainer.getLocalToSceneTransform().getTx() + boxContainer.getWidth()) -2;
         double maxY = (boxContainer.getLocalToSceneTransform().getTy() -2);
 
-        System.out.println("newY = " + newY);
-        System.out.println("maxY = " + maxY);
-
         if (newX < maxX) setWidth(boxSelector.getPrefWidth() + deltaX);
         if (newY > maxY) setHeight(boxSelector.getPrefHeight() - deltaY);
 
@@ -487,17 +490,17 @@ public class PictureSelectorController implements ActionView, Context, Initializ
     @FXML
     private void getInitialCordinates(@NotNull MouseEvent event) {
 
-        if (event.getTarget() instanceof Circle || event.getTarget() instanceof Path) {
+        if (event.getTarget() instanceof Circle) return;
 
-
-
-        } else {
-
-            initX = (event.getScreenX()) - (boxSelector.getLocalToParentTransform().getTx());
-            initY = (event.getScreenY()) - (boxSelector.getLocalToParentTransform().getTy());
-//
-        }
+        initX = (event.getScreenX()) - (boxSelector.getLocalToParentTransform().getTx());
+        initY = (event.getScreenY()) - (boxSelector.getLocalToParentTransform().getTy());
     }
+
+    /***************************************************************
+     *
+     *              Utils
+     *
+     **************************************************************/
 
     private void clearConstraints(Node node) {
         AnchorPane.clearConstraints(node);
@@ -526,20 +529,8 @@ public class PictureSelectorController implements ActionView, Context, Initializ
 
     private double clampPointerBottomY(@NotNull MouseEvent event) {
         double min = (boxSelector.getLocalToSceneTransform().getTy() + boxSelector.getHeight()) -2; // two border width
-
         double _count = event.getSceneY() - min;
         double _sum = event.getSceneY() - _count;
-
-
-//        Pane separator = new Pane();
-//        separator.setPrefSize(200, 200);
-//        separator.setStyle("-fx-background-color : red;");
-//
-//        context.getDecorator().getWrapper().addContent(separator);
-//
-//        AnchorPane.setTopAnchor(separator, min);
-//        AnchorPane.setLeftAnchor(separator, boxSelector.getLocalToSceneTransform().getTx());
-
         return _sum -1;
     }
 
@@ -555,6 +546,21 @@ public class PictureSelectorController implements ActionView, Context, Initializ
             boxSelector.setPrefHeight(height);
             initY = newY;
         }
+    }
+
+    private void centerImage(@NotNull Image image) {
+
+        // Get the actual view port
+        viewWidth = Math.min(image.getWidth(), (context.getDecorator().getWidth() /2));
+        viewHeight = Math.min(image.getHeight(), (context.getDecorator().getHeight() / 2));
+
+        // Sets the view port
+        imageView.setViewport(new Rectangle2D(0,0, viewWidth, viewHeight));
+
+        // Sets the image view size
+        imageView.setFitWidth(viewWidth);
+        imageView.setFitHeight(viewHeight);
+
     }
 
     @Deprecated
@@ -617,18 +623,5 @@ public class PictureSelectorController implements ActionView, Context, Initializ
 
     }
 
-    private void centerImage(Image image) {
 
-        // Get the actual view port
-        viewWidth = Math.min(image.getWidth(), (context.getDecorator().getWidth() /2));
-        viewHeight = Math.min(image.getHeight(), (context.getDecorator().getHeight() / 2));
-
-        // Sets the view port
-        imageView.setViewport(new Rectangle2D(0,0, viewWidth, viewHeight));
-
-        // Sets the image view size
-        imageView.setFitWidth(viewWidth);
-        imageView.setFitHeight(viewHeight);
-
-    }
 }

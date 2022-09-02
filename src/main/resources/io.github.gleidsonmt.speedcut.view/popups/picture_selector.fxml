@@ -35,7 +35,7 @@
                      <children>
                         <VBox fx:id="wrapper" alignment="CENTER">
                            <children>
-                              <ImageView fx:id="imageView" fitHeight="400.0" fitWidth="600.0" onMouseDragged="#draggImage" onMousePressed="#getImageCord" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                              <ImageView fx:id="imageView" fitHeight="400.0" fitWidth="600.0" onMousePressed="#getImageCord" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                                  <image>
                                     <Image url="@../../../../../../../Pictures/57cdd466fb0e89e22add5a6d076a3ecd.jpg" />
                                  </image>
@@ -51,7 +51,7 @@
                               <ColorAdjust brightness="-0.5" />
                            </effect>
                         </VBox>
-                        <AnchorPane fx:id="boxContainer" onMouseDragged="#draggImage" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" onMousePressed="#getImageCord" onMouseReleased="#updateCursor" StackPane.alignment="CENTER">
+                        <AnchorPane fx:id="boxContainer" onMouseDragged="#dragImage" onMousePressed="#getImageCord" onMouseReleased="#updateCursor" StackPane.alignment="CENTER">
                            <children>
                               <AnchorPane fx:id="boxSelector" minHeight="100.0" minWidth="100.0" onMouseDragged="#draggBoxSelector" onMousePressed="#getInitialCordinates" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white; -fx-border-width: 2;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
