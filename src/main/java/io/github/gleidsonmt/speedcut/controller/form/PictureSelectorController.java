@@ -315,7 +315,7 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         double _maxX = viewMaxWidthPort.get() - (_minX + boxSelector.getWidth());
 //
         AnchorPane.setRightAnchor( boxSelector, _maxX );
-//        AnchorPane.setTopAnchor( boxSelector, _minY );
+        AnchorPane.setTopAnchor( boxSelector, _minY );
 
     }
 
@@ -351,8 +351,7 @@ public class PictureSelectorController implements ActionView, Context, Initializ
     @FXML
     private void fixedOnTopLeft(MouseEvent event) {
 
-//        btnLockInTop.setVisible(true); 256
-
+        btnLockInTop.setVisible(true); //256
 
         initY = clampPointerTopY(event);
         initX = clampPointerForLeftX(event);
@@ -362,9 +361,10 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         double _minX =  (boxSelector.getLocalToParentTransform().getTx() ) ;
         double _minY =  (boxSelector.getLocalToParentTransform().getTy()  ) ;
 
-        double limiter = imageView.getImage().getWidth() > viewMaxWidthPort.get() ? boxContainer.getWidth() : imageView.getImage().getWidth();
+//        double limiter = imageView.getImage().getWidth() > viewMaxWidthPort.get() ? boxContainer.getWidth() : imageView.getImage().getWidth();
+        double _maxX = viewMaxWidthPort.get() - (_minX + boxSelector.getWidth());
 //
-        double _maxX = limiter - (_minX + boxSelector.getWidth());
+//        double _maxX = limiter - (_minX + boxSelector.getWidth());
         double _maxY = boxContainer.getHeight() - (_minY + boxSelector.getHeight());
 
         AnchorPane.setRightAnchor(boxSelector, _maxX );
