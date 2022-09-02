@@ -222,27 +222,26 @@ public class PictureSelectorController implements ActionView, Context, Initializ
 
     }
 
-    @FXML
-    private void closePopup() {
-        context.getDecorator().getRoot().getWrapper().getPopup().close();
-    }
+
 
     // convert mouse coordinates in the imageView to coordinates in the actual image:
     private @NotNull Point2D imageViewToImage(@NotNull ImageView imageView, @NotNull Point2D imageViewCoordinates) {
 
         double xProportion = imageViewCoordinates.getX() / imageView.getBoundsInParent().getWidth();
         double yProportion = imageViewCoordinates.getY() / imageView.getBoundsInParent().getHeight();
-//
+
         Rectangle2D viewport = imageView.getViewport();
 
         return new Point2D(
                 viewport.getMinX() + xProportion * viewport.getWidth(),
                 viewport.getMinY() + yProportion * viewport.getHeight());
+
     }
 
     private double clamp(double value, double min, double max) {
 
         if (value < min) return min;
+
         return Math.min(value, max);
 
     }
@@ -256,6 +255,11 @@ public class PictureSelectorController implements ActionView, Context, Initializ
     private void lockInTop() {
         AnchorPane.setTopAnchor(boxSelector, 0D);
         btnLockInTop.setVisible(false);
+    }
+
+    @FXML
+    private void closePopup() {
+        context.getDecorator().getRoot().getWrapper().getPopup().close();
     }
 
     @FXML
