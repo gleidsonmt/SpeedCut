@@ -495,17 +495,10 @@ public class PictureSelectorController implements ActionView, Context, Initializ
 
         if (event.getTarget() instanceof Circle) return; // dont use the path or update
 
-//        initX = (event.getSceneX() ) - (boxSelector.getLocalToParentTransform().getTx());
-//        initY = (event.getSceneY() ) - (boxSelector.getLocalToParentTransform().getTy());
-
-//        initX = ( boxContainer.getLocalToSceneTransform().getTx() + boxSelector.getLocalToParentTransform().getTx() +event.getX())  -2;
-//        initX =  - (boxSelector.getLocalToSceneTransform().getTx() + event.getX()) -2;
-//        initY = (boxContainer.getLocalToSceneTransform().getTy() + event.getY()) -2;
-
+        if (event.getTarget() instanceof Path) return; // dont use the path or update
 
         initX = (event.getScreenX() ) - (boxSelector.getLocalToParentTransform().getTx());
         initY = (event.getScreenY() ) - (boxSelector.getLocalToParentTransform().getTy());
-
 
         Pane separator = new Pane();
         separator.setStyle("-fx-background-color : red;");
@@ -525,36 +518,29 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         if (event.getTarget() instanceof Circle) return;
 
         if (!event.isPrimaryButtonDown() || (initX == -1 && initY == -1)) return;
+
         if (event.isStillSincePress()) return;
 
         clearConstraints(boxSelector);
 
-
         newX = event.getScreenX();
         newY = event.getScreenY();
-//
+
         deltaX = newX - initX;
         deltaY = newY - initY;
-        Bounds bounds = imageView.getLayoutBounds();
 
-        double padX = imageView.getLocalToParentTransform().getTx();
-        double padY = imageView.getLocalToParentTransform().getTy();
+        // Min
+        double minX = imageView.getLocalToParentTransform().getTx();
+        double minY = imageView.getLocalToParentTransform().getTy();
 
-//        boolean maxX = (deltaX + boxSelector.getWidth()) < 401;
-//        boolean maxY = (deltaY + boxSelector.getHeight()) < 401 ;
-        boolean maxX = (deltaX + boxSelector.getWidth()) < (bounds.getWidth() ) + (padX + 2);
-        boolean maxY = (deltaY + boxSelector.getHeight()) < (bounds.getHeight() ) + (padY + 2);
+        double maxY = deltaY + boxSelector.getHeight();
+        double maxX = deltaX + boxSelector.getWidth();
 
-//        System.out.println("deltaX = " + deltaX);
-//        System.out.println("newX = " + newX);
-//        System.out.println("boxContainer = " + boxContainer.getLocalToSceneTransform());
-
-//        if (deltaX > (padX) && maxX)
-        if (deltaX > (padX-2) )
+        // Delimiter the bounds
+        if (deltaX > (minX -2) && maxX < (boxContainer.getWidth() + 1))
             boxSelector.setLayoutX( deltaX);
 
-//        if (deltaY > (padY) && maxY)
-        if (deltaY > (padY-2))
+        if (deltaY > (minY -2) && maxY < (boxContainer.getHeight() + 1))
             boxSelector.setLayoutY( deltaY );
 
     }
