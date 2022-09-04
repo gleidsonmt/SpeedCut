@@ -22,10 +22,13 @@ import io.github.gleidsonmt.speedcut.controller.sales.aside.Tile;
 import io.github.gleidsonmt.speedcut.controller.sales.main.SalesController;
 import io.github.gleidsonmt.speedcut.core.app.dao.Repositories;
 import io.github.gleidsonmt.speedcut.core.app.dao.Repository;
-import io.github.gleidsonmt.speedcut.core.app.model.*;
+import io.github.gleidsonmt.speedcut.core.app.model.Client;
+import io.github.gleidsonmt.speedcut.core.app.model.Person;
+import io.github.gleidsonmt.speedcut.core.app.model.Professional;
+import io.github.gleidsonmt.speedcut.core.app.model.Sale;
 import io.github.gleidsonmt.speedcut.core.app.util.Scroll;
+import io.github.gleidsonmt.speedcut.core.app.view.BreakPoints;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
-import io.github.gleidsonmt.speedcut.core.app.view.ResponsiveView;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -33,7 +36,10 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import org.jetbrains.annotations.NotNull;
@@ -220,15 +226,15 @@ public class GridTile<T extends Person> extends ScrollPane implements Context {
 
 
         int maxCols = 0;
-        if (ResponsiveView.BreakPoints.isXSmall()) {
+        if (BreakPoints.isXSmall()) {
             maxCols = type.equals("c") ? 1 :2;
-        } else if (ResponsiveView.BreakPoints.isSmall()) {
+        } else if (BreakPoints.isSmall()) {
             maxCols = type.equals("c") ? 1 :2;
-        } else if (ResponsiveView.BreakPoints.isMedium()) {
+        } else if (BreakPoints.isMedium()) {
             maxCols = type.equals("c") ? 1 :2;
-        } else if (ResponsiveView.BreakPoints.isXLarge() || ResponsiveView.BreakPoints.isXXLarge()) {
+        } else if (BreakPoints.isXLarge() || BreakPoints.isXXLarge()) {
             maxCols = type.equals("c") ? 1 : 3;
-        } else if ( context.getDecorator().getWidth() > ResponsiveView.BreakPoints.FHD ) {
+        } else if ( context.getDecorator().getWidth() > BreakPoints.FHD ) {
             maxCols = 3;
         }
         return maxCols;
