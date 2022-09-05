@@ -22,48 +22,59 @@ import animatefx.animation.BounceIn;
 import animatefx.animation.BounceOut;
 import animatefx.animation.Pulse;
 import io.github.gleidsonmt.speedcut.core.app.layout.util.AlignmentUtil;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IContext;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import org.girod.javafx.svgimage.SVGImage;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  16/03/2022
+ * Creates Popups in application.
  */
-public class Popup {
+public class Popup implements Context {
 
-    private Pos     pos = Pos.CENTER;
+    private Pos pos = Pos.CENTER;
 
-    private Node    content;
-    private double  width;
-    private double  height;
+    private Node        content;
+    private IView       view;
+    private PopupView   controller;
+    private double      width;
+    private double      height;
 
     private final   Wrapper wrapper;
 
     private Insets  insets = new Insets(0);
 
     private AnimationFX animationFX;
-    private Animations animation = Animations.PULSE;
+    private PopupAnimation animation = PopupAnimation.PULSE;
 
     private EventHandler<ActionEvent>   onEnter;
     private EventHandler<ActionEvent>   onExit;
-
-    public enum Animations {
-        PULSE, BOUNCE_IN,
-    }
 
     public Popup(Wrapper wrapper) {
         this.wrapper = wrapper;
     }
 
-    public Popup content(Node content) {
-        this.content = content;
+    public Popup content(@NotNull IView _view) {
+
+        this.view = _view;
+        this.content = _view.getRoot();
+
+        if (_view.getController() instanceof PopupView) this.controller = (PopupView) _view.getController();
+
         return this;
     }
 
+
+    @Deprecated
     public Popup size(double width, double height) {
         this.width = width; this.height = height;
         return this;
@@ -74,7 +85,7 @@ public class Popup {
         return this;
     }
 
-    public Popup alignment(String pos) {
+    public Popup alignment(@NotNull String pos) {
         alignment(Pos.valueOf(pos.toUpperCase()), new Insets(0));
         return this;
     }
@@ -85,13 +96,13 @@ public class Popup {
         return this;
     }
 
-    public Popup animation(Animations animation) {
+    public Popup animation(PopupAnimation animation) {
         this.animation = animation;
         return this;
     }
 
-    public Popup animation(String animation) {
-        animation(Animations.valueOf(animation.toUpperCase()));
+    public Popup animation(@NotNull String animation) {
+        animation(PopupAnimation.valueOf(animation.toUpperCase()));
         return this;
     }
 
@@ -114,28 +125,44 @@ public class Popup {
 
         wrapper.addContent(this.content);
 
-        ((Pane) this.content).setPrefSize(width, height);
-        ((Pane) this.content).setMaxSize(width, height);
-        ((Pane) this.content).setMinSize(width, height);
+        // in test
+        if (this.controller != null) {
 
-        switch (pos) {
-            case TOP_LEFT, BASELINE_LEFT -> AlignmentUtil.topLeft(content, this.insets);
-            case TOP_CENTER, BASELINE_CENTER -> AlignmentUtil.topCenter(content, this.insets);
-            case TOP_RIGHT, BASELINE_RIGHT -> AlignmentUtil.topRight(content, this.insets);
-            case CENTER_RIGHT -> AlignmentUtil.centerRight(content, this.insets);
-            case BOTTOM_RIGHT -> AlignmentUtil.bottomRight(content, this.insets);
-            case BOTTOM_CENTER -> AlignmentUtil.bottomCenter(content, this.insets);
-            case BOTTOM_LEFT -> AlignmentUtil.bottomLeft(content, this.insets);
-            case CENTER_LEFT -> AlignmentUtil.centerLeft(content, this.insets);
 
-            case CENTER -> AlignmentUtil.topLeft(content, new Insets(
-                    (wrapper.getHeight() / 2) - (height / 2),
-                    0, 0,
-                    (wrapper.getWidth() / 2) - (width / 2)
-            ));
-            default -> throw new IllegalStateException("Unexpected value: " + pos);
+            if (height > context.getDecorator().getHeight() && context.getDecorator().getWidth() < width) {
+                this.controller.updateMode(PopupLayout.SCREEN);
+            } else if (height > context.getDecorator().getHeight()) {
+                this.controller.updateMode(PopupLayout.WIDE);
+            } else{
+                this.controller.updateMode(PopupLayout.DEFAULT);
+            }
+
         }
 
+        // old have new in test
+//        switch (pos) {
+//            case TOP_LEFT, BASELINE_LEFT -> AlignmentUtil.topLeft(content, this.insets);
+//            case TOP_CENTER, BASELINE_CENTER -> AlignmentUtil.topCenter(content, this.insets);
+//            case TOP_RIGHT, BASELINE_RIGHT -> AlignmentUtil.topRight(content, this.insets);
+//            case CENTER_RIGHT -> AlignmentUtil.centerRight(content, this.insets);
+//            case BOTTOM_RIGHT -> AlignmentUtil.bottomRight(content, this.insets);
+//            case BOTTOM_CENTER -> AlignmentUtil.bottomCenter(content, this.insets);
+//            case BOTTOM_LEFT -> AlignmentUtil.bottomLeft(content, this.insets);
+//            case CENTER_LEFT -> AlignmentUtil.centerLeft(content, this.insets);
+//
+//            case CENTER -> AlignmentUtil.topLeft(content, new Insets(
+//                    (wrapper.getHeight() / 2) - (height / 2),
+//                    0, 0,
+//                    (wrapper.getWidth() / 2) - (width / 2)
+//            ));
+//            default -> throw new IllegalStateException("Unexpected value: " + pos);
+//        }
+
+        wrapper.setAligment(pos);
+
+//        ((Pane) this.content).setPrefSize(width, height);
+//        ((Pane) this.content).setMaxSize(width, height);
+//        ((Pane) this.content).setMinSize(width, height);
 
         switch (animation) {
             case PULSE -> {
@@ -186,11 +213,8 @@ public class Popup {
         }
     }
 
-    private final EventHandler<ActionEvent> popupOpen = new EventHandler<>() {
-        @Override
-        public void handle(ActionEvent event) {
+    private final EventHandler<ActionEvent> popupOpen = event -> {
 
-        }
     };
 
     private final EventHandler<ActionEvent> popupClose = new EventHandler<>() {

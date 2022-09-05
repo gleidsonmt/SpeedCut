@@ -20,50 +20,65 @@ package io.github.gleidsonmt.speedcut.core.app.layout.containers;
 import io.github.gleidsonmt.speedcut.core.app.layout.Root;
 import io.github.gleidsonmt.speedcut.core.app.view.WindowDecorator;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/02/2022
  */
-public class Wrapper {
+public class Wrapper implements IWrapper {
 
     private final WindowDecorator window;
 
     private final StackPane  container  = new StackPane();
-    private final AnchorPane root       = new AnchorPane();
 
+    private final VBox rootV = new VBox();
+    private final HBox rootH = new HBox();
 
-    public Wrapper(Root _root, WindowDecorator window) {
+    public Wrapper(@NotNull Root _root, WindowDecorator window) {
 
         this.window = window;
-        container.getChildren().add(root);
+        container.getChildren().add(rootV);
 
-        root.setBackground(
+        container.setBackground(
                 new Background(
                         new BackgroundFill(
                                 Color.gray(0.5, 0.3),
-//                                Color.WHITE,
+//                                Color.RED,
                                 CornerRadii.EMPTY,
-                                Insets.EMPTY))
+                                Insets.EMPTY)
+                )
         );
 
         _root.getChildren().add(container);
+
+        rootV.setFillWidth(false);
+        rootH.setFillHeight(false);
     }
 
     public void addContent(Node node) {
         // usado como drawer, popup and alerts
 //        root.getChildren().clear();
-        root.getChildren().add(node);
 
-//        node.setBlendMode(BlendMode.COLOR_BURN);
+        rootV.getChildren().add(node); // add one more item
+
+//        rootV.getChildren().setAll(node); // set all items in content
+
+    }
+
+    public void setAligment(Pos pos) {
+        rootV.setAlignment(pos);
     }
 
     private PopupOver popupOver;
 
+    @Override
     public PopupOver getPopOver() {
         if (popupOver == null) popupOver = new PopupOver();
         return popupOver;
@@ -71,6 +86,7 @@ public class Wrapper {
 
     private Popup popup;
 
+    @Override
     public Popup getPopup() {
         if (popup == null) popup = new Popup(this);
         return popup;
@@ -78,6 +94,7 @@ public class Wrapper {
 
     private Alert alert;
 
+    @Override
     public Alert getAlert() {
         if (alert == null) alert = new Alert(this);
         return alert;
@@ -85,14 +102,15 @@ public class Wrapper {
 
     private Drawer drawer;
 
+    @Override
     public Drawer getDrawer() {
         if (drawer == null) drawer = new Drawer(this);
         return drawer;
     }
 
     @Deprecated
-    public AnchorPane getRoot() {
-        return root;
+    public Pane getRoot() {
+        return rootV;
     }
 
     @Deprecated
@@ -101,7 +119,7 @@ public class Wrapper {
     }
 
     void clear() {
-        root.getChildren().clear();
+        rootV.getChildren().clear();
     }
 
     public void show() {
@@ -112,10 +130,12 @@ public class Wrapper {
         container.toBack();
     }
 
+    @Deprecated
     double getHeight() {
         return container.getHeight();
     }
 
+    @Deprecated
     double getWidth() {
         return container.getWidth();
     }

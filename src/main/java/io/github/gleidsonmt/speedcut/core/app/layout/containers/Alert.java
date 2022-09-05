@@ -51,7 +51,7 @@ public class Alert  {
     private double  width = 400;
     private double  height = 300;
     private AnimationFX animationFX;
-    private Popup.Animations animation = Popup.Animations.PULSE;
+    private PopupAnimation animation = PopupAnimation.PULSE;
 
     private String      message = "Alert Message";
     private String      title   = "Title Message";
