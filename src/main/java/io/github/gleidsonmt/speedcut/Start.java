@@ -21,6 +21,12 @@ import io.github.gleidsonmt.speedcut.core.app.Main;
 import io.github.gleidsonmt.speedcut.core.app.dao.RepoClientImpl;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.name.Rename;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -29,6 +35,18 @@ import javafx.stage.Stage;
 public class Start extends Main {
 
     public static void main(String[] args) {
+
+//        try {
+//            Thumbnails.of(Objects.requireNonNull(
+//                            new File("C:\\Users\\Gleidson\\IntelliJIDEAProjects\\SpeedCut\\src\\main\\resources\\io.github.gleidsonmt.speedcut.core.app\\theme\\img\\avatars").listFiles()))
+//                    .size(100, 100)
+//                    .outputFormat("png")
+//                    .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
         launch(args);
     }
+
 }

@@ -17,17 +17,15 @@
 
 package io.github.gleidsonmt.speedcut.core.app.dao;
 
-import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
-import io.github.gleidsonmt.speedcut.core.app.model.Entity;
+import io.github.gleidsonmt.speedcut.core.app.model.Avatar;
+import io.github.gleidsonmt.speedcut.core.app.model.Sex;
 import io.github.gleidsonmt.speedcut.core.app.model.User;
-import javafx.beans.property.ListProperty;
+import io.github.gleidsonmt.speedcut.core.app.util.Util;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
+import javafx.scene.image.Image;
 
+import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -35,8 +33,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -111,8 +107,16 @@ public final class DaoUser extends AbstractDao<User> {
 
             element.setEmail(result.getString("email"));
 
+            if (result.getString("sex").equals("F")) {
+                element.setSex(Sex.FEMALE);
+            } else element.setSex(Sex.MALE);
 
-            element.setImgPath(result.getString("img_path"));
+
+            String path = result.getString("img_path");
+
+            // if the image is null, black and empty or is invalid ->
+            // Converts the path in the default using sex.
+            Util.setAvatar(element, path);
 
 
         } catch (SQLException throwables) {
@@ -121,6 +125,22 @@ public final class DaoUser extends AbstractDao<User> {
 
         return element;
     }
+
+    private void setDefaultThumbAndAvatar(User element) {
+
+//        Avatar image = null;
+//        Avatar thumbnail = null;
+//
+//
+//        String path = Util.convertPathForPerson(element);
+//        image = Util.createPackageImage(path);
+//        thumbnail = Util.createPackageImage(path, true);
+//
+//        element.setAvatar(image);
+//        element.setThumbnail(thumbnail);
+
+    }
+
 
     @Override
     public void put(User model)  {

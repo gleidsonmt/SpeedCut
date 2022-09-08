@@ -18,6 +18,7 @@
 package io.github.gleidsonmt.speedcut.core.app.view.intefaces;
 
 import io.github.gleidsonmt.speedcut.core.app.layout.ILayout;
+import io.github.gleidsonmt.speedcut.core.app.layout.containers.IWrapper;
 import io.github.gleidsonmt.speedcut.core.app.layout.containers.Wrapper;
 import javafx.application.HostServices;
 import javafx.scene.Scene;
@@ -30,7 +31,7 @@ public interface IDecorator {
 
     public void close();
 
-    Wrapper getWrapper();
+    IWrapper getWrapper();
 
     @Deprecated
     ILayout getLayout();

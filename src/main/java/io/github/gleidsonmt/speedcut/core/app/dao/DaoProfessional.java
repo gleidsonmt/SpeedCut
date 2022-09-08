@@ -19,9 +19,8 @@ package io.github.gleidsonmt.speedcut.core.app.dao;
 
 import io.github.gleidsonmt.speedcut.core.app.exceptions.SQLQueryError;
 import io.github.gleidsonmt.speedcut.core.app.factory.AvatarCreator;
+import io.github.gleidsonmt.speedcut.core.app.model.*;
 import io.github.gleidsonmt.speedcut.core.app.model.Professional;
-import io.github.gleidsonmt.speedcut.core.app.model.Professional;
-import io.github.gleidsonmt.speedcut.core.app.model.Service;
 import io.github.gleidsonmt.speedcut.presenter.ProductPresenter;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -52,7 +51,13 @@ public final class DaoProfessional extends AbstractDao<Professional> {
         try {
             element.setId( result.getInt("id"));
             element.setName(result.getString("name"));
-            element.setImgPath(result.getString("img_path"));
+
+//            element.setAvatar(new Avatar(result.getString("img_path")));
+
+            if (result.getString("sex").equals("F")) {
+                element.setSex(Sex.FEMALE);
+            } else element.setSex(Sex.MALE);
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

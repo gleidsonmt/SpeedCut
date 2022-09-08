@@ -54,16 +54,16 @@ public class ClientController implements ActionView, Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        String path = "/io.github.gleidsonmt.speedcut.core.app/";
-        String imgPath = Objects.requireNonNull(AvatarCreator.class.getResource(path + "theme/img/avatars/man@400.png")).toExternalForm();
-        Image image = new Image(imgPath, 200, 0, true, true);
+//        String path = "/io.github.gleidsonmt.speedcut.core.app/";
+//        String imgPath = Objects.requireNonNull(AvatarCreator.class.getResource(path + "theme/img/avatars/man@400.png")).toExternalForm();
+//        Image image = new Image(imgPath, 200, 0, true, true);
 
 //        circle.setRadius(18);
         avatarCirlce.setStrokeWidth(2);
         avatarCirlce.setStroke(Color.WHITE);
 //        avatarCirlce.setEffect(new DropShadow(5, Color.gray(0.8)));
 
-        avatarCirlce.setFill(new ImagePattern(image));
+//        avatarCirlce.setFill(new ImagePattern(image));
 
     }
 }

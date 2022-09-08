@@ -58,6 +58,11 @@ public class Wrapper implements IWrapper {
 
         _root.getChildren().add(container);
 
+        rootV.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+        rootV.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+        rootV.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+
+
         rootV.setFillWidth(false);
         rootH.setFillHeight(false);
     }
@@ -127,6 +132,7 @@ public class Wrapper implements IWrapper {
     }
 
     void hide () {
+        rootV.getChildren().clear();
         container.toBack();
     }
 

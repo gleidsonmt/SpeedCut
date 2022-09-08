@@ -21,6 +21,8 @@ module io.github.gleidsonmt.speedcut {
     requires controlsfx;
     requires fxsvgimage;
 
+    requires thumbnailator;
+
     requires javafx.swing;
 
     exports io.github.gleidsonmt.speedcut.core.app.exceptions;

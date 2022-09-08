@@ -17,6 +17,7 @@
 
 package io.github.gleidsonmt.speedcut.core.app.dao;
 
+import io.github.gleidsonmt.speedcut.core.app.model.Avatar;
 import io.github.gleidsonmt.speedcut.core.app.model.Service;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -53,7 +54,7 @@ public class DaoService extends AbstractDao<Service> {
             BigDecimal discount = result.getBigDecimal("DISCOUNT");
             element.setDiscount( discount == null ? BigDecimal.ZERO : discount);
 
-            element.setImgPath(result.getString("IMG_PATH"));
+            element.setAvatar(new Avatar(result.getString("img_path")));
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

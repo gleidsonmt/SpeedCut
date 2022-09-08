@@ -34,16 +34,16 @@ public class Sample extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        RepoClientImpl repoClient = new RepoClientImpl();
-
-        Client model = repoClient.read(2);
-
-
-
-        StackPane root = new StackPane(model.getAvatar());
-
-        stage.setScene(new Scene(root, 600, 600));
-        stage.show();
+//        RepoClientImpl repoClient = new RepoClientImpl();
+//
+//        Client model = repoClient.read(2);
+//
+//
+//
+////        StackPane root = new StackPane(model.getAvatar());
+//
+//        stage.setScene(new Scene(root, 600, 600));
+//        stage.show();
     }
 
     public static void main(String[] args) {

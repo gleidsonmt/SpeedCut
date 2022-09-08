@@ -17,18 +17,37 @@
 
 package io.github.gleidsonmt.speedcut.core.app.view.intefaces;
 
+import javafx.scene.image.Image;
+
+import java.lang.annotation.Documented;
+import java.net.URL;
+
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  15/02/2022
  */
+
+@SuppressWarnings("unused")
 public interface AppPaths {
+
+    String getModule();
+
+    String getFromModule(String file);
+
+    String getCore();
+
+    String getFromCore(String file);
 
     String getViews();
 
-    String getCore();
+    String getFromView(String file);
 
     String getAvatars();
 
     String getCursores();
+
+    String getImages();
+
+    String getTheme();
 
 }

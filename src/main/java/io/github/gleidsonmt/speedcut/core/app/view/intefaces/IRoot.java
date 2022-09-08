@@ -18,6 +18,7 @@
 package io.github.gleidsonmt.speedcut.core.app.view.intefaces;
 
 import io.github.gleidsonmt.speedcut.core.app.layout.ILayout;
+import io.github.gleidsonmt.speedcut.core.app.layout.containers.IWrapper;
 import io.github.gleidsonmt.speedcut.core.app.layout.containers.SnackBar;
 import io.github.gleidsonmt.speedcut.core.app.layout.containers.Wrapper;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -27,13 +28,15 @@ import javafx.scene.Parent;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  20/08/2022
  */
+
+@SuppressWarnings("all")
 public interface IRoot {
 
     void setTitle(String title);
 
     SnackBar createSnackBar();
 
-    Wrapper getWrapper();
+    IWrapper getWrapper();
 
     ILayout getLayout();
 

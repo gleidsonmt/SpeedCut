@@ -15,36 +15,14 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.core.app.view.intefaces;
-
-import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
-import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IView;
-
-import java.io.IOException;
+package io.github.gleidsonmt.speedcut.core.app.model;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  20/08/2022
+ * Create on  05/09/2022
  */
-public interface IRotes {
+public enum Sex {
 
-    void setContent(String view) throws NavigationException;
-
-    void setView(String view) throws NavigationException;
-
-    void addView(IView iView);
-
-    void goHome();
-
-    IView getView(String view);
-
-    IView getCurrent();
-
-    IView getPrevious();
-
-    IView load(String folder, String title, String name);
-
-
-    // void loadView(String path) // para implementar se quiser q a view seja carregad na hora
+    MALE, FEMALE
 
 }

@@ -20,69 +20,78 @@ package io.github.gleidsonmt.speedcut.core.app;
 import io.github.gleidsonmt.speedcut.core.app.dao.RepoCashierImpl;
 import io.github.gleidsonmt.speedcut.core.app.dao.RepoUserImpl;
 import io.github.gleidsonmt.speedcut.core.app.dao.Repositories;
+import io.github.gleidsonmt.speedcut.core.app.model.Avatar;
 import io.github.gleidsonmt.speedcut.core.app.model.Cashier;
 import io.github.gleidsonmt.speedcut.core.app.model.User;
-import io.github.gleidsonmt.speedcut.core.app.view.*;
+import io.github.gleidsonmt.speedcut.core.app.view.WindowDecorator;
 import io.github.gleidsonmt.speedcut.core.app.view.core.Routes;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.*;
 import javafx.application.HostServices;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  21/05/2022
+ * This class provides configs about the app.
  */
 @SuppressWarnings("all")
 public class App implements AppPaths, IContext {
 
+    // default paths
+    private String module = "/io.github.gleidsonmt.speedcut";
+    private String core = module + ".core.app";
+    private String views = module + ".view";
+
+    private String theme = core + "/theme";
+    private String images = core + "/theme/img";
+    private String avatars = images + "/avatars";
+    private String cursores = images + "/cursores";
+
+    // Manipulating items
+    private HostServices    hostServices;
+    private WindowDecorator window;
+    private IRotes          routes;
+
+    // Testing
     private ObjectProperty<User>    user        = new SimpleObjectProperty<>();
     private Properties              properties  = new Properties();
 
-    private IRotes          routes;
-    private HostServices    hostServices;
-    private WindowDecorator window;
+    /// tests
+    private Logger logger = Logger.getLogger("app");
 
     public App ()  {
+
+        logger.setLevel(Level.ALL);
         loadProperties();
+        logger.log(Level.INFO, "Initialing Application.");
+
         try {
             window = new WindowDecorator(properties, getPaths());
         } catch (IOException e) {
+            logger.log(Level.SEVERE, e.getMessage());
             e.printStackTrace();
         }
         routes = new Routes(window, getPaths());
+
     }
 
-    private void createAlert(String title, String message, String errror) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(message);
-        alert.setContentText(errror);
-        alert.show();
-    }
 
-    private void createFile(@NotNull File file) {
+    private void loadProperties() {
+
         try {
-            file.createNewFile();
-
-            if (file.exists()) {
-              load(file);
-            }
+            properties.load(getClass().getResourceAsStream(getFromCore("app.properties")));
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private synchronized void load(File file) {
-        try {
-            properties.load(new FileInputStream(file));
-        } catch (IOException e) {
+            logger.severe(e.getMessage() );
             e.printStackTrace();
         }
 
@@ -96,22 +105,34 @@ public class App implements AppPaths, IContext {
 
     }
 
-    private void loadProperties() {
-
-        File file = new File(getClass().getResource(getCore() + "app.properties").getFile());
-
-        if (!file.exists()) {
-            createFile(file);
-        } else {
-            load(file);
-        }
-    }
-
     /*********************************************************************
      *
      *                  Util
      *
      **********************************************************************/
+
+    private String executeCommand(String command) {
+        StringBuffer output = new StringBuffer();
+        Process p;
+        String[] s = new String[1];
+        s[0] = "Hello World!";
+
+        System.out.println(Arrays.stream(Logger.getLogger("javafx").getHandlers()).toArray());
+        try {
+            p = Runtime.getRuntime().exec("notepad", s);
+
+            p.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line = "What is for this";
+            while ((line = reader.readLine()) != null) {
+                output.append(line + "\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return output.toString();
+    }
+
 
     public ActionView getControlller(String view) {
         ActionView actionView = this.routes.getView(view).getController();
@@ -200,23 +221,93 @@ public class App implements AppPaths, IContext {
         return window;
     }
 
+
+    @Override
+    public String getModule() {
+        return module;
+    }
+
+    @Override
+    public String getFromModule(String file) {
+        return module.concat(formatFile(file));
+    }
+
     @Override
     public String getCore() {
-        return "/io.github.gleidsonmt.speedcut.core.app/";
+        return core;
     }
 
     @Override
     public String getViews() {
-        return "/io.github.gleidsonmt.speedcut.view/";
+        return views;
+    }
+
+    @Override
+    public String getFromView(String file) {
+        return views.concat(formatFile(file));
     }
 
     @Override
     public String getAvatars() {
-        return "/io.github.gleidsonmt.speedcut.core.app/theme/img/avatars/";
+        return avatars;
+    }
+
+    @Deprecated
+    @Override
+    public String getCursores() {
+        return cursores;
     }
 
     @Override
-    public String getCursores() {
-        return "/io.github.gleidsonmt.speedcut.core.app/theme/img/cursores/";
+    public String getImages() {
+        return images;
+    }
+
+    @Override
+    public String getTheme() {
+        return theme;
+    }
+
+    @Override
+    public String getFromCore(@NotNull String fileOrPath) {
+        return core.concat(formatFile(fileOrPath));
+    }
+
+    private @NotNull String formatFile(@NotNull String value) {
+
+        if (value.contains("/")) {
+
+            if (value.indexOf('/') == 0) {
+                return value.replaceAll("/", "");
+            } else return "/" + value;
+        } else {
+            return "/" + value;
+        }
+    }
+
+    @Override
+    public Image getImage(String path) {
+
+        String test = getImages() + formatFile(path);
+
+        Image image = new Image(getClass().getResource(test).toExternalForm());
+
+        return image;
+    }
+
+    @Override
+    public Avatar getAvatar(String path) {
+
+
+        return new Avatar(
+                getClass().getResource(
+                        getAvatars() + formatFile(path)
+                ).toExternalForm()
+        );
+    }
+
+    @Override
+    public Logger getLogger() {
+        return logger;
     }
 }

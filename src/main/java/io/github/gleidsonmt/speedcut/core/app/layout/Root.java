@@ -20,9 +20,10 @@ package io.github.gleidsonmt.speedcut.core.app.layout;
 import io.github.gleidsonmt.gncontrols.GNFloatingButton;
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
+import io.github.gleidsonmt.speedcut.core.app.layout.containers.IWrapper;
 import io.github.gleidsonmt.speedcut.core.app.layout.containers.SnackBar;
 import io.github.gleidsonmt.speedcut.core.app.layout.containers.Wrapper;
-import io.github.gleidsonmt.speedcut.core.app.view.ResponsiveView;
+import io.github.gleidsonmt.speedcut.core.app.view.BreakPoints;
 import io.github.gleidsonmt.speedcut.core.app.view.WindowDecorator;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IRoot;
 import javafx.beans.property.BooleanProperty;
@@ -89,7 +90,7 @@ public class Root extends StackPane implements IRoot {
             needsBar.set(window.getContent().equals(this));
 
             if (needsBar.get()) {
-                if (_new < ResponsiveView.BreakPoints.X_LARGE) {
+                if (_new < BreakPoints.X_LARGE) {
                     layout.setLeft(null);
                     window.addControl(0, hamburger);
                     layout.getBar().setPadding(new Insets(0,0,0,40));
@@ -104,7 +105,7 @@ public class Root extends StackPane implements IRoot {
         });
     }
 
-    public Wrapper getWrapper() {
+    public IWrapper getWrapper() {
         return wrapper;
     }
 

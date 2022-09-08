@@ -203,7 +203,7 @@ public class BuyController implements ActionView, Initializable {
 
             populate(radioProduct);
 
-            listItems.setCellFactory(new ListAvatarFactory<>());
+            listItems.setCellFactory(new ListAvatarFactory<>(context));
 
         } else {
             quantField.setText("1");
@@ -234,6 +234,7 @@ public class BuyController implements ActionView, Initializable {
 
     private boolean create = false;
 
+    @Deprecated
     @Override
     public void pass(boolean exe) {
         create = exe;

@@ -33,9 +33,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
@@ -65,11 +67,11 @@ public class Drawer extends ResponsiveView implements Initializable, ActionView,
         lblUsername.textProperty().bind(context.getUser().userNameProperty());
         lblEmail.textProperty().bind(context.getUser().emailProperty());
 
-        avatarCircle.setFill(( (Rectangle)  context.getUser().getAvatar(40)).getFill());
+        avatarCircle.setFill(new ImagePattern(context.getUser().getThumbnail()));
 
-        context.getUser().imgPathProperty().addListener((observable, oldValue, newValue) -> {
-            avatarCircle.setFill(( (Rectangle)  context.getUser().getAvatar(40)).getFill());
-        });
+//        context.getUser().imgPathProperty().addListener((observable, oldValue, newValue) ->
+//                avatarCircle.setFill(( (Rectangle)  context.getUser().getAvatar(40)).getFill()));
+
 
     }
 
@@ -114,7 +116,7 @@ public class Drawer extends ResponsiveView implements Initializable, ActionView,
 
     @Override
     public void onEnter() {
-
+//        System.out.println("context.getUser().getAvatar() = " + context.getUser().getAvatar());
     }
 
     @Override

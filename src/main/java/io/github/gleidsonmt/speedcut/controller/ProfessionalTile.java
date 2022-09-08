@@ -74,7 +74,7 @@ public class ProfessionalTile extends ToggleButton implements Context {
 //            avatar.setStyle("-base : derive(-info, 30%); -fx-font-weight : bold; -fx-font-size : 40pt;");
 //            box.getChildren().add(avatar);
 //        }
-        box.getChildren().add(professional.getAvatar());
+//        box.getChildren().add(professional.getAvatar());
 
         VBox boxDetails = new VBox();
         boxDetails.setAlignment(Pos.CENTER);

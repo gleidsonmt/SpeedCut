@@ -25,6 +25,7 @@ import io.github.gleidsonmt.gncontrols.GNButton;
 import io.github.gleidsonmt.gncontrols.options.GNButtonType;
 import io.github.gleidsonmt.speedcut.core.app.layout.options.AlertType;
 import io.github.gleidsonmt.speedcut.core.app.layout.util.AlignmentUtil;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -33,6 +34,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -40,7 +42,7 @@ import java.util.Objects;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  09/03/2022
  */
-public class Alert  {
+public class Alert implements Context {
 
     private final Wrapper wrapper;
 
@@ -50,6 +52,7 @@ public class Alert  {
     private Pos     pos = Pos.CENTER;
     private double  width = 400;
     private double  height = 300;
+
     private AnimationFX animationFX;
     private PopupAnimation animation = PopupAnimation.PULSE;
 
@@ -65,15 +68,14 @@ public class Alert  {
 
     private Insets   insets = new Insets(0);
 
-    private final ColorAdjust colorAdjust   = new ColorAdjust();
+    public Alert(@NotNull Wrapper wrapper) {
 
-    public Alert(Wrapper wrapper) {
         this.wrapper = wrapper;
         container.getChildren().add(content);
         container.setStyle("-fx-background-color : -background-color; -fx-background-radius : 10px;");
         content.setStyle("-fx-background-color : -background-color; -fx-background-radius : 10px;");
-        colorAdjust.setBrightness(0.24);
 
+        wrapper.setAligment(Pos.CENTER);
     }
 
     public Alert alertType(AlertType alertType) {
@@ -81,7 +83,7 @@ public class Alert  {
         return this;
     }
 
-    public Alert alertType(String alertType) {
+    public Alert alertType(@NotNull String alertType) {
         this.type = AlertType.valueOf(alertType.toUpperCase());
         return this;
     }
@@ -104,30 +106,9 @@ public class Alert  {
         );
 
         wrapper.show();
-//        if (!wrapper.getRoot().getChildren().contains(this.content))
-//            wrapper.getRoot().getChildren().add(this.content);
 
         wrapper.addContent(this.content);
-
         this.content.setPrefSize(width, height);
-
-        switch (pos) {
-            case TOP_LEFT, BASELINE_LEFT -> AlignmentUtil.topLeft(content, this.insets);
-            case TOP_CENTER, BASELINE_CENTER -> AlignmentUtil.topCenter(content, this.insets);
-            case TOP_RIGHT, BASELINE_RIGHT -> AlignmentUtil.topRight(content, this.insets);
-            case CENTER_RIGHT -> AlignmentUtil.centerRight(content, this.insets);
-            case BOTTOM_RIGHT -> AlignmentUtil.bottomRight(content, this.insets);
-            case BOTTOM_CENTER -> AlignmentUtil.bottomCenter(content, this.insets);
-            case BOTTOM_LEFT -> AlignmentUtil.bottomLeft(content, this.insets);
-            case CENTER_LEFT -> AlignmentUtil.centerLeft(content, this.insets);
-            case CENTER -> AlignmentUtil.topLeft(content, new Insets(
-                    (wrapper.getHeight() / 2) - (height / 2),
-                    0, 0,
-                    (wrapper.getWidth() / 2) - (width / 2)
-            ));
-            default -> throw new IllegalStateException("Unexpected value: " + pos);
-        }
-
 
         switch (animation) {
             case PULSE -> animationFX = new Pulse(content);
@@ -146,7 +127,7 @@ public class Alert  {
     }
 
 
-    private VBox createAlertHeader(AlertType type){
+    private @NotNull VBox createAlertHeader(@NotNull AlertType type){
         VBox header = new VBox();
         header.setMinHeight(120);
         header.setAlignment(Pos.CENTER);
@@ -155,6 +136,7 @@ public class Alert  {
         String color = null;
 
         String path = "/io.github.gleidsonmt.speedcut.core.app/theme/img/";
+//        String path = context.getPaths().getCore()
 
         switch (type) {
             case INFO -> {

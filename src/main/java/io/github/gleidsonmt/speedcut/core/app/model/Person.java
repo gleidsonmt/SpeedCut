@@ -17,6 +17,8 @@
 
 package io.github.gleidsonmt.speedcut.core.app.model;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -24,10 +26,12 @@ import javafx.beans.property.StringProperty;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  04/03/2022
  */
+@SuppressWarnings("unused")
 public class Person extends Item {
 
-    private final StringProperty email = new SimpleStringProperty();
-    private final StringProperty lastName = new SimpleStringProperty();
+    private final ObjectProperty<Sex>   sex      = new SimpleObjectProperty<>();
+    private final StringProperty        email    = new SimpleStringProperty();
+    private final StringProperty        lastName = new SimpleStringProperty();
 
     public String getEmail() {
         return email.get();
@@ -52,4 +56,17 @@ public class Person extends Item {
     public void setLastName(String lastName) {
         this.lastName.set(lastName);
     }
+
+    public Sex getSex() {
+        return sex.get();
+    }
+
+    public ObjectProperty<Sex> sexProperty() {
+        return sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex.set(sex);
+    }
+
 }

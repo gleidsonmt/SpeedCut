@@ -28,7 +28,6 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-
 <VBox id="drawer" fx:id="drawer" alignment="TOP_CENTER" minWidth="250.0" prefWidth="250.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.Drawer">
    <styleClass>
       <String fx:value="border" />
@@ -235,7 +234,7 @@
 <!--                                    <Image url="@../theme/img/avatars/man@50.png" />-->
 <!--                                 </image>-->
 <!--                              </GNAvatarView>-->
-                              <Circle fill="DODGERBLUE" radius="6.0" stroke="WHITE" strokeType="INSIDE" style="-fx-fill: -grass;" />
+                              <Circle fill="DODGERBLUE" radius="6.0" stroke="WHITE" strokeType="INSIDE" style="-fx-fill: -mint;" />
                            </children>
                         </StackPane>
                         <Label fx:id="lblEmail" layoutX="165.0" layoutY="9.0" text="john.business@gmail.com" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />

@@ -17,7 +17,9 @@
 
 package io.github.gleidsonmt.speedcut.core.app.dao;
 
+import io.github.gleidsonmt.speedcut.core.app.model.Avatar;
 import io.github.gleidsonmt.speedcut.core.app.model.Product;
+import io.github.gleidsonmt.speedcut.core.app.util.Util;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
@@ -46,8 +48,11 @@ public class DaoProduct extends AbstractDao<Product> {
             element.setDiscount( discount == null ? BigDecimal.ZERO : discount);
 
 
+            String path = result.getString("img_path");
 
-            element.setImgPath(result.getString("img_path"));
+            if (Util.isValidString(path)) {
+                element.setAvatar(new Avatar(path));
+            }
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

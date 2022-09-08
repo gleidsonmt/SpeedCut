@@ -40,16 +40,16 @@ public final class Theme {
         this.path = _path;
 
         styleesheets.addAll(
-                Objects.requireNonNull(getClass().getResource(_path + "theme/fonts/fonts.css")).toExternalForm(),
-                Objects.requireNonNull(getClass().getResource(_path + "theme/css/material-color.css")).toExternalForm(),
-                Objects.requireNonNull(getClass().getResource(_path + "theme/css/light.css")).toExternalForm(),
-                Objects.requireNonNull(getClass().getResource(_path + "theme/css/skeleton.css")).toExternalForm(),
-                Objects.requireNonNull(getClass().getResource(_path + "theme/css/bootstrap.css")).toExternalForm(),
-                Objects.requireNonNull(getClass().getResource(_path + "theme/css/shape.css")).toExternalForm(),
-                Objects.requireNonNull(getClass().getResource(_path + "theme/css/typographic.css")).toExternalForm(),
-                Objects.requireNonNull(getClass().getResource(_path + "theme/css/helpers.css")).toExternalForm(),
-                Objects.requireNonNull(getClass().getResource(_path + "theme/css/master.css")).toExternalForm(),
-                Objects.requireNonNull(getClass().getResource(_path + "theme/css/custom-scroll.css")).toExternalForm()
+                Objects.requireNonNull(getClass().getResource(_path + "/fonts/fonts.css")).toExternalForm(),
+                Objects.requireNonNull(getClass().getResource(_path + "/css/material-color.css")).toExternalForm(),
+                Objects.requireNonNull(getClass().getResource(_path + "/css/light.css")).toExternalForm(),
+                Objects.requireNonNull(getClass().getResource(_path + "/css/skeleton.css")).toExternalForm(),
+                Objects.requireNonNull(getClass().getResource(_path + "/css/bootstrap.css")).toExternalForm(),
+                Objects.requireNonNull(getClass().getResource(_path + "/css/shape.css")).toExternalForm(),
+                Objects.requireNonNull(getClass().getResource(_path + "/css/typographic.css")).toExternalForm(),
+                Objects.requireNonNull(getClass().getResource(_path + "/css/helpers.css")).toExternalForm(),
+                Objects.requireNonNull(getClass().getResource(_path + "/css/master.css")).toExternalForm(),
+                Objects.requireNonNull(getClass().getResource(_path + "/css/custom-scroll.css")).toExternalForm()
         );
 
     }
@@ -60,6 +60,6 @@ public final class Theme {
 
     @Contract(" -> new")
     public @NotNull Image getLogo() {
-        return new Image(Objects.requireNonNull(getClass().getResource(path + "theme/img/logo_mini.png")).toExternalForm());
+        return new Image(Objects.requireNonNull(getClass().getResource(path + "/img/logo_mini.png")).toExternalForm());
     }
 }

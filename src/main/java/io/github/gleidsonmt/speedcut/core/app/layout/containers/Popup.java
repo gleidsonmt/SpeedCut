@@ -30,7 +30,9 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import org.girod.javafx.svgimage.SVGImage;
 import org.jetbrains.annotations.NotNull;
 
@@ -43,7 +45,7 @@ public class Popup implements Context {
 
     private Pos pos = Pos.CENTER;
 
-    private Node        content;
+    private Region      content;
     private IView       view;
     private PopupView   controller;
     private double      width;
@@ -66,7 +68,7 @@ public class Popup implements Context {
     public Popup content(@NotNull IView _view) {
 
         this.view = _view;
-        this.content = _view.getRoot();
+        this.content = (Pane) _view.getRoot();
 
         if (_view.getController() instanceof PopupView) this.controller = (PopupView) _view.getController();
 
@@ -118,51 +120,22 @@ public class Popup implements Context {
 
     public void show() {
 
-        wrapper.show();
+
 
 //        if (!wrapper.getRoot().getChildren().contains(this.content))
 //            wrapper.getRoot().getChildren().add(this.content);
 
-        wrapper.addContent(this.content);
+        wrapper.show();
 
-        // in test
-        if (this.controller != null) {
-
-
-            if (height > context.getDecorator().getHeight() && context.getDecorator().getWidth() < width) {
-                this.controller.updateMode(PopupLayout.SCREEN);
-            } else if (height > context.getDecorator().getHeight()) {
-                this.controller.updateMode(PopupLayout.WIDE);
-            } else{
-                this.controller.updateMode(PopupLayout.DEFAULT);
-            }
-
-        }
-
-        // old have new in test
-//        switch (pos) {
-//            case TOP_LEFT, BASELINE_LEFT -> AlignmentUtil.topLeft(content, this.insets);
-//            case TOP_CENTER, BASELINE_CENTER -> AlignmentUtil.topCenter(content, this.insets);
-//            case TOP_RIGHT, BASELINE_RIGHT -> AlignmentUtil.topRight(content, this.insets);
-//            case CENTER_RIGHT -> AlignmentUtil.centerRight(content, this.insets);
-//            case BOTTOM_RIGHT -> AlignmentUtil.bottomRight(content, this.insets);
-//            case BOTTOM_CENTER -> AlignmentUtil.bottomCenter(content, this.insets);
-//            case BOTTOM_LEFT -> AlignmentUtil.bottomLeft(content, this.insets);
-//            case CENTER_LEFT -> AlignmentUtil.centerLeft(content, this.insets);
-//
-//            case CENTER -> AlignmentUtil.topLeft(content, new Insets(
-//                    (wrapper.getHeight() / 2) - (height / 2),
-//                    0, 0,
-//                    (wrapper.getWidth() / 2) - (width / 2)
-//            ));
-//            default -> throw new IllegalStateException("Unexpected value: " + pos);
-//        }
+        resetSizes(this.content);
 
         wrapper.setAligment(pos);
+        wrapper.addContent(this.content);
 
-//        ((Pane) this.content).setPrefSize(width, height);
-//        ((Pane) this.content).setMaxSize(width, height);
-//        ((Pane) this.content).setMinSize(width, height);
+
+        if (height <= 0) height = this.content.getBoundsInLocal().getHeight();
+        if (width  <= 0) width  = this.content.getBoundsInLocal().getWidth();
+
 
         switch (animation) {
             case PULSE -> {
@@ -182,6 +155,19 @@ public class Popup implements Context {
 
             animationFX.getTimeline().setOnFinished(event -> {
                 popupOpen.handle(new ActionEvent());
+
+                // In test
+                if (this.controller != null) {
+
+                    if (height > (context.getDecorator().getHeight() -40) && (context.getDecorator().getWidth() - 40) < width) {
+                        this.controller.updateMode(PopupLayout.SCREEN);
+                    } else if (height > (context.getDecorator().getHeight()-40)) {
+                        this.controller.updateMode(PopupLayout.WIDE);
+                    } else{
+                        this.controller.updateMode(PopupLayout.DEFAULT);
+                    }
+
+                }
             });
 
             animationFX.play();
@@ -223,4 +209,10 @@ public class Popup implements Context {
             wrapper.clear();
         }
     };
+
+    private void resetSizes(@NotNull Region node) {
+        node.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+        node.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+        node.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+    }
 }

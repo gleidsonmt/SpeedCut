@@ -45,8 +45,6 @@ public class DaoClient extends AbstractDao<Client> {
             element.setId( result.getInt("id"));
             element.setName(result.getString("name"));
             element.setLastName(result.getString("last_name"));
-            element.setImgPath(result.getString("img_path"));
-            element.setImgPath(result.getString("img_path"));
 
             element.setPayWithCard(result.getBoolean("card"));
             element.setPayWithPix(result.getBoolean("pix"));
@@ -72,6 +70,15 @@ public class DaoClient extends AbstractDao<Client> {
             } else {
                 element.setScore(Score.SUPER);
             }
+
+            String imgPath = result.getString("img_path");
+
+            if (result.getString("sex").equals("F")) {
+                element.setSex(Sex.FEMALE);
+            } else element.setSex(Sex.MALE);
+
+
+            element.setAvatar(new Avatar(result.getString("img_path")));
 
 
         } catch (SQLException throwables) {

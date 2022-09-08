@@ -447,3 +447,45 @@
     -fx-shape : "m10.6 16.2 7.05-7.05-1.4-1.4-5.65 5.65-2.85-2.85-1.4 1.4ZM3 21V3h18v18Z";
     -fx-background-color : -info;
 }
+
+
+.s-zoom:vertical {
+    -fx-background-color : transparent;
+}
+
+.s-zoom:vertical .track {
+    -fx-border-color : white;
+    -fx-border-width : 1.5px;
+    -fx-border-radius : 10;
+    -fx-background-radius : 10;
+    -fx-background-color : white;
+    -fx-pref-width : 4px;
+}
+
+.s-zoom:vertical .thumb {
+    -fx-border-color : white;
+    -fx-border-radius : 10;
+    -fx-background-radius : 10;
+    -fx-background-color : -info;
+    -fx-border-width : 2px;
+    -fx-border-style : solid;
+
+    -fx-max-width : 5px;
+    -fx-max-height : 5px;
+
+    -fx-pref-width : 18px;
+    -fx-pref-height : 18px;
+
+}
+
+.s-zoom:vertical .icon {
+    -fx-scale-x : 0.8;
+    -fx-scale-y : 0.8;
+    -fx-fill : white;
+}
+
+.button-bar .container {
+
+    -fx-alignment : center;
+
+}

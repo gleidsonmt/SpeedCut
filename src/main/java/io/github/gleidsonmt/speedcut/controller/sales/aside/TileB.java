@@ -95,19 +95,19 @@ public class TileB<T extends Person> extends ToggleButton implements Context {
             String imgPath;
             Image image = null;
 
-            if (entity.getImgPath().contains("theme")) {
-                path = "/io.github.gleidsonmt.speedcut.core.app/";
-                imgPath = Objects.requireNonNull(getClass().getResource(path + entity.getImgPath())).toExternalForm();
-                image = new Image(imgPath, 300, 300, true, true);
-            } else {
-                File file = new File(entity.getImgPath());
-                try {
-                    image = new Image(new FileInputStream(file));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-            }
+//            if (entity.getImgPath().contains("theme")) {
+//                path = "/io.github.gleidsonmt.speedcut.core.app/";
+//                imgPath = Objects.requireNonNull(getClass().getResource(path + entity.getImgPath())).toExternalForm();
+//                image = new Image(imgPath, 300, 300, true, true);
+//            } else {
+//                File file = new File(entity.getImgPath());
+//                try {
+//                    image = new Image(new FileInputStream(file));
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
 
 //            Rectangle rectangle = new Rectangle();
 //            rectangle.setStroke(Color.WHITE);

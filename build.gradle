@@ -18,7 +18,7 @@ repositories {
 }
 
 ext {
-    junitVersion = '5.8.1'
+    junitVersion = '5.9.0'
 }
 
 sourceCompatibility = '17'
@@ -26,8 +26,8 @@ targetCompatibility = '17'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
-    options.warnings = false
-    options.compilerArgs += ["-nowarn", "-XDenableSunApiLintControl"]
+//    options.warnings = false
+//    options.compilerArgs += ["-nowarn", "-XDenableSunApiLintControl"]
 }
 
 application {
@@ -37,8 +37,10 @@ application {
 
 javafx {
     version = '18.0.1'
-    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web', 'javafx.graphics']
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web', 'javafx.graphics', "javafx.swing"]
 }
+
+
 
 dependencies {
 
@@ -48,6 +50,8 @@ dependencies {
 
 //    implementation 'com.github.User:Repo:Tag'
     implementation 'com.github.hervegirod:fxsvgimage:1.0b2'
+
+    implementation 'net.coobird:thumbnailator:0.4.17'
 
     implementation files('E:/Projetos/Atual/GNControls/build/libs/GNControls-1.1.1.jar')
 
@@ -107,11 +111,11 @@ jlink {
 ////    }
 //}
 
-task copyDocs(type: Copy) {
-    from 'src/main/resources/io.github.gleidsonmt.speedcut.core.app'
-    into 'build/jpackage/SpeedCut/app'
-    include "*.properties"
-}
+//task copyDocs(type: Copy) {
+//    from 'src/main/resources/io.github.gleidsonmt.speedcut.core.app'
+//    into 'build/jpackage/SpeedCut/app'
+//    include "*.properties"
+//}
 
 jlinkZip {
     group = 'distribution'

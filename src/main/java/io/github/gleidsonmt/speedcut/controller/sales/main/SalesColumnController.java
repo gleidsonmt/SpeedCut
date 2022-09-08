@@ -108,13 +108,13 @@ public class SalesColumnController extends WorkView implements ActionView, Initi
 
         Client client = DefaultCreator.createClient();
 
-        String path = "/io.github.gleidsonmt.speedcut.core.app/";
-        String imgPath = Objects.requireNonNull(getClass().getResource(path + "theme/img/avatars/man@50.png")).toExternalForm();
-        Image image = new Image(imgPath, 90, 0, true, true);
-
-        lbl_sechduled.setGraphic(
-                AvatarCreator.createAvatar(image)
-        );
+//        String path = "/io.github.gleidsonmt.speedcut.core.app/";
+//        String imgPath = Objects.requireNonNull(getClass().getResource(path + "theme/img/avatars/man@50.png")).toExternalForm();
+//        Image image = new Image(imgPath, 90, 0, true, true);
+//
+//        lbl_sechduled.setGraphic(
+//                AvatarCreator.createAvatar(image)
+//        );
 
         salesAction.getChildren().stream().map(e -> (Button)e).forEach(Animations::onHoverButton);
 

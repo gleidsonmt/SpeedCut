@@ -23,6 +23,7 @@ import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.util.Duration;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -31,7 +32,7 @@ import javafx.util.Duration;
 public class Scroll {
 
 
-    public static void scrollTo (ScrollPane scrollPane, Node node) {
+    public static void scrollTo (@NotNull ScrollPane scrollPane, @NotNull Node node) {
 
         double heightViewPort = scrollPane.getViewportBounds().getHeight();
         double heightScrollPane = scrollPane.getContent().getBoundsInLocal().getHeight();

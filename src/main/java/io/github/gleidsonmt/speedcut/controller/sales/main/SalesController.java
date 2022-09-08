@@ -20,6 +20,7 @@ package io.github.gleidsonmt.speedcut.controller.sales.main;
 import io.github.gleidsonmt.speedcut.core.app.dao.*;
 import io.github.gleidsonmt.speedcut.core.app.model.*;
 import io.github.gleidsonmt.speedcut.core.app.util.DefaultCreator;
+import io.github.gleidsonmt.speedcut.core.app.view.BreakPoints;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.ActionView;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IView;
 import io.github.gleidsonmt.speedcut.core.app.view.ResponsiveView;

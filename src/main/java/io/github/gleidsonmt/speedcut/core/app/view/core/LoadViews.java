@@ -56,12 +56,18 @@ public class LoadViews extends Service<ViewComposer> implements Context {
 
         Yaml yaml = new Yaml(new Constructor(List.class));
 
+
+        System.out.println("context.getPaths().getFromCore(\"views.yml\") = " + context.getPaths().getFromCore("views.yml"));
+        
         yamlViews = yaml.load(getClass().getResourceAsStream(
-                context.getPaths().getCore() + "views.yml"));
+                context.getPaths().getFromCore("views.yml")));
+
+//                context.getPaths().getCore() + "/views.yml"));
     }
 
     @Override
     protected Task<ViewComposer> createTask() {
+
         return new Task<>() {
             @Override
             protected ViewComposer call()  {
@@ -107,57 +113,13 @@ public class LoadViews extends Service<ViewComposer> implements Context {
 
                 decorator.fullBody();
 
-                decorator.getLayout()
-                        .setDrawer(context.getRoutes().load(
-                        "layout/drawer.fxml", "Drawer", "drawer"
-                        )
-                );
+                IView drawer = context.getRoutes().load("layout/drawer.fxml", "Drawer", "drawer");
+
+                decorator.getLayout().setDrawer(drawer);
+                drawer.getController().onEnter();
 
                 context.getRoutes().setContent("dash");
 
-                FileChooser fileChooser = new FileChooser();
-
-                fileChooser.setTitle("Selecione uma imagem");
-                fileChooser.setInitialDirectory(new File("C:\\Users\\" + System.getProperties().get("user.name") + "\\Pictures\\"));
-
-
-                fileChooser.getExtensionFilters().addAll(
-                        new FileChooser.ExtensionFilter("Transparent Images", "*.png"),
-                        new FileChooser.ExtensionFilter("Simple Images", "*.jpg")
-                );
-
-                File file = fileChooser.showOpenDialog(context.getDecorator().getScene().getWindow());
-
-                if (file == null) return;
-
-                IView view = context.getRoutes().load("popups/picture_selector.fxml", "Picture Selector", "pic_selector");
-
-                PictureSelectorController viewController = (PictureSelectorController) view.getController();
-
-                Image image = new Image(String.valueOf(file));
-                viewController.setImage(image);
-
-                // a condi;'ao dele ficar muito pequeno eh transformar em um root no principal
-
-                double width = Math.min(image.getWidth(), (context.getDecorator().getWidth() / 2));
-                double height = image.getHeight();
-
-//                double height = context.getDecorator().getHeight() - 50;
-//                double width = image.getWidth();
-
-                context .getDecorator()
-                        .getRoot()
-                        .getWrapper()
-                        .getPopup()
-                        .size( width + 40, 400 + 350)
-                        .onEnter(event -> {
-                            viewController.setImage(image);
-                            viewController.onEnter();
-                        })
-//                        .onExit(event -> setAvatar(viewController.getImage()))
-                        .alignment(Pos.CENTER)
-                        .content(view.getRoot())
-                        .show();
 
 //                context.getDecorator().getRoot().setNeedsBar(true);
 
@@ -180,7 +142,8 @@ public class LoadViews extends Service<ViewComposer> implements Context {
         URL location = null;
 
         if (path == null) {
-            path = "/io.github.gleidsonmt.speedcut.view";
+//            path = "/io.github.gleidsonmt.speedcut.view";
+            path = context.getPaths().getViews();
         }
 
         if(view.getDirectory() != null ) {

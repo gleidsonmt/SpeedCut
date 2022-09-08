@@ -48,21 +48,21 @@ public record ListAvatarActionFactory<T extends Item> (EventHandler<MouseEvent> 
 
                     setGraphic(null);
 
-                    if (item.getAvatar() != null) {
-//                        setGraphic(item.getAvatar());
-
-                        String avatar = item.getImgPath();
-
-                        if (avatar.contains("theme")) {
-
-                            String path = "/io.github.gleidsonmt.speedcut.core.app/";
-                            String imgPath = Objects.requireNonNull(getClass().getResource(path + avatar)).toExternalForm();
-                            Image image = new Image(imgPath, 90, 0, true, false);
-                            setGraphic(AvatarCreator.createAvatar(image));
-                        }
-                    } else {
+//                    if (item.getAvatar() != null) {
+////                        setGraphic(item.getAvatar());
+//
+//                        String avatar = item.getImgPath();
+//
+//                        if (avatar.contains("theme")) {
+//
+//                            String path = "/io.github.gleidsonmt.speedcut.core.app/";
+//                            String imgPath = Objects.requireNonNull(getClass().getResource(path + avatar)).toExternalForm();
+//                            Image image = new Image(imgPath, 90, 0, true, false);
+//                            setGraphic(AvatarCreator.createAvatar(image));
+//                        }
+//                    } else {
                         setGraphic(AvatarCreator.createDefaultAvatar(item.getName(), 18));
-                    }
+//                    }
 
                     setOnMouseClicked(mouseEventEventHandler);
 

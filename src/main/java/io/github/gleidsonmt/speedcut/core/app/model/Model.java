@@ -29,9 +29,8 @@ import javafx.beans.property.StringProperty;
 @SuppressWarnings("unused")
 public class Model {
 
-    private final IntegerProperty id;
-    private final StringProperty name;
-    private final StringProperty description;
+    private final IntegerProperty   id;
+    private final StringProperty    name;
 
     public Model() {
         this(null);
@@ -40,7 +39,6 @@ public class Model {
     public Model(String name) {
         this.id = new SimpleIntegerProperty();
         this.name = new SimpleStringProperty();
-        this.description = new SimpleStringProperty();
         this.setName(name);
     }
 
@@ -68,15 +66,4 @@ public class Model {
         this.name.set(name);
     }
 
-    public String getDescription() {
-        return this.description.get();
-    }
-
-    public StringProperty descriptionProperty() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description.set(description);
-    }
 }

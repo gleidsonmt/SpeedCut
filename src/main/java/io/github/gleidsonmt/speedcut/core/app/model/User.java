@@ -21,6 +21,9 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.Node;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -96,5 +99,11 @@ public final class User extends Person {
         sb.append(", avatar=").append(super.getAvatar());
         sb.append('}');
         return sb.toString();
+    }
+
+    @Contract(pure = true)
+    @Override
+    public @NotNull Avatar getAvatar() {
+        return (Avatar) super.getAvatar();
     }
 }

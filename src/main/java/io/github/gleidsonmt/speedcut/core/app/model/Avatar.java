@@ -15,36 +15,27 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.gleidsonmt.speedcut.core.app.view.intefaces;
+package io.github.gleidsonmt.speedcut.core.app.model;
 
-import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
-import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IView;
+import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.image.Image;
 
-import java.io.IOException;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
- * Create on  20/08/2022
+ * Create on  07/09/2022
  */
-public interface IRotes {
+public class Avatar extends Image {
 
-    void setContent(String view) throws NavigationException;
+    private final ReadOnlyStringProperty path = new SimpleStringProperty();
 
-    void setView(String view) throws NavigationException;
+    public Avatar(String url) {
+        super(url);
+    }
 
-    void addView(IView iView);
-
-    void goHome();
-
-    IView getView(String view);
-
-    IView getCurrent();
-
-    IView getPrevious();
-
-    IView load(String folder, String title, String name);
-
-
-    // void loadView(String path) // para implementar se quiser q a view seja carregad na hora
+    public String getPath() {
+        return path.get();
+    }
 
 }

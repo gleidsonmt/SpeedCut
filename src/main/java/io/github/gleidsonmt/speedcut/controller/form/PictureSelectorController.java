@@ -18,15 +18,14 @@
 package io.github.gleidsonmt.speedcut.controller.form;
 
 import io.github.gleidsonmt.gncontrols.GNButton;
-import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.speedcut.controller.sales.aside.SideHeaderNavigation;
-import io.github.gleidsonmt.speedcut.core.app.view.intefaces.ActionView;
-import io.github.gleidsonmt.speedcut.core.app.view.intefaces.Context;
+import io.github.gleidsonmt.speedcut.core.app.layout.containers.PopupLayout;
+import io.github.gleidsonmt.speedcut.core.app.layout.containers.PopupView;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
@@ -39,14 +38,19 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.SVGPath;
 import org.jetbrains.annotations.NotNull;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -54,18 +58,20 @@ import java.util.ResourceBundle;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  21/08/2022
  */
-public class PictureSelectorController implements ActionView, Context, Initializable {
+public class PictureSelectorController implements PopupView, Initializable {
 
     @FXML private Circle top_left;
     @FXML private Circle bottom_left;
     @FXML private GNButton btnLockInTop;
+    @FXML private SVGPath path_lup;
 
     @FXML private StackPane root;;
-    @FXML private VBox body;
-    @FXML private AnchorPane boxContainer;
+    @FXML private GridPane body;
+    @FXML private AnchorPane screenSelector;
     @FXML private AnchorPane boxSelector;
     @FXML private ImageView imageView;
     @FXML private VBox wrapper;
+    @FXML private StackPane boxContainer;
 
     @FXML private Circle miniView;
     @FXML private Circle circleView;
@@ -109,19 +115,18 @@ public class PictureSelectorController implements ActionView, Context, Initializ
 
     }
 
+    private PlusSlider plusSlider = new PlusSlider();
+
     @FXML
     private void scrollImage(@NotNull ScrollEvent event) {
 
-        imageView.setCursor(Cursor.CROSSHAIR);
-
         double delta = event.getDeltaY() * -1; // * -1 invert scroll rolling
-
-        System.out.println("delta = " + delta);
 
         Rectangle2D viewport = imageView.getViewport();
 
         double width = imageView.getImage().getWidth();
         double height = imageView.getImage().getHeight();
+
 
 //        double scale = clamp(Math.pow(1.01, delta),
         double scale = clamp(Math.pow(1.01, delta),
@@ -134,6 +139,7 @@ public class PictureSelectorController implements ActionView, Context, Initializ
 
         );
 
+
         Point2D mouse = imageViewToImage(imageView, new Point2D(event.getX(), event.getY()));
 
         double newWidth = viewport.getWidth() * scale;
@@ -145,14 +151,37 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         double newMinY = clamp(mouse.getY() - (mouse.getY() - viewport.getMinY()) * scale,
                 0, height - newHeight);
 
-        if (newMinY <= 0) return;
+
+        if (!screenSelector.getChildren().contains(plusSlider)) {
+
+            screenSelector.getChildren().add(plusSlider);
+            plusSlider.setMax(10);
+            plusSlider.setMin(-imageView.getImage().getHeight());
+            plusSlider.setBlockIncrement(-40);
+
+        }
+
+//
+        int cursorDiff = 20;
+        int plusHeight = 45;
+
+        double maxX = screenSelector.getWidth() - cursorDiff;
+        double maxY = screenSelector.getHeight() - plusHeight;
+
+        var left = event.getX() > maxX;
+        var bottom = event.getY() > maxY;
+
+        // position and limit borders
+        plusSlider.setLayoutX( left ? event.getX() - cursorDiff : event.getX() + cursorDiff );
+        plusSlider.setLayoutY(bottom ? event.getY() - plusHeight : event.getY() + cursorDiff);
+
+        plusSlider.setValue(newHeight * -1);
+
+        // don't pass the bounds limits either
+        if (newHeight > imageView.getImage().getHeight()) return;
+        if (newWidth > imageView.getImage().getWidth()) return;
 
         imageView.setViewport(new Rectangle2D(newMinX, newMinY, newWidth, newHeight));
-    }
-
-    @FXML
-    private void updateCursor() {
-        boxContainer.setCursor(Cursor.DEFAULT);
     }
 
     /**
@@ -170,7 +199,6 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         // Set the initial point 2D
         mouseDown.set(mousePress);
 
-        boxContainer.setCursor(Cursor.CROSSHAIR);
     }
 
     /**
@@ -193,7 +221,6 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         // Register actual coordinates
         mouseDown.set(imageViewToImage(imageView, new Point2D(event.getX(), event.getY())));
 
-        boxContainer.setCursor(Cursor.MOVE);
     }
 
     // shift the viewport of the imageView by the specified delta, clamping so
@@ -246,8 +273,10 @@ public class PictureSelectorController implements ActionView, Context, Initializ
     }
 
     public void setImage(Image image) {
+
         imageView.setImage(image);
         centerImage(image);
+
     }
 
     @FXML
@@ -282,15 +311,15 @@ public class PictureSelectorController implements ActionView, Context, Initializ
 //        deltaX = newX - initX;
 //        deltaY = newY - initY;
 //
-//        Bounds bounds = boxContainer.getLayoutBounds();
+//        Bounds bounds = screenSelector.getLayoutBounds();
 //
 //        double padTop = boxSelector.getLocalToParentTransform().getTy() ;
 //        double padLef = boxSelector.getLocalToParentTransform().getTx() ;
 //
 ////        boolean maxX = (deltaX + boxSelector.getWidth()) < 401;
 ////        boolean maxY = (deltaY + boxSelector.getHeight()) < 401 ;
-//        boolean maxX = (deltaX + boxSelector.getWidth()) < (boxContainer.getWidth() ) + (padLef + 2);
-//        boolean maxY = (deltaY + boxSelector.getHeight()) < (boxContainer.getHeight() ) + (padTop + 2);
+//        boolean maxX = (deltaX + boxSelector.getWidth()) < (screenSelector.getWidth() ) + (padLef + 2);
+//        boolean maxY = (deltaY + boxSelector.getHeight()) < (screenSelector.getHeight() ) + (padTop + 2);
 //
 //        if (deltaX > (padLef-2) && maxX)
 //            boxSelector.setLayoutX( deltaX);
@@ -345,8 +374,8 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         deltaY = newY - initY;
 
         // get the bounds for the box limit
-        double maxY = (boxContainer.getLocalToSceneTransform().getTy() + boxContainer.getHeight()) -2;
-        double maxX = (boxContainer.getLocalToSceneTransform().getTx() -2);
+        double maxY = (screenSelector.getLocalToSceneTransform().getTy() + screenSelector.getHeight()) -2;
+        double maxX = (screenSelector.getLocalToSceneTransform().getTx() -2);
 
         // don't leave from the limit
         if ( newY < maxY )  setHeight(boxSelector.getPrefHeight() + deltaY);
@@ -386,8 +415,8 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         deltaX = newX - initX;
         deltaY = newY - initY;
 
-        double maxX = (boxContainer.getLocalToSceneTransform().getTx() + boxContainer.getWidth())  -2; // 2 is the border width
-        double maxY = (boxContainer.getLocalToSceneTransform().getTy() + boxContainer.getHeight()) -2;
+        double maxX = (screenSelector.getLocalToSceneTransform().getTx() + screenSelector.getWidth())  -2; // 2 is the border width
+        double maxY = (screenSelector.getLocalToSceneTransform().getTy() + screenSelector.getHeight()) -2;
 
         // don't out the limits
         if (newX < maxX) setWidth(boxSelector.getPrefWidth() + deltaX);
@@ -405,15 +434,15 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         // Remove old anchors
         clearConstraints(boxSelector);
 
-        // Get the min x and y postion (Relative to boxContainer)
+        // Get the min x and y postion (Relative to screenSelector)
         double _minX =  (boxSelector.getLocalToParentTransform().getTx() ) ;
         double _minY =  (boxSelector.getLocalToParentTransform().getTy()  ) ;
 
-        // Get the maxX and maxY position in the parent (Relative to boxContainer)
+        // Get the maxX and maxY position in the parent (Relative to screenSelector)
         double _maxX = viewWidth - (_minX + boxSelector.getWidth());
-        double _maxY = boxContainer.getHeight() - (_minY + boxSelector.getHeight());
+        double _maxY = screenSelector.getHeight() - (_minY + boxSelector.getHeight());
 
-        // Anchor positions (Relative to boxContainer)
+        // Anchor positions (Relative to screenSelector)
         AnchorPane.setRightAnchor(boxSelector, _maxX );
         AnchorPane.setBottomAnchor(boxSelector, _maxY );
 
@@ -434,8 +463,8 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         deltaY = newY - initY;
 
         // get the bounds for the box
-        double maxX = (boxContainer.getLocalToSceneTransform().getTx() -2);
-        double maxY = (boxContainer.getLocalToSceneTransform().getTy() -2);
+        double maxX = (screenSelector.getLocalToSceneTransform().getTx() -2);
+        double maxY = (screenSelector.getLocalToSceneTransform().getTy() -2);
 
         // don't leave from the limit
         if (newY > maxY) setHeight(boxSelector.getPrefHeight()  - deltaY);
@@ -452,15 +481,15 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         // Remove old anchors
         clearConstraints(boxSelector);
 
-        // Get the min x and y postion (Relative to boxContainer)
+        // Get the min x and y postion (Relative to screenSelector)
         double _minX =  (boxSelector.getLocalToParentTransform().getTx() ) ;
         double _minY =  (boxSelector.getLocalToParentTransform().getTy()  ) ;
 
-        // Get the maxX and maxY position in the parent (Relative to boxContainer)
+        // Get the maxX and maxY position in the parent (Relative to screenSelector)
         double _maxX = viewWidth - (_minX + boxSelector.getWidth());
-        double _maxY = boxContainer.getHeight() - (_minY + boxSelector.getHeight());
+        double _maxY = screenSelector.getHeight() - (_minY + boxSelector.getHeight());
 
-        // Anchor positions (Relative to boxContainer)
+        // Anchor positions (Relative to screenSelector)
         AnchorPane.setLeftAnchor(boxSelector, _minX );
         AnchorPane.setBottomAnchor(boxSelector, _maxY );
 
@@ -481,8 +510,8 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         deltaY = newY - initY;
 
         // get the bounds for the box
-        double maxX = (boxContainer.getLocalToSceneTransform().getTx() + boxContainer.getWidth()) -2;
-        double maxY = (boxContainer.getLocalToSceneTransform().getTy() -2);
+        double maxX = (screenSelector.getLocalToSceneTransform().getTx() + screenSelector.getWidth()) -2;
+        double maxY = (screenSelector.getLocalToSceneTransform().getTy() -2);
 
         if (newX < maxX) setWidth(boxSelector.getPrefWidth() + deltaX);
         if (newY > maxY) setHeight(boxSelector.getPrefHeight() - deltaY);
@@ -499,18 +528,8 @@ public class PictureSelectorController implements ActionView, Context, Initializ
 
         initX = (event.getScreenX() ) - (boxSelector.getLocalToParentTransform().getTx());
         initY = (event.getScreenY() ) - (boxSelector.getLocalToParentTransform().getTy());
-
-        Pane separator = new Pane();
-        separator.setStyle("-fx-background-color : red;");
-        separator.setPrefSize(1, 300);
-        context.getDecorator().getWrapper().addContent(separator);
-
-        AnchorPane.setLeftAnchor(separator, initX);
-//        AnchorPane.setBottomAnchor(separator, initY);
-//
-//        boxSelector.setCursor(Cursor.MOVE);
-
     }
+
 
     @FXML
     private void moveBox(@NotNull MouseEvent event) {
@@ -536,23 +555,16 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         double maxY = deltaY + boxSelector.getHeight();
         double maxX = deltaX + boxSelector.getWidth();
 
+
         // Delimiter the bounds
-        if (deltaX > (minX -2) && maxX < (boxContainer.getWidth() + 1))
+        if (deltaX > (minX -2) && maxX <screenSelector.getWidth() + 1)
             boxSelector.setLayoutX( deltaX);
 
-        if (deltaY > (minY -2) && maxY < (boxContainer.getHeight() + 1))
+        if (deltaY > (minY -2) && maxY < screenSelector.getHeight() + 1)
             boxSelector.setLayoutY( deltaY );
 
     }
 
-    @FXML
-    private void getInitialCordinates(@NotNull MouseEvent event) {
-
-        if (event.getTarget() instanceof Circle) return;
-
-        initX = (event.getScreenX()) - (boxSelector.getLocalToParentTransform().getTx());
-        initY = (event.getScreenY()) - (boxSelector.getLocalToParentTransform().getTy());
-    }
 
     /***************************************************************
      *
@@ -606,6 +618,10 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         }
     }
 
+    /**
+     * Center image in the center of the box and set the max view port.
+     * @param image The image for get sizes.
+     */
     private void centerImage(@NotNull Image image) {
 
         // Get the actual view port
@@ -615,48 +631,23 @@ public class PictureSelectorController implements ActionView, Context, Initializ
         // Sets the view port
         imageView.setViewport(new Rectangle2D(0,0, viewWidth, viewHeight));
 
+
         // Sets the image view size
         imageView.setFitWidth(viewWidth);
         imageView.setFitHeight(viewHeight);
 
     }
 
-    @Deprecated
-    public void updateAvatars() {
-//        imageView.setClip(boxSelector);
-
-        SnapshotParameters params = new SnapshotParameters();
-//        params.camera = camera == null ? null : camera.copy();
-//        params.depthBuffer = depthBuffer;
-//        params.fill = fill;
-//        params.viewport = viewport;
-//        params.transform = transform == null ? null : transform.clone();
-//        return params;
-
-//        params.setTransform(boxSelector.getLocalToParentTransform());
-
-        double _minX = boxSelector.getLocalToParentTransform().getTx();
-        double _minY = boxSelector.getLocalToParentTransform().getTy();
-        double _width = boxSelector.getPrefWidth();
-        double _hegth = boxSelector.getPrefHeight();
-
-        params.setViewport(new Rectangle2D(_minX, _minY, _width, _hegth));
-
-        wrapper.setEffect(null);
-        WritableImage wImage = new WritableImage((int) _width, (int) _hegth);
-        WritableImage image = imageView.snapshot(params, wImage);
-        wrapper.setEffect(new ColorAdjust(0,0,-0.50 ,0));
-
-        FormClientController controller = (FormClientController) context.getRoutes().getView("form_client").getController();
-        controller.setAvatar(image);
-
-        context.getDecorator().getWrapper().getPopup().close();
-
-    }
-
+    /**
+     * The image for others scenes
+     * @return The image in selector.
+     */
+    @FXML
     public WritableImage getImage() {
 
         SnapshotParameters params = new SnapshotParameters();
+
+        params.setFill(Color.TRANSPARENT);
 
         double _minX = boxSelector.getLocalToParentTransform().getTx();
         double _minY = boxSelector.getLocalToParentTransform().getTy();
@@ -670,16 +661,32 @@ public class PictureSelectorController implements ActionView, Context, Initializ
 
         WritableImage image = imageView.snapshot(params, wImage);
         wrapper.setEffect(new ColorAdjust(0,0,-0.50 ,0));
+
+        File directory = new File(System.getProperty("user.dir")
+                + System.getProperty("file.separator")+ "zoom3.png");
+
+        try {
+
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", directory);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return image;
 
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        sideHeaderNavigation = new SideHeaderNavigation(Icons.DRAW, "Recorte seu novo avatar.", false);
-        body.getChildren().add(0, sideHeaderNavigation);
-
+        // Replace the cursors if you don't have event dragged or scrolled
+        boxSelector.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> boxSelector.setCursor(Cursor.MOVE));
+        boxSelector.addEventFilter(MouseEvent.MOUSE_RELEASED, event -> boxSelector.setCursor(Cursor.DEFAULT));
+        screenSelector.addEventFilter(MouseEvent.MOUSE_MOVED, event -> screenSelector.getChildren().remove(plusSlider));
     }
 
+    @Override
+    public void updateMode(PopupLayout layout) {
 
+    }
 }

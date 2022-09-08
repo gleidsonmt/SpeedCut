@@ -24,7 +24,7 @@ import javafx.collections.ObservableList;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  25/02/2022
  */
-public class Sale extends Entity {
+public final class Sale extends Entity {
 
     private final ObjectProperty<Professional>  professional    = new SimpleObjectProperty<>();
     private final ObjectProperty<Client>        client          = new SimpleObjectProperty<>();

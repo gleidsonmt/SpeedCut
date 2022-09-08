@@ -17,14 +17,18 @@
 
 package io.github.gleidsonmt.speedcut.core.app.view.intefaces;
 
+import io.github.gleidsonmt.speedcut.core.app.model.Avatar;
 import io.github.gleidsonmt.speedcut.core.app.model.Cashier;
 import io.github.gleidsonmt.speedcut.core.app.model.User;
 import io.github.gleidsonmt.speedcut.core.app.view.WindowDecorator;
 import javafx.application.HostServices;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.Parent;
+import javafx.scene.image.Image;
 
+import java.net.URL;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
@@ -63,5 +67,11 @@ public interface IContext {
     Properties getProperties();
 
     void startApp(HostServices hostServices);
+
+    Image getImage(String path);
+
+    Avatar getAvatar(String path);
+
+    Logger getLogger();
 
 }

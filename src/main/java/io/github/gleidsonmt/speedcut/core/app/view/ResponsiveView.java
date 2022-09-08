@@ -31,66 +31,9 @@ import javafx.scene.layout.Priority;
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  24/02/2022
  */
-public abstract class ResponsiveView implements ActionView, Context {
+public abstract class ResponsiveView implements ActionView {
 
     private final ChangeListener<Number> updateListener = (observable, oldValue, newValue) -> updateLayout(newValue.doubleValue());
-
-    // Testing
-    protected enum B {
-
-        X_SMALL(576),
-        SMALL(576),
-        MEDIUM(768),
-        LARGE(992),
-        X_LARGE(1200),
-        XX_LARGE(1400);
-
-        private final double size;
-
-        B(double size) {
-            this.size = size;
-        }
-
-        public double getSize () {
-            return size;
-        }
-    }
-
-    public static class BreakPoints {
-
-        public static final double X_SMALL = 576D;
-
-        public static final double SMALL = 576D;
-        public static final double MEDIUM = 768;
-        public static final double LARGE = 992;
-        public static final double X_LARGE = 1200;
-        public static final double XX_LARGE = 1400;
-        public static final double FHD = 1900;
-
-        public static boolean isXSmall () {
-            return context.getWindow().getWidth() < SMALL;
-        }
-
-        public static boolean isSmall () {
-            return context.getDecorator().getWidth() >= SMALL && context.getWindow().getWidth() <= MEDIUM;
-        }
-
-        public static boolean isMedium () {
-            return context.getDecorator().getWidth() >= MEDIUM && context.getWindow().getWidth() <= LARGE;
-        }
-
-        public static boolean isLarge () {
-            return context.getDecorator().getWidth() >= LARGE && context.getWindow().getWidth() <= X_LARGE;
-        }
-
-        public static boolean isXLarge () {
-            return context.getDecorator().getWidth() >= X_LARGE && context.getWindow().getWidth() <= XX_LARGE;
-        }
-
-        public static boolean isXXLarge () {
-            return context.getDecorator().getWidth() > XX_LARGE && context.getWindow().getWidth() <= FHD;
-        }
-    }
 
     protected abstract void updateLayout(double width);
 

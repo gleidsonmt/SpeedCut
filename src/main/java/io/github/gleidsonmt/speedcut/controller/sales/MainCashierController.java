@@ -33,7 +33,7 @@ public class MainCashierController implements ActionView, Initializable {
     @FXML
     private void openNewCashier() {
         context.getDecorator().getWrapper().getPopup()
-        .content(context.getRoutes().getView("open").getRoot())
+        .content(context.getRoutes().getView("open"))
         .size(400, 400)
         .show();
     }

@@ -19,13 +19,13 @@ package io.github.gleidsonmt.speedcut.core.app.view;
 
 import fr.brouillard.oss.cssfx.CSSFX;
 import io.github.gleidsonmt.gndecorator.GNDecorator;
-import io.github.gleidsonmt.speedcut.core.app.view.core.LoadViews;
-import io.github.gleidsonmt.speedcut.core.app.view.intefaces.AppPaths;
-import io.github.gleidsonmt.speedcut.core.app.view.core.Theme;
 import io.github.gleidsonmt.speedcut.core.app.dao.Repositories;
 import io.github.gleidsonmt.speedcut.core.app.layout.ILayout;
 import io.github.gleidsonmt.speedcut.core.app.layout.Root;
-import io.github.gleidsonmt.speedcut.core.app.layout.containers.Wrapper;
+import io.github.gleidsonmt.speedcut.core.app.layout.containers.IWrapper;
+import io.github.gleidsonmt.speedcut.core.app.view.core.LoadViews;
+import io.github.gleidsonmt.speedcut.core.app.view.core.Theme;
+import io.github.gleidsonmt.speedcut.core.app.view.intefaces.AppPaths;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IDecorator;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.IRoot;
 import javafx.application.HostServices;
@@ -33,7 +33,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.NotNull;
-import org.scenicview.ScenicView;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -49,11 +48,12 @@ public class WindowDecorator extends GNDecorator implements IDecorator {
 
     public WindowDecorator(Properties _properties, @NotNull AppPaths _path) throws IOException {
 
-        Theme theme = new Theme(_path.getCore());
+        System.out.println("_path.getViews() = " + _path.getViews());
+        Theme theme = new Theme(_path.getTheme());
         getStylesheets().setAll(theme.getStyleesheets());
         getIcons().addAll(theme.getLogo());
 
-        root.setContent( FXMLLoader.load(Objects.requireNonNull(getClass().getResource(_path.getViews() + "layout/loader.fxml"))));
+        root.setContent( FXMLLoader.load(Objects.requireNonNull(getClass().getResource(_path.getViews() + "/layout/loader.fxml"))));
 
         if (root instanceof StackPane) {
             setContent( (StackPane) root);
@@ -76,17 +76,8 @@ public class WindowDecorator extends GNDecorator implements IDecorator {
     }
 
     @Override
-    public Wrapper getWrapper() {
+    public IWrapper getWrapper() {
         return root.getWrapper();
-    }
-
-    public void loadViews() {
-        LoadViews loadViews = new LoadViews(this);
-        loadViews.start();
-    }
-
-    protected boolean hasInstance() {
-        return getWindow().isShowing();
     }
 
     @Override
@@ -97,6 +88,16 @@ public class WindowDecorator extends GNDecorator implements IDecorator {
     @Override
     public void setModule(String title) {
         root.setTitle(title);
+    }
+
+    @Override
+    public void close() {
+        this.getWindow().hide();
+    }
+
+    @Override
+    public Scene getScene() {
+        return this.getWindow().getScene();
     }
 
     @Override
@@ -117,13 +118,12 @@ public class WindowDecorator extends GNDecorator implements IDecorator {
         }
     }
 
-    @Override
-    public void close() {
-        this.getWindow().hide();
+    public void loadViews() {
+        LoadViews loadViews = new LoadViews(this);
+        loadViews.start();
     }
 
-    @Override
-    public Scene getScene() {
-        return this.getWindow().getScene();
+    protected boolean hasInstance() {
+        return getWindow().isShowing();
     }
 }

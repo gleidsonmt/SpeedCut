@@ -125,14 +125,14 @@ public class Tile<T extends Person> extends ToggleButton implements Context {
         scoreBox.getChildren().addAll( titleScore);
         left.getChildren().add(scoreBox);
 
-        Node avatar = model.getAvatar(100, 1, 10);
+//        Node avatar = model.getAvatar(100, 1, 10);
 
-        wrapper.getChildren().addAll(left, avatar);
+//        wrapper.getChildren().addAll(left, avatar);
 
         wrapper.setPadding(new Insets(10));
 
         GridPane.setConstraints(left, 0,0,1,1, HPos.CENTER, VPos.CENTER, Priority.ALWAYS, Priority.ALWAYS);
-        GridPane.setConstraints(avatar, 1,0,1,1, HPos.RIGHT, VPos.CENTER, Priority.ALWAYS, Priority.ALWAYS);
+//        GridPane.setConstraints(avatar, 1,0,1,1, HPos.RIGHT, VPos.CENTER, Priority.ALWAYS, Priority.ALWAYS);
 
         return wrapper;
     }
@@ -233,9 +233,7 @@ public class Tile<T extends Person> extends ToggleButton implements Context {
         return boxDetails;
     }
 
-    private VBox createDetailsForProfessional(Professional model) {
-
-
+    private @NotNull VBox createDetailsForProfessional(Professional model) {
 
         VBox boxDetails = new VBox();
         boxDetails.setAlignment(Pos.CENTER);

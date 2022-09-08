@@ -27,8 +27,4 @@ public interface Context {
 
     IContext context = new App();
 
-
-//    IContext decorator = new Context();
-
-
 }

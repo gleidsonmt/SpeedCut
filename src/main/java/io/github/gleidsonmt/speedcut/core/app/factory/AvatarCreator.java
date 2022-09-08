@@ -98,27 +98,28 @@ public class AvatarCreator extends Label {
                 "-fx-border-width : " + borderWidth + ";" +
                 "-fx-background-color : " +
                 colors.get(random.nextInt(colors.size())) +";");
+
         return label;
     }
 
 
     public static Circle createAvatar(Item item) {
         String path = "/io.github.gleidsonmt.speedcut.core.app/";
-        String imgPath = Objects.requireNonNull(AvatarCreator.class.getResource(path + item.getImgPath())).toExternalForm();
+        String imgPath = Objects.requireNonNull(AvatarCreator.class.getResource(path + item.getAvatar().getPath())).toExternalForm();
         Image image = new Image(imgPath, 90, 0, true, false);
         return createAvatar(image);
     }
 
     public static Circle createAvatar(Item item, Color borderColor) {
         String path = "/io.github.gleidsonmt.speedcut.core.app/";
-        String imgPath = Objects.requireNonNull(AvatarCreator.class.getResource(path + item.getImgPath())).toExternalForm();
+        String imgPath = Objects.requireNonNull(AvatarCreator.class.getResource(path + item.getAvatar().getPath())).toExternalForm();
         Image image = new Image(imgPath, 90, 0, true, false);
         return createAvatar(image, borderColor);
     }
 
     public static Circle createAvatar(Item item, Color borderColor, double borderWidth, double radius,  double width, double height, boolean preserverRatio, boolean smooth) {
         String path = "/io.github.gleidsonmt.speedcut.core.app/";
-        String imgPath = Objects.requireNonNull(AvatarCreator.class.getResource(path + item.getImgPath())).toExternalForm();
+        String imgPath = Objects.requireNonNull(AvatarCreator.class.getResource(path + item.getAvatar().getPath())).toExternalForm();
         Image image = new Image(imgPath, width, height, preserverRatio, smooth);
         return createAvatar(image, borderColor, borderWidth, radius);
     }

@@ -32,14 +32,15 @@ public class DefaultCreator {
         Professional professional = new Professional();
         professional.setName("Profissional");
         professional.setId(1);
-        professional.setImgPath("theme/img/avatars/woman@400.png");
+//        professional.setImgPath("theme/img/avatars/woman@400.png");
+
         return professional;
     }
 
     public static Client createClient() {
         Client client = new Client();
         client.setName("Cliente");
-        client.setImgPath("theme/img/avatars/woman@400.png");
+//        client.setImgPath("theme/img/avatars/woman@400.png");
         client.setId(1);
         return client;
     }

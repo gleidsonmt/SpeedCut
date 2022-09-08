@@ -20,11 +20,13 @@ package io.github.gleidsonmt.speedcut.core.app.model;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 
 /**
  * @author Gleidson Neves da Silveira | gleidisonmt@gmail.com
  * Create on  04/03/2022
  */
+@SuppressWarnings("unused")
 public final class Client extends Person {
 
     private final ListProperty<PaymentMethod> paymentMethods = new SimpleListProperty<>(FXCollections.observableArrayList());
@@ -107,4 +109,5 @@ public final class Client extends Person {
     public void setScore(Score score) {
         this.score.set(score);
     }
+
 }

@@ -20,6 +20,7 @@ package io.github.gleidsonmt.speedcut.core.app.view.core;
 import animatefx.animation.FadeIn;
 import animatefx.animation.FadeOut;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
+import io.github.gleidsonmt.speedcut.core.app.layout.containers.PopupView;
 import io.github.gleidsonmt.speedcut.core.app.view.*;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.ActionView;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.AppPaths;
@@ -159,7 +160,9 @@ public final class Routes implements IRotes {
     public @NotNull IView load(String folder, String title, String name)  {
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(paths.getViews() + folder));
+
+        loader.setLocation(getClass().getResource(paths.getFromView(folder)));
+        
         try {
             loader.load();
         } catch (IOException e) {

@@ -69,6 +69,8 @@ public class SideHeaderNavigation extends HBox implements Context {
         HBox.setMargin(lblInfo, new Insets(0, 0, 0, 15));
         lblInfo.setGraphicTextGap(10);
 
+        System.out.println("needsBackButton = " + needsBackButton);
+
         if (needsBackButton) {
             btnBack = new Button();
 
@@ -85,10 +87,8 @@ public class SideHeaderNavigation extends HBox implements Context {
 
             this.getChildren().setAll( btnBack, lblInfo);
 
-
-        }
-
-        this.getChildren().setAll( lblInfo);
+        } else
+            this.getChildren().setAll( lblInfo);
 
 
 

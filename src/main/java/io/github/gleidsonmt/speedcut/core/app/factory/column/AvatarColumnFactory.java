@@ -18,8 +18,11 @@
 package io.github.gleidsonmt.speedcut.core.app.factory.column;
 
 import io.github.gleidsonmt.speedcut.core.app.factory.AvatarCreator;
+import io.github.gleidsonmt.speedcut.core.app.layout.util.AvatarView;
+import io.github.gleidsonmt.speedcut.core.app.model.AvatarMode;
 import io.github.gleidsonmt.speedcut.core.app.model.Entity;
 import io.github.gleidsonmt.speedcut.core.app.model.Item;
+import io.github.gleidsonmt.speedcut.core.app.util.Util;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -53,28 +56,10 @@ public class AvatarColumnFactory<T extends Entity, S extends Item> implements Ca
                     setId("badge-cell");
                     setGraphic(null);
 
-                    if (item.getImgPath() != null) {
-
-                        String path;
-                        String imgPath;
-                        Image image = null;
-
-
-                        if (item.getImgPath().contains("theme")) {
-//                            path = "/io.github.gleidsonmt.speedcut.core.app/";
-//                            imgPath = Objects.requireNonNull(getClass().getResource(path + "theme/img/avatars/man@400.png")).toExternalForm();
-//                            image = new Image(imgPath, 400, 400, true, false);
-
-                            setGraphic(item.getAvatar(35, 1, 100));
-                        } else {
-
-                            setGraphic(item.getAvatar(35, 1, 100));
-                        }
-
-
-//                        setGraphic(AvatarCreator.createAvatar(image, Color.WHITE, 2, 16));
+                    if (item.getAvatar() != null) {
+                        setGraphic(new AvatarView(item.getAvatar(), AvatarMode.THUMB));
                     } else {
-//                        setGraphic(AvatarCreator.createDefaultAvatar(item.getName(), 0, 0, 12));
+                        setGraphic(Util.createIconLabel(item.getName().substring(0,1), 15));
                     }
 
                     setTooltip(new Tooltip(
