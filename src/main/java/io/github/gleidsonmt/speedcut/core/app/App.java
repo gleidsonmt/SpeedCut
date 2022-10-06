@@ -81,6 +81,7 @@ public class App implements AppPaths, IContext {
             logger.log(Level.SEVERE, e.getMessage());
             e.printStackTrace();
         }
+
         routes = new Routes(window, getPaths());
 
     }
@@ -135,11 +136,14 @@ public class App implements AppPaths, IContext {
 
 
     public ActionView getControlller(String view) {
+
         ActionView actionView = this.routes.getView(view).getController();
+
         if (actionView instanceof WorkedView) {
             new Throwable("This controller is part of the other view, it's not possible to get.");
             return null;
         }
+
         return this.routes.getView(view).getController();
     }
 
@@ -149,17 +153,21 @@ public class App implements AppPaths, IContext {
     }
 
     public IView workAndGet(String view) {
+
         IView _view = this.routes.getView(view);
         _view.getController().onEnter();
 //        this.routes.setCurrent(_view);
         return _view;
+
     }
 
     public IView workAndLeave() {
+
         IView _view = getPrevious();
         if (_view.getController() != null)
             _view.getController().onExit();
         return _view;
+
     }
 
     @Deprecated
@@ -298,16 +306,17 @@ public class App implements AppPaths, IContext {
     @Override
     public Avatar getAvatar(String path) {
 
-
         return new Avatar(
                 getClass().getResource(
                         getAvatars() + formatFile(path)
                 ).toExternalForm()
         );
+
     }
 
     @Override
     public Logger getLogger() {
         return logger;
     }
+
 }

@@ -106,8 +106,6 @@ public class SnackBar  {
         labelAction.getStyleClass().add("snack-button");
         snack.getStyleClass().add("snack-bar");
 
-
-
 //        labelAction.getStyleClass().add("depth-1");
         snack.setContentDisplay(ContentDisplay.RIGHT);
 

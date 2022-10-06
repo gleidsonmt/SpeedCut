@@ -17,7 +17,7 @@
 
 package io.github.gleidsonmt.speedcut.controller.sales.main.componets;
 
-import io.github.gleidsonmt.gncontrols.GNTextBox;
+import io.github.gleidsonmt.gncontrols.controls.GNTextBox;
 import io.github.gleidsonmt.speedcut.controller.sales.aside.Tile;
 import io.github.gleidsonmt.speedcut.controller.sales.main.SalesController;
 import io.github.gleidsonmt.speedcut.core.app.dao.Repositories;

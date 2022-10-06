@@ -17,7 +17,8 @@
 
 package io.github.gleidsonmt.speedcut.core.app.layout;
 
-import io.github.gleidsonmt.gncontrols.GNFloatingButton;
+import io.github.gleidsonmt.gncontrols.controls.GNIconButton;
+import io.github.gleidsonmt.gncontrols.controls.button.GNIconButton;
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import javafx.geometry.Pos;
@@ -31,7 +32,7 @@ import javafx.scene.text.Font;
  */
 public class Bar extends HBox {
 
-    private final GNFloatingButton hamburger   = new GNFloatingButton();
+    private final GNIconButton hamburger   = new GNIconButton();
 
     public Bar() {
         setAlignment(Pos.CENTER_LEFT);

@@ -57,8 +57,7 @@ public class LoadViews extends Service<ViewComposer> implements Context {
         Yaml yaml = new Yaml(new Constructor(List.class));
 
 
-        System.out.println("context.getPaths().getFromCore(\"views.yml\") = " + context.getPaths().getFromCore("views.yml"));
-        
+
         yamlViews = yaml.load(getClass().getResourceAsStream(
                 context.getPaths().getFromCore("views.yml")));
 

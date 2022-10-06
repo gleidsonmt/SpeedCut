@@ -17,19 +17,15 @@
 
 package io.github.gleidsonmt.speedcut.core.app.util;
 
-import animatefx.animation.*;
-import io.github.gleidsonmt.gncontrols.GNFloatingButton;
+import animatefx.animation.Pulse;
 import io.github.gleidsonmt.gncontrols.GNMonetaryField;
 import io.github.gleidsonmt.gncontrols.GNRadioButton;
-import io.github.gleidsonmt.gncontrols.GNTextBox;
-import io.github.gleidsonmt.gncontrols.options.FieldType;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import io.github.gleidsonmt.gncontrols.controls.GNTextBox;
+import io.github.gleidsonmt.gncontrols.controls.button.GNIconButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -38,7 +34,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
-import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 
 import java.math.BigDecimal;
@@ -51,8 +46,8 @@ import java.math.RoundingMode;
  */
 public class DiscountPopup extends PopOver  {
 
-    private final GNFloatingButton cancel      = new GNFloatingButton();
-    private final GNFloatingButton confirm     = new GNFloatingButton();
+    private final GNIconButton cancel      = new GNIconButton();
+    private final GNIconButton confirm     = new GNIconButton();
     private final GNTextBox field = new GNTextBox();
 
     private VBox box         = new VBox();
@@ -141,7 +136,7 @@ public class DiscountPopup extends PopOver  {
         GNMonetaryField monetary = new GNMonetaryField();
         monetary.setPrefHeight(40);
 
-        field.getEditor().setAlignment(Pos.CENTER);
+//        field.getEditor().setAlignment(Pos.CENTER);
         monetary.setAlignment(Pos.CENTER);
 
         percentage.setSelected(true);
@@ -205,7 +200,7 @@ public class DiscountPopup extends PopOver  {
         cancel.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         cancel.setGraphic(iconCancel);
 
-        field.setCount(2);
+//        field.setCount(2);
 
         confirm.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         SVGPath iconConfirm = new SVGPath();
@@ -231,32 +226,33 @@ public class DiscountPopup extends PopOver  {
                 discount.setStyle("-fx-font-weight : bold; -fx-text-fill : -grapefruit; ");
             }
 
-            if(percentage.isSelected() && field.getEditor().getLength() > 0){
-                builder.append(field.getText()).append("%");
-                monetary.setText("");
-            } else if(value.isSelected() && monetary.getLength() > 0) {
-                field.setText("");
-                builder.append(
-                        monetary.getLength() < 1 ? "" : MoneyUtil.format(MoneyUtil.get(monetary.getText()))
-                );
-            } else {
-                builder.delete(0, builder.length());
-            }
+//            if(percentage.isSelected() && field.getEditor().getLength() > 0){
+//                builder.append(field.getText()).append("%");
+//                monetary.setText("");
+//            } else if(value.isSelected() && monetary.getLength() > 0) {
+//                field.setText("");
+//                builder.append(
+//                        monetary.getLength() < 1 ? "" : MoneyUtil.format(MoneyUtil.get(monetary.getText()))
+//                );
+//            } else {
+//                builder.delete(0, builder.length());
+//            }
 
             add.setText(builder.toString());
 //                this.hide();
 
-            if(percentage.isSelected()){
-                if (field.getEditor().getLength() > 0){
-                    discount.setText(field.getText() + "%");
-                    amount.setText(MoneyUtil.format(calculateValue()));
-                }
-            } else {
-                if(monetary.getLength() > 0) {
-                    discount.setText(MoneyUtil.format(MoneyUtil.get(add.getText())));
-                    amount.setText(MoneyUtil.format(calculateValue()));
-                }
-            }
+//            if(percentage.isSelected()){
+//                if (field.getEditor().getLength() > 0){
+//                    discount.setText(field.getText() + "%");
+//                    amount.setText(MoneyUtil.format(calculateValue()));
+//                }
+//            } else {
+//                if(monetary.getLength() > 0) {
+//                    discount.setText(MoneyUtil.format(MoneyUtil.get(add.getText())));
+//                    amount.setText(MoneyUtil.format(calculateValue()));
+//                }
+//            }
+
         });
 
         Label title = new Label("Informar desconto");

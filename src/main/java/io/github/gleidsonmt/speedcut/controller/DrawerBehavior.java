@@ -55,7 +55,6 @@ public class DrawerBehavior implements Context {
         scroll = (ScrollPane) drawerBox.lookup("#drawer-scroll");
         drawerContent = (VBox) scroll.getContent();
 
-
         drawerContent.getChildren().stream()
                 .filter(e -> e instanceof ToggleButton)
                 .map(e -> (ToggleButton) e)

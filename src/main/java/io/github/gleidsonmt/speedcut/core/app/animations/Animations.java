@@ -19,7 +19,7 @@ package io.github.gleidsonmt.speedcut.core.app.animations;
 
 import animatefx.animation.Pulse;
 import io.github.gleidsonmt.gncontrols.GNButton;
-import io.github.gleidsonmt.gncontrols.GNTextBox;
+import io.github.gleidsonmt.gncontrols.controls.GNTextBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.ToggleButton;

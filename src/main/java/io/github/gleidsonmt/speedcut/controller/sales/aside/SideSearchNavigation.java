@@ -17,7 +17,7 @@
 
 package io.github.gleidsonmt.speedcut.controller.sales.aside;
 
-import io.github.gleidsonmt.gncontrols.GNTextBox;
+import io.github.gleidsonmt.gncontrols.controls.GNTextBox;
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.gncontrols.options.FieldType;
@@ -93,9 +93,9 @@ public class SideSearchNavigation<T extends Person> extends StackPane implements
         boxSearch.setMinHeight(62);
         boxSearch.setMaxHeight(62);
 
-        search.setTrayAction(TrayAction.CLEAR);
+//        search.setTrayAction(TrayAction.CLEAR);
         search.setFieldType(FieldType.FILLED);
-        search.setLeadIcon(Icons.SEARCH);
+//        search.setLeadIcon(Icons.SEARCH);
         search.setMaxHeight(Double.MAX_VALUE);
         boxSearch.getChildren().addAll(search);
         VBox.setVgrow(search, Priority.ALWAYS);
@@ -105,18 +105,18 @@ public class SideSearchNavigation<T extends Person> extends StackPane implements
         body.getChildren().add(content);
         VBox.setVgrow(content, Priority.ALWAYS);
 
-        search.textProperty().addListener((observableValue, s, newValue) -> content.find(newValue));
+//        search.textProperty().addListener((observableValue, s, newValue) -> content.find(newValue));
     }
 
     public void onEnter(int id, String next) {
 
         if (!content.isPopulate()) {
-            setAlignment(Pos.CENTER);
-            content.work(id, search);
+//            setAlignment(Pos.CENTER);
+//            content.work(id, search);
         }
 
-        search.getEditor().requestFocus();
-        search.getEditor().clear();
+//        search.getEditor().requestFocus();
+//        search.getEditor().clear();
 
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.gleidsonmt.gncontrols.GNTextBox?>
+<?import io.github.gleidsonmt.gncontrols.GNTextBoxB?>
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>

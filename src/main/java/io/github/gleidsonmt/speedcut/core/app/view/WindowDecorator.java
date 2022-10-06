@@ -17,7 +17,6 @@
 
 package io.github.gleidsonmt.speedcut.core.app.view;
 
-import fr.brouillard.oss.cssfx.CSSFX;
 import io.github.gleidsonmt.gndecorator.GNDecorator;
 import io.github.gleidsonmt.speedcut.core.app.dao.Repositories;
 import io.github.gleidsonmt.speedcut.core.app.layout.ILayout;
@@ -48,7 +47,6 @@ public class WindowDecorator extends GNDecorator implements IDecorator {
 
     public WindowDecorator(Properties _properties, @NotNull AppPaths _path) throws IOException {
 
-        System.out.println("_path.getViews() = " + _path.getViews());
         Theme theme = new Theme(_path.getTheme());
         getStylesheets().setAll(theme.getStyleesheets());
         getIcons().addAll(theme.getLogo());
@@ -57,7 +55,6 @@ public class WindowDecorator extends GNDecorator implements IDecorator {
 
         if (root instanceof StackPane) {
             setContent( (StackPane) root);
-
         }
 
         fullBody();
@@ -112,10 +109,10 @@ public class WindowDecorator extends GNDecorator implements IDecorator {
 //
             getWindow().setOnHidden(event -> getRoot().getWrapper().getPopOver().hide());
 
-            CSSFX.start();
 //            ScenicView.show(getWindow().getScene());
 
         }
+
     }
 
     public void loadViews() {
@@ -124,6 +121,8 @@ public class WindowDecorator extends GNDecorator implements IDecorator {
     }
 
     protected boolean hasInstance() {
+
         return getWindow().isShowing();
+
     }
 }

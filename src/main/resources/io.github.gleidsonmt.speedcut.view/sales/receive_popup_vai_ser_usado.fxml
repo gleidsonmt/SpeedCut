@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.gleidsonmt.gncontrols.GNButton?>
-<?import io.github.gleidsonmt.gncontrols.GNTextBox?>
+<?import io.github.gleidsonmt.gncontrols.GNButtonB?>
+<?import io.github.gleidsonmt.gncontrols.GNTextBoxB?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>

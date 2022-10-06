@@ -18,7 +18,7 @@
 package io.github.gleidsonmt.speedcut.controller.sales.index;
 
 import io.github.gleidsonmt.gncontrols.GNButton;
-import io.github.gleidsonmt.gncontrols.GNTextBox;
+import io.github.gleidsonmt.gncontrols.controls.GNTextBox;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.speedcut.controller.sales.payment_layout.BoxPaymentDetails;
 import io.github.gleidsonmt.speedcut.core.app.converters.MoneyStringConverter;
@@ -26,7 +26,6 @@ import io.github.gleidsonmt.speedcut.core.app.dao.RepoCashierImpl;
 import io.github.gleidsonmt.speedcut.core.app.dao.RepoTransactionImpl;
 import io.github.gleidsonmt.speedcut.core.app.dao.Repositories;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
-import io.github.gleidsonmt.speedcut.core.app.factory.AvatarCreator;
 import io.github.gleidsonmt.speedcut.core.app.factory.LoadPlaceholder;
 import io.github.gleidsonmt.speedcut.core.app.factory.Paginator;
 import io.github.gleidsonmt.speedcut.core.app.factory.column.*;
@@ -44,7 +43,6 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
@@ -53,7 +51,6 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
 import java.util.function.Predicate;
@@ -326,23 +323,23 @@ public class IndexController implements ActionView, Initializable {
 //                lblDiscount.textProperty().addListener((observableValue, _old, _new) -> updateColor(MoneyUtil.get(_new)));
 
 
-                nameFilter.bind(
-                        Bindings.createObjectBinding(
-                            new Callable<Predicate<Transaction>>() {
-                                @Override
-                                public Predicate<Transaction> call() throws Exception {
-                                    return new Predicate<Transaction>() {
-                                        @Override
-                                        public boolean test(Transaction transaction) {
-                                            return transaction.getSale().getClient().getName().toLowerCase().contains(
-                                                    tfSearch.getText().toLowerCase()
-                                            );
-                                        }
-                                    };
-                                }
-                            },  tfSearch.textProperty())
-
-                        );
+//                nameFilter.bind(
+//                        Bindings.createObjectBinding(
+//                            new Callable<Predicate<Transaction>>() {
+//                                @Override
+//                                public Predicate<Transaction> call() throws Exception {
+//                                    return new Predicate<Transaction>() {
+//                                        @Override
+//                                        public boolean test(Transaction transaction) {
+//                                            return transaction.getSale().getClient().getName().toLowerCase().contains(
+//                                                    tfSearch.getText().toLowerCase()
+//                                            );
+//                                        }
+//                                    };
+//                                }
+//                            },  tfSearch.textProperty())
+//
+//                        );
 
                 fulList.predicateProperty().bind(
                         Bindings.createObjectBinding(

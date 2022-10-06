@@ -19,17 +19,20 @@ package io.github.gleidsonmt.speedcut.controller.sales.side_views;
 
 import io.github.gleidsonmt.gncontrols.GNButton;
 import io.github.gleidsonmt.gncontrols.GNListView;
-import io.github.gleidsonmt.gncontrols.GNTextBox;
+import io.github.gleidsonmt.gncontrols.controls.GNTextBox;
 import io.github.gleidsonmt.speedcut.controller.sales.main.SalesController;
 import io.github.gleidsonmt.speedcut.core.app.animations.Animations;
-import io.github.gleidsonmt.speedcut.core.app.layout.containers.SnackBar;
-import io.github.gleidsonmt.speedcut.presenter.*;
 import io.github.gleidsonmt.speedcut.core.app.exceptions.NavigationException;
 import io.github.gleidsonmt.speedcut.core.app.factory.ListAvatarFactory;
 import io.github.gleidsonmt.speedcut.core.app.factory.LoadPlaceholder;
-import io.github.gleidsonmt.speedcut.core.app.model.*;
+import io.github.gleidsonmt.speedcut.core.app.layout.containers.SnackBar;
+import io.github.gleidsonmt.speedcut.core.app.model.Product;
+import io.github.gleidsonmt.speedcut.core.app.model.SaleItem;
+import io.github.gleidsonmt.speedcut.core.app.model.Service;
+import io.github.gleidsonmt.speedcut.core.app.model.TradeItem;
 import io.github.gleidsonmt.speedcut.core.app.util.MoneyUtil;
 import io.github.gleidsonmt.speedcut.core.app.view.intefaces.ActionView;
+import io.github.gleidsonmt.speedcut.presenter.TradeItemPresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -110,12 +113,12 @@ public class BuyController implements ActionView, Initializable {
             searchItem.requestFocus();
         });
 
-        searchItem.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                filteredSaleItems.setPredicate(p -> p.getName().toLowerCase().contains(newValue.toLowerCase()));
-                listItems.getSelectionModel().selectFirst();
-            }
-        });
+//        searchItem.textProperty().addListener((observable, oldValue, newValue) -> {
+//            if (newValue != null) {
+//                filteredSaleItems.setPredicate(p -> p.getName().toLowerCase().contains(newValue.toLowerCase()));
+//                listItems.getSelectionModel().selectFirst();
+//            }
+//        });
 
 
         listItems.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

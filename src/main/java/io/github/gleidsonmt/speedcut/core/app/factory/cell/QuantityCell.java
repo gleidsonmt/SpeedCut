@@ -18,7 +18,7 @@
 package io.github.gleidsonmt.speedcut.core.app.factory.cell;
 
 import animatefx.animation.Tada;
-import io.github.gleidsonmt.gncontrols.GNFloatingButton;
+import io.github.gleidsonmt.gncontrols.controls.button.GNIconButton;
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.gncontrols.options.GNButtonType;
@@ -57,7 +57,7 @@ public class QuantityCell extends GridPane implements Context {
     private void initLayout() {
 
         setAlignment(Pos.CENTER);
-        GNFloatingButton plus = new GNFloatingButton();
+        GNIconButton plus = new GNIconButton();
         plus.setGraphic(new IconContainer(Icons.ADD));
 
         Label count = new Label();
@@ -67,7 +67,7 @@ public class QuantityCell extends GridPane implements Context {
 
         count.setMinSize(20, 20);
         count.setAlignment(Pos.CENTER);
-        GNFloatingButton minus = new GNFloatingButton();
+        GNIconButton minus = new GNIconButton();
         minus.setGraphic(new IconContainer(Icons.REMOVE));
         minus.setButtonType(GNButtonType.ROUNDED);
         plus.setButtonType(GNButtonType.ROUNDED);

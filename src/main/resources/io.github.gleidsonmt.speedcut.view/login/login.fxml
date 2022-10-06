@@ -11,6 +11,8 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
+<?import io.github.gleidsonmt.gncontrols.controls.GNTextBox?>
+<?import io.github.gleidsonmt.gncontrols.controls.GNPasswordBox?>
 <StackPane fx:id="root" prefHeight="807.0" prefWidth="1019.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.gleidsonmt.speedcut.controller.login.Login">
    <children>
       <GridPane fx:id="layout">
@@ -154,7 +156,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <GNTextBox fx:id="userName" floatPrompt="true" helperText="Error on" leadIcon="ACCOUNT_CIRCLE" promptText="Nome de Usuario" styleClass="border-rect" text="Administrador" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
+                                          <GNTextBox fx:id="userName" floatPrompt="true" styleClass="border-rect" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
                                           <GNTextBox fx:id="phone" floatPrompt="true" helperText="Este não é um número válido" leadIcon="PHONE" promptText="Telefone do proprietario" styleClass="border-rect" trayAction="CLEAR" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
                                           <GNTextBox fx:id="cpfField" count="11" floatPrompt="true" helperText="Não me parece um CPF" leadIcon="NUMBERS" promptText="CPF ou CNPJ" styleClass="border-rect" trayAction="CLEAR" GridPane.columnSpan="2147483647" GridPane.rowIndex="3" />
                                           <GNPasswordBox fx:id="password" floatPrompt="true" helperText="A senha deve conter pelo menos 4 caracteres" leadIcon="LOCK" minHeight="50.0" prefHeight="40.0" promptText="Digite sua senha" styleClass="border-rect" trayAction="ICON" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />

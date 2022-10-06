@@ -17,8 +17,8 @@
 
 package io.github.gleidsonmt.speedcut.controller.login;
 
-import io.github.gleidsonmt.gncontrols.GNPasswordBox;
-import io.github.gleidsonmt.gncontrols.GNTextBox;
+import io.github.gleidsonmt.gncontrols.controls.GNPasswordBox;
+import io.github.gleidsonmt.gncontrols.controls.GNTextBox;
 import io.github.gleidsonmt.speedcut.core.app.animations.Animations;
 import io.github.gleidsonmt.speedcut.core.app.controller.Masks;
 import io.github.gleidsonmt.speedcut.core.app.dao.RepoUserImpl;
@@ -82,41 +82,41 @@ public class Login extends ResponsiveView implements Initializable {
         repoUser = (RepoUserImpl) Repositories.<User>get(User.class);
 
 
-        Masks.cpfCnpjField(cpfField.getEditor());
-        Masks.phoneNumber(phone.getEditor());
+//        Masks.cpfCnpjField(cpfField.getEditor());
+//        Masks.phoneNumber(phone.getEditor());
 
     }
 
     @FXML
     private void login() throws NavigationException {
 
-        User user = repoUser.read("username", userNameBox.getText());
-
-        if (user != null) {
-
-            if (repoUser.validate(user, passwordBox.getText())) {
-
-                user.setLogged(true);
-                repoUser.put(user);
-                repoUser.persist(); // don't miss only used in tests
-
-                context.getRoutes().goHome();
-
-
-//                    context.getDecorator().getRoot().setNeedsBar(true);
-
-                    context.getDecorator().getLayout().setDrawer(
-                            context.getRoutes().load("layout/drawer.fxml", "Drawer", "drawer")
-                    );
-
-            } else {
-                passwordBox.setValid(false);
-                Animations.errorOnTextBox(passwordBox);
-            }
-        } else {
-            userNameBox.setValid(false);
-            Animations.errorOnTextBox(userNameBox);
-        }
+//        User user = repoUser.read("username", userNameBox.getText());
+//
+//        if (user != null) {
+//
+//            if (repoUser.validate(user, passwordBox.getText())) {
+//
+//                user.setLogged(true);
+//                repoUser.put(user);
+//                repoUser.persist(); // don't miss only used in tests
+//
+//                context.getRoutes().goHome();
+//
+//
+////                    context.getDecorator().getRoot().setNeedsBar(true);
+//
+//                    context.getDecorator().getLayout().setDrawer(
+//                            context.getRoutes().load("layout/drawer.fxml", "Drawer", "drawer")
+//                    );
+//
+//            } else {
+//                passwordBox.setValid(false);
+//                Animations.errorOnTextBox(passwordBox);
+//            }
+//        } else {
+//            userNameBox.setValid(false);
+//            Animations.errorOnTextBox(userNameBox);
+//        }
 
     }
 
@@ -132,26 +132,26 @@ public class Login extends ResponsiveView implements Initializable {
 
     @FXML
     private void save() throws NavigationException {
-        if (!init) initBinds();
-
-        cpfField.setValid(Masks.isCPF(cpfField.getText()));
-        phone.setValid(Masks.isPhoneNumber(phone.getText()));
-
-        List<GNTextBox> list = form.getChildren().stream().filter(c -> c instanceof GNTextBox)
-                .map(c -> ((GNTextBox) c)).filter(c -> !c.isValid()).toList();
-
-//        if (!password.getText().equals(password2.getText())) {
-//            password.setValid(false);
-//            Animations.errorOnTextBox(password);
+//        if (!init) initBinds();
+//
+//        cpfField.setValid(Masks.isCPF(cpfField.getText()));
+//        phone.setValid(Masks.isPhoneNumber(phone.getText()));
+//
+//        List<GNTextBox> list = form.getChildren().stream().filter(c -> c instanceof GNTextBox)
+//                .map(c -> ((GNTextBox) c)).filter(c -> !c.isValid()).toList();
+//
+////        if (!password.getText().equals(password2.getText())) {
+////            password.setValid(false);
+////            Animations.errorOnTextBox(password);
+////        }
+//
+//        if (list.size() > 0 ) {
+//            list.forEach(Animations::errorOnTextBox);
+//        } else {
+//            repoUser.put(user);
+//            if (repoUser.persist()) context.getRoutes().setContent("sales");
+//            context.getProperties().setProperty("app.registered", "true");
 //        }
-
-        if (list.size() > 0 ) {
-            list.forEach(Animations::errorOnTextBox);
-        } else {
-            repoUser.put(user);
-            if (repoUser.persist()) context.getRoutes().setContent("sales");
-            context.getProperties().setProperty("app.registered", "true");
-        }
     }
 
     @Override
@@ -177,8 +177,8 @@ public class Login extends ResponsiveView implements Initializable {
 
         boolean _register = Boolean.parseBoolean(context.getProperties().getProperty("app.registered"));
 
-        passwordBox.getEditor().clear();
-        passwordBox.reset();
+//        passwordBox.getEditor().clear();
+//        passwordBox.reset();
         passwordBox.requestFocus();
 
         loginContent.setVisible(_register);
@@ -188,32 +188,32 @@ public class Login extends ResponsiveView implements Initializable {
 
     private void initBinds() {
 
-        userNameBox.textProperty().addListener((observable, oldValue, newValue) ->
-                userNameBox.reset());
-
-        passwordBox.textProperty().addListener((observable, oldValue, newValue) -> passwordBox.reset());
-
-        // 'Register' binds
-
-        user.userNameProperty().bind(userName.textProperty());
-        user.passwordProperty().bind(password.textProperty());
-
-        userName.validProperty().bind(userName.getEditor().lengthProperty().greaterThan(3));
-        password.validProperty().bind(password.getEditor().lengthProperty().greaterThan(3));
-
-        password.validProperty().bind(Bindings.createBooleanBinding(() -> password.getText().equals(password2.getText()), password2.textProperty()));
-
-        phone.textProperty().addListener((observable, oldValue, newValue) -> {
-            phone.reset();
-        });
-
-        cpfField.textProperty().addListener((observable, oldValue, newValue) -> {
-            cpfField.reset();
-        });
-
-        password2.textProperty().addListener((observable, oldValue, newValue) -> {
-            password2.reset();
-        });
+//        userNameBox.textProperty().addListener((observable, oldValue, newValue) ->
+//                userNameBox.reset());
+//
+//        passwordBox.textProperty().addListener((observable, oldValue, newValue) -> passwordBox.reset());
+//
+//        // 'Register' binds
+//
+//        user.userNameProperty().bind(userName.textProperty());
+//        user.passwordProperty().bind(password.textProperty());
+//
+//        userName.validProperty().bind(userName.getEditor().lengthProperty().greaterThan(3));
+//        password.validProperty().bind(password.getEditor().lengthProperty().greaterThan(3));
+//
+//        password.validProperty().bind(Bindings.createBooleanBinding(() -> password.getText().equals(password2.getText()), password2.textProperty()));
+//
+//        phone.textProperty().addListener((observable, oldValue, newValue) -> {
+//            phone.reset();
+//        });
+//
+//        cpfField.textProperty().addListener((observable, oldValue, newValue) -> {
+//            cpfField.reset();
+//        });
+//
+//        password2.textProperty().addListener((observable, oldValue, newValue) -> {
+//            password2.reset();
+//        });
 
         init = true;
     }

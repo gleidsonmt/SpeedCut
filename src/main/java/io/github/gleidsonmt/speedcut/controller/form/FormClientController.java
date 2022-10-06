@@ -18,10 +18,11 @@
 package io.github.gleidsonmt.speedcut.controller.form;
 
 import io.github.gleidsonmt.gncontrols.GNButton;
-import io.github.gleidsonmt.gncontrols.GNTextBox;
+import io.github.gleidsonmt.gncontrols.GNTextBoxB;
+import io.github.gleidsonmt.gncontrols.controls.GNTextBox;
+import io.github.gleidsonmt.gncontrols.controls.text_field.FloatEditor;
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
-import io.github.gleidsonmt.gncontrols.skin.TextBox;
 import io.github.gleidsonmt.speedcut.controller.sales.aside.SideHeaderNavigation;
 import io.github.gleidsonmt.speedcut.controller.sales.main.SalesController;
 import io.github.gleidsonmt.speedcut.core.app.dao.Repositories;
@@ -88,7 +89,7 @@ public class FormClientController implements Initializable, ActionView, Context 
 
     boolean pressSaved = false;
 
-    private List<TextBox> form = FXCollections.observableArrayList();
+    private List<GNTextBox> form = FXCollections.observableArrayList();
     private BooleanProperty formValid = new SimpleBooleanProperty();
 
     private ObjectProperty<Image> avatar = new SimpleObjectProperty<>();
@@ -230,15 +231,15 @@ public class FormClientController implements Initializable, ActionView, Context 
     public void onEnter() {
 
         client = new Client();
-        formValid.bind(tfName.validProperty());
+//        formValid.bind(tfName.validProperty());
 
     }
 
     @Override
     public void onExit() {
 
-        tfName.textProperty().unbind();
-        tfName.getEditor().clear();
+//        tfName.textProperty().unbind();
+//        tfName.getEditor().clear();
 
     }
 
@@ -261,10 +262,10 @@ public class FormClientController implements Initializable, ActionView, Context 
     }
 
     private void createBinds() {
-        client.nameProperty().bind(tfName.textProperty());
+//        client.nameProperty().bind(tfName.textProperty());
     }
 
     private void createValidations() {
-        tfName.validProperty().bind(tfName.getEditor().lengthProperty().greaterThan(3));
+//        tfName.validProperty().bind(tfName.getEditor().lengthProperty().greaterThan(3));
     }
 }

@@ -17,7 +17,7 @@
 
 package io.github.gleidsonmt.speedcut.core.app.layout;
 
-import io.github.gleidsonmt.gncontrols.GNFloatingButton;
+import io.github.gleidsonmt.gncontrols.controls.button.GNIconButton;
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.speedcut.core.app.layout.containers.IWrapper;
@@ -44,7 +44,7 @@ public class Root extends StackPane implements IRoot {
     private SnackBar snackBar;
 
     private final BooleanProperty needsBar = new SimpleBooleanProperty(false);
-    private final GNFloatingButton hamburger = new GNFloatingButton();
+    private final GNIconButton hamburger = new GNIconButton();
 
     public Root(WindowDecorator window) {
 
@@ -52,11 +52,10 @@ public class Root extends StackPane implements IRoot {
 //        getChildren().add(wrapper);
         getChildren().add(layout);
 
-
         hamburger.getStyleClass().add("hamburger");
         hamburger.setMinSize(35, 35);
         hamburger.setMaxSize(35, 35);
-        hamburger.setGraphic(new IconContainer(Icons.HAMBURGER));
+        hamburger.setIcon(Icons.HAMBURGER);
 
         needsBar.addListener((observable, oldValue, newValue) -> {
 

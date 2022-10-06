@@ -74,7 +74,7 @@
                               </VBox>
                               <AnchorPane fx:id="screenSelector" cacheHint="QUALITY" onMouseDragged="#dragImage" onMousePressed="#getImageCord" onScroll="#scrollImage" StackPane.alignment="CENTER_LEFT">
                                  <children>
-                                    <AnchorPane fx:id="boxSelector" minHeight="50.0" minWidth="50.0" onMouseDragged="#moveBox" onMousePressed="#getBoxCordinates" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white; -fx-border-width: 2; -fx-border-style: segments(10,20);" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <AnchorPane fx:id="boxSelector" layoutX="46.0" layoutY="57.0" minHeight="50.0" minWidth="50.0" onMouseDragged="#moveBox" onMousePressed="#getBoxCordinates" prefHeight="143.0" prefWidth="154.0" style="-fx-border-color: white; -fx-border-width: 2; -fx-border-style: segments(10,20);" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <VBox fx:id="boxLight" alignment="CENTER" blendMode="OVERLAY" maxHeight="-Infinity" maxWidth="-Infinity" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <opaqueInsets>

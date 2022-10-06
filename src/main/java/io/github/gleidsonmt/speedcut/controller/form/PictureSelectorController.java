@@ -492,9 +492,8 @@ public class PictureSelectorController implements PopupView, Initializable {
         // Anchor positions (Relative to screenSelector)
         AnchorPane.setLeftAnchor(boxSelector, _minX );
         AnchorPane.setBottomAnchor(boxSelector, _maxY );
-
-
     }
+
     @FXML
     private void resizeFromTopRight(@NotNull MouseEvent event) {
 

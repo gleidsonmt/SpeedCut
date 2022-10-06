@@ -3,7 +3,7 @@
 <?import io.github.gleidsonmt.gncontrols.GNFloatingButton?>
 <?import io.github.gleidsonmt.gncontrols.GNListView?>
 <?import io.github.gleidsonmt.gncontrols.GNRadioButton?>
-<?import io.github.gleidsonmt.gncontrols.GNTextBox?>
+<?import io.github.gleidsonmt.gncontrols.GNTextBoxB?>
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>

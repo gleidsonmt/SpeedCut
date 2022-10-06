@@ -16,6 +16,7 @@
  */
 package io.github.gleidsonmt.speedcut.controller;
 
+import io.github.gleidsonmt.gncontrols.GNTextBoxB;
 import io.github.gleidsonmt.gncontrols.material.icon.IconContainer;
 import io.github.gleidsonmt.gncontrols.material.icon.Icons;
 import io.github.gleidsonmt.speedcut.core.app.dao.RepoCashierImpl;
